@@ -1,0 +1,151 @@
+﻿@model CategoryCreateViewModel
+@{
+    ViewBag.Title = "Create Category";
+}
+
+<form method="post">
+    <div class="card  m-auto">
+        <div class="card-header bg-success-light">
+            <h3 class="card-title text-green">Create Category and Brand</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <div class="text-danger" asp-validation-summary="All"></div>
+
+                    <label asp-for="@Model.Ctype"></label>
+                    <input asp-for="@Model.Ctype" class="form-control" />
+                    <span asp-validation-for="@Model.Ctype" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-md-12">Add Brand</label>
+
+                        <input class="col-md-9 form-control" id="Brand" />
+                        <button type="button" class="btn btn-success light col-md-3 form-control" id="addBrand">Add</button>
+                        <span class="text-danger my-1" id="validationMessage" style="display:none"></span>
+
+
+
+                        <div class="table-responsive mt-2">
+                            <table class="table table-responsive-md table-striped">
+                                <thead class="bg-blue-light text-blue">
+                                    <tr>
+                                        <th><strong>SL</strong></th>
+                                        <th><strong>Brand Name</strong></th>
+                                        <th><strong>Action</strong></th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody id="brandList">
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>  @*end form-group row second column col-md-6*@
+
+                </div> @*end second col-md-6 column*@
+            </div>
+
+
+        </div>
+
+        <div class="card-footer bg-success-light">
+            <div class="form-group">
+                <button class="btn btn-sm btn-success light">Create</button>
+                <a href="#">Category List</a>
+
+            </div>
+          
+        </div>
+    </div>
+</form>
+
+
+@section Scripts
+{
+    @*<script src="~/Projects/Category/AddBrandsToTable.js"></script>*@
+<script>
+    $(document).ready(function () {
+        $("#addBrand").click(function () {
+            var txt = $("#Brand").val();
+
+
+            $("#validationMessage").hide();
+
+
+            if (txt.length == 0) {
+                $("#validationMessage").html("Brand Field Is Required").show();
+                
+                return;
+            }
+            else {
+
+
+                //Check if Brand is Exist or Not
+                let blnf = CheckDuplicate(txt);
+                if (blnf)
+                {
+                    $("#validationMessage").html("The Brand Is Exist In List").show();
+                    return
+                }
+
+
+                var sl = $("#brandList tr").length
+                var inputtext = '<input name="Brands" hidden value="' + txt.toUpperCase() + '"/>'
+                var tdsl = "<td>" + (sl + 1) + "</td>"
+                var tdBrand = "<td>" + txt.toUpperCase() + inputtext + "</td>"
+                var tdButton = "<td><button type='button' class='btn btn-block btn-sm btn-danger light remove_brand_from_list'>" + "Remove </button></td>"
+
+
+                var tr = "<tr>" + tdsl + tdBrand  + tdButton + "</tr>"
+
+                $("#brandList").append(tr);
+
+            }
+
+
+           
+
+
+        })
+
+
+
+        // for remove brand from list
+        $("#brandList").on('click', 'button', function () {
+            if (confirm("Do You Want To Delete Brand"))
+
+            {
+
+                $(this).parent().parent().remove();
+            }
+        })
+
+
+        //Check Duplication if Brand is Exist or Not
+        function CheckDuplicate(valeu)
+        {
+
+            var val= valeu.toLowerCase()
+            var blnflag = false;
+
+            $("#brandList tr").each(function (i) {
+                $(this).find('input').each(function () {
+
+                    if (val == $(this).val().toLocaleLowerCase())
+                    {
+                        blnflag = true;
+                        return
+                    }
+
+                })
+            })
+            return blnflag;
+        }
+
+    })
+</script>
+}

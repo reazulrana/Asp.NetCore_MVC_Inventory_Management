@@ -1,0 +1,57 @@
+﻿@model BrandEditViewModel
+
+@{ 
+    ViewBag.Title = "Edit Brand";
+}
+<form method="post" asp-action="Edit" asp-controller="Brand">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <h4 class="card-title text-white">Edit Brand</h4>  
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <a class="pull-right btn btn-secondary btn-sm" asp-controller="Brand" asp-action="Brand"><span>Create Brand <i class="mdi mdi-plus"></i></span> </a>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-2">
+                            <label asp-for="@Model.categoryId" class="col-form-label"></label>
+                        </div>
+                        <div class="col-md-10">
+
+                            <select asp-for="@Model.categoryId" class="form-control" asp-items="@Model.Categories">
+                                <option>Select Category</option>
+                            </select>
+                        </div>
+
+                    </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <input hidden asp-for="@Model.brandId" />
+                                <label class="col-form-label" asp-for="@Model.brandName"></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input asp-for="@Model.brandName" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                <div class="card-footer bg-secondary">
+                    <div class="form-group">
+                        <button type="submit" class="col-md-3 btn btn-success btn-sm">Update</button>
+                        <a asp-controller="Brand" asp-action="GetBrandList" class="col-md-3 pull-right btn-sm btn btn-info">
+                            Go To List <i class="mdi mdi-view-list"></i>
+                        </a>
+                    </div>
+                    
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

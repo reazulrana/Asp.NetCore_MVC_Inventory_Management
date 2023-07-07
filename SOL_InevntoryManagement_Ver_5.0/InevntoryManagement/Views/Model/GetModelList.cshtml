@@ -1,0 +1,146 @@
+﻿@model List<ModelListViewModel>
+@{
+    ViewBag.Title = "Model List";
+
+
+    //ViewData["message"] = ViewBag.message; //Th
+    //ViewData["msgcolor"] = ViewBag.msgcolor;
+
+
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="card-header bg-secondary-light">
+                <h1 class="card-title">Wel Come to Model List</h1>
+            </div>
+            <div class="card-body">
+
+                @*<partial name="_ErrorMessage" view-data="ViewData" />*@
+                <partial name="_Messages" />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <a asp-controller="Model" asp-action="Create" class="pull-right btn-md-4 text-white btn btn-sm bg-blue"><span>Create <i class="mdi mdi-plus"></i></span></a>
+                    </div>
+                </div>
+                @if (Model != null && Model.Count > 0)
+                {
+                    int sl = 1;
+                    <div class="row py-3 text-md-center bg-secondary border">
+                        <div class="col-sm-1">
+                            <h6 class="text-white">SL</h6>
+                        </div>
+                        <div class="col-sm-2">
+                            <h6 class="text-white">Category</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <h6 class="text-white">Brand</h6>
+                        </div>
+                        <div class="col-sm-2">
+                            <h6 class="text-white">Model</h6>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <h6 class="text-white">Action</h6>
+
+                        </div>
+                    </div>
+
+
+                    foreach (var _model in Model)
+                    {
+                        <div class="row py-2 text-center border border-bottom">
+                            <div class="col-sm-1">
+                                @sl
+                            </div>
+                            <div class="col-sm-2">
+                                @_model.CategoryName
+                            </div>
+                            <div class="col-sm-3">
+                                @_model.BrandName
+                            </div>
+                            <div class="col-sm-2">
+                                @_model.ModelName
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a asp-controller="Model" asp-action="Edit" asp-route-id="@_model.ModelId" class="btn-block btn btn-sm btn-outline-secondary light"><span>Edit <i class="mdi mdi-pencil"></i> </span></a>
+                                    </div>
+                                    <div classs="col-md-6">
+                                        <button id="deleteModelButton@_model.ModelId" onclick="NotifyDiv(@_model.ModelId)" type="button" class="btn-block btn btn-sm btn-outline-danger light"><span>Delete <i class="mdi mdi-delete"></i> </span></button>
+                                    </div>
+                                </div>
+
+
+
+                                @*Yes No div Section Bind with javascript*@
+                                <div class="row mt-3" id="showDeleteModelDiv@_model.ModelId" style="display:none">
+                                    <div class="col-md-12">
+                                        <p>Do You Want To Delete  <strong>'@_model.ModelName'</strong> </p>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <form method="post" asp-controller="Model" asp-action="Delete" asp-route-id="@_model.ModelId">
+                                                    <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
+                                                </form>
+                                            </div>
+
+                                            <div class="col-md-6">
+
+                                                <button type="button" id="cancelDeleteBrand@_model.ModelId" onclick="CancelDelete(@_model.ModelId)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        sl = sl + 1;
+                    }
+                }
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts
+{
+    <script>
+
+        //triger if deletebutton click
+        function NotifyDiv(id) {
+            $("#showDeleteModelDiv" + id).css("display", "block");
+            $("#deleteModelButton" + id).prop("disabled", true);
+
+
+        }
+
+        function CancelDelete(id) {
+            $("#showDeleteModelDiv" + id).css("display", "none");
+            $("#deleteModelButton" + id).prop("disabled", false);
+        }
+    </script>
+}
+
+

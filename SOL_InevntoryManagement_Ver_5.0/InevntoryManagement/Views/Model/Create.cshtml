@@ -1,0 +1,370 @@
+﻿@model ModelCreateViewModel
+@{
+    ViewBag.Title = "Create Model";
+}
+
+
+<form method="post" asp-controller="Model" asp-action="Create">
+    <div class="row">
+        <div class="col-md-12 m-auto">
+
+            <div class="card">
+                <div class="card-header bg-primary">
+                    <h4 class="card-title text-white">Create Model</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6 border-right">
+
+                            @*Category Section*@
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label asp-for="@Model.Categories" class="col-form-label"></label>
+                                </div>
+                                <div class="col-md-10">
+                                    <select class="form-control find_category" name="category" asp-items="@Model.Categories">
+                                        <option value="-1">Select Category</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            @*Brand Section*@
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label asp-for="@Model.brandId" class="col-form-label"></label>
+                                </div>
+                                <div class="col-md-10">
+                                    <select class="form-control find_brand" asp-for="@Model.brandId">
+                                        <option value="-1">Select Brand</option>
+                                    </select>
+                                    <span asp-validation-for="@Model.brandId"></span>
+                                </div>
+
+                            </div>
+
+
+                            @*Model Section*@
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="col-form-label" asp-for="@Model.Models"></label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input class="form-control newModel" name="newModel" id="newModel" />
+                                    <button type="button" class="btn btn-outline-primary btn-sm addNewModel"><span class="text-lg-left">Add Model <i class="fa fa-plus"></i></span> </button>
+                                </div>
+                            </div>
+
+
+
+                        @*model list section*@
+
+                            <div class="row mt-3">
+                                <div class="col-md-12 brandHeader">
+
+                                </div>
+
+                            </div>
+                            <div class="row newmodelList">
+                            </div>
+
+                        </div>  @*end of col-md-6*@
+
+
+
+                            <div class="col-md-6 border-left"> @*  style="overflow-y:auto; height:300px"  *@
+                                <div class="row">
+                                    <div class="col-md-12 modelNotFoundMessage">
+
+                                    </div>
+
+                                </div>
+                                <div class="row modelList">
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="col-md-12">
+
+                        <button type="submit" class="btn btn-outline-success btn-sm"> <span class="text-lg-left">Create <i class="fa fa-plus"></i></span> </button>
+                        <button class="btn btn-outline-info btn-sm"><span class="text-lg-left">Goto List <i class="fa fa-list"></i> </span> </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="col-md-12">
+        <button class="btn btn-sm btn-primary">Test Button</button>
+    </div>*@
+
+</form>
+
+
+@*<partial name="~/Views/Shared/Modals/_duplicateMessageShow.cshtml" />*@
+
+
+@section Scripts
+{
+    <script>
+//const { ajax } = require("jquery");
+
+        $(document).ready(function () {
+
+
+            //sweetaler
+            
+            function sweetalert(message)
+            {
+                sweetAlert("Oops...", "You Enter ( " + message.toUpperCase() + " ) Model Is Dulicate", "error")
+            }
+
+
+            //toastr
+
+            function toastrdanger(message) {
+                toastr.error(message, "Top Right", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
+
+
+
+            //Find Model from database By Brand
+
+            $(".find_category").change(function () {
+                var cateId = $(this).find(":selected").val();
+                $.ajax({
+                    url: '@Url.Action("LoadBrandByCategoryid","Model")',
+                    method: 'GET',
+                    data: { id: cateId},
+                    dataType: 'JSON',
+                    success: function (data)
+                    {
+                        $(".find_brand").empty();
+                        $(".find_brand").append("<option>Select Brand</option>")
+                        if (data.message == true)
+                        {
+                            $.each(data.output, function (i,v) {
+                                //alert(v.brandName);
+                                var option = '<option value="' + v.id + '">' + v.brandName + '</option>'
+                                $(".find_brand").append(option);
+                            })
+                        }
+                    }
+                })
+            })
+
+            //Add New Model
+            $(".addNewModel").click(function ()
+            {
+                var content = $(".newModel").val();
+                var modellistappend = $(".newmodelList");
+                var brandid = $(".find_brand").find(":selected").val();
+                var brandname = $(".find_brand").find(":selected").text();
+
+                if (brandid == null || brandid == -1) {
+                    sweetalert("No Brand Selected Selected")
+                    return;
+                }
+
+                if (content == null || content.length == 0)
+                {
+                    sweetalert("No Model Selected")
+                    $(".newModel").focus();
+                    return;
+                }
+
+
+
+                var findForDupliocateModel = findDuplicate(searchIntoElement = ".findForDupliocateModel", findElement = "input", searchText=content)
+                if (findForDupliocateModel == true)
+                {
+                    getMessege(message = "The Model You Entered Is Found In The List");
+                    return
+
+                }
+                //show brandName into messagebox
+                getMessege(message = brandname);
+                var newdiv  = appendModelToDiv(content = content, isbuttonshow = true, isbagesshow = true)
+                $(modellistappend).append(newdiv);
+
+                $(".newModel").val('');
+
+            })
+
+
+
+            //for Bind click event with button in model
+            $(".newmodelList").on("click", "button", function ()
+            {
+
+                var msg = $(this).parent().parent().find("input").val();
+                if (confirm("Do You Want To Delete Model ('" + msg +"')")) {
+                    $(this).parent().parent().remove();
+                }
+            })
+
+
+            //for showing h4 messege
+            function getMessege(message)
+            {
+                $(".modelNotFoundMessage").empty();
+                $(".modelNotFoundMessage").append('<h4>' + message + '</h4>')
+            }
+
+            //search model into model list for duplicate
+
+            function findDuplicate(searchIntoElement,findElement,searchText)
+            {
+                var element = $(searchIntoElement).find(findElement)
+                var blnflag = false
+
+
+                $.each(element, function () {
+
+                    var currewntElement = $(this)
+                    if ($(currewntElement).val().toUpperCase() == searchText.toUpperCase()) {
+
+                        $(currewntElement).parent().parent().addClass("bg-danger text-white border border-danger")
+
+                        sweetalert(searchText) //notify with message if duplicate model found
+            
+//                        NotifyDuplicateMessage() //notify with message if duplicate model found
+
+                        blnflag = true
+                    }
+                    else {
+                        $(currewntElement).parent().parent().removeClass("bg-danger text-white border border-danger")
+                    }
+
+                })
+
+                return blnflag
+            }
+
+            //notify with message if duplicate model found
+            function NotifyDuplicateMessage() {
+                $("#duplicate_message_show").modal("show");
+                $(".duplicate_message").html("You Enter ( " + searchText.toUpperCase() + " ) Model Is Dulicate");
+                setTimeout(function () {
+                    $("#duplicate_message_show").modal('hide');
+                }, 3000)
+            }
+
+
+            //create separate div for per model 
+            function appendModelToDiv(content, isbuttonshow = false, isbagesshow = false,badgemsg="")
+            {
+                //var brandid = $(".find_brand").find(":selected").val();
+                var button = "";
+
+                var bages = "";
+                var badgemessage = badgemsg == "" ? "New Model" : badgemsg;
+                
+                
+
+                var input = '<input hidden  value="' + content +'" name="Models"/>'
+                if (isbuttonshow == true)
+                {
+                    button = '<civ class="form-group"> <button type="button" class="col-md-5 pull-right btn btn-danger light btn-sm btnRemoveModelFromList">Remove</button> </div>'
+
+                }
+
+                if (isbagesshow == true)
+                {
+                    bages = '<span class="badge badge-pill bg-blue text-white text-lg-left pull-right">' + badgemessage + '</span>'
+                }
+
+                var divcol = '<div class="form-group">' + content + input + bages + '</div>'
+//                var formgroup = '<div class="form-group">' + divcol + button + '</div>'
+                var maindiv = '<div class="col-md-12 border py-3 findForDupliocateModel">' + divcol + button + '</div> '
+
+                return maindiv;
+            }
+
+
+
+
+
+            //GetModelList and Load into ModelDropdown list by brand
+            $(".find_brand").change(function () {
+
+
+                var brandid = $(this).find(":selected").val();
+
+
+
+
+                $.ajax({
+                    url: '@Url.Action("LoadModelByBrandid", "Model")',
+                    method: 'GET',
+                    data: { id: brandid},
+                    dataType: 'Json',
+                    success: function (data)
+                    {
+
+                        $(".modelList").empty();
+
+                        console.log(data.output);
+                        if (data.message == true)
+                        {
+                            $.each(data.output, function (index, item) {
+
+                                var modeldiv = appendModelToDiv(content = item.modelName, false, true, badgemsg="Load From Database")
+                                $(".modelList").append(modeldiv);
+                            })
+                                
+                        }
+                        else
+                        {
+                            toastrdanger("Model Not Found For This Brand")
+                            //getMessege(message="Model Not Found For This Brand")
+
+                        }
+
+                    },
+                    error: function (err)
+                    {
+                        alert(err.message);
+                    }
+
+                })
+
+            })
+
+
+
+
+        });
+    </script>
+}

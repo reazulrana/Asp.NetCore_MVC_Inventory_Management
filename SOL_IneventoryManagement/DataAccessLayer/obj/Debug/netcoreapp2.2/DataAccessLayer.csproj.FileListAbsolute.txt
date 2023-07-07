@@ -1,0 +1,17 @@
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.deps.json
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.dll
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.pdb
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.csproj.AssemblyReference.cache
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.AssemblyInfoInputs.cache
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.AssemblyInfo.cs
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.csproj.CoreCompileInputs.cache
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.dll
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.pdb
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\bin\Debug\netcoreapp2.2\appsettings.json
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.runtimeconfig.json
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.runtimeconfig.dev.json
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\bin\Debug\netcoreapp2.2\BussinessAccessLayer.dll
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\bin\Debug\netcoreapp2.2\BussinessAccessLayer.pdb
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.csproj.CopyComplete
+E:\Asp.Net Core Project\SOL_IneventoryManagement\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.genruntimeconfig.cache

@@ -1,0 +1,46 @@
+﻿
+@model CategoryDeleteViewModel
+
+
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="delete_category_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Category</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                </div>
+                <div class="form-group">
+                    <input hidden class="form-control delete_category_id" asp-for="@Model.ID" />
+                    <label asp-for="@Model.Ctype"></label>
+                    <input asp-for="@Model.Ctype" readonly class="form-control delete_category_ctype" />
+
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input delete_category_check" type="checkbox" asp-for="@Model.DeleteBrand" />
+                        <label class="form-check-label" asp-for="@Model.DeleteBrand"></label>
+                    </div>
+
+                </div>
+
+                <div class="form-group mt-3" style="display:none" id="show_hide_message">
+                    <h4 class="text-danger">Caution: If Delete Category Then Inherited Child Brand Will Be Deleted Automatically</h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger btn-sm light delete_category">Delete</button>
+                <button type="submit" class="btn btn-info btn-sm light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

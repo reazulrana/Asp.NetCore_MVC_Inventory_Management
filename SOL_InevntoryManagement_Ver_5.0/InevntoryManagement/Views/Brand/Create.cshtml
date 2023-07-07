@@ -1,0 +1,494 @@
+﻿@model BrandCreateViewModel
+
+@{
+    ViewBag.Title = "Create Brand";
+    <style>
+        .card {
+            border: red 5px !important;
+        }
+    </style>
+
+}
+
+<form method="post">
+    <div class="card  m-auto" id="brandList">
+        <div class="card-header bg-secondary">
+            <h3 class="card-title text-white">Category Brand</h3>
+        </div>
+        <div class="card-body">
+            <div class="row" id="add_group_brand">
+                <div class="col-md-12">
+                    <div class="text-danger text-xxl-left" asp-validation-summary="All"></div>
+
+                </div>
+            </div> @*end row div section*@
+
+        <div class="row">
+            <div class="col-md-2">
+
+
+                <label asp-for="@Model.cateid"></label>
+            </div>
+            <div class="col-md-10">
+                <select asp-for="@Model.cateid" class="form-control categoryId" asp-items="@Model.Categories">
+                    <option value="-1">Select Category</option>
+                </select>
+                <span class="text-danger" asp-validation-for="@Model.cateid"></span>
+            </div>
+
+
+
+
+        </div>
+    
+        <div class="row mt-2">
+
+
+            <div class="col-md-2">
+                <label class="col-md-12">Brand</label>
+            </div>
+          @*//  <div class="input-group">*@
+
+        <div class="col-md-10">
+            <input class="form-control" id="Brand" />
+            <button type="button" class="btn btn-success light btn-sm" id="addBrand">Add Brand</button>
+            <span class="text-danger my-1" id="validationMessage" style="display:none"></span>
+            @*for Creating Card per brand  *@
+            <div class="row mt-4">
+                <div class="col-md-12" id="brandsection">
+                    
+                </div>
+            </div>
+        </div>
+            @*<div class="input-group-append">*@
+
+            @*</div>*@
+
+
+
+
+
+
+
+            </div> 
+
+
+
+     
+
+        </div>
+
+        <div class="card-footer">
+            <div class="form-group">
+                <button class="btn btn-sm btn-success btn-xs"><span>Create <i class="mdi mdi-plus"></i></span></button>
+                <a asp-controller="Brand" asp-action="GetBrandList" class="pull-right btn btn-info btn-xs"><span>Category List <i class="mdi mdi-view-list"></i></span></a>
+
+            </div>
+
+        </div>
+</form>
+
+@*<partial name="~/Views/Shared/Modals/_duplicateMessageShow.cshtml" />*@
+
+
+
+
+
+
+@section Scripts
+{
+
+    @*<script src="~/DuplicateModelShow.js"></script>*@
+
+
+    @*<script src="~/Projects/Category/AddBrandsToTable.js"></script>*@
+    <script>
+
+
+    $(document).ready(function () {
+
+        /*showDuplicateModal("Test External Method");*/
+
+
+
+        //sweetaler
+
+        function sweetalert(message) {
+            
+            sweetAlert("Oops...", "'" + message.toUpperCase() + "'", "error")
+        }
+
+
+        //toastr
+
+        function toastrdanger(message) {
+            toastr.error(message, "Top Right", {
+                positionClass: "toast-top-right",
+                timeOut: 5e3,
+                closeButton: !0,
+                debug: !1,
+                newestOnTop: !0,
+                progressBar: !0,
+                preventDuplicates: !0,
+                onclick: null,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: !1
+            })
+        }
+
+
+
+
+    $("#addBrand").click(function () {
+
+
+
+        var txt = $("#Brand").val();
+
+
+        var opt =
+        {
+            'text': $(".categoryId").find(":selected").text(),
+            'value': $(".categoryId").find(":selected").val()
+        }
+
+        if (opt.value == -1) {
+            sweetalert("Select Category First")
+            return
+        }
+
+
+        var blnduplicateBrand = findDuplicate(searchIntoElement = "#brandsection", findElement = "input", searchText = txt);
+        if (blnduplicateBrand == true)
+        {
+            return;
+        }
+
+        
+       
+        $("#validationMessage").hide();
+        if (txt.length == 0)
+        {
+            //$("#validationMessage").html("Brand Field Is Required").show();
+            sweetalert("Brand Filed Is Blank")
+            $("#Brand").focus();
+
+        return;
+        }
+        else
+        {
+
+        if (opt.value == null)
+        {
+        sweetalert("Category Is Empty Or Not Selected");
+        return
+        }
+
+
+        //var card = dynamicCard(opt.text, txt.toUpperCase(), btnshow= true, bages= true)
+            var card = appendBrandToDiv(content = txt.toUpperCase(), isbuttonshow = true, isbagesshow = true, "Load From Database");
+
+        $("#brandsection").append(card);
+
+    }
+
+    })
+
+
+
+
+        //search Brand into model list for duplicate
+
+        function findDuplicate(searchIntoElement, findElement, searchText) {
+            var element = $(searchIntoElement).find(findElement)
+            var blnflag = false
+
+
+            $.each(element, function () {
+
+                var currewntElement = $(this)
+                if ($(currewntElement).val().toUpperCase() == searchText.toUpperCase()) {
+
+                    $(currewntElement).parent().parent().addClass("bg-danger text-white border border-danger")
+
+                    sweetalert("The Brand You Enterd '" + searchText + "' Is Duplicate") //notify with message if duplicate model found
+
+                    //                        NotifyDuplicateMessage() //notify with message if duplicate model found
+
+                    blnflag = true
+                }
+                else {
+                    $(currewntElement).parent().parent().removeClass("bg-danger text-white border border-danger")
+                }
+
+            })
+
+            return blnflag
+        }
+
+
+
+        //create separate div for per model 
+        function appendBrandToDiv(content, isbuttonshow = false, isbagesshow = false, badgemsg = "") {
+            //var brandid = $(".find_brand").find(":selected").val();
+            var button = "";
+
+
+          
+       
+
+            var bages = "";
+            var badgemessage = badgemsg == "" ? "New Model" : badgemsg;
+
+
+
+            var input = '<input hidden  value="' + content + '" name="Brands"/>'
+            if (isbuttonshow == true) {
+                button = '<civ class="col-md-12 mt-1"> <button type="button" class="col-md-3 pull-right btn btn-danger light btn-sm btnRemoveModelFromList">Remove</button> </div>'
+
+            }
+
+
+            if (isbagesshow == true) {
+                bages = '<span class="badge badge-pill bg-blue text-white text-lg-left pull-right">' + badgemessage + '</span>'
+            }
+
+
+            // Show Serial Nu for Brand
+            
+            var slno = $('.slBrandhtml');
+            if (slno === undefined) {
+                slno =  1
+         
+
+
+            }
+            sl = ($(slno).length + 1)
+        
+            var sldiv = '<div class="col-md-2 slBrandhtml">'+sl+'</div>'
+
+            var divcol = sldiv + '<div class="col-md-10">' + content + input + bages + '</div>'
+            //                var formgroup = '<div class="form-group">' + divcol + button + '</div>'
+            var maindiv = '<div class="row border-bottom py-1 findForDupliocateModel">' + divcol + button + '</div> '
+
+            return maindiv;
+        }
+
+
+
+
+
+        ////function duplicate brand search
+        //function findDuplicateBrand (text)
+        //{
+        //    var b = false;
+        //    $(".searchBrand").each(function () {
+
+        //        var v = $(this).find("input").val();
+        //        var addcolor = $(this).find("input").parent().parent().find(".card-header")
+        //        if (text.toUpperCase() == v.toUpperCase()) {
+        //            $(addcolor).append('<div><h4 class="text-white text_duplicate"> This is Duplcate Brand </h4></div>')
+        //            $(addcolor).removeClass("bg-danger-light").addClass("bg-danger")
+
+        //            sweetalert("You Enter ( " + searchText.toUpperCase() + " ) Model Is Dulicate")
+        //            //NotifyDuplicateMessage() //notify with message if duplicate model found
+
+        //        }
+        //        else
+        //        {
+        //            $(addcolor).find(".text_duplicate").remove();
+        //            $(addcolor).removeClass("bg-danger")
+        //            $(addcolor).addClass("bg-danger-light")
+        //        }
+        //    })
+
+        //    return b
+        //}
+
+
+        //notify with message if duplicate model found
+        //function NotifyDuplicateMessage() {
+        //    $("#duplicate_message_show").modal("show");
+        //    $(".duplicate_message").html("You Enter ( " + searchText.toUpperCase() + " ) Model Is Dulicate");
+        //    setTimeout(function () {
+        //        $("#duplicate_message_show").modal('hide');
+        //    }, 3000)
+        //}
+
+    // Load Dynamically html bootstrap Card
+
+        function dynamicCard(valheader, valbody, btnshow = true, bagesshow = false)
+        {
+            var bages = "";
+            if (bagesshow == true)
+            {
+                bages = '<span class="badge bg-blue text-white font-weight-bold pull-right"> New Add </span>'
+            }
+
+            var cardFooter = "";
+            var cardHeader = '<div style="display:block" class="card-header bg-danger-light"><h4 class="card-title">' + valheader + '</h4></div>'
+            var cardbody = '<div class="card-body">' + valbody + bages + '<input name="Brands" hidden value="' + valbody.toUpperCase() + '"/></div>'
+            if (btnshow == true) {
+                cardFooter = '<div class="card-footer"><button type="button" class="btn btn-block btn-danger light btn-sm brandRemove">Remove</button></div>'
+            }
+            else {
+                cardFooter = '<div class="card-footer bg-danger-light"></div>'
+            }
+            var card = '<div class="col-md-3">'
+                + '<div class="card searchBrand">' +
+                cardHeader +
+                cardbody +
+                cardFooter+
+                 '</div>' +
+                 '</div>'
+
+
+            return card
+        }
+
+
+
+
+    /*else {*/
+    //    //Check if Brand is Exist or Not
+    //    let blnf = CheckDuplicate(txt);
+    //    if (blnf)
+    //    {
+    //        $("#validationMessage").html("The Brand Is Exist In List").show();
+    //        return
+    //    }
+
+
+    //    var sl = $("#brandList tr").length
+    //    var inputtext = '<input name="Brands" hidden value="' + txt.toUpperCase() + '"/>'
+    //    var tdsl = "<td>" + (sl + 1) + "</td>"
+    //    var tdBrand = "<td>" + txt.toUpperCase() + inputtext + "</td>"
+    //    var tdButton = "<td><button type='button' class='btn btn-block btn-sm btn-danger light remove_brand_from_list'>Remove </button></td>"
+
+
+    //    var tr = "<tr>" + tdsl + tdBrand  + tdButton + "</tr>"
+
+    //    $("#brandList").append(tr);
+
+    //}
+
+
+
+
+
+
+
+
+
+    // for remove brand from list
+    $("#brandsection").on('click', 'button', function () {
+
+
+        var msg = $(this).parent().parent().find("input").val();
+        if (confirm("Do You Want To Delete Model ('" + msg + "')")) {
+            $(this).parent().parent().remove();
+        }
+
+        //if (confirm("Do You Want To Delete Brand"))
+
+        //{
+        //    $(this).parent().parent().parent().fadeOut();
+        //}
+    })
+
+
+    //Check Duplication if Brand is Exist or Not
+    function CheckDuplicate(value)
+    {
+
+        var val = value.toLowerCase()
+    var blnflag = false;
+
+    $("#brandList tr").each(function (i) {
+    $(this).find('input').each(function () {
+
+    if (val == $(this).val().toLocaleLowerCase())
+    {
+    blnflag = true;
+    return
+    }
+
+    })
+    })
+    return blnflag;
+    }
+
+
+    $(".categoryId").change(function () {
+
+        var brandid = returnDropdownSelectedValue(this).dropdown_value
+
+        //Clean The List of brands before load Brand into list
+        $("#brandsection").empty()
+        //if Select Category is select
+        if (brandid == -1)
+        {
+
+            return;
+        }
+
+    $.ajax({
+    url: '@Url.Action("findBrand", "Brand")',
+    method: "POST",
+    data: { id: brandid },
+    dataType: "JSON",
+    success: function (data)
+    {
+        //var d = JSON.parse(data);
+        var category = $("#cateid").find(":selected").text();
+        if (data.output != null && data.output.length != 0) {
+
+            $.each(data.output, function (i,item) {
+
+                // var card = dynamicCard(category, item.brandName, btnshow = false, bagesshow=false)
+                var card = appendBrandToDiv(content = item.brandName, isbuttonshow = false, isbagesshow = true, "Load From Database");
+                
+                $("#brandsection").append(card);
+            })
+            return
+        }
+        else
+        {
+
+        }
+
+        $.each(data.output, function (x, item) {
+
+            alert(item.brandName)
+
+        })
+
+
+
+    }
+    }) //end of ajax call
+    })
+
+    function returnDropdownSelectedValue(data)
+    {
+    var tdata =
+    {
+
+        'dropdown_value': $(data).find(":selected").val(),
+        'dropdown_text': $(data).find(":selected").text,
+    }
+
+    return tdata;
+    }
+
+
+    })
+    </script>
+
+}

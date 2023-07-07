@@ -1,0 +1,36 @@
+﻿@model SourceCreateViewModel
+
+@{
+ViewBag.Title = "Create Source";
+}
+<form method="post" asp-controller="Source" asp-action="Create">
+    <div class="card">
+        <div class="card-header bg-warning-light">
+            <h2 class="card-title text-yellow">Create Sources</h2>
+        </div>
+        <div class="card-body">
+            <partial name="_Messages" />
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="@Model.SourceName"></label>
+                        <input class="form-control" asp-for="@Model.SourceName" />
+                        <span asp-validation-for="@Model.SourceName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <div class="form-group">
+                <button asp-controller="Source" asp-action="Create" class="col-md-3 btn btn-outline-success btn-sm"><span class="mdi mdi-48px">Create <i class="mdi mdi-plus"></i></span></button>
+
+                <a asp-controller="Source" asp-action="GetSourceList" class="col-md-3  btn pull-right btn-outline-info btn-sm"><span class="mdi mdi-48px">Go to List <i class="mdi mdi-view-list"></i></span></a>
+
+            </div>
+        </div>
+    </div>
+</form>
+    
+    

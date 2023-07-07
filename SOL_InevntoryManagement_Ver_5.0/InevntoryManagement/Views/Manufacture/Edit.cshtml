@@ -1,0 +1,99 @@
+﻿@model List<Manufacture>
+
+@{ 
+    ViewBag.Title = "Edit Manufacture";
+    ViewData["ShowButton"] = true;
+    ManufactureEditViewModel editmanufacture = new ManufactureEditViewModel();
+    ManufactureDeleteViewModel deletemanufacture = new ManufactureDeleteViewModel();
+
+}
+    
+
+
+
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Manufactures List</h4>
+        </div>
+        <div class="card-body">
+
+            <partial name="~/Views/Shared/Manufacture/_ManufactureList.cshtml" model="Model" view-data="ViewData" />
+
+        </div>
+    </div>
+</div>
+<form method="post">
+    <partial name="~/Views/Shared/Manufacture/_Edit.cshtml" model="editmanufacture" />
+</form>
+
+
+<form method="post" asp-action="Delete" asp-controller="Manufacture">
+    <partial name="~/Views/Shared/Manufacture/_Delete.cshtml" model="deletemanufacture" />
+</form>
+
+
+
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            $(".edit_manufacture").click(function() {
+
+                try {
+                    var ele = {
+                        'id' : $(this).attr("data-id"),
+                        'name' : $(this).attr("data-Manufacture")
+                    }
+
+
+                    $("#ManufactureName").val(ele.name);
+                    $("#id").val(ele.id);
+
+                }
+                catch (ex) {
+                    alert(ex.message);
+                }
+
+            })
+
+
+            $(".delete_manufacture").click(function ()
+            {
+                var ele = {
+                    'id': $(this).attr("data-id"),
+                    'name': $(this).attr("data-Manufacture")
+                }
+
+
+                $(".deleteManufactureName").val(ele.name);
+                $(".deleteManufactureid").val(ele.id);
+
+            })
+@*$(".updateManufacture").click(function () {
+        var ManufactureEditViewModel = {
+            'id': $("#id").val(),
+            'ManufactureName': $("#ManufactureName").val()
+
+
+        }
+
+        $.ajax({
+            url: '@Url.Action("Edit","Manufacture")',
+            contentType: "application/json; charset=utf-8",
+            method: "POST",
+            data: JSON.stringify(ManufactureEditViewModel),  //{ 'ManufactureEditViewModel': manufactureEditViewModel },
+            success: function (result)
+            {
+                alert(result)
+            },
+            error: function (err) {
+                alert(err.message)
+            }
+        })
+    })*@
+
+})
+    </script>}

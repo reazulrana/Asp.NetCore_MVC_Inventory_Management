@@ -1,0 +1,9 @@
+E:\Asp.Net Core Project\SOL_IneventoryManagement\BussinessAccessLayer\bin\Debug\netcoreapp2.2\BussinessAccessLayer.deps.json
+E:\Asp.Net Core Project\SOL_IneventoryManagement\BussinessAccessLayer\bin\Debug\netcoreapp2.2\BussinessAccessLayer.dll
+E:\Asp.Net Core Project\SOL_IneventoryManagement\BussinessAccessLayer\bin\Debug\netcoreapp2.2\BussinessAccessLayer.pdb
+E:\Asp.Net Core Project\SOL_IneventoryManagement\BussinessAccessLayer\obj\Debug\netcoreapp2.2\BussinessAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\Asp.Net Core Project\SOL_IneventoryManagement\BussinessAccessLayer\obj\Debug\netcoreapp2.2\BussinessAccessLayer.AssemblyInfoInputs.cache
+E:\Asp.Net Core Project\SOL_IneventoryManagement\BussinessAccessLayer\obj\Debug\netcoreapp2.2\BussinessAccessLayer.AssemblyInfo.cs
+E:\Asp.Net Core Project\SOL_IneventoryManagement\BussinessAccessLayer\obj\Debug\netcoreapp2.2\BussinessAccessLayer.csproj.CoreCompileInputs.cache
+E:\Asp.Net Core Project\SOL_IneventoryManagement\BussinessAccessLayer\obj\Debug\netcoreapp2.2\BussinessAccessLayer.dll
+E:\Asp.Net Core Project\SOL_IneventoryManagement\BussinessAccessLayer\obj\Debug\netcoreapp2.2\BussinessAccessLayer.pdb

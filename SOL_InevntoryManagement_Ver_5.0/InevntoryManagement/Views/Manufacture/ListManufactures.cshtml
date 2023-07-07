@@ -1,0 +1,62 @@
+﻿@model List<Manufacture>
+
+@{
+    ViewBag.Title = "List Manufacture";
+    ViewData["ShowButton"] = false;
+}
+
+
+
+
+
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Manufactures List</h4>
+        </div>
+        <div class="card-body">
+
+            <partial name="~/Views/Shared/Manufacture/_ManufactureList.cshtml" model="Model" view-data="ViewData" />
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--@section Scripts
+{-->
+<!--<script>
+
+
+    $(document).ready(function()
+    {
+    $.ajax({
+    url:'@Url.Action("LoadList", "Manufacture")',
+    method:"GET",
+    dataType:"json",
+        success: function (data) {
+
+            $('#example').DataTable({
+    data:data, columns:[{'data':'ManufactureName'}]
+    })
+
+
+            alert("ok")
+    }
+    })
+    })
+    </script>
+}-->

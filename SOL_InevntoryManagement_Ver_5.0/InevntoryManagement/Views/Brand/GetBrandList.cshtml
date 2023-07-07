@@ -1,0 +1,124 @@
+﻿@model List<BrandListViewModel>
+
+@{
+    ViewBag.Title = "Brand List";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-header bg-secondary">
+                <h4 class="card-title text-white">All Brand List</h4>
+            </div>
+            <div class="card-body">
+                <div class="row py-2">
+                    <div class="col-md-12">
+                        <a asp-controller="Brand" asp-action="Create" class="btn pull-right btn-secondary btn-sm"><span> Create Brand <i aria-hidden="true" class="mdi mdi-plus"></i> </span> </a>
+                    </div>
+                </div>
+
+                @if (Model != null && Model.Count > 0)
+                {
+                    <div class="row py-2 bg-info border divHeaderPart">
+                        <div class="col-md-2 py-2" style="line-height:10.5px">
+                            <h5 class="text-white">SL No</h5>
+                        </div>
+                        <div class="col-md-3 py-2" style="line-height:10.5px">
+                            <h5 class="text-white">Category</h5>
+                        </div>
+                        <div class="col-md-3 py-2" style="line-height:10.5px">
+                            <h5 class="text-white">Brand</h5>
+                        </div>
+                        <div class="col-md-4 py-2" style="line-height:10.5px">
+                            <h5 class="text-white">Action</h5>
+                        </div>
+                    </div>
+
+                    int sl = 1;
+                    foreach (var brand in Model)
+                    {
+                        <div class="row py-2 border border-bottom divBodyParent">
+                            <div class="col-md-1">
+                                @sl
+                            </div>
+                            <div class="col-md-3">
+                                @brand.Ctype
+                            </div>
+                            <div class="col-md-3">
+                                @brand.brandName
+                            </div>
+                            <div class="col-md-5">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a asp-action="Edit" asp-controller="Brand" asp-route-id="@brand.brandId" class="btn btn-xs btn-block btn-secondary">    <span>Edit  <i class="mdi mdi-pencil"></i></span></a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="button" id="deleteBrandButton_@brand.brandId" onclick="NotifyDiv(@brand.brandId)" class="btn btn-block btn-xs btn-danger"><span> Delete <i class="mdi mdi-delete"></i></span></button>
+                                    </div>
+                                </div>
+
+
+                                @*Yes No div Section Bind with javascript*@
+                                <div class="row mt-3" id="showDeleteBrandDiv_@brand.brandId" style="display:none">
+                                    <div class="col-md-12">
+                                        <p>Do You Want To Delete <strong>'@brand.brandName'</strong></p>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <form method="post" asp-controller="Brand" asp-action="Delete" asp-route-id="@brand.brandId">
+                                                    <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
+                                                </form>
+                                            </div>
+
+                                            <div class="col-md-6">
+
+                                                <button type="button" id="cancelDeleteBrand_@brand.brandId" onclick="CancelDelete(@brand.brandId)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+                        sl = sl + 1;
+                    }
+                }
+
+            </div>
+            <div class="card-footer bg-secondary">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@section Scripts
+{
+    <script>
+        function NotifyDiv(id) {
+            $("#showDeleteBrandDiv_" + id).css("display", "block");
+            $("#deleteBrandButton_" + id).prop("disabled", true);
+
+        }
+
+        function CancelDelete(id) {
+            $("#showDeleteBrandDiv_" + id).css("display", "none");
+            $("#deleteBrandButton_" + id).prop("disabled", false);
+        }
+    </script>
+}
+

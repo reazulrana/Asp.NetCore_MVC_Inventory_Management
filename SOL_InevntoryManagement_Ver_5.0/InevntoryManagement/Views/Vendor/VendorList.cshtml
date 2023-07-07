@@ -1,0 +1,129 @@
+﻿@model List<VendorListViewModel>
+
+
+@{
+    ViewBag.Title = "Vendor List";
+}
+
+<div class="card">
+    <div class="card-header bg-info">
+        <h4 class="card-title text-white">Vedor List</h4>
+    </div>
+    <div class="card-body">
+        <partial name="_Messages" />
+
+        <div class="row">
+            <div class="col-md-12">
+                <a asp-controller="Vendor" asp-action="Create" class="pull-right btn-md-4 text-white btn btn-sm btn-secondary"><span>Create <i class="mdi mdi-plus"></i></span></a>
+            </div>
+        </div>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="row border text-md-center py-3 bg-secondary">
+                <div class="col-md-1">
+                    <h4 class="text-white">SL</h4>
+                </div>
+
+                <div class="col-md-2">
+                    <h4 class="text-white">Name</h4>
+                </div>
+                <div class="col-md-2">
+                    <h4 class="text-white">Address</h4>
+                </div>
+                <div class="col-md-2">
+                    <h4 class="text-white">Contact</h4>
+                </div>
+                <div class="col-md-5">
+                    <h4 class="text-white">Action</h4>
+                </div>
+            </div>
+
+            int sl = 1;
+            foreach (var _model in Model)
+            {
+
+
+                <div class="row border text-md-center py-2 ">
+                    <div class="col-md-1">
+                        @sl
+                    </div>
+
+                    <div class="col-md-2">
+                        <h5>@_model.VendorName</h5>
+                    </div>
+                    <div class="col-md-2">
+                        @_model.Address
+                    </div>
+                    <div class="col-md-2">
+                        @_model.Contact
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row text-md-center">
+
+                            <div class="col-md-6">
+                                <a asp-controller="Vendor" asp-action="Edit" asp-route-id="@_model.VendorId" class="btn btn-block btn-primary btn-sm"><span>Edit <i class="mdi mdi-pencil"></i></span></a>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" onclick="showDeleteVendorDiv(@_model.VendorId)" id="deleteVendorButton@_model.VendorId" class="btn btn-block btn-sm btn-danger"><span>Delete <i class="mdi mdi-delete"></i></span></button>
+                            </div>
+
+                        </div>
+
+                        @*Yes No div Section Bind with javascript*@
+                        <div class="row mt-3 text-md-center" id="showDeleteVendorDiv@_model.VendorId" style="display:none">
+                            <div class="col-md-12">
+                                <p>Do You Want To Delete  <strong>'@_model.VendorName'</strong></p>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <form method="post" asp-controller="Vendor" asp-action="Delete" asp-route-id="@_model.VendorId">
+                                            <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <button type="button" id="cancelDeleteVendor@_model.VendorId" onclick="CancelDelete(@_model.VendorId)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                sl = sl + 1;
+            }
+
+        }
+
+        else
+        {
+            <h4>No Vendor Aailable</h4>
+        }
+
+
+    </div>
+    @*<div class="card-footer">
+            <partial name="~/Views\Shared\Modals\_duplicateMessageShow.cshtml" />
+
+        </div>*@
+</div>
+
+
+
+@section Scripts
+{
+    <script>
+        function showDeleteVendorDiv(id) {
+            $("#showDeleteVendorDiv" + id).css("display", "block");
+            $("#deleteVendorButton" + id).prop("disabled", true);
+        }
+
+        function CancelDelete(id) {
+            $("#showDeleteVendorDiv" + id).css("display", "none");
+            $("#deleteVendorButton" + id).prop("disabled", false);
+        }
+    </script>)
+
+}

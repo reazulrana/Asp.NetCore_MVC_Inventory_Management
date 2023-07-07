@@ -1,0 +1,53 @@
+﻿@model SizeCreateViewModel
+@{ 
+    ViewBag.Title = "Add New Size";
+}
+
+<form method="post" asp-controller="Size" asp-action="Create">
+
+
+    <div class="card">
+        <div class="card-header bg-blue">
+            <h2 class="card-title text-white">Create Size/Dimension</h2>
+        </div>
+        <div class="card-body">
+        
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label asp-for="@Model.Size" class="col-form-label"></label>
+                </div>
+                <div class="col-md-10">
+                        <div class="text-danger" asp-validation-summary="All"></div>
+                    <partial name="_Messages" />
+
+                    <input asp-for="@Model.Size" class="form-control border" placeholder="Enter Size" title="Size" />
+                    <span asp-validation-for="@Model.Size" class="text-danger"></span>
+                </div>
+            </div>
+
+            @*Type Section*@
+
+            <div class="row mt-2">
+                <div class="col-md-2">
+                    <label asp-for="@Model.Type" class="col-form-label"></label>
+                </div>
+                <div class="col-md-10">
+                    <select asp-for="@Model.Type" class="form-control" asp-items="@Model.Types" title="Size/Dimension">
+                    </select>
+                    <span asp-validation-for="@Model.Type class=" text-danger"></span>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="mt-1 btn btn-success btn-md-3"><span>Create <i class="mdi mdi-plus"></i></span></button>
+                    <a asp-controller="Size" asp-action="SizeList" class="mt-1 btn btn-info btn-md-3 pull-right"><span>Go to List <i class="mdi mdi-view-list"></i></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

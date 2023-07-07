@@ -1,0 +1,128 @@
+﻿@model List<Category>
+@{
+    ViewBag.Title = "Category List";
+    CategoryEditViewModel categoryEditViewModel = new CategoryEditViewModel();
+    CategoryDeleteViewModel categoryDeleteViewModel = new CategoryDeleteViewModel();
+
+}
+
+
+
+
+@if (Model.Any())
+{
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Category List</h1>
+
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach (Category cat in Model)
+                {
+                    <div class="form-group col-md-3">
+                        <h4 class="mb-2">@cat.CType</h4>
+                        <button class="btn btn-info btn-sm edit_category" data-id="@cat.Id" data-ctype="@cat.CType" data-toggle="modal" data-target="#edit_category">Edit</button>
+                        <button class="btn btn-danger btn-sm show_delete_category" data-id="@cat.Id" data-ctype="@cat.CType" data-toggle="modal" data-target="#delete_category_modal">Delete</button>
+
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="card-footer">
+
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Category List</h1>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title">No Category Exnter</h1>
+        </div>
+        <div class="card-footer">
+            <a asp-controller="Category" asp-action="Create" class="btn btn-info light btn-sm">Create</a>
+        </div>
+    </div>
+
+}
+
+
+<form method="post" asp-action="Edit" asp-controller="Category">
+    <partial name="~/Views\Shared\Category\_EditCategory.cshtml" model="categoryEditViewModel" />
+</form>
+
+
+
+<form method="post" asp-action="Delete" asp-controller="Category">
+    <partial name="~/Views\Shared\Category\_DeleteCategory.cshtml" model="categoryDeleteViewModel" />
+</form>
+
+
+
+
+@section Scripts
+{
+    <script src="~/Projects/Public/GlobalFunction.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            //if Delete Brand checkbox click 
+            $(".delete_category_check").change(function () {
+
+                var blnflag = $(this).is(":checked");
+                                
+                if (blnflag == true) {
+
+                    $("#show_hide_message").show();
+                } else
+                {
+                    $("#show_hide_message").hide();
+
+                }
+
+
+            })
+
+
+
+            $(".edit_category").click(function () {
+
+                //pass_modal_value(this,".edit_id",".edit_category")
+                try {
+                    var ele = {
+                        'id': $(this).attr("data-id"),
+                        'name': $(this).attr("data-ctype")
+                    }
+
+
+                    $(".edit_ctype").val(ele.name);
+                    $(".edit_category_id").val(ele.id);
+
+                }
+                catch (ex) {
+                    alert(ex.message);
+                }
+
+            })
+
+
+            $(".show_delete_category").click(function () {
+                var ele = {
+                    'id': $(this).attr("data-id"),
+                    'name': $(this).attr("data-ctype")
+                }
+
+
+                $(".delete_category_ctype").val(ele.name);
+                $(".delete_category_id").val(ele.id);
+
+            })
+        })
+    </script>
+}
