@@ -9,47 +9,119 @@
 
 
 
-@if (Model.Any())
-{
     <div class="card">
-        <div class="card-header">
-            <h1 class="card-title">Category List</h1>
+        <div class="card-header bg-secondary">
+            <h1 class="card-title text-white">Category List</h1>
 
         </div>
         <div class="card-body">
-            <div class="row">
-                @foreach (Category cat in Model)
-                {
-                    <div class="form-group col-md-3">
-                        <h4 class="mb-2">@cat.CType</h4>
-                        <button class="btn btn-info btn-sm edit_category" data-id="@cat.Id" data-ctype="@cat.CType" data-toggle="modal" data-target="#edit_category">Edit</button>
-                        <button class="btn btn-danger btn-sm show_delete_category" data-id="@cat.Id" data-ctype="@cat.CType" data-toggle="modal" data-target="#delete_category_modal">Delete</button>
+            <div class="row py-1">
+                <div class="col-md-12">
+                    <a asp-controller="Category" asp-action="Create" class="btn pull-right btn-secondary btn-sm"><span> Create Brand <i aria-hidden="true" class="mdi mdi-plus"></i> </span> </a>
+                </div>
+            </div>
+
+            @if(Model.Count>0)
+            {
+
+            <div class="row py-1 border-secondary bg-info">
+                <div class="col-md-4">
+                    <h5 class="text-white">SL No</h5>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-white">Name</h5>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-white">Action</h5>
+                </div>
+            </div>
+
+
+            @foreach (Category cat in Model)
+            {
+                int sl = 1;
+                <div class="row border-bottom py-2">
+
+                    <div class="col-md-4">
+                        @sl
+                    </div>
+                    <div class="col-md-4">
+                        <strong>@cat.CType</strong>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn-block btn btn-info btn-sm edit_category" data-id="@cat.Id" data-ctype="@cat.CType" data-toggle="modal" data-target="#edit_category"><span>Edit <i class="mdi mdi-pencil"></i></span></button>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="deleteCategoryButton_@cat.Id" onclick="showButton(@cat.Id)" class="btn-block btn btn-danger btn-xs show_delete_category"><span>Delete <i class="mdi mdi-delete"></i></span></button>
+
+
+
+
+                            </div>
+                        </div>
+
+
+
+
+                        @*Yes No div Section Bind with javascript*@
+                        <div class="row mt-3" id="showDeleteCategoryDiv_@cat.Id" style="display:none">
+                            <div class="col-md-12">
+                                <p>Do You Want To Delete <strong>'@cat.CType'</strong></p>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <form method="post" asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id">
+                                            <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <button type="button" id="cancelDeleteBrand_@cat.Id" onclick="CancelDelete(@cat.Id)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
-                }
-            </div>
+
+
+
+
+                </div>
+
+            }
+            }  
+            else
+            {            
+            <h3 class="card-title">No Category Available</h3>
+            }
         </div>
         <div class="card-footer">
 
         </div>
     </div>
 
-}
-else
+
+@*else
 {
     <div class="card">
-        <div class="card-header">
-            <h1 class="card-title">Category List</h1>
+        <div class="card-header bg-secondary">
+            <h1 class="card-title text-white">Category List</h1>
         </div>
         <div class="card-body">
-            <h1 class="card-title">No Category Exnter</h1>
+            <h1 class="card-title">No Category Available</h1>
         </div>
         <div class="card-footer">
             <a asp-controller="Category" asp-action="Create" class="btn btn-info light btn-sm">Create</a>
         </div>
     </div>
 
-}
+}*@
 
 
 <form method="post" asp-action="Edit" asp-controller="Category">
@@ -58,9 +130,9 @@ else
 
 
 
-<form method="post" asp-action="Delete" asp-controller="Category">
+@*<form method="post" asp-action="Delete" asp-controller="Category">
     <partial name="~/Views\Shared\Category\_DeleteCategory.cshtml" model="categoryDeleteViewModel" />
-</form>
+</form>*@
 
 
 
@@ -70,6 +142,20 @@ else
     <script src="~/Projects/Public/GlobalFunction.js"></script>
 
     <script>
+
+
+        function showButton(id) {
+            $("#showDeleteCategoryDiv_" + id).css("display", "block");
+            $("#deleteCategoryButton_" + id).prop("disabled", true);
+
+        }
+
+        function CancelDelete(id) {
+            $("#showDeleteCategoryDiv_" + id).css("display", "none");
+            $("#deleteCategoryButton_" + id).prop("disabled", false);
+        }
+
+
         $(document).ready(function () {
 
             //if Delete Brand checkbox click 
@@ -112,17 +198,17 @@ else
             })
 
 
-            $(".show_delete_category").click(function () {
-                var ele = {
-                    'id': $(this).attr("data-id"),
-                    'name': $(this).attr("data-ctype")
-                }
+            //$(".show_delete_category").click(function () {
+            //    var ele = {
+            //        'id': $(this).attr("data-id"),
+            //        'name': $(this).attr("data-ctype")
+            //    }
 
 
-                $(".delete_category_ctype").val(ele.name);
-                $(".delete_category_id").val(ele.id);
+            //    $(".delete_category_ctype").val(ele.name);
+            //    $(".delete_category_id").val(ele.id);
 
-            })
+            //})
         })
     </script>
 }

@@ -5,60 +5,74 @@
 
 <form method="post">
     <div class="card  m-auto">
-        <div class="card-header bg-success-light">
-            <h3 class="card-title text-green">Create Category and Brand</h3>
+        <div class="card-header bg-secondary">
+            <h3 class="card-title text-white" style="font-family:'Monotype Corsiva'">Create Category and Brand</h3>
         </div>
         <div class="card-body">
-            <div class="form-group row">
-                <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
                     <div class="text-danger" asp-validation-summary="All"></div>
+                </div>
+            </div>
 
-                    <label asp-for="@Model.Ctype"></label>
-                    <input asp-for="@Model.Ctype" class="form-control" />
+            <partial name="_Messages" />
+
+            <div class="row my-2">
+                <div class="col-md-12">
+                    <a class="btn btn-xs btn-secondary pull-right" asp-controller="Category" asp-action="GetCategoryList"><span>Go To List <i class="mdi mdi-view-list"></i></span></a>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-2">
+                    <label asp-for="@Model.Ctype" class="col-form-label"></label>
+                </div>
+                <div class="col-md-10">
+                    <input asp-for="@Model.Ctype" class="form-control" placeholder="Enter Category Name" />
                     <span asp-validation-for="@Model.Ctype" class="text-danger"></span>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-md-12">Add Brand</label>
-
-                        <input class="col-md-9 form-control" id="Brand" />
-                        <button type="button" class="btn btn-success light col-md-3 form-control" id="addBrand">Add</button>
-                        <span class="text-danger my-1" id="validationMessage" style="display:none"></span>
-
-
-
-                        <div class="table-responsive mt-2">
-                            <table class="table table-responsive-md table-striped">
-                                <thead class="bg-blue-light text-blue">
-                                    <tr>
-                                        <th><strong>SL</strong></th>
-                                        <th><strong>Brand Name</strong></th>
-                                        <th><strong>Action</strong></th>
-
-
-                                    </tr>
-                                </thead>
-                                <tbody id="brandList">
-                                </tbody>
-                            </table>
-                        </div>
-
-
-                    </div>  @*end form-group row second column col-md-6*@
-
-                </div> @*end second col-md-6 column*@
             </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label class="col-form-label">Add Brand</label>
+                </div> @*end second col-md-6 column*@
+            <div class="col-md-10">
+                <input class="form-control" id="Brand" />
+                <button type="button" class="mt-1 btn col-md-4 btn-xs btn-secondary" id="addBrand"><span>Add<i class="mdi mdi-plus"></i></span></button>
+                <span class="text-danger my-1" id="validationMessage" style="display:none"></span>
+
+
+
+                @*Append BrandList To The under id #brandList Div*@
+                <div class="row py-3 mt-3 border">
+                    <div class="col-md-12" id="brandList">
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            </div>
+
+
+               
+
+
+
+    
+                
 
 
         </div>
 
-        <div class="card-footer bg-success-light">
-            <div class="form-group">
-                <button class="btn btn-sm btn-success light">Create</button>
-                <a href="#">Category List</a>
-
+        <div class="card-footer bg-secondary">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-xs btn-success"><span>Create <i class="mdi mdi-plus"></i></span></button>
+                </div>
             </div>
-          
+
         </div>
     </div>
 </form>
@@ -67,85 +81,168 @@
 @section Scripts
 {
     @*<script src="~/Projects/Category/AddBrandsToTable.js"></script>*@
-<script>
-    $(document).ready(function () {
-        $("#addBrand").click(function () {
-            var txt = $("#Brand").val();
+    <script>
+        $(document).ready(function () {
 
 
-            $("#validationMessage").hide();
 
+            //sweetaler
 
-            if (txt.length == 0) {
-                $("#validationMessage").html("Brand Field Is Required").show();
-                
-                return;
-            }
-            else {
+            function sweetalert(message) {
 
-
-                //Check if Brand is Exist or Not
-                let blnf = CheckDuplicate(txt);
-                if (blnf)
-                {
-                    $("#validationMessage").html("The Brand Is Exist In List").show();
-                    return
-                }
-
-
-                var sl = $("#brandList tr").length
-                var inputtext = '<input name="Brands" hidden value="' + txt.toUpperCase() + '"/>'
-                var tdsl = "<td>" + (sl + 1) + "</td>"
-                var tdBrand = "<td>" + txt.toUpperCase() + inputtext + "</td>"
-                var tdButton = "<td><button type='button' class='btn btn-block btn-sm btn-danger light remove_brand_from_list'>" + "Remove </button></td>"
-
-
-                var tr = "<tr>" + tdsl + tdBrand  + tdButton + "</tr>"
-
-                $("#brandList").append(tr);
-
+                sweetAlert("Oops...", "'" + message.toUpperCase() + "'", "error")
             }
 
 
-           
+            //toastr
 
-
-        })
-
-
-
-        // for remove brand from list
-        $("#brandList").on('click', 'button', function () {
-            if (confirm("Do You Want To Delete Brand"))
-
-            {
-
-                $(this).parent().parent().remove();
+            function toastrdanger(message) {
+                toastr.error(message, "Top Right", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
             }
-        })
 
 
-        //Check Duplication if Brand is Exist or Not
-        function CheckDuplicate(valeu)
-        {
 
-            var val= valeu.toLowerCase()
-            var blnflag = false;
+            //search Brand into model list for duplicate
 
-            $("#brandList tr").each(function (i) {
-                $(this).find('input').each(function () {
+            function findDuplicate(searchIntoElement, findElement, searchText) {
+                var element = $(searchIntoElement).find(findElement)
+                var blnflag = false
 
-                    if (val == $(this).val().toLocaleLowerCase())
-                    {
-                        blnflag = true;
-                        return
+
+                $.each(element, function () {
+
+                    var currewntElement = $(this)
+                    if ($(currewntElement).val().toUpperCase() == searchText.toUpperCase()) {
+
+                        $(currewntElement).parent().parent().addClass("bg-warning text-secondary border")
+
+                        sweetalert("The Brand You Enterd '" + searchText + "' Is Duplicate") //notify with message if duplicate model found
+
+                        //                        NotifyDuplicateMessage() //notify with message if duplicate model found
+
+                        blnflag = true
+                    }
+                    else {
+                        $(currewntElement).parent().parent().removeClass("bg-warning text-secondary border")
                     }
 
                 })
-            })
-            return blnflag;
-        }
 
-    })
-</script>
+                return blnflag
+            }
+
+
+
+            $("#addBrand").click(function () {
+                var txt = $("#Brand").val();
+
+                categoryName = $("#Ctype").val();
+
+                if (categoryName == "")
+                {
+                    sweetalert("Category Filed Is Required")
+                    $("#Ctype").focus();
+                    return;
+                }
+                $("#validationMessage").hide();
+
+
+                if (txt.length == 0) {
+                    $("#validationMessage").html("Brand Field Is Required").show();
+
+                    return;
+                }
+                else {
+
+
+                    //Check if Brand is Exist or Not
+                    let blnf = findDuplicate(searchIntoElement = "#brandList", "input", txt);
+                    if (blnf) {
+                        $("#validationMessage").html("The Brand Is Exist In List").show();
+                        return
+                    }
+
+
+
+                   
+                    var sl = ($(".countSerial").length+1)
+
+            
+
+                    //alert(sl);
+
+                    var slDiv='<div class="col-md-2">' + sl + '</div>'
+                    var badge = '<div class="col-md-3"><span class="badge badge-secondary pull-right">New Brand</span></div>'
+                    var inputtext = '<div class="col-md-4"> <input name="Brands" hidden value="' + txt.toUpperCase() + '"/> ' + txt.toUpperCase() + '</div>'
+                    var categoryDiv = '<div class="col-md-3">' + categoryName.toUpperCase() + '</div>'
+
+
+
+                    //var tdsl = "<td>" + (sl + 1) + "</td>"
+                    var tdBrand = "<td>" + txt.toUpperCase() + inputtext + "</td>"
+                    var buttondiv = '<div class="mt-2 col-md-12"><button type="button" class="col-md-4 btn pull-right btn-sm btn-danger light remove_brand_from_list">' + 'Remove </button></div>'
+                    var rowdiv = '<div class="row countSerial py-2">' + slDiv + categoryDiv + inputtext + badge + buttondiv + '</div>'
+
+
+                    //var tr = "<tr>" + tdsl + tdBrand + tdButton + "</tr>"
+
+                    $("#brandList").append(rowdiv);
+
+                }
+
+
+
+
+
+            })
+
+
+
+            // for remove brand from list
+            $("#brandList").on('click', 'button', function () {
+                if (confirm("Do You Want To Delete Brand")) {
+
+                    $(this).parent().parent().remove();
+                }
+            })
+
+
+            //Check Duplication if Brand is Exist or Not
+            function CheckDuplicate(valeu) {
+
+                var val = valeu.toLowerCase()
+                var blnflag = false;
+
+                $("#brandList tr").each(function (i) {
+                    $(this).find('input').each(function () {
+
+                        if (val == $(this).val().toLocaleLowerCase()) {
+                            blnflag = true;
+                            return
+                        }
+
+                    })
+                })
+                return blnflag;
+            }
+
+        })
+    </script>
 }

@@ -8,6 +8,7 @@ using BussinessAccessLayer.Model;
 using DataAccessLayer.Services.Interface;
 using DataAccessLayer.Services.Repository;
 using InevntoryManagement.ViewModels.Category;
+using InevntoryManagement.GlobalFuntion;
 
 namespace InevntoryManagement.Controllers
 {
@@ -78,7 +79,7 @@ namespace InevntoryManagement.Controllers
                 }
                 else
                 {
-                    return Json($" The Category You Enter Is Duplicate{ctype}");
+                    return Json($" The Category You Enter Is Duplicate '{ctype}'");
 
 
                 }
@@ -118,38 +119,39 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpPost]
-        public IActionResult Delete(CategoryDeleteViewModel model)
+        public IActionResult Delete(int id)
         {
 
             if(ModelState.IsValid)
             {
-                var result = unitOfWork.Categories.GetByID(model.ID);
+                var result = unitOfWork.Categories.GetByID(id);
 
                 if(result==null)
                 {
                     ViewBag.ErrorTitle = "Not Found";
-                    ViewBag.ErrorMessage = ($"The Category Id {model.ID} You Enterd id not Found ");
+                    ViewBag.ErrorMessage = ($"The Category Id {id} You Enterd id not Found ");
                     return View("NotFound");
                 }
                 else
                 {
                     try { 
 
-                        if(model.DeleteBrand==true)
-                        {
-                            var brands = unitOfWork.Brands.Get().Where(x => x.Id == model.ID).ToList();
+                        //if(model.DeleteBrand==true)
+                        //{
+                        //    var brands = unitOfWork.Brands.Get().Where(x => x.Id == model.ID).ToList();
 
-                            //foreach(var brand in result.Brands)
-                            //{
-                              //  Brand b = unitOfWork.Brands.Get().Where(x => x.brdid == brand.brdid).FirstOrDefault();
+                        //    //foreach(var brand in result.Brands)
+                        //    //{
+                        //      //  Brand b = unitOfWork.Brands.Get().Where(x => x.brdid == brand.brdid).FirstOrDefault();
 
-                                unitOfWork.Brands.Delete(brands);
+                        //        unitOfWork.Brands.Delete(brands);
 
-                            //};
+                        //    //};
 
-                        }
+                        //}
 
                     unitOfWork.Categories.Delete(result);
+                        Global_Functions.SetMessage($"Category Deleted Succefully '{result.CType.ToUpper()}'", "success");
                     return RedirectToAction("CategoryList","Category");
                     }
                     catch(Exception ex)
