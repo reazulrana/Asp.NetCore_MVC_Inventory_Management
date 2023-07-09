@@ -30,10 +30,17 @@
                 <label asp-for="@Model.cateid"></label>
             </div>
             <div class="col-md-10">
-                <select asp-for="@Model.cateid" class="form-control categoryId" asp-items="@Model.Categories">
+
+
+                <select asp-for="@Model.cateid" class="js-example-theme-single categoryId" asp-items="@Model.Categories">
                     <option value="-1">Select Category</option>
                 </select>
                 <span class="text-danger" asp-validation-for="@Model.cateid"></span>
+
+                @*<select asp-for="@Model.cateid" class="form-control categoryId" asp-items="@Model.Categories">
+            <option value="-1">Select Category</option>
+        </select>
+        <span class="text-danger" asp-validation-for="@Model.cateid"></span>*@
             </div>
 
 
@@ -51,7 +58,7 @@
 
         <div class="col-md-10">
             <input class="form-control" id="Brand" />
-            <button type="button" class="btn btn-secondary light btn-xs" id="addBrand">Add Brand</button>
+            <button type="button" class="btn btn-facebook btn-xs" id="addBrand">Add Brand<span class="btn-icon-right"><i class="mdi mdi-plus"></i></span></button>
             <span class="text-danger my-1" id="validationMessage" style="display:none"></span>
             @*for Creating Card per brand  *@
             <div class="row mt-4">
@@ -80,8 +87,8 @@
 
         <div class="card-footer">
             <div class="form-group">
-                <button class="btn btn-success btn-xs"><span>Create <i class="mdi mdi-plus"></i></span></button>
-                <a asp-controller="Brand" asp-action="GetBrandList" class="pull-right btn btn-info btn-xs"><span>Category List <i class="mdi mdi-view-list"></i></span></a>
+                <button class="btn btn-success btn-xs">Create <span class="btn-icon-right"> <i class="mdi mdi-plus"></i></span></button>
+                <a asp-controller="Brand" asp-action="GetBrandList" class="pull-right btn btn-info btn-xs">Go To List <span class="btn-icon-right"><i class="mdi mdi-view-list"></i></span></a>
 
             </div>
 
@@ -109,6 +116,9 @@
 
         /*showDuplicateModal("Test External Method");*/
 
+
+
+        //$('.js-example-theme-single').select2();
 
 
         //sweetaler
@@ -252,7 +262,7 @@
 
             var input = '<input hidden  value="' + content + '" name="Brands"/>'
             if (isbuttonshow == true) {
-                button = '<civ class="col-md-12 mt-1"> <button type="button" class="col-md-3 pull-right btn btn-danger light btn-sm btnRemoveModelFromList">Remove</button> </div>'
+                button = '<civ class="col-md-12 mt-1"> <button type="button" class="pull-right btn btn-youtube btn-xs btnRemoveModelFromList">Remove <span class="btn-icon-right"><i class="mdi mdi-delete"></i></span></button> </div>'
 
             }
 

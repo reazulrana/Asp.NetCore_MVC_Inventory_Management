@@ -66,7 +66,6 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Manufacture" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Manufacture" asp-action="Edit">Edit</a></li>
                     <li><a asp-controller="Manufacture" asp-action="ListManufactures">Manufacture List</a></li>
                 </ul>
 
@@ -114,10 +113,29 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Size" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Size" asp-action="SizeList">Modify</a></li>
+                    <li><a asp-controller="Size" asp-action="SizeList">Size List</a></li>
                 </ul>
 
             </li>
+
+
+
+
+
+            @*Start Vendor Section*@
+
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-144-layout"></i>
+                    <span class="nav-text">Measure</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a asp-controller="Measure" asp-action="Create">Create</a></li>
+                    <li><a asp-controller="Measure" asp-action="MeasureList">Size List</a></li>
+                </ul>
+
+            </li>
+
 
 
             @*<li class="nav-label first">Main Menu</li>

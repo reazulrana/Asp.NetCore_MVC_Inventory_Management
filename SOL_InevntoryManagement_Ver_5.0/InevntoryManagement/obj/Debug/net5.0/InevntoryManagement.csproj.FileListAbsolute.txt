@@ -195,3 +195,4 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Size\Create.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Size\SizeList.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Size\Edit.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Measure\Create.cshtml.g.cs

@@ -96,8 +96,15 @@ using InevntoryManagement.ViewModels.Sizes;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 13 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Measures;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9f18dcd47564db38870a97db49fcf95fee27b5ad", @"/Views/Source/GetSourceList.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3c4cab0fff35fd74ed4faf7a44e912fd42c4cee8", @"/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f6427877eb2fa568eb4ebf807c303ddef6b14e37", @"/_ViewImports.cshtml")]
     public class Views_Source_GetSourceList : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<SourceListViewModel>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("name", "_Messages", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -145,7 +152,7 @@ using InevntoryManagement.ViewModels.Sizes;
 #line hidden
 #nullable disable
             WriteLiteral("\r\n<div class=\"card\">\r\n    <div class=\"card-header bg-warning\">\r\n        <h2 class=\"card-title text-white\">Sources List</h2>\r\n    </div>\r\n    <div class=\"card-body\">\r\n        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "9f18dcd47564db38870a97db49fcf95fee27b5ad8854", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "9f18dcd47564db38870a97db49fcf95fee27b5ad9079", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();
@@ -160,7 +167,7 @@ using InevntoryManagement.ViewModels.Sizes;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\r\n        <div class=\"row my-2\">\r\n            <div class=\"col-sm-12\">\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9f18dcd47564db38870a97db49fcf95fee27b5ad10067", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9f18dcd47564db38870a97db49fcf95fee27b5ad10292", async() => {
                 WriteLiteral("<span>Create <i class=\"mdi mdi-plus\"></i></span>");
             }
             );
@@ -219,7 +226,7 @@ using InevntoryManagement.ViewModels.Sizes;
 #line hidden
 #nullable disable
             WriteLiteral("</div>\r\n                    <div class=\"col-sm-5\">\r\n                       \r\n                            <div class=\"row\">\r\n                                <div class=\"col-md-6\">\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9f18dcd47564db38870a97db49fcf95fee27b5ad13427", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9f18dcd47564db38870a97db49fcf95fee27b5ad13652", async() => {
                 WriteLiteral("<span>Edit <i class=\"mdi mdi-account-edit\"></i></span>");
             }
             );
@@ -295,7 +302,7 @@ WriteAttributeValue("", 2143, _model.SourceId, 2143, 16, false);
 #line hidden
 #nullable disable
             WriteLiteral("\'</strong></h4>\r\n                               \r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-6\">\r\n                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9f18dcd47564db38870a97db49fcf95fee27b5ad18613", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9f18dcd47564db38870a97db49fcf95fee27b5ad18838", async() => {
                 WriteLiteral("\r\n                                                <button type=\"submit\" class=\"btn-block btn btn-sm btn-danger\"><span>Yes <i class=\"mdi mdi-delete\"></i></span></button>\r\n                                            ");
             }
             );

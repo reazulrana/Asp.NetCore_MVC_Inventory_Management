@@ -96,8 +96,15 @@ using InevntoryManagement.ViewModels.Sizes;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 13 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Measures;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"02be0daeed344327f95444fd2654ad35a0543b62", @"/Views/Category/CategoryList.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3c4cab0fff35fd74ed4faf7a44e912fd42c4cee8", @"/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f6427877eb2fa568eb4ebf807c303ddef6b14e37", @"/_ViewImports.cshtml")]
     public class Views_Category_CategoryList : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<Category>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "Category", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -160,7 +167,7 @@ using InevntoryManagement.ViewModels.Sizes;
             <div class=""row py-1"">
                 <div class=""col-md-12"">
                     ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02be0daeed344327f95444fd2654ad35a0543b629263", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02be0daeed344327f95444fd2654ad35a0543b629488", async() => {
                 WriteLiteral("<span> Create Brand <i aria-hidden=\"true\" class=\"mdi mdi-plus\"></i> </span> ");
             }
             );
@@ -289,7 +296,7 @@ WriteAttributeValue("", 2534, cat.Id, 2534, 7, false);
 #line hidden
 #nullable disable
             WriteLiteral("\'</strong></p>\r\n\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02be0daeed344327f95444fd2654ad35a0543b6216282", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02be0daeed344327f95444fd2654ad35a0543b6216507", async() => {
                 WriteLiteral("\r\n                                            <button type=\"submit\" class=\"btn-block btn btn-sm btn-danger\"><span>Yes <i class=\"mdi mdi-delete\"></i></span></button>\r\n                                        ");
             }
             );
@@ -390,9 +397,9 @@ WriteAttributeValue("", 3391, cat.Id, 3391, 7, false);
 #nullable disable
             WriteLiteral("        </div>\r\n        <div class=\"card-footer\">\r\n\r\n        </div>\r\n    </div>\r\n\r\n\r\n");
             WriteLiteral("\r\n\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02be0daeed344327f95444fd2654ad35a0543b6221849", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02be0daeed344327f95444fd2654ad35a0543b6222074", async() => {
                 WriteLiteral("\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "02be0daeed344327f95444fd2654ad35a0543b6222112", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "02be0daeed344327f95444fd2654ad35a0543b6222337", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();
@@ -438,7 +445,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper.Model = categoryEditViewM
             WriteLiteral("\r\n\r\n\r\n\r\n");
             DefineSection("Scripts", async() => {
                 WriteLiteral("\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02be0daeed344327f95444fd2654ad35a0543b6225526", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02be0daeed344327f95444fd2654ad35a0543b6225751", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
