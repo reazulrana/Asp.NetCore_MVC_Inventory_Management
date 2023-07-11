@@ -11,15 +11,19 @@ namespace DataAccessLayer.Services.Interface
     {
         IRepository<Amount> Amounts { get; }
         IRepository<Category> Categories { get; }
+        IRepository<Bin> Bins { get; }
+
         IRepository<Brand> Brands { get; }
         IRepository<Model> Models { get; }
 
 
-        IRepository<Manufacture> Manufacture { get; }
+        IRepository<Manufacture> Manufactures { get; }
         IRepository<Source> Sources { get; }
         IRepository<Vendor> Vendors { get; }
         IRepository<Size> Sizes { get; }
         IRepository<Measure> Measures { get; }
+        IRepository<Product> Products { get; }
+
 
 
 

@@ -32,4 +32,8 @@
     <ProjectReference Include="..\..\SOL_IneventoryManagement\DataAccessLayer\DataAccessLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Projects\Images\Product\" />
+  </ItemGroup>
+
 </Project>

@@ -43,7 +43,7 @@
                 <div class="row border-bottom py-2">
 
                     <div class="col-md-4">
-                        @sl
+                         @sl
                     </div>
                     <div class="col-md-4">
                         <strong>@cat.CType</strong>
@@ -51,10 +51,10 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-6">
-                                <button class="btn-block btn btn-info btn-sm edit_category" data-id="@cat.Id" data-ctype="@cat.CType" data-toggle="modal" data-target="#edit_category"><span>Edit <i class="mdi mdi-pencil"></i></span></button>
+                                <button class="btn btn-facebook btn-xs edit_category" data-id="@cat.Id" data-ctype="@cat.CType" data-toggle="modal" data-target="#edit_category">Edit <span class="btn-icon-right"> <i class="mdi mdi-pencil"></i></span></button>
                             </div>
                             <div class="col-md-6">
-                                <button id="deleteCategoryButton_@cat.Id" onclick="showButton(@cat.Id)" class="btn-block btn btn-danger btn-xs show_delete_category"><span>Delete <i class="mdi mdi-delete"></i></span></button>
+                                <button id="deleteCategoryButton_@cat.Id" onclick="showButton(@cat.Id)" class="btn btn-youtube btn-xs show_delete_category">Delete  <span class="btn-icon-right"><i class="mdi mdi-delete"></i></span></button>
 
 
 
@@ -93,7 +93,7 @@
 
 
                 </div>
-
+                sl = sl + 1;
             }
             }  
             else

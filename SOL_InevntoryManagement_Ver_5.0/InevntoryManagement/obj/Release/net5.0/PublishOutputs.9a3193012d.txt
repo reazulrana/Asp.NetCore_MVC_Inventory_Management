@@ -300,6 +300,8 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Category\AddBrandsToTable.js
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\DefaultImage\No_Image_Available.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\2c51ddc7-300b-4b64-88d7-ec85d83b17cb_img1.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Public\GlobalFunction.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\libman.json

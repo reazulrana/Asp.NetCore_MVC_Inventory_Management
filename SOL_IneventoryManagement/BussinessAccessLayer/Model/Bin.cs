@@ -8,15 +8,11 @@ namespace BussinessAccessLayer.Model
 {
    public class Bin
     {
-        public Bin()
-        {
-            this.Products = new HashSet<Product>();
-        }
+        
 
         [Key]
         public int Id { get; set; }
         public string BinNo { get; set; }
 
-        public ICollection<Product> Products { get; set; }
     }
 }

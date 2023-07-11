@@ -252,8 +252,8 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BinId")
-                        .HasColumnType("int");
+                    b.Property<string>("Bin")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
@@ -267,14 +267,11 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Dimension")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("DiscountPrice")
                         .HasColumnType("int");
 
-                    b.Property<int>("ManufactureId")
-                        .HasColumnType("int");
+                    b.Property<string>("Manufacture")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
@@ -294,21 +291,18 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SizeType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Unitprice")
                         .HasColumnType("int");
 
-                    b.Property<int>("VendorId")
-                        .HasColumnType("int");
+                    b.Property<string>("Vendor")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BinId");
-
-                    b.HasIndex("ManufactureId");
-
                     b.HasIndex("ModelId");
-
-                    b.HasIndex("VendorId");
 
                     b.ToTable("Products");
                 });
@@ -493,37 +487,13 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Product", b =>
                 {
-                    b.HasOne("BussinessAccessLayer.Model.Bin", "Bin")
-                        .WithMany("Products")
-                        .HasForeignKey("BinId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BussinessAccessLayer.Model.Manufacture", "Manufacture")
-                        .WithMany("Products")
-                        .HasForeignKey("ManufactureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BussinessAccessLayer.Model.Model", "Model")
                         .WithMany("Products")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BussinessAccessLayer.Model.Vendor", "Vendor")
-                        .WithMany("Products")
-                        .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Bin");
-
-                    b.Navigation("Manufacture");
-
                     b.Navigation("Model");
-
-                    b.Navigation("Vendor");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Purchase", b =>
@@ -587,11 +557,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Sale");
                 });
 
-            modelBuilder.Entity("BussinessAccessLayer.Model.Bin", b =>
-                {
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("BussinessAccessLayer.Model.Brand", b =>
                 {
                     b.Navigation("Models");
@@ -605,11 +570,6 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("BussinessAccessLayer.Model.Customer", b =>
                 {
                     b.Navigation("Sales");
-                });
-
-            modelBuilder.Entity("BussinessAccessLayer.Model.Manufacture", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Master", b =>
@@ -643,8 +603,6 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Vendor", b =>
                 {
-                    b.Navigation("Products");
-
                     b.Navigation("Purchases");
                 });
 #pragma warning restore 612, 618

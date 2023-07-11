@@ -160,9 +160,11 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Manufacture\Create.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Manufacture\Edit.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Manufacture\ListManufactures.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Measure\Create.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Model\Create.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Model\Edit.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Model\GetModelList.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Product\Create.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Category\_DeleteCategory.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Category\_EditCategory.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Manufacture\_Delete.cshtml.g.cs
@@ -170,12 +172,16 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Manufacture\_ManufactureList.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Modals\_duplicateMessageShow.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\NotFound.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Product\_Product.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\_Admin_Layout.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\_footer.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\_header.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\_Messages.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\_sidebar.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Size\Create.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Size\Edit.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Size\SizeList.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Source\Create.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Source\Edit.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Source\GetSourceList.cshtml.g.cs
@@ -192,7 +198,3 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\ref\InevntoryManagement.dll
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\InevntoryManagement.pdb
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\InevntoryManagement.genruntimeconfig.cache
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Size\Create.cshtml.g.cs
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Size\SizeList.cshtml.g.cs
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Size\Edit.cshtml.g.cs
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Measure\Create.cshtml.g.cs

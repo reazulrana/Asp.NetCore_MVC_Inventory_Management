@@ -17,16 +17,22 @@ namespace DataAccessLayer.Services.Repository
 
         BaseRepository<Amount> _Amounts;
         BaseRepository<Category> _Categories;
+        BaseRepository<Bin> _Bins;
+
         BaseRepository<Brand> _Brands;
         BaseRepository<Model> _Models;
 
 
 
-        BaseRepository<Manufacture> _Manufacture;
+        BaseRepository<Manufacture> _Manufactures;
         BaseRepository<Source> _Sources;
         BaseRepository<Vendor> _Vendors;
         BaseRepository<Size> _Sizes;
         BaseRepository<Measure> _Measures;
+        BaseRepository<Product> _Products;
+
+
+
 
 
 
@@ -50,12 +56,12 @@ namespace DataAccessLayer.Services.Repository
             }
         }
 
-        public IRepository<Manufacture> Manufacture
+        public IRepository<Manufacture> Manufactures
         {
             get
             {
-                return _Manufacture ??
-                    (_Manufacture = new BaseRepository<Manufacture>(_dbContext));
+                return _Manufactures ??
+                    (_Manufactures = new BaseRepository<Manufacture>(_dbContext));
             }
         }
 
@@ -63,6 +69,15 @@ namespace DataAccessLayer.Services.Repository
             get {
                 return _Categories ?? (_Categories = new BaseRepository<Category>(_dbContext));
             } 
+        }
+
+
+        public IRepository<Bin> Bins
+        {
+            get
+            {
+                return _Bins ?? (_Bins = new BaseRepository<Bin>(_dbContext));
+            }
         }
 
         public IRepository<Brand> Brands
@@ -113,6 +128,16 @@ namespace DataAccessLayer.Services.Repository
             get
             {
                 return _Measures ?? (_Measures = new BaseRepository<Measure>(_dbContext));
+            }
+        }
+
+
+        //Product
+        public IRepository<Product> Products
+        {
+            get
+            {
+                return _Products ?? (_Products = new BaseRepository<Product>(_dbContext));
             }
         }
     }

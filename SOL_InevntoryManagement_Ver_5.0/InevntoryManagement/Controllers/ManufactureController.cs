@@ -23,7 +23,7 @@ namespace InevntoryManagement.Controllers
         [HttpGet]
         public IActionResult ListManufactures()
         {
-            var list = unitOfWork.Manufacture.Get();
+            var list = unitOfWork.Manufactures.Get();
 
             return View(list);
         }
@@ -33,7 +33,7 @@ namespace InevntoryManagement.Controllers
         [HttpGet]
         public JsonResult LoadList()
         {
-            var list = unitOfWork.Manufacture.Get();
+            var list = unitOfWork.Manufactures.Get();
 
             return Json(list);
         }
@@ -56,7 +56,7 @@ namespace InevntoryManagement.Controllers
                 {
                     ManufactureName = model.ManufactureName
                 };
-                unitOfWork.Manufacture.Insert(manufacture);
+                unitOfWork.Manufactures.Insert(manufacture);
                 return RedirectToAction("ListManufactures","Manufacture");
             }
             
@@ -76,7 +76,7 @@ namespace InevntoryManagement.Controllers
         {
             if(!string.IsNullOrEmpty(ManufactureName))
             { 
-            var result = unitOfWork.Manufacture.Get()
+            var result = unitOfWork.Manufactures.Get()
                         .Where(x =>   x.ManufactureName.ToLower() == ManufactureName.ToLower()).FirstOrDefault();
             if(result==null)
             {
@@ -98,7 +98,7 @@ namespace InevntoryManagement.Controllers
 
 
 
-            var list = unitOfWork.Manufacture.Get();
+            var list = unitOfWork.Manufactures.Get();
 
             return View(list);
 
@@ -114,7 +114,7 @@ namespace InevntoryManagement.Controllers
 
             if (ModelState.IsValid) 
             { 
-            var manufacture = unitOfWork.Manufacture.GetByID(model.id);
+            var manufacture = unitOfWork.Manufactures.GetByID(model.id);
 
                 if(manufacture==null)
                 {
@@ -127,7 +127,7 @@ namespace InevntoryManagement.Controllers
 
 
                 manufacture.ManufactureName = model.ManufactureName;
-                unitOfWork.Manufacture.Update(manufacture);
+                unitOfWork.Manufactures.Update(manufacture);
                 return RedirectToAction("Edit");
                 //return Json(new { success = true });
 
@@ -149,7 +149,7 @@ namespace InevntoryManagement.Controllers
             if(ModelState.IsValid)
             {
 
-                var deleteModel = unitOfWork.Manufacture.GetByID(model.id);
+                var deleteModel = unitOfWork.Manufactures.GetByID(model.id);
 
                 if(deleteModel==null)
                 {
@@ -159,7 +159,7 @@ namespace InevntoryManagement.Controllers
 
                 }
 
-                unitOfWork.Manufacture.Delete(deleteModel);
+                unitOfWork.Manufactures.Delete(deleteModel);
                 return RedirectToAction("Edit", "Manufacture");
 
             }

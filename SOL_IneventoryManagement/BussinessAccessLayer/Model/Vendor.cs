@@ -11,7 +11,6 @@ namespace BussinessAccessLayer.Model
         public Vendor()
         {
             this.Purchases = new HashSet<Purchase>();
-            this.Products = new HashSet<Product>();
 
         }
 
@@ -22,7 +21,6 @@ namespace BussinessAccessLayer.Model
         public string Contact { get; set; }
 
         public virtual ICollection<Purchase> Purchases { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
 
 
 

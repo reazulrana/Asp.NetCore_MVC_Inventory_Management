@@ -12,6 +12,5 @@ namespace BussinessAccessLayer.Model
         public int Id { get; set; }
         public string ManufactureName { get; set; }
 
-        public ICollection<Product> Products { get; set; }
     }
 }
