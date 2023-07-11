@@ -35,7 +35,7 @@ namespace InevntoryManagement.Controllers
             {
                 Category category = new Category()
                 {
-                    CType = model.Ctype
+                    CType = model.Ctype.ToUpper()
                 };
 
                 if (model.Brands.Any()) 
@@ -52,6 +52,31 @@ namespace InevntoryManagement.Controllers
                 }
             return View();
         }
+
+
+
+        [HttpPost]
+        public JsonResult Create_With_Ajax(string ctype)
+        {
+
+            bool success = false;
+            Category output = new Category();
+            try {
+                output.CType = ctype.ToUpper();
+                
+                unitOfWork.Categories.Insert(output);
+                success = true;
+            }
+            catch
+            {
+                success = false;
+            }
+            return new JsonResult(new { output, success });
+
+
+        }
+
+
 
 
         [HttpGet]
