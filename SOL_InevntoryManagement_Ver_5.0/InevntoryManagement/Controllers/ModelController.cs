@@ -314,7 +314,46 @@ namespace InevntoryManagement.Controllers
         }
 
 
-        
+
+        //call Create Model Method from Jquery Ajax
+        [HttpPost]
+        public JsonResult Create_Model_With_Ajax(int brandid, string modelName)
+        {
+
+            bool success = true;
+            string msg = "";
+            Model output = new Model();
+            if (brandid != -1 && modelName != null)
+            {
+                try
+                {
+                    var result = unitOfWork.Models.Get().Where(x => x.ModelName.ToLower() == modelName.ToLower() && x.BrandId == brandid).FirstOrDefault();
+
+                    if (result != null)
+                    {
+                        success = false;
+                        msg = Global_Functions.DuplicateErrorMessage("Model");
+                    }
+                    else
+                    {
+                        output.ModelName = modelName.ToUpper();
+                        output.BrandId = brandid;
+                        unitOfWork.Models.Insert(output);
+                        msg = Global_Functions.SaveMessage("Model");
+                    };
+                }
+                catch
+                {
+                    msg = Global_Functions.SaveErrorMessage("Model");
+                    success = false;
+                }
+
+            }
+
+            return new JsonResult(new { output, success, msg });
+        }
+
+
         //public IActionResult ErrorMessage()
         //{
 

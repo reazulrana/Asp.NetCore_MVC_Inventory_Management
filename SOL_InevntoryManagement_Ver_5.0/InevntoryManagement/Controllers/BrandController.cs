@@ -8,6 +8,7 @@ using DataAccessLayer.Services.Interface;
 using DataAccessLayer.Services.Repository;
 using BussinessAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using InevntoryManagement.GlobalFuntion;
 //using System.Web.WebPages.Html;
 //using System.Web.Mvc;
 
@@ -34,7 +35,7 @@ namespace InevntoryManagement.Controllers
                            {
                                Value = obj.Id.ToString(),
                                Text = obj.CType
-                               
+
                            }).ToList();
             BrandCreateViewModel model = new BrandCreateViewModel();
             model.Categories = catList;
@@ -50,27 +51,27 @@ namespace InevntoryManagement.Controllers
             if (ModelState.IsValid)
             {
 
-                if(model.cateid==-1)
+                if (model.cateid == -1)
                 {
                     ModelState.AddModelError("", "Category Not Selected");
                     return View(model);
                 }
 
-                if(model.Brands.Count>0)
+                if (model.Brands.Count > 0)
                 {
 
                     var brands = new List<Brand>();
-                    foreach(string b in model.Brands)
+                    foreach (string b in model.Brands)
                     {
                         var checkDupBrand = unitOfWork.Brands.Get().Where(x => x.CategoryId == model.cateid && x.BrandName.ToLower() == b.ToLower()).FirstOrDefault();
-                        if (checkDupBrand == null) 
+                        if (checkDupBrand == null)
                         {
                             var brand = new Brand()
                             {
                                 CategoryId = (int)model.cateid,
                                 BrandName = b.ToUpper()
                             };
-                        
+
                             brands.Add(brand);
                         }
                     }
@@ -102,19 +103,19 @@ namespace InevntoryManagement.Controllers
         {
 
             var output = (from obj in unitOfWork.Categories.Get()
-                         join obj2 in unitOfWork.Brands.Get()
-                         on obj.Id equals obj2.CategoryId into egroups
-                         from obj2 in egroups
-                         select new BrandListViewModel
-                         {
-          
-                             brandId = obj2.Id,
-                             brandName = obj2.BrandName,
-                             Ctype = obj.CType,
-                             CategoryId = obj.Id
+                          join obj2 in unitOfWork.Brands.Get()
+                          on obj.Id equals obj2.CategoryId into egroups
+                          from obj2 in egroups
+                          select new BrandListViewModel
+                          {
 
-                         }).ToList();
-                        
+                              brandId = obj2.Id,
+                              brandName = obj2.BrandName,
+                              Ctype = obj.CType,
+                              CategoryId = obj.Id
+
+                          }).ToList();
+
 
 
             return View(output as List<BrandListViewModel>);
@@ -128,13 +129,13 @@ namespace InevntoryManagement.Controllers
             var brand = (from c in unitOfWork.Categories.Get()
                          join b in unitOfWork.Brands.Get()
                          on c.Id equals b.CategoryId into cGropus
-                         from b in cGropus.DefaultIfEmpty()
+                         from b in cGropus     //cGropus.DefaultIfEmpty()
                          select new BrandEditViewModel
                          {
                              brandId = b.Id,
                              brandName = b.BrandName,
                              categoryId = b.CategoryId
-                         }).ToList().Where(x=>x.brandId==id).FirstOrDefault() as BrandEditViewModel;
+                         }).ToList().Where(x => x.brandId == id).FirstOrDefault() as BrandEditViewModel;
 
 
 
@@ -143,9 +144,9 @@ namespace InevntoryManagement.Controllers
                                 {
                                     Text = obj.CType,
                                     Value = obj.Id.ToString(),
-                                    Selected=obj.Id==brand.categoryId
+                                    Selected = obj.Id == brand.categoryId
                                 }).ToList();
-            
+
 
             return View(brand);
 
@@ -161,11 +162,11 @@ namespace InevntoryManagement.Controllers
 
 
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-              var updatebrand = unitOfWork.Brands.GetByID(model.brandId);
+                var updatebrand = unitOfWork.Brands.GetByID(model.brandId);
 
-                if(updatebrand!=null)
+                if (updatebrand != null)
                 {
                     updatebrand.CategoryId = model.categoryId;
                     updatebrand.BrandName = model.brandName.ToUpper();
@@ -198,10 +199,10 @@ namespace InevntoryManagement.Controllers
         public IActionResult Delete(int id)
         {
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 Brand deletebrand = unitOfWork.Brands.GetByID(id);
-                if(deletebrand==null)
+                if (deletebrand == null)
                 {
                     ViewBag.ErrorTitle = "Not Found";
                     ViewBag.ErrorMessage = "Brand ID Now found in the database";
@@ -241,9 +242,48 @@ namespace InevntoryManagement.Controllers
 
             //string s = "Successfull";
 
-            
+
 
             return new JsonResult(new { output });
         }
+
+        //call Create Brand Method ffrom Jquery Ajax
+        [HttpPost]
+        public JsonResult Create_Brand_With_Ajax(int catid, string brandName)
+        {
+
+            bool success = true;
+            string msg = "";
+            Brand output = new Brand();
+            if (catid != -1 && brandName != null)
+            {
+                try
+                {
+                    var result = unitOfWork.Brands.Get().Where(x => x.BrandName.ToLower() == brandName.ToLower() && x.CategoryId == catid).FirstOrDefault();
+
+                    if (result != null)
+                    {
+                        success = false;
+                        msg = Global_Functions.DuplicateErrorMessage("Brand");
+                    }
+                    else
+                    {
+                        output.BrandName = brandName.ToUpper();
+                        output.CategoryId = catid;
+                        unitOfWork.Brands.Insert(output);
+                        msg = Global_Functions.SaveMessage("Brand");
+                    };
+                }
+                catch
+                {
+                    msg = Global_Functions.SaveErrorMessage("Brand");
+                    success = false;
+                }
+
+            }
+
+            return new JsonResult(new { output, success, msg });
+        }
+
     }
 }

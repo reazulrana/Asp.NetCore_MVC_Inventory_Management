@@ -15,7 +15,9 @@ namespace BussinessAccessLayer.Model
 
         [Key]
         public int Id { get; set; }
+
         public string BrandName { get; set; }
+
         public int CategoryId { get; set; }
 
         public virtual ICollection<Model> Models { get; set; }

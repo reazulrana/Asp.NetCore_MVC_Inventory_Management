@@ -12,9 +12,10 @@ namespace BussinessAccessLayer.Model
         {
             this.Brands = new HashSet<Brand>();
         }
-
         [Key]
+
         public int Id { get; set; }
+
         public string CType { get; set; }
 
         public virtual ICollection<Brand> Brands { get; set; }

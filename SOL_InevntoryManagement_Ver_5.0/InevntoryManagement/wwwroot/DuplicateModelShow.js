@@ -1,6 +1,6 @@
 ﻿
 
-function Create_record_with_ajax(url, method, data, dataType, appendElement, dropdownName) {
+function Create_record_with_ajax(url, method, data, dataType, appendElement, dropdownName, fieldNamtToEmpty, hideElement) {
 
     $.ajax({
         url: url,
@@ -9,14 +9,7 @@ function Create_record_with_ajax(url, method, data, dataType, appendElement, dro
         dataType: dataType,
         success: function (data) {
 
-
-            
-         
-
-            console.log(data);
-
             if (data.success == true) {
-
                     
                     if (dropdownName.toLocaleLowerCase() == "category".toLocaleLowerCase()) {
                         var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.cType + '</option>'
@@ -25,25 +18,30 @@ function Create_record_with_ajax(url, method, data, dataType, appendElement, dro
                     }
 
                     else if (dropdownName.toLocaleLowerCase() == "brand".toLocaleLowerCase()) {
-                        var option = '<option value="' + item.id + '" selected="selected">' + item.brandName + '</option>'
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.brandName + '</option>'
                         $(appendElement).append(option);
                     }
 
                     else if (dropdownName.toLocaleLowerCase() == "model".toLocaleLowerCase()) {
-                        var option = '<option value="' + item.id + '" selected="selected">' + item.modelName + '</option>'
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.modelName + '</option>'
 
                         $(appendElement).append(option);
                     }
 
                     else if (dropdownName.toLocaleLowerCase() == "Size".toLocaleLowerCase()) {
-                        var option = '<option value="' + item.id + '" selected="selected">' + item.productSize + '</option>'
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.productSize + '</option>'
 
                         $(appendElement).append(option);
-                    }
+                }
+
+                alert(data.msg);
+
+                $(fieldNamtToEmpty).val('')
+                $(hideElement).hide();
 
             }
             else {
-                alert("Data Not Found In Database")
+                alert(data.msg);
 
             }
         },

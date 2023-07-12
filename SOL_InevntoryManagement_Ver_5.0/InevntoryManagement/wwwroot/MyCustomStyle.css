@@ -1,0 +1,25 @@
+﻿.img-fluid {
+    height: 200px !important;
+}
+
+.card-body {
+    background-color: rgba(245,245,245) !important;
+}
+.form-control {
+    background-color: white !important;
+    border:0.5px solid rgb(230,230,230)!important;
+
+}
+.card-header{
+    background-color:crimson!important
+}
+
+.card-footer {
+    background-color: rgba(230,230,230) !important;
+}
+
+img {
+    height:200px;
+}
+
+

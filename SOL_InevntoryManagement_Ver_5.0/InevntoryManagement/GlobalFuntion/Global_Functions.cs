@@ -21,5 +21,30 @@ namespace InevntoryManagement.GlobalFuntion
 
         }
 
+        public static string SaveErrorMessage(string TableName)
+        {
+
+            return $"{ TableName } Can Not Create For Some Reason Please Contach With Administration";
+        }
+
+        public static string SaveMessage(string TableName)
+        {
+
+            return $"{ TableName } Created Successfully";
+        }
+
+        public static string DeleteMessage(string TableName)
+        {
+
+            return $"{ TableName } Deleted Successfully";
+        }
+
+
+        public static string DuplicateErrorMessage(string TableName)
+        {
+
+            return $"{ TableName } You Enterd Is Duplicat";
+        }
+
     }
 }

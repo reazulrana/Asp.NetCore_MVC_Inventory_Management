@@ -31,16 +31,16 @@ namespace InevntoryManagement.Controllers
         [HttpPost]
         public IActionResult Create(CategoryCreateViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 Category category = new Category()
                 {
                     CType = model.Ctype.ToUpper()
                 };
 
-                if (model.Brands.Any()) 
-                { 
-                foreach(string brand in model.Brands)
+                if (model.Brands.Any())
+                {
+                    foreach (string brand in model.Brands)
                     {
 
                         category.Brands.Add(new Brand() { BrandName = brand });
@@ -49,29 +49,45 @@ namespace InevntoryManagement.Controllers
 
                 unitOfWork.Categories.Insert(category);
 
-                }
+            }
             return View();
         }
 
 
-
+        // Call From Jquery Ajax
         [HttpPost]
-        public JsonResult Create_With_Ajax(string ctype)
+        public JsonResult Create_Category_With_Ajax(string ctype)
         {
+            string msg = "";
 
             bool success = false;
             Category output = new Category();
-            try {
+            try
+            {
+
+                var category = unitOfWork.Categories.Get().Where(x => x.CType.ToLower() == ctype.ToLower()).FirstOrDefault();
+
+                //Category Exist
+                if (category != null)
+                {
+                    success = false;
+                    msg = Global_Functions.DuplicateErrorMessage("Category");
+
+                }
+                else { 
                 output.CType = ctype.ToUpper();
-                
+
                 unitOfWork.Categories.Insert(output);
                 success = true;
+                msg = Global_Functions.SaveMessage("Category");
+                }
             }
             catch
             {
                 success = false;
+                msg = Global_Functions.SaveErrorMessage("Category");
             }
-            return new JsonResult(new { output, success });
+            return new JsonResult(new { output, success,msg });
 
 
         }
@@ -90,14 +106,14 @@ namespace InevntoryManagement.Controllers
         }
 
 
-        [AcceptVerbs("Get","Post")]
+        [AcceptVerbs("Get", "Post")]
         public IActionResult Search_Category_Duplicate(string ctype)
         {
-            if(!string.IsNullOrEmpty(ctype))
+            if (!string.IsNullOrEmpty(ctype))
             {
-                var result= unitOfWork.Categories.Get().Where(x => x.CType.ToLower() == ctype.ToLower()).FirstOrDefault();
+                var result = unitOfWork.Categories.Get().Where(x => x.CType.ToLower() == ctype.ToLower()).FirstOrDefault();
 
-                if(result==null)
+                if (result == null)
                 {
                     return Json(true);
 
@@ -119,10 +135,10 @@ namespace InevntoryManagement.Controllers
         [HttpPost]
         public IActionResult Edit(CategoryEditViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
 
-                var result= unitOfWork.Categories.GetByID(model.ID);
+                var result = unitOfWork.Categories.GetByID(model.ID);
 
                 if (result != null)
                 {
@@ -147,11 +163,11 @@ namespace InevntoryManagement.Controllers
         public IActionResult Delete(int id)
         {
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var result = unitOfWork.Categories.GetByID(id);
 
-                if(result==null)
+                if (result == null)
                 {
                     ViewBag.ErrorTitle = "Not Found";
                     ViewBag.ErrorMessage = ($"The Category Id {id} You Enterd id not Found ");
@@ -159,7 +175,8 @@ namespace InevntoryManagement.Controllers
                 }
                 else
                 {
-                    try { 
+                    try
+                    {
 
                         //if(model.DeleteBrand==true)
                         //{
@@ -175,14 +192,14 @@ namespace InevntoryManagement.Controllers
 
                         //}
 
-                    unitOfWork.Categories.Delete(result);
+                        unitOfWork.Categories.Delete(result);
                         Global_Functions.SetMessage($"Category Deleted Succefully '{result.CType.ToUpper()}'", "success");
-                    return RedirectToAction("CategoryList","Category");
+                        return RedirectToAction("CategoryList", "Category");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
 
-                        
+
 
                         ViewBag.ErrorTitle = ($"{ex.HResult}");
                         ViewBag.ErrorMessage = ($"{ex.Message}");

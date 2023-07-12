@@ -31,6 +31,8 @@ namespace DataAccessLayer
             //base.OnConfiguring(optionsBuilder);
         }
 
+
+         
         public DbSet<Amount> Amounts { get; set; }
         public DbSet<Bin> Bins { get; set; }
         public DbSet<Brand> Brands { get; set; }
@@ -49,19 +51,14 @@ namespace DataAccessLayer
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Measure> Measures { get; set; }
 
-
-        
-
-
-
-
-
-
-
-
+              
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<Category>()
+            //       .HasKey(m => new { m.CType});
+            //modelBuilder.Entity<Brand>()
+            //       .HasKey(m => new { m.BrandName, m.CategoryId });
+
         }
     }
 }
