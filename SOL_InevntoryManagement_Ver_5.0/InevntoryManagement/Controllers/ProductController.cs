@@ -64,6 +64,20 @@ namespace InevntoryManagement.Controllers
                                     Value = obj.Id.ToString()
                                 }).ToList();
 
+            model.Bins = (from obj in unitOfWork.Bins.Get()
+                                  select new SelectListItem
+                                  {
+                                      Text = obj.BinNo,
+                                      Value = obj.BinNo.ToUpper()
+                                  }).ToList();
+
+            model.Colors = (from obj in unitOfWork.Colors.Get()
+                          select new SelectListItem
+                          {
+                              Text = obj.ColorName,
+                              Value = obj.ColorName.ToUpper()
+                          }).ToList();
+
 
             //model.Bins = (from obj in unitOfWork.Bins.Get()
             //                      select new SelectListItem

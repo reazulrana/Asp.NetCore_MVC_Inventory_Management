@@ -129,6 +129,60 @@ namespace InevntoryManagement.Controllers
             return View(model);
         }
 
+
+
+
+
+
+        // Call from ajax 
+
+        [HttpPost]
+        public JsonResult Create_Size_With_Ajax(string size,int sizetype)
+        {
+            string msg = "";
+
+            bool success = false;
+            Size output = new Size();
+            try
+            {
+
+                var category = unitOfWork.Sizes.Get().Where(x => x.ProductSize.ToLower() == size.ToLower() && x.SizeType==sizetype).FirstOrDefault();
+
+                //Category Exist
+                if (category != null)
+                {
+                    success = false;
+                    msg = Global_Functions.DuplicateErrorMessage("Size");
+
+                }
+                else
+                {
+                    output.ProductSize = size.ToUpper();
+                    output.SizeType = sizetype;
+
+                    unitOfWork.Sizes.Insert(output);
+                    success = true;
+                    msg = Global_Functions.SaveMessage("Size");
+                }
+            }
+            catch
+            {
+                success = false;
+                msg = Global_Functions.SaveErrorMessage("Size");
+            }
+            return new JsonResult(new { output, success, msg });
+
+
+        }
+
+
+
+
+
+
+
+
+
         //Edit Sectoon
         [HttpGet]
         public IActionResult Edit(int id)

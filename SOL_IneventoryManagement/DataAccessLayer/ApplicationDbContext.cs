@@ -37,6 +37,7 @@ namespace DataAccessLayer
         public DbSet<Bin> Bins { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Color> Colors { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Manufacture> Manufactures { get; set; }
         public DbSet<Master> Masters { get; set; }

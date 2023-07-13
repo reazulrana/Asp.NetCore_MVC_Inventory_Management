@@ -203,5 +203,51 @@ namespace InevntoryManagement.Controllers
         }
 
 
+
+        // Call from ajax 
+
+        [HttpPost]
+        public JsonResult Create_Vendor_With_Ajax(string vendor, string vendoraddress, string vendorcontact)
+        {
+            string msg = "";
+
+            bool success = false;
+            Vendor output = new Vendor();
+            try
+            {
+
+                var _vendor = unitOfWork.Vendors.Get().Where(x => x.VendorName.ToLower() == vendor.ToLower()).FirstOrDefault();
+
+                //Category Exist
+                if (_vendor != null)
+                {
+                    success = false;
+                    msg = Global_Functions.DuplicateErrorMessage("Vendor");
+
+                }
+                else
+                {
+                    output.VendorName = vendor.ToUpper();
+                    output.Address = vendoraddress;
+                    output.Contact = vendorcontact;
+
+                    unitOfWork.Vendors.Insert(output);
+                    success = true;
+                    msg = Global_Functions.SaveMessage("Vendor");
+                }
+            }
+            catch
+            {
+                success = false;
+                msg = Global_Functions.SaveErrorMessage("Vendor");
+            }
+            return new JsonResult(new { output, success, msg });
+
+
+        }
+
+
+
+
     }
 }

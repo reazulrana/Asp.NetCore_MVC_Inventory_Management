@@ -7,6 +7,7 @@ using DataAccessLayer.Services.Interface;
 using DataAccessLayer.Services.Repository;
 using InevntoryManagement.ViewModels;
 using BussinessAccessLayer.Model;
+using InevntoryManagement.GlobalFuntion;
 
 namespace InevntoryManagement.Controllers
 {
@@ -165,6 +166,51 @@ namespace InevntoryManagement.Controllers
             }
             return View();
         }
+
+
+
+        // Call from ajax 
+
+        [HttpPost]
+        public JsonResult Create_Manufacture_With_Ajax(string manufacturename)
+        {
+            string msg = "";
+
+            bool success = false;
+            Manufacture output = new Manufacture();
+            try
+            {
+
+                var manufactures = unitOfWork.Manufactures.Get().Where(x => x.ManufactureName.ToLower() == manufacturename.ToLower()).FirstOrDefault();
+
+                //Category Exist
+                if (manufactures != null)
+                {
+                    success = false;
+                    msg = Global_Functions.DuplicateErrorMessage("Manufactures");
+
+                }
+                else
+                {
+                    output.ManufactureName = manufacturename.ToUpper();
+                    
+
+                    unitOfWork.Manufactures.Insert(output);
+                    success = true;
+                    msg = Global_Functions.SaveMessage("Manufactures");
+                }
+            }
+            catch
+            {
+                success = false;
+                msg = Global_Functions.SaveErrorMessage("Manufactures");
+            }
+            return new JsonResult(new { output, success, msg });
+
+
+        }
+
+
 
     }
 }

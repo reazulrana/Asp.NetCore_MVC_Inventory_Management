@@ -34,6 +34,30 @@ function Create_record_with_ajax(url, method, data, dataType, appendElement, dro
                         $(appendElement).append(option);
                 }
 
+                    else if (dropdownName.toLocaleLowerCase() == "Vendor".toLocaleLowerCase()) {
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.vendorName + '</option>'
+
+                        $(appendElement).append(option);
+                }
+
+                    else if (dropdownName.toLocaleLowerCase() == "Manufacture".toLocaleLowerCase()) {
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.manufactureName + '</option>'
+
+                        $(appendElement).append(option);
+                }
+                else if (dropdownName.toLocaleLowerCase() == "Bin".toLocaleLowerCase()) {
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.binNo + '</option>'
+
+                    $(appendElement).append(option);
+                }
+                else if (dropdownName.toLocaleLowerCase() == "Color".toLocaleLowerCase()) {
+                    var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.colorName + '</option>'
+
+                    $(appendElement).append(option);
+                }
+
+
+
                 alert(data.msg);
 
                 $(fieldNamtToEmpty).val('')

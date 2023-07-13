@@ -67,6 +67,8 @@ namespace InevntoryManagement.ViewModels.Products
         public List<SelectListItem> Manufactures { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Bins { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Sizes { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> Colors { get; set; } = new List<SelectListItem>();
+
 
 
 

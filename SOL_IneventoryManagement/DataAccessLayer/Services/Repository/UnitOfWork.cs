@@ -30,6 +30,8 @@ namespace DataAccessLayer.Services.Repository
         BaseRepository<Size> _Sizes;
         BaseRepository<Measure> _Measures;
         BaseRepository<Product> _Products;
+        BaseRepository<Color> _Colors;
+
 
 
 
@@ -138,6 +140,17 @@ namespace DataAccessLayer.Services.Repository
             get
             {
                 return _Products ?? (_Products = new BaseRepository<Product>(_dbContext));
+            }
+        }
+        //_Colors
+
+
+        //Color
+        public IRepository<Color> Colors
+        {
+            get
+            {
+                return _Colors ?? (_Colors = new BaseRepository<Color>(_dbContext));
             }
         }
     }

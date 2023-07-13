@@ -23,6 +23,8 @@ namespace DataAccessLayer.Services.Interface
         IRepository<Size> Sizes { get; }
         IRepository<Measure> Measures { get; }
         IRepository<Product> Products { get; }
+        IRepository<Color> Colors { get; }
+
 
 
 

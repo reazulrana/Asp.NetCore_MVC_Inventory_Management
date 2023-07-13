@@ -144,11 +144,9 @@
                         </div>
                         <div class="col-md-9 mt-2">
                             <div class="input-group">
-                                <select asp-for="@Model.Color" class="form-control single-select">
+                                <select asp-for="@Model.Color" class="form-control single-select find_Color" asp-items="@Model.Colors">
                                     <option value="">Select Color</option>
-                                    <option value="Red">Red</option>
-                                    <option value="Black">Black</option>
-                                    <option value="Green">Green</option>
+                                 
                                 </select>
                                 <button type="button" id="btnAddColor" class="btn btn-xs btn-facebook" title="Add New Color"><span><i class="mdi mdi-plus"></i></span></button>
                             </div>
@@ -177,8 +175,8 @@
                         </div>
                         <div class="col-md-9 mt-2">
                             <div class="form-group">
-                                <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="1" type="radio" /> Size</label>
-                                <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="2" type="radio" /> Dimension</label>
+                                <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="1" id="size" type="radio"  /> Size</label>
+                                <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="2" id="dimension" type="radio" /> Dimension</label>
                             </div>
                             <div class="input-group">
                                 <select asp-for="@Model.Size" class="form-control single-select find_Size">
@@ -198,7 +196,7 @@
                         <div class="col-md-9">
                             <div class="input-group">
                                 <input class="form-control" id="txtSaveSize" placeholder="Enter Size " />
-                                <button type="button" class="btn btn-whatsapp" id="btnSaveSize">Add <span><i class="mdi mdi-plus"></i></span></button>
+                                <button type="button" class="btn btn-whatsapp" id="btnSaveSize" >Add <span><i class="mdi mdi-plus"></i></span></button>
                             </div>
                         </div>
                     </div>
@@ -278,7 +276,7 @@
                         </div>
                         <div class="col-md-9 mt-2">
                             <div class="input-group">
-                                <select asp-for="@Model.Vendor" class="form-control single-select" asp-items="@Model.Vendors">
+                                <select asp-for="@Model.Vendor" class="form-control single-select find_Vendor" asp-items="@Model.Vendors">
                                     <option value="">Select Vendor</option>
                                 </select>
                                 <button type="button" id="btnAddVendor" class="btn btn-xs btn-facebook" title="Add New Vendor"><span><i class="mdi mdi-plus"></i></span></button>
@@ -289,17 +287,29 @@
 
 
                     @*for New Vendor Create*@
-                    <div class="row" id="divVendor" style="display:none">
-                        <div class="col-md-3">
-                            <label for="txtSaveVendor">Add Vendor</label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <input class="form-control" id="txtSaveVendor" placeholder="Enter Vendor Name" />
-                                <button type="button" class="btn btn-whatsapp" id="btnSaveVendor">Add <span><i class="mdi mdi-plus"></i></span></button>
-                            </div>
-                        </div>
+                <div class="row bg-danger-light py-2" id="divVendor" style="display:none">
+                    <div class="col-md-3">
+                        <label for="txtSaveVendor">Name</label>
                     </div>
+                    <div class="col-md-9">
+                        <input class="form-control" id="txtSaveVendor" placeholder="Enter Vendor Name" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="txtSaveVendor">Address</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input class="form-control" id="txtSaveVendorAddress" placeholder="Enter Vendor Address" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="txtSaveVendor">Context</label>
+                    </div>
+                    <div class="col-md-9">
+                      <input class="form-control" id="txtSaveVendorContact" placeholder="Enter Vendor Contact" />
+                      <button type="button" class="btn btn-whatsapp btn-xs pull-right" id="btnSaveVendor">Add <span><i class="mdi mdi-plus"></i></span></button>
+                    </div>
+                </div>
 
 
 
@@ -311,7 +321,7 @@
                         </div>
                         <div class="col-md-9 mt-2">
                             <div class="input-group">
-                                <select asp-for="@Model.Manufacture" class="form-control single-select" asp-items="@Model.Manufactures">
+                                <select asp-for="@Model.Manufacture" class="form-control single-select find_Manufacture" asp-items="@Model.Manufactures">
                                     <option value="">Select Manufacture</option>
                                 </select>
                                 <button type="button" id="btnAddManufacture" class="btn btn-xs btn-facebook" title="Add New Manufacture"><span><i class="mdi mdi-plus"></i></span></button>
@@ -343,16 +353,8 @@
                         </div>
                         <div class="col-md-9 mt-2">
                             <div class="input-group">
-                                <select asp-for="@Model.Bin" class="form-control single-select" asp-items="@Model.Bins">
+                                <select asp-for="@Model.Bin" class="form-control single-select find_Bin" asp-items="@Model.Bins">
                                     <option value="">Select Bin</option>
-                                    <option value="K-1">K-1</option>
-                                    <option value="K-2">K-2</option>
-                                    <option value="K-3">K-3</option>
-                                    <option value="K-4">K-4</option>
-                                    <option value="K-5">K-5</option>
-                                    <option value="K-6">K-6</option>
-                                    <option value="K-7">K-7</option>
-
                                 </select>
                                 <button type="button" id="btnAddBin" class="btn btn-xs btn-facebook" title="Add New Bin"><span><i class="mdi mdi-plus"></i></span></button>
                             </div>
@@ -450,7 +452,7 @@
         //category section
         //show div for create category
             $("#btnAddCategory").click(function () {
-                $("#divCategory").show();
+                $("#divCategory").toggle();
 
             })
 
@@ -502,7 +504,7 @@
                     return;
                 }
 
-                $("#divBrand").show();
+                $("#divBrand").toggle();
 
             })
 
@@ -545,7 +547,7 @@
             }
 
 
-                $("#divModel").show();
+            $("#divModel").toggle();
 
         })
 
@@ -570,59 +572,176 @@
 
 
 
+            //dimension radio button click event
+            // Change Placeholder attribute
+            $("#dimension").click(function ()
+            {
+                $('#txtSaveSize').attr("placeholder","Width x Height x Length");
+            })
+
+            //dimension radio button click event
+            // Change Placeholder attribute
+            $("#size").click(function () {
+                $('#txtSaveSize').attr("placeholder", "Enter Size");
+            })
+
+
+
             //Color section
             $("#btnAddColor").click(function () {
-                $("#divColor").show();
+                $("#divColor").toggle();
 
             })
 
             $("#btnSaveColor").click(function () {
-                $("#divColor").hide();
+                  var colorName = $("#txtSaveColor").val();
+                
+                if (IsEmptyInputField(colorName) == true) {
+                    alert("Color Is Empty");
+                    return;
+                }
+
+                var data = {
+                    colorName: colorName
+                }
+
+
+                callCreate_record_with_ajax(url = '@Url.Action("Create_Category_With_Ajax", "Color")', method = "Post", data = data, dataType = "JSON", appendElement = ".find_Color", dropdownName="Color","#txtSaveColor","#divColor")
 
             })
 
 
             //Size section
             $("#btnAddSize").click(function () {
-                $("#divSize").show();
+
+
+
+                //var size = $('input[name="SizeType"]:checked').val();
+                var size = $("input[name='SizeType']:checked").val();
+
+
+                if ((size == null || size == "" || size == -1))
+                {
+                    alert("No Size Type Is Selected")
+                    return;
+                }
+
+                    $("#divSize").toggle();
+
+
+
 
             })
 
             $("#btnSaveSize").click(function () {
-                $("#divSize").hide();
+                var size = $("#txtSaveSize").val();
+                var sizetype = $("input[name='SizeType']:checked").val();
+
+
+                if (IsEmptyInputField(size) == true) {
+                    alert("Size Is Empty");
+                    return;
+                }
+
+                var data = {
+                    size: size,
+                    sizetype: sizetype
+                }
+
+
+                callCreate_record_with_ajax(url = '@Url.Action("Create_Size_With_Ajax","Size")', method = "Post", data = data, dataType = "JSON", appendElement = ".find_Size", dropdownName="Size","#txtSaveSize","#divSize")
 
             })
 
             //Vendor section
             $("#btnAddVendor").click(function () {
-                $("#divVendor").show();
+                $("#divVendor").toggle();
 
             })
 
             $("#btnSaveVendor").click(function () {
-                $("#divVendor").hide();
+                var vendor = $("#txtSaveVendor").val();
+                var vendoraddress = $("#txtSaveVendorAddress").val();
+                var vendorcontact = $("#txtSaveVendorContact").val();
+
+
+                if (IsEmptyInputField(vendor) == true)
+                {
+                    alert("Vendor Is Empty")
+                    $(vendor).focus();
+                }
+
+                var data = {
+                    vendor: vendor,
+                    vendoraddress: vendoraddress,
+                    vendorcontact: vendorcontact
+                }
+
+
+                callCreate_record_with_ajax(url = '@Url.Action("Create_Vendor_With_Ajax", "Vendor")', method = "Post", data = data, dataType = "JSON", appendElement = ".find_Vendor", dropdownName = "Vendor", "#txtSaveVendor", "#divVendor")
+                 $("#txtSaveVendorAddress").val('');
+                $("#txtSaveVendorContact").val('');
+
+
 
             })
 
             //Manufacture section
             $("#btnAddManufacture").click(function () {
-                $("#divManufacture").show();
+                $("#divManufacture").toggle();
 
             })
 
             $("#btnSaveManufacture").click(function () {
-                $("#divManufacture").hide();
+                 var manufacturename = $("#txtSaveManufacture").val();
+
+
+                if (IsEmptyInputField(manufacturename) == true)
+                {
+                    alert("Manufacturename Is Empty")
+                    $(manufacturename).focus();
+                }
+
+                var data = {
+                    manufacturename: manufacturename,
+
+                }
+                var url = '@Url.Action("Create_Manufacture_With_Ajax", "Manufacture")'
+                alert(url);
+
+                callCreate_record_with_ajax(url = url, method = "Post", data = data, dataType = "JSON", appendElement = ".find_Manufacture", dropdownName = "Manufacture", "#txtSaveManufacture", "#divVendor")
 
             })
 
             //Bin section
             $("#btnAddBin").click(function () {
-                $("#divBin").show();
+                $("#divBin").toggle();
 
             })
 
             $("#btnSaveBin").click(function () {
-                $("#divBin").hide();
+
+                 var bin = $("#txtSaveBin").val();
+
+                alert(bin);
+                if (IsEmptyInputField(bin) == true)
+                {
+                    alert("Bin Is Empty")
+                    return;
+                }
+
+                var data = {
+                    binno: bin
+
+                }
+
+                var url = '@Url.Action("Create_Bin_With_Ajax", "Bin")'
+                alert(url);
+
+                callCreate_record_with_ajax(url = url , method = "Post", data = data, dataType = "JSON", appendElement = ".find_Bin", dropdownName = "Bin", "#txtSaveBin", "#divBin")
+                //callCreate_record_with_ajax(url = '@Url.Action("Create_Bin_With_Ajax", "Bin")', method = "Post", data = data, dataType = "JSON", appendElement = ".find_Bin", dropdownName = "Bin", fieldNamtToEmpty = "#txtSaveBin", hideElement= "#divBin")
+
+
 
             })
 
