@@ -3,13 +3,15 @@
 }
 
 .card-body {
-    background-color: rgba(245,245,245) !important;
+    background-color: rgba(240,240,240) !important;
 }
 .form-control {
-    background-color: white !important;
+    background-color: rgb(248,248,248) !important;
     border:0.5px solid rgb(230,230,230)!important;
+    height:40px
 
 }
+
 .card-header{
     background-color:crimson!important
 }

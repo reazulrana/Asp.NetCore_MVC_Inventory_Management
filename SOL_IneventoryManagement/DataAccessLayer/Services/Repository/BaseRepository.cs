@@ -32,6 +32,10 @@ namespace DataAccessLayer.Services.Repository
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
+            try
+            {
+
+            
             IQueryable<TEntity> query = dbSet;
 
             if (filter != null)
@@ -48,6 +52,7 @@ namespace DataAccessLayer.Services.Repository
                 }
             }
 
+       
 
             if (orderBy != null)
             {
@@ -57,6 +62,13 @@ namespace DataAccessLayer.Services.Repository
             {
                 return query.ToList();
             }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception();
+            }
+
+
         }
 
         public virtual TEntity GetByID(object id)

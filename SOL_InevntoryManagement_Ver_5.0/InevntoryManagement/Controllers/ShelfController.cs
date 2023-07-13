@@ -6,33 +6,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataAccessLayer.Services.Repository;
 
 namespace InevntoryManagement.Controllers
 {
-    public class BinController : Controller
+    public class ShelfController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public BinController(IUnitOfWork unitOfWork)
+        public ShelfController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
-
-        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
 
-
-
         // Call from ajax 
 
         [HttpPost]
-        public JsonResult Create_Bin_With_Ajax(string binno)
+        public JsonResult Create_BinNo_With_Ajax(string binno)
         {
             string msg = "";
 
@@ -69,5 +64,8 @@ namespace InevntoryManagement.Controllers
 
 
         }
+
+
+
     }
 }

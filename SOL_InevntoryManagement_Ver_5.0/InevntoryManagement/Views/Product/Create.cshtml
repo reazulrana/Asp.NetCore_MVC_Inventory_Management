@@ -5,6 +5,10 @@
 }
 
 
+<a asp-action="Index" asp-controller="Bin">
+    Get Index
+</a>
+
 
 <form method="post" asp-controller="Product" asp-action="Create" enctype="multipart/form-data">
     <div class="card">
@@ -595,7 +599,7 @@
 
             $("#btnSaveColor").click(function () {
                   var colorName = $("#txtSaveColor").val();
-                
+
                 if (IsEmptyInputField(colorName) == true) {
                     alert("Color Is Empty");
                     return;
@@ -735,11 +739,8 @@
 
                 }
 
-                var url = '@Url.Action("Create_Bin_With_Ajax", "Bin")'
-                alert(url);
 
-                callCreate_record_with_ajax(url = url , method = "Post", data = data, dataType = "JSON", appendElement = ".find_Bin", dropdownName = "Bin", "#txtSaveBin", "#divBin")
-                //callCreate_record_with_ajax(url = '@Url.Action("Create_Bin_With_Ajax", "Bin")', method = "Post", data = data, dataType = "JSON", appendElement = ".find_Bin", dropdownName = "Bin", fieldNamtToEmpty = "#txtSaveBin", hideElement= "#divBin")
+                callCreate_record_with_ajax(url = '@Url.Action("Create_BinNo_With_Ajax", "Shelf")' , method = "Post", data = data, dataType = "JSON", appendElement = ".find_Bin", dropdownName = "Bin", "#txtSaveBin", "#divBin")
 
 
 

@@ -21,8 +21,18 @@ namespace InevntoryManagement.Controllers
 
         public ProductController(IUnitOfWork unitOfWork,IHostingEnvironment hostingEnvironment)
         {
+            try { 
             this.unitOfWork = unitOfWork;
             this.hostingEnvironment = hostingEnvironment;
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErrorTitle = ex.InnerException;
+                ViewBag.ErrorMessage = ex.Message;
+
+            }
+
         }
 
         
@@ -30,11 +40,21 @@ namespace InevntoryManagement.Controllers
         public IActionResult Create()
         {
 
-            var model = new ProductCreateViewModel();
-            model= MultiSelecListItemLoad(model);
 
+            var model = new ProductCreateViewModel();
+
+            try
+            {
+                model = MultiSelecListItemLoad(model);
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErrorTitle = ex.InnerException;
+                ViewBag.ErrorMessage = ex.Message;
+                return View("NotFound");
+            }
             return View(model);
-            
 
         }
 
