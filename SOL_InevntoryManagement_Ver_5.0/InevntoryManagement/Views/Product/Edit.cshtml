@@ -1,8 +1,8 @@
-﻿@model ProductCreateViewModel
+﻿@model ProductEditViewModel
 
 @{
-    ViewBag.Title = "Create Product";
-
+    ViewBag.Title = "Edit Product";
+    
 }
 
 
@@ -11,14 +11,17 @@
 </a>
 
 
-<form method="post" asp-controller="Product" asp-action="Create" enctype="multipart/form-data">
+<form method="post" asp-controller="Product" asp-action="Edit" enctype="multipart/form-data">
     <div class="card">
         <div class="card-header bg-secondary">
-            <h3 class="card-title text-white">Create Product</h3>
+            <h3 class="card-title text-white">Edit Product</h3>
         </div>
         <div class="card-body bg-danger-light">
-         
-        @Html.Partial("~/Views/Shared/Product/_Product.cshtml",Model)
+            <div class="row">
+                <input asp-for="@Model.Id" hidden />
+            </div>
+
+            @Html.Partial("~/Views/Shared/Product/_Product.cshtml", Model)
 
 
         </div> @*End card-body section*@
@@ -407,10 +410,17 @@
             });
 
 
+            //Brand Drowpdown Event Section
+            //call_find_Brand_On_Page_Load();
 
             $(".find_Brand").change(function () {
+                call_find_Brand_On_Page_Load()
+            })
 
-                var val = $(this).find(":selected").val();
+            function call_find_Brand_On_Page_Load()
+            {
+
+                var val = $(".find_Brand").find(":selected").val();
                 if (val == "" || val === undefined)
                 {
                     alert("There Is Something in Brand Dropdown List wrong Please Chcek")
@@ -424,12 +434,21 @@
 
                 Load_Dropdown_with_ajax(url='@Url.Action("FindModelByBrandID", "Product")', method= "GET", data = data, dataType = "JSON", appendElement = ".find_Model", dropdownName = "Model")
 
-            })
+            }
 
+
+            //Call Category Change Method On Page Load Event
+            //call_find_Category_On_Page_Load();
 
             $(".find_Category").change(function () {
+                call_find_Category_On_Page_Load();
 
-                var val = $(this).find(":selected").val();;
+            }) //end of .find_Category click event
+
+
+
+            function call_find_Category_On_Page_Load() {
+                var val = $(".find_Category").find(":selected").val();;
                 if (val == "" || val === undefined)
                 {
                     alert("There Is Something in category Dropdown List wrong Please Chcek")
@@ -441,8 +460,7 @@
 
                 Load_Dropdown_with_ajax(url='@Url.Action("FindBrandByCategoryId","Product")', method="GET", data = data, dataType = "Json", appendElement = ".find_Brand", dropdownName = "Brand")
 
-            }) //end of .find_Category click event
-
+            }
 
             function Load_Dropdown_with_ajax(url, method, data, dataType, appendElement, dropdownName) {
 
@@ -463,6 +481,12 @@
                                 $.each(data.output, function (index, item) {
 
                                     if (dropdownName.toLocaleLowerCase() == "brand".toLocaleLowerCase()) {
+
+                                        //Get Brand id from inout box
+                                        var brandid = $("#InputBrandid").val();
+
+                                        //alert(brandid);
+
                                       var option = '<option value="' + item.id + '">' + item.brandName + '</option>'
                                     $(appendElement).append(option);
                                     }

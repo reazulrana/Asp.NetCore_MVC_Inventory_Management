@@ -1,5 +1,136 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<ProductListViewModel>
+
 @{
+    ViewBag.Title = "Product List";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title text-white">Product List</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="productList">
+                <thead>
+                    <tr>
+                        @*<th>SL</th>*@
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>BrandName</th>
+                        <th>ModelName</th>
+                        <th>Color</th>
+                        <th>Action</th>
+
+                        @*<th>SizeName</th>
+        <th>SizeType</th>
+        <th>Unitprice</th>
+        <th>OpeningBalance</th>*@
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+
+    </div>
+    <div class="card-footer">
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+
+
+            function loadDataTable() {
+
+                @*new DataTable("#productList", {
+                    ajax: '@Url.Action("LoadDataTable", "Product")',
+                    columns: [
+
+                        { data: 'Code' },
+                        { data: 'Description' },
+                        { data: 'Category' },
+                        { data: 'BrandName' },
+                        { data: 'ModelName' },
+                        { data: 'Color' }]
+                });*@
+
+
+                //var datas = [
+                //    code: "Rana",
+
+                //]
+
+                $.ajax({
+                    url: '@Url.Action("LoadDataTable", "Product")',
+                    method: "GET",
+                    dataType: "JSON",
+                    success: function (data) {
+
+                        console.log(data)
+                        $("#productList").DataTable({
+                            data: data.dataTables,
+                            columns: [
+                                {
+                                    'data': 'photoPath',
+                                    'render': function (photoPath) {
+                                        var path = photoPath!=null ? "/Projects/Images/Product/" + photoPath :null
+                                        var img = '<img src="' + path + '" height="100px" width="100px" />'
+                                        return img;
+                                    }
+                                },
+                                { 'data': 'code' },
+                                { 'data': 'description' },
+                                { 'data': 'category' },
+                                { 'data': 'brandName' },
+                                { 'data': 'modelName' },
+                                { 'data': 'color' },
+                                {
+                                    'data': 'id',
+                                    'render': function (id) {
+                                        var href = '@Url.Action("Edit","Product")/' + id;
+                                        var button = "<button type='submit' class='btn btn-xs btn-danger' title='Delete'><span><i class='mdi mdi-18px mdi-delete'></i></span></button>"
+                                        var action = '<a href="' + href +'" class="btn btn-xs btn-info" asp-action="Edit" asp-controller="Product" asp-route-id=id title="Edit"><span><i class="mdi mdi-18px mdi-pencil"></i></span></a>'
+
+                                        var formtag = "<form method='post' asp-controller='Product' asp-action='Delete' asp-route-id='" + id + "'>" + action + button + "</form>"
+                                        return formtag
+                                    }
+
+                                }
+
+
+                                //{ 'data': 'Code' },
+                                //{ 'data': 'Description' },
+                                //{ 'data': 'Category' },
+                                //{ 'data': 'BrandName' },
+                                //{ 'data': 'ModelName' },
+                                //{ 'data': 'Color' },
+                                //{ 'data': 'SizeName' },
+                                //{ 'data': 'SizeType' },
+                                //{ 'data': 'Unitprice' },
+                                //{ 'data': 'OpeningBalance' },
+
+                            ]
+                        })
+
+                    }, error:function(err) {
+                        alert(err.message)
+                    }
+
+                })
+            }
+
+            loadDataTable();
+
+
+        })
+    </script>
+
+
+
 }

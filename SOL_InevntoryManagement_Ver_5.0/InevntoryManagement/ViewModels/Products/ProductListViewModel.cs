@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace InevntoryManagement.ViewModels.Products
 {
-    public class ProductListViewModel:
+    public class ProductListViewModel
     {
 
    

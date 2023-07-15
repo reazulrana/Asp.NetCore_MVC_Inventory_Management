@@ -37,26 +37,20 @@
     <!-- Searchable Dropdown -->
 
     <link rel="stylesheet" href="/admin/vendor/select2/css/select2.min.css">
-    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="~/admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 
-    <link href="/admin/css/style.css" rel="stylesheet">
+    @*Datatable Css File*@
+
+    
+    <link href="~/admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    
+    @*Datatable CDN CSS File*@
+    @*<link href="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.css" rel="stylesheet" />*@
+    
+    <link href="~/admin/css/style.css" rel="stylesheet">
     <link href="~/MyCustomStyle.css" rel="stylesheet" />
 
-    <style>
- /*       * {
-            font-family: 'Monotype Corsiva' !important;
-            font-size: 18px !important;
-        }
 
-
-        .card-header {
-            padding: 15px;
-            margin: 2px;
-        }*/
-        input, select {
-            border:1px solid rgba(0,0,0,0.15)!important
-        }
-    </style>
 
 
 
@@ -66,7 +60,12 @@
 
         <partial name="_header" />
         <partial name="_sidebar" />
+
+
+
         <div class="content-body">
+
+
             <div class="container-fluid">
 
                 @RenderBody()
@@ -122,6 +121,13 @@
 
         <!-- All init script -->
         <script src="~/admin/js/plugins-init/toastr-init.js"></script>
+
+
+        <!-- Datatable -->
+        @*<script src="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.js"></script>*@    
+    <script src="~/admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="~/admin/js/plugins-init/datatables.init.js"></script>
+
 
         <script src="~/admin/js/custom.min.js"></script>
         <script src="~/admin/js/deznav-init.js"></script>

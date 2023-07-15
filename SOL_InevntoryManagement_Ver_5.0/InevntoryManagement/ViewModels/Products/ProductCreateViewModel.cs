@@ -16,8 +16,10 @@ namespace InevntoryManagement.ViewModels.Products
         public string Code { get; set; }
         [Required]
         public string Description { get; set; }
-     
 
+        public int CategoryId { get; set; }
+        public int Brandid { get; set; }
+        //public string ModelName { get; set; }
 
         [Required]
         [Display(Name ="Model")]
@@ -57,10 +59,11 @@ namespace InevntoryManagement.ViewModels.Products
 
         public IFormFile Photo { get; set; }
         public string Remarks { get; set; }
-       
 
-        
-        
+        public string ExistingPhotoPath { get; set; }
+
+
+
         [Display(Name ="Category")]
         public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Vendors { get; set; } = new List<SelectListItem>();
@@ -68,7 +71,8 @@ namespace InevntoryManagement.ViewModels.Products
         public List<SelectListItem> Bins { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Sizes { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Colors { get; set; } = new List<SelectListItem>();
-
+        public List<SelectListItem> Models { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> Brands { get; set; } = new List<SelectListItem>();
 
 
 
