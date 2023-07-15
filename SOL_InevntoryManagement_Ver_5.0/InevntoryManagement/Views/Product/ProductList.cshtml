@@ -18,10 +18,9 @@
                         <th>Code</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>BrandName</th>
-                        <th>ModelName</th>
+                        <th>Size</th>
                         <th>Color</th>
-                        <th>Action</th>
+                        <th>UnitPrice</th>
 
                         @*<th>SizeName</th>
         <th>SizeType</th>
@@ -76,20 +75,20 @@
                         $("#productList").DataTable({
                             data: data.dataTables,
                             columns: [
-                                {
-                                    'data': 'photoPath',
-                                    'render': function (photoPath) {
-                                        var path = photoPath!=null ? "/Projects/Images/Product/" + photoPath :null
-                                        var img = '<img src="' + path + '" height="100px" width="100px" />'
-                                        return img;
-                                    }
-                                },
+                                //{
+                                //    'data': 'photoPath',
+                                //    //'render': function (photoPath) {
+                                //    //    var path = photoPath!=null ? "/Projects/Images/Product/" + photoPath :null
+                                //    //    var img = '<img src="' + path + '" height="100px" width="100px" />'
+                                //    //    return img;
+                                //    //}
+                                //},
                                 { 'data': 'code' },
                                 { 'data': 'description' },
                                 { 'data': 'category' },
-                                { 'data': 'brandName' },
-                                { 'data': 'modelName' },
+                                { 'data': 'sizeName' },
                                 { 'data': 'color' },
+                                { 'data': 'unitprice' },
                                 {
                                     'data': 'id',
                                     'render': function (id) {

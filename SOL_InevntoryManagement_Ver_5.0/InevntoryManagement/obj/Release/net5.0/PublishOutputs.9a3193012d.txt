@@ -164,6 +164,7 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\admin\images\users\pic6.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\admin\images\users\pic7.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\admin\images\users\pic8.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\admin\index.html
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\admin\js\custom.min.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\admin\js\dashboard\chat.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\admin\js\dashboard\coin-details.js
@@ -299,9 +300,16 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\jquery-validate\jquery.validate.min.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\MyCustomStyle.css
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Category\AddBrandsToTable.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\DefaultImage\No_Image_Available.jpg
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\2c51ddc7-300b-4b64-88d7-ec85d83b17cb_img1.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Logo\Marnia_Logo.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\027c8ea7-70e3-4417-a39e-5e70f67226b7_img2.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\1e6f3251-66b0-4db5-87c8-119add2e4dd6_img7.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\4d6991c1-2b5e-4676-b6dd-7347c985d7b3_img2.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\7154c6ab-42f9-4394-83cb-538bcc6c499d_img1.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\b516d5cd-6323-46d8-afd1-433c53b227b3_img104.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\d2ffdcad-89c4-40d1-8577-8c0fe9f45a3e_img13.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Public\GlobalFunction.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\libman.json

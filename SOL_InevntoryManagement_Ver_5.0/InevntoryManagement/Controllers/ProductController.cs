@@ -445,6 +445,7 @@ namespace InevntoryManagement.Controllers
                           {
                               Id = products.Id,
                               BrandName = brands.BrandName,
+                               Category= cats.CType,
                               BinNo = products.Bin,
                               Code = products.Code,
                               Color = products.Color,
