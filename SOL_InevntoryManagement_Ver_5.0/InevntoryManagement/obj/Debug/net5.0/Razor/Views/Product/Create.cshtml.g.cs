@@ -110,8 +110,22 @@ using InevntoryManagement.ViewModels.Products;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 15 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 16 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.GlobalFuntion;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c3caf1c9f5eca2133c5c72196bedbb04f3fbf838", @"/Views/Product/Create.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"148930584db6c15a45ac36ad79fc8224fc9dfe08", @"/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b08f0f08a3392d51606919d1a01a84554cb51a01", @"/_ViewImports.cshtml")]
     public class Views_Product_Create : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ProductCreateViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Index", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -161,7 +175,7 @@ using InevntoryManagement.ViewModels.Products;
 #line hidden
 #nullable disable
             WriteLiteral("\r\n\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3caf1c9f5eca2133c5c72196bedbb04f3fbf8389434", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3caf1c9f5eca2133c5c72196bedbb04f3fbf8389858", async() => {
                 WriteLiteral("\r\n    Get Index\r\n");
             }
             );
@@ -179,7 +193,7 @@ using InevntoryManagement.ViewModels.Products;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\r\n\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3caf1c9f5eca2133c5c72196bedbb04f3fbf83810818", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3caf1c9f5eca2133c5c72196bedbb04f3fbf83811242", async() => {
                 WriteLiteral("\r\n    <div class=\"card\">\r\n        <div class=\"card-header bg-secondary\">\r\n            <h3 class=\"card-title text-white\">Create Product</h3>\r\n        </div>\r\n        <div class=\"card-body bg-danger-light\">\r\n         \r\n        ");
 #nullable restore
 #line 21 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\Views\Product\Create.cshtml"
@@ -194,7 +208,7 @@ using InevntoryManagement.ViewModels.Products;
                 <div class=""col-md-12"">
                     <button type=""submit"" class=""btn btn-whatsapp bt-xs"">Create <span class=""btn-icon-right""><i class=""mdi mdi-plus""></i></span></button>
                     ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3caf1c9f5eca2133c5c72196bedbb04f3fbf83811971", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3caf1c9f5eca2133c5c72196bedbb04f3fbf83812395", async() => {
                     WriteLiteral("Go To Product List <span class=\"btn-icon-right\"><i class=\"mdi mdi-view-list\"></i></span>");
                 }
                 );
@@ -236,7 +250,7 @@ using InevntoryManagement.ViewModels.Products;
             WriteLiteral("\r\n\r\n");
             DefineSection("Scripts", async() => {
                 WriteLiteral("\r\n\r\n\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3caf1c9f5eca2133c5c72196bedbb04f3fbf83815432", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3caf1c9f5eca2133c5c72196bedbb04f3fbf83815856", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

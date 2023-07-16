@@ -39,5 +39,10 @@ namespace InevntoryManagement.GlobalFuntion
             return path;
 
         }
+
+        public static string GetBlankImageFromRootFolder()
+        {
+            return "~/Projects/Images/DefaultImage/No_Image_Available.jpg";
+        }
     }
 }

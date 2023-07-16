@@ -75,7 +75,7 @@
                                     <div class="col-md-6">
                                         <a asp-controller="Model" asp-action="Edit" asp-route-id="@_model.ModelId" class="btn-block btn btn-sm btn-outline-secondary light"><span>Edit <i class="mdi mdi-pencil"></i> </span></a>
                                     </div>
-                                    <div classs="col-md-6">
+                                    <div class="col-md-6">
                                         <button id="deleteModelButton@_model.ModelId" onclick="NotifyDiv(@_model.ModelId)" type="button" class="btn-block btn btn-sm btn-outline-danger light"><span>Delete <i class="mdi mdi-delete"></i> </span></button>
                                     </div>
                                 </div>
@@ -90,13 +90,13 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <form method="post" asp-controller="Model" asp-action="Delete" asp-route-id="@_model.ModelId">
-                                                    <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
+                                                    <button type="submit" class="btn-block btn btn-xs btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
                                                 </form>
                                             </div>
 
                                             <div class="col-md-6">
 
-                                                <button type="button" id="cancelDeleteBrand@_model.ModelId" onclick="CancelDelete(@_model.ModelId)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
+                                                <button type="button" id="cancelDeleteBrand@_model.ModelId" onclick="CancelDelete(@_model.ModelId)" class="btn-block btn btn-xs btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
 
 
                                             </div>

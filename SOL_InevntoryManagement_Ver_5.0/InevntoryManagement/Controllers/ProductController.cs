@@ -66,6 +66,7 @@ namespace InevntoryManagement.Controllers
                     model.Brandid = _model.BrandId; // its use for Get Category Load By retriving Catagory Id from _model.Brandid
 
                     model.Models = (from obj in unitOfWork.Models.Get().Where(x => x.BrandId == _model.BrandId)
+                                    orderby obj.ModelName
                                     select new SelectListItem()
                                     {
                                         Text = obj.ModelName,
@@ -75,6 +76,7 @@ namespace InevntoryManagement.Controllers
                                     ).ToList();
 
                     model.Brands = (from obj in unitOfWork.Brands.Get()
+                                    orderby obj.BrandName
                                     select new SelectListItem()
                                     {
                                         Text = obj.BrandName,
@@ -104,6 +106,7 @@ namespace InevntoryManagement.Controllers
             }
 
             model.Categories = (from obj in unitOfWork.Categories.Get()
+                                orderby obj.CType
                                 select new SelectListItem
                                 {
                                     Text = obj.CType,
@@ -115,6 +118,7 @@ namespace InevntoryManagement.Controllers
 
 
             model.Vendors = (from obj in unitOfWork.Vendors.Get()
+                             orderby obj.VendorName
                              select new SelectListItem
                              {
                                  Text = obj.VendorName.ToUpper(),
@@ -123,6 +127,7 @@ namespace InevntoryManagement.Controllers
                              }).ToList();
 
             model.Manufactures = (from obj in unitOfWork.Manufactures.Get()
+                                  orderby obj.ManufactureName
                                   select new SelectListItem
                                   {
                                       Text = obj.ManufactureName.ToUpper(),
@@ -132,6 +137,7 @@ namespace InevntoryManagement.Controllers
                                   }).ToList();
 
             model.Bins = (from obj in unitOfWork.Bins.Get()
+                          orderby obj.BinNo
                           select new SelectListItem
                           {
                               Text = obj.BinNo,
@@ -141,6 +147,7 @@ namespace InevntoryManagement.Controllers
                           }).ToList();
 
             model.Colors = (from obj in unitOfWork.Colors.Get()
+                            orderby obj.ColorName
                             select new SelectListItem
                             {
                                 Text = obj.ColorName,
@@ -158,6 +165,7 @@ namespace InevntoryManagement.Controllers
             //                      }).ToList();
 
             model.Sizes = (from obj in unitOfWork.Sizes.Get().Where(x=> x.SizeType.ToString()==model.SizeType)
+                           orderby obj.ProductSize
                            select new SelectListItem
                            {
                                Text = obj.ProductSize,
@@ -278,10 +286,14 @@ namespace InevntoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductList()
-        {
+        public IActionResult ProductList(int? pagenumber, int? _pagesize)
+        { 
+            int pagesize = _pagesize ?? 10 ;
 
-            return View();
+            var porduct = PaginatedList<ProductListViewModel>.Create(GetProductListViewLoadedFromDatabas(), pagenumber ?? 1, pagesize);
+                
+
+            return View(porduct);
         }
 
 
@@ -433,36 +445,7 @@ namespace InevntoryManagement.Controllers
         [HttpGet]
         public JsonResult LoadDataTable()
         {
-            var output = (from cats in unitOfWork.Categories.Get()
-                          join brands in unitOfWork.Brands.Get()
-                          on cats.Id equals brands.CategoryId
-                          join models in unitOfWork.Models.Get()
-                          on brands.Id equals models.BrandId
-                          join products in unitOfWork.Products.Get()
-                          on models.Id equals products.ModelId into egroups
-                          from products in egroups
-                          select new ProductListViewModel()
-                          {
-                              Id = products.Id,
-                              BrandName = brands.BrandName,
-                               Category= cats.CType,
-                              BinNo = products.Bin,
-                              Code = products.Code,
-                              Color = products.Color,
-                              CreatedDate = products.CreatedDate,
-                              Description = products.Description,
-                              DiscountPrice = products.DiscountPrice,
-                              ManufactureName = products.Manufacture,
-                              ModelName = models.ModelName,
-                              OpeningBalance = products.OpeningBalance,
-                              OpeningQty = products.OpeningQty,
-                              PhotoPath = products.PhotoPath,
-                              Remarks = products.Remarks,
-                              SizeName = products.Size,
-                              SizeType = products.SizeType,
-                              Unitprice = products.Unitprice,
-                              VendorName = products.Vendor,
-                          }).ToList();
+            List<ProductListViewModel> output = GetProductListViewLoadedFromDatabas();
 
             string o = JsonConvert.SerializeObject(output);
 
@@ -472,13 +455,47 @@ namespace InevntoryManagement.Controllers
 
         }
 
-
+        //ProductListData Retirved from Database
+        List<ProductListViewModel> GetProductListViewLoadedFromDatabas()
+        {
+            return (from cats in unitOfWork.Categories.Get()
+                    join brands in unitOfWork.Brands.Get()
+                    on cats.Id equals brands.CategoryId
+                    join models in unitOfWork.Models.Get()
+                    on brands.Id equals models.BrandId
+                    join products in unitOfWork.Products.Get()
+                    on models.Id equals products.ModelId into egroups
+                    from products in egroups
+                    orderby products.Description
+                    select new ProductListViewModel()
+                    {
+                        Id = products.Id,
+                        BrandName = brands.BrandName,
+                        Category = cats.CType,
+                        BinNo = products.Bin,
+                        Code = products.Code,
+                        Color = products.Color,
+                        CreatedDate = products.CreatedDate,
+                        Description = products.Description,
+                        DiscountPrice = products.DiscountPrice,
+                        ManufactureName = products.Manufacture,
+                        ModelName = models.ModelName,
+                        OpeningBalance = products.OpeningBalance,
+                        OpeningQty = products.OpeningQty,
+                        PhotoPath = products.PhotoPath,
+                        Remarks = products.Remarks,
+                        SizeName = products.Size,
+                        SizeType = products.SizeType,
+                        Unitprice = products.Unitprice,
+                        VendorName = products.Vendor,
+                    }).ToList();
+        }
 
 
         [HttpGet]
         public JsonResult FindBrandByCategoryId(int catid)
         {
-            var output = unitOfWork.Brands.Get().Where(x => x.CategoryId == catid).ToList();
+            var output = unitOfWork.Brands.Get().Where(x => x.CategoryId == catid).ToList().OrderBy(x => x.BrandName);
             bool success = false;
             if (output != null)
             {
@@ -492,7 +509,7 @@ namespace InevntoryManagement.Controllers
         [HttpGet]
         public JsonResult FindModelByBrandID(int brandid)
         {
-            var output = unitOfWork.Models.Get().Where(x => x.BrandId == brandid).ToList();
+            var output = unitOfWork.Models.Get().Where(x => x.BrandId == brandid).ToList().OrderBy(x=>x.ModelName);
             bool success = false;
             if (output != null)
             {
