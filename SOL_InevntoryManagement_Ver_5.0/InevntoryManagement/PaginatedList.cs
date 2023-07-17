@@ -10,8 +10,10 @@ namespace InevntoryManagement
       public  int PageIndex { get; set; }
         public int TotalPage { get; set; }
         public int PageSize { get; set; }
+        public string SearchText { get; set; }
 
-        public PaginatedList(List<T> Items,int count,int pageindex,int pagesize)
+
+        public PaginatedList(List<T> Items,int count,int pageindex,int pagesize )
         {
             this.PageIndex = pageindex;
             this.TotalPage = (int)Math.Ceiling(count / (double)pagesize);
@@ -24,6 +26,8 @@ namespace InevntoryManagement
         public bool HasNextPage => PageIndex < TotalPage;
         public static PaginatedList<T> Create(List<T> Source,int pageIndex, int pageSize)
         {
+          
+
             int count = Source.Count();
             var items = Source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return new PaginatedList<T>(items, count, pageIndex, pageSize);

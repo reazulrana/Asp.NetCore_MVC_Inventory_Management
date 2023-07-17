@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +30,5 @@ namespace InevntoryManagement.ViewModels.Products
         public string PhotoPath { get; set; }
         public string Remarks { get; set; }
         public int DiscountPrice { get; set; }
-
-
     }
 }

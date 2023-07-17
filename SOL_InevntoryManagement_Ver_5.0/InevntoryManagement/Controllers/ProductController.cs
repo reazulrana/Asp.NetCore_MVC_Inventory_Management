@@ -286,12 +286,59 @@ namespace InevntoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductList(int? pagenumber, int? _pagesize)
-        { 
-            int pagesize = _pagesize ?? 10 ;
+        public IActionResult ProductList(int? pagenumber, int? PageSize, string SearchText = null)
+        {
 
-            var porduct = PaginatedList<ProductListViewModel>.Create(GetProductListViewLoadedFromDatabas(), pagenumber ?? 1, pagesize);
-                
+            List<ProductListViewModel> productlist = GetProductListViewLoadedFromDatabas();
+
+            int pagesize = PageSize ?? 4 ;
+            
+            
+            if (SearchText != null)
+            {
+                pagenumber = 1;
+                productlist = GetProductListViewLoadedFromDatabas().Where(x => x.Code.ToUpper().Contains(SearchText.ToUpper()) || x.Description.ToUpper().Contains(SearchText.ToUpper()) || x.Category.ToUpper().Contains(SearchText.ToUpper())).ToList();
+
+            };
+
+            var porduct = PaginatedList<ProductListViewModel>.Create(productlist.ToList(), pagenumber ?? 1 , pagesize);
+            
+            porduct.SearchText = SearchText;
+                        
+            List<SelectListItem> rowsize = new List<SelectListItem>()
+            { new SelectListItem(){
+                 Value="3",
+                  Text="3",
+                  Selected=pagesize==3 ? true :false 
+            },
+
+                  new SelectListItem(){
+                 Value="4",
+                  Text="4",
+                  Selected=pagesize==4 ? true :false
+            },
+                 new SelectListItem(){
+                 Value="5",
+                  Text="5",
+                  Selected=pagesize==5 ? true :false
+            },
+
+                 new SelectListItem(){
+                 Value="10",
+                  Text="10",
+                  Selected=pagesize==10 ? true :false
+            },
+
+                 new SelectListItem(){
+                 Value="25",
+                  Text="25",
+                  Selected=pagesize==25 ? true :false
+            },
+
+            };
+
+            ViewBag.rowSize = rowsize;
+
 
             return View(porduct);
         }

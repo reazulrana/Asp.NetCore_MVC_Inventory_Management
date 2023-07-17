@@ -12,84 +12,107 @@
         <h3 class="card-title text-white">Product List</h3>
     </div>
     <div class="card-body">
-        <div class="row py-4">
-            <div class="col-sm-3">
-                <select class="form-control" name="_pagesize">
-                    <option value="10"><a asp-controller="Product" asp-action="ProductList" asp-route-_pagesize="10"></a>10</option>
-                </select>
-            </div>
-            <div class="col-sm-9 float-right">
-                <div class="input-group pull-right">
-                    <input placeholder="Search" class="form-control col-sm-3" />
-                    <button class="btn btn-facebook"><span><i class="la la-search"></i></span></button>
+        <form method="get" asp-controller="Product" asp-action="ProductList">
+
+            <div class="row pb-5">
+
+                <div class="col-sm-3">
+
+                    <div class="input-group">
+                        <input asp-for="@Model.SearchText" placeholder="Search" class="form-control pull-right" />
+                        <span class="input-group-append"><button class="btn btn-facebook pull-right" title="Search"><span><i class="la la-search"></i></span></button></span>
+
+                    </div>
+
                 </div>
+
+                <div class="col-sm-3">
+                    <div class="row text-center">
+                        <div class="input-group">
+                            <select class="form-control" name="PageSize" asp-items="@ViewBag.rowSize as List<SelectListItem>">
+                                <option selected="selected">Select Row</option>
+                            </select>
+                            <span class="input-group-append"><button class="btn btn-facebook btn-xs"><i class="la la-2x la-refresh"></i></button></span>
+                        </div>
+                    </div>
+                        
+                     
+
+                </div>
+
             </div>
+        </form>
+
+
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <table class="table table-responsive-md table-bordered text-center" id="productList">
+                    <thead class="bg-secondary">
+                        <tr class="text-white">
+                            <th>SL</th>
+                            <th>Image</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Model</th>
+                            <th>Size</th>
+                            <th>Color</th>
+                            <th>Unit Price</th>
+                            <th colspan="2">Action</th>
+
+
+
+                            @*<th>SizeName</th>
+                                <th>SizeType</th>
+                                <th>Unitprice</th>
+                                <th>OpeningBalance</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        int sl = ((Model.PageIndex - 1) * Model.PageSize) == 0 ? 1 : ((Model.PageIndex - 1) * Model.PageSize) + 1;
+
+                        foreach (var _model in Model)
+                        {
+                            string photopath = @_model.PhotoPath != null ? "~/" + ImagePath.GetProductImagePath(_model.PhotoPath) : ImagePath.GetBlankImageFromRootFolder();
+                            // string url = @_model.PhotoPath != null ? ImagePath.GetProductImagePath(_model.PhotoPath) : ImagePath.GetBlankImageFromRootFolder();
+                            <tr>
+                                <td>@sl</td>
+                                <td>
+
+                                    <img class="rounded" src="@photopath" asp-append-version="true" width="90" height="90" alt="No-Image" />
+
+                                </td>
+                                <td>@_model.Code</td>
+                                <td>@_model.Description</td>
+                                <td>@_model.ModelName</td>
+                                <td>@_model.SizeName</td>
+                                <td>@_model.Color</td>
+                                <td>@_model.Unitprice</td>
+                                <td>
+                                    <a asp-action="Edit" asp-controller="Product" asp-route-id="@_model.Id" class="btn btn-outline-secondary btn-xs">Edit<span class="btn-icon-right"><i class="mdi mdi-pencil"></i></span></a>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-xs">Delete<span class="btn-icon-right"><i class="mdi mdi-delete"></i></span></button>
+                                </td>
+
+
+                            </tr>
+                            sl = sl + 1;
+                        }
+
+                    }
+                </table>
+            </div>
+
         </div>
 
-        
-
-        <table class="table table-responsive table-bordered table-striped" id="productList">
-            <thead>
-                <tr>
-                    <th>SL</th>
-                    <th>Image</th>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>Model</th>
-                    <th>Size</th>
-                    <th>Color</th>
-                    <th>Unit Price</th>
-                    <th>Action</th>
-
-
-                    @*<th>SizeName</th>
-                    <th>SizeType</th>
-                    <th>Unitprice</th>
-                    <th>OpeningBalance</th>*@
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            @if (Model != null && Model.Count > 0)
-            {
-                int sl = ((Model.PageIndex - 1) * Model.PageSize) == 0 ? 1 : ((Model.PageIndex - 1) * Model.PageSize) + 1;
-
-                foreach (var _model in Model)
-                {
-                    string photopath = @_model.PhotoPath != null ? "~/" + ImagePath.GetProductImagePath(_model.PhotoPath) : ImagePath.GetBlankImageFromRootFolder();
-                    // string url = @_model.PhotoPath != null ? ImagePath.GetProductImagePath(_model.PhotoPath) : ImagePath.GetBlankImageFromRootFolder();
-                    <tr>
-                        <td>@sl</td>
-                        <td>
-
-                            <img class="rounded" src="@photopath" asp-append-version="true" width="90" height="90" alt="No-Image" />
-
-                        </td>
-                        <td>@_model.Code</td>
-                        <td>@_model.Description</td>
-                        <td>@_model.ModelName</td>
-                        <td>@_model.SizeName</td>
-                        <td>@_model.Color</td>
-                        <td>@_model.Unitprice</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <button class="btn btn-outline-secondary btn-xs">Edit<span class="btn-icon-right"><i class="mdi mdi-pencil"></i></span></button>
-                                    <button class="btn btn-outline-danger btn-xs">Delete<span class="btn-icon-right"><i class="mdi mdi-delete"></i></span></button>
-                                </div>
-                            </div>
-
-                        </td>
-
-
-                    </tr>
-                    sl = sl + 1;
-                }
-
-            }
-        </table>
 
         @*Pagination Bar*@
+
+
+
 
         @{
             int PreviousPage = (Model.PageIndex - 1) <= 0 ? 1 : Model.PageIndex - 1;
@@ -97,56 +120,85 @@
 
             int pagestart = 1;
             int pageEnd = Model.TotalPage;
+            bool isFirstPageActive = !Model.HasPreviousPage;
+            bool isLastPageActive = !Model.HasNextPage;
 
 
         }
-        <nav>
-            <ul class="pagination pagination-sm pagination-danger">
-                <li class="page-item page-indicator">
-                    <a class="page-link" asp-controller="Product" asp-action="ProductList" asp-route-pagenumber="@pagestart">
-                        @*<i class="fa fa-arrow-left"></i>*@
-                        <i class="la la-angle-double-left"></i>
-                    </a>
-                </li>
+        <div class="btn-toolbar">
+            <div class="btn-group">
+            
 
-                <li class="page-item page-indicator">
-                    <a class="page-link" asp-controller="Product" asp-action="ProductList" asp-route-pagenumber="@PreviousPage">
-                        <i class="la la-angle-left"></i>
-                    </a>
-                </li>
-                @for (int i = 1; i <= Model.TotalPage; i++)
-                {
-                    <li class="page-item">
-                        <a class="page-link" asp-controller="Product" asp-action="ProductList" asp-route-pagenumber="@i">@i</a>
-                    </li>
-                }
-                <li class="page-item page-indicator">
-                    <a class="page-link" asp-controller="Product" asp-action="ProductList" asp-route-pagenumber="@NextPage">
-                        <i class="la la-angle-right"></i>
-                    </a>
-                </li>
-                <li class="page-item page-indicator">
-                    <a class="page-link" asp-controller="Product" asp-action="ProductList" asp-route-pagenumber="@pageEnd">
-                        @*<i class="fa fa-arrow-left"></i>*@
-                        <i class="la la-angle-double-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+                        <form method="get" asp-controller="Product" asp-action="ProductList">
+
+                                <button disabled="@isFirstPageActive" class="@(isFirstPageActive ? "btn btn-xs btn-outline-dark" : "btn btn-xs btn-outline-danger")" title="@(isFirstPageActive ? "disabled" : "Active" )"><span><i class="la la-angle-double-left"></i></span> </button>
+                                <input hidden name="pagenumber" value="@pagestart" />
+                                <input hidden asp-for="@Model.SearchText" />
+                                <input hidden asp-for="@Model.PageSize" />
+                        </form>
+
+                
+
+                        <form method="get" asp-controller="Product" asp-action="ProductList">
+
+                                <button disabled="@isFirstPageActive" class="@(isFirstPageActive ? "btn btn-xs btn-outline-dark" : "btn btn-xs btn-outline-danger")" title="@(isFirstPageActive ? "disabled" : "Active" )"><span><i class="la la-angle-left"></i></span> </button>
+                                <input hidden name="pagenumber" value="@PreviousPage" />
+                                <input hidden asp-for="@Model.SearchText" />
+                                <input hidden asp-for="@Model.PageSize" />
+                        </form>
+                    @for (int i = 1; i <= Model.TotalPage; i++)
+                    {
+
+
+                        <form method="get" asp-controller="Product" asp-action="ProductList" asp-route-pagenumber="@i">
+                            <button class="btn_paginate @(i==Model.PageIndex ? "active" : "" ) btn btn-xs btn-outline-danger">@i</button>
+                            <input hidden name="pagenumber" value="@i" />
+                            <input hidden asp-for="@Model.SearchText" />
+                            <input hidden asp-for="@Model.PageSize" />
+                        </form>
+
+                    }
+
+                        <form method="get" asp-controller="Product" asp-action="ProductList">
+                            <div class="page-item">
+                                <button disabled="@isLastPageActive"  class="@(isLastPageActive ? "btn btn-xs btn-outline-dark" : "btn btn-xs btn-outline-danger")" title="@(isLastPageActive ? "disabled" : "Active" )"><span><i class="la la-angle-right"></i></span> </button>
+                                <input hidden name="pagenumber" value="@NextPage" />
+                                <input hidden asp-for="@Model.SearchText" />
+                                <input hidden asp-for="@Model.PageSize" />
+                            </div>
+                        </form>
+                        <form method="get" asp-controller="Product" asp-action="ProductList">
+                                <button disabled="@isLastPageActive" class="@(isLastPageActive ? "btn btn-xs btn-outline-dark" : "btn btn-xs btn-outline-danger")"><span><i class="la la-angle-double-right" title="@(isLastPageActive ? "disabled" : "Active" )"></i></span> </button>
+                                <input hidden name="pagenumber" value="@pageEnd" />
+                                <input hidden asp-for="@Model.SearchText" />
+                                <input hidden asp-for="@Model.PageSize" />
+                        </form>
+
+            </div>
+        </div>
 
 
     </div>
     <div class="card-footer">
 
     </div>
-</div>
+    </div>
 
 
-@section Scripts{
-    <script>
+    @section Scripts{
+        <script>
         $(document).ready(function () {
 
+            $(".btn_paginate").click(function () {
+                var blnlast = $(this).find("span").find("i").hasClass("la")
 
+                if (btnlast == true)
+                {
+                    $(this).prop("disabled", true);
+                }
+                
+                
+            });
 
             function loadDataTable() {
 
@@ -231,8 +283,8 @@
 
 
         })
-    </script>
+        </script>
 
 
 
-}
+    }
