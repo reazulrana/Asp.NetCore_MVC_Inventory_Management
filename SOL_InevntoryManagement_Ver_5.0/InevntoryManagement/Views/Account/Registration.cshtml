@@ -1,0 +1,70 @@
+﻿@model RegisterViewModel
+@{ ViewBag.Title = "User Registration";
+    Layout = null; }
+
+
+<partial name="~/Views\Shared\Css_Scripts\_headerScriptsFiles.cshtml" />
+
+<div class="authincation h-100">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-md-6">
+                <div class="authincation-content">
+                    <div class="row no-gutters">
+                        <div class="col-xl-12">
+                            <div class="auth-form">
+                                <div class="text-center mb-3">
+                                    <img src="images/logo-full.png" alt="">
+                                </div>
+                                <div class="row">
+                                    <div asp-validation-summary="All" class="text-danger">
+
+                                    </div>
+                                </div>
+                                <h4 class="text-center mb-4">Sign up your account</h4>
+                                <form method="Post" asp-contrller="Account" asp-action="Registration">
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="mb-1"><strong>Email Address</strong></label>
+
+                                        <div class="input-group">
+                                            <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="la la-envelope"></i></button></span>
+
+                                            <input asp-for="Email" type="text" class="form-control" placeholder="Enter Email Address">
+                                            <span class="text-danger" asp-validation-for="Email"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Password" class="mb-1"><strong>Password</strong></label>
+                                        <div class="input-group">
+                                            <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="la la-key"></i></button></span>
+
+                                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter Password">
+                                            <span class="text-danger" asp-validation-for="Password"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="ConfirmPassword" class="mb-1"><strong>Confirm Password</strong></label>
+                                        <div class="input-group">
+                                            <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="la la-key"></i></button></span>
+                                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Enter Confirm Password">
+                                        </div>
+                                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary btn-block">Sign me up</button>
+                                    </div>
+                                </form>
+                                <div class="new-account mt-3">
+                                    <p>Already have an account? <a class="text-primary" asp-controller="Account" asp-action="Login">Sign in</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="~/Views\Shared\Css_Scripts\_footerScriptsFiles.cshtml" />

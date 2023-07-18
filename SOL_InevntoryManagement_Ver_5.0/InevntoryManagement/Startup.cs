@@ -13,7 +13,8 @@ using DataAccessLayer;
 using Microsoft.AspNetCore.Identity;
 using DataAccessLayer.Services.Interface;
 using DataAccessLayer.Services.Repository;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace InevntoryManagement
 {
@@ -40,15 +41,35 @@ namespace InevntoryManagement
             services.AddDbContext<AppDbContext>
             (options => options.UseSqlServer(_config.GetConnectionString("DatabasDbConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
-            services.AddControllers().AddNewtonsoftJson();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+
+            });
+            //services.AddControllers().AddNewtonsoftJson();
 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddMvc(options=>options.EnableEndpointRouting=false);
+             //policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+             //use for identityuser
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+                //var policy = new AuthorizationPolicyBuilder()
+                //            .RequireAuthenticatedUser().Build();
+                //options.Filters.Add(new AuthorizeFilter(policy));
+
+            });
             
             //for enable httpcontext session variable
             
@@ -79,7 +100,7 @@ namespace InevntoryManagement
 
 
             app.UseEndpoints(endpoints => {
-                endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller=Account}/{action=Login}/{id?}");
             });
             //app.UseMvc(route =>
             //{
