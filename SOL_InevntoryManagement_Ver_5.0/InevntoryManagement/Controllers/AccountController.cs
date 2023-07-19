@@ -55,7 +55,8 @@ namespace InevntoryManagement.Controllers
 
                 if (result.Succeeded)
                 {
-                    RedirectToAction("Index", "Home");
+
+                    return RedirectToAction("index", "Home");
                 }
 
             }
@@ -68,11 +69,131 @@ namespace InevntoryManagement.Controllers
         public IActionResult Registration_Admin()
         {
             RegistrationAdminViewModel model = new RegistrationAdminViewModel();
+
+
+            model.Roles= UserRolesLoad(model.Roles);
+           
+                        return View(model);
+
+            
+        }
+
+
+       
+
+
+        [HttpPost]
+        //[Authorize(Roles ="Admin")]
+        public async Task<IActionResult> Registration_Admin(RegistrationAdminViewModel model)
+        {
+
+
+            if (ModelState.IsValid)
+            {
+                    IdentityRole _IdentityRole = null;
+                IdentityResult _IdentityResult = null;
+
+
+                ApplicationUser user = new ApplicationUser()
+                {
+                    UserName = model.Email,
+                    Email = model.Email
+                };
+
+                var userresult = await userManager.CreateAsync(user, model.Password);
+
+
+                if (userresult.Succeeded)
+                {
+                    //login if register successfully
+
+                    var login = await signInManager.PasswordSignInAsync(user.Email, model.Password, false, false);
+
+                    if (roleManager.Roles.Count() > 0)
+                    {
+                        //chekc role is exist or not into the database
+                        _IdentityRole = roleManager.Roles.Where(x => x.Id == model.UserRole).FirstOrDefault();
+
+                    }
+
+                    if(_IdentityRole!=null)
+                    {
+
+                        if(!(await userManager.IsInRoleAsync(user, _IdentityRole.Name)))
+                        {
+                          _IdentityResult= await userManager.AddToRoleAsync(user, _IdentityRole.Name);
+                        }
+                        if (_IdentityResult.Succeeded)
+                        {
+                            if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                            {
+                                RedirectToAction("Index", "Home");
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        IdentityRole role = new IdentityRole()
+                        {
+                            Name = model.UserRole
+                        };
+                        
+                        _IdentityResult = await roleManager.CreateAsync(role);
+
+                        if (_IdentityResult.Succeeded)
+                        {
+                            var addresult= await userManager.AddToRoleAsync(user, role.Name);
+                            if (addresult.Succeeded)
+                            {
+                                
+                                if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                                {
+                                    RedirectToAction("Index", "Home");
+
+                                }
+                            }
+
+                        }
+                    }
+                    
+
+                    if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+             
+
+            }
+
+            model.Roles = UserRolesLoad(model.Roles);
+            return View(model);
+        }
+
+
+
+        [HttpGet]
+        //[Authorize(Roles ="Admin")]
+        public IActionResult Registration()
+        {
+            return View();
+        }
+
+
+
+        //if role is empty then load deafault role to List<SelectListItem>
+        // if role found to the database then load from database to List<SelectListItem> 
+        private List<SelectListItem> UserRolesLoad(List<SelectListItem> model)
+        {
+
+            //check is role found in database or not
             var roles = roleManager.Roles;
+
 
             if (roles.Count() == 0)
             {
-                model.Roles = new List<SelectListItem>()
+                model = new List<SelectListItem>()
                 {
                     new SelectListItem()
                     {
@@ -86,69 +207,18 @@ namespace InevntoryManagement.Controllers
             }
             else
             {
-                model.Roles = (from obj in roleManager.Roles
-                               select new SelectListItem()
-                               {
-                                   Value = obj.Id,
-                                   Text = obj.Name,
+                model = (from obj in roleManager.Roles
+                         select new SelectListItem()
+                         {
+                             Value = obj.Id,
+                             Text = obj.Name,
 
-                               }).ToList();
+                         }).ToList();
             }
-                        return View(model);
-
-        }
-
-        [HttpPost]
-        //[Authorize(Roles ="Admin")]
-        public async Task<IActionResult> Registration_Admin(RegistrationAdminViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                
-
-
-                ApplicationUser user = new ApplicationUser()
-                {
-                    UserName = model.Email,
-                    Email = model.Email
-                };
-
-                var result = await userManager.CreateAsync(user, model.Password);
-
-
-                if (result.Succeeded)
-                {
-                    IdentityRole role = new IdentityRole()
-                    {
-                        Name = model.UserRole
-                    };
-                    var roleresult = roleManager.CreateAsync(role);
-                    if (roleresult != null)
-                    {
-                        await userManager.AddToRoleAsync(user, role.Name);
-                    }
-
-                    if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-
-            }
-            return View();
+            return model;
         }
 
 
 
-        [HttpGet]
-        //[Authorize(Roles ="Admin")]
-        public IActionResult Registration()
-        {
-            return View();
-        }
-
-      
-       
-    
     }
 }

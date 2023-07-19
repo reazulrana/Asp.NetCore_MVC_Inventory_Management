@@ -28,7 +28,7 @@
                                         <label asp-for="Email" class="mb-1"><strong>Email Address</strong></label>
 
                                         <div class="input-group">
-                                            <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="la la-envelope"></i></button></span>
+                                            <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="mdi mdi-envelope"></i></button></span>
 
                                             <input asp-for="Email" type="text" class="form-control" placeholder="Enter Email Address">
                                             <span class="text-danger" asp-validation-for="Email"></span>
@@ -58,11 +58,10 @@
                                         <label asp-for="ConfirmPassword" class="mb-1"><strong>Confirm Password</strong></label>
                                         <div class="input-group">
                                             <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="la la-gear"></i></button></span>
-                                           <select class="form-control" asp-items="@Model.Roles">
+                                           <select asp-for="UserRole" class="form-control" asp-items="@Model.Roles">
                                                <option value="">Select Roles</option>
                                            </select>
                                         </div>
-                                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                                     </div>
 
                                     <div class="text-center mt-4">

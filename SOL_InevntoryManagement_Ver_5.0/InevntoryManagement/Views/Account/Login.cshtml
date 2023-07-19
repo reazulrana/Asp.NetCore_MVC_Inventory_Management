@@ -16,7 +16,7 @@
                                     <img src="images/logo-full.png" alt="">
                                 </div>
                                 <h4 class="text-center mb-4">Sign in your account</h4>
-                                <form action="index.html">
+                                <form method="post" asp-controller="Account" asp-action="Login"> 
                                     <div class="form-group">
                                         <label class="mb-1"><strong>Email</strong></label>
                                         <input asp-for="Email" type="email" class="form-control" placeholder="Enter Email Address">
@@ -41,7 +41,7 @@
                                     </div>
                                 </form>
                                 <div class="new-account mt-3">
-                                    <p>Don't have an account? <a class="text-primary" href="page-register.html">Sign up</a></p>
+                                    <p>Don't have an account? <a asp-controller="Account" asp-action="Registration_Admin" class="text-primary" >Sign up</a></p>
                                 </div>
                             </div>
                         </div>

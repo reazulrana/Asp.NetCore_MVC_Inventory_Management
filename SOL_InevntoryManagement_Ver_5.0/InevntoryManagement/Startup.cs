@@ -59,12 +59,13 @@ namespace InevntoryManagement
 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>();
 
              //policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
              //use for identityuser
             services.AddMvc(options =>
             {
-                options.EnableEndpointRouting = false;
+                //options.EnableEndpointRouting = false;
                 //var policy = new AuthorizationPolicyBuilder()
                 //            .RequireAuthenticatedUser().Build();
                 //options.Filters.Add(new AuthorizeFilter(policy));
