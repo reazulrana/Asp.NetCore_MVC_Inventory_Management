@@ -4,6 +4,24 @@
     Layout = null; }
 <partial name="~/Views\Shared\Css_Scripts\_headerScriptsFiles.cshtml" />
 
+<style>
+    body {
+        justify-content: center;
+        align-items: center;
+        background-color: gray;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .auth-form {
+        backdrop-filter: blur(60px) brightness(200%);
+    }
+
+</style>
+
+
+
+
 <div class="authincation h-100">
     <div class="container h-100">
         <div class="row justify-content-center h-100 align-items-center">
@@ -13,33 +31,49 @@
                         <div class="col-xl-12">
                             <div class="auth-form">
                                 <div class="text-center mb-3">
-                                    <img src="images/logo-full.png" alt="">
+                                    <img src="~/Projects/Images/Logo/Marnia_Logo.png" height="100" width="100" alt="">
+                                    <h3 class="text-secondary m-2">Marnia Leather</h3>
                                 </div>
-                                <h4 class="text-center mb-4">Sign in your account</h4>
+                                <h4 class="text-center text-secondary mb-4">Sign in your account</h4>
                                 <form method="post" asp-controller="Account" asp-action="Login"> 
-                                    <div class="form-group">
-                                        <label class="mb-1"><strong>Email</strong></label>
-                                        <input asp-for="Email" type="email" class="form-control" placeholder="Enter Email Address">
+                                    <div asp-validation-summary="All" class="text-danger">
+
                                     </div>
+                                    
                                     <div class="form-group">
-                                        <label class="mb-1"><strong>Password</strong></label>
-                                        <input asp-for="Password" type="password" class="form-control" placeholder="Enter Email Password">
+                                        <label asp-for="Email" class="mb-1"><strong>Email</strong></label>
+                                        <div class="input-group">
+                                            <span class="input-group-prepend"><button type="button" class="btn btn-xs btn-facebook"><span><i class="la la-user"></i></span></button></span>
+                                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter Email Address">
+                                        </div>
+
+                                        <span class="text-danger" asp-validation-for="Email"></span>
+
                                     </div>
-                                    <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                         <div class="form-group">
-                                            <div class="custom-control custom-checkbox ml-1">
-                                                <input asp-for="IsRemember" type="checkbox" class="custom-control-input" id="basic_checkbox_1">
-                                                <label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>
+                                            "
+                                            <label asp-for="Password" class="mb-1"><strong>Password</strong></label>
+                                            <div class="input-group">
+                                                <span class="input-group-prepend"><button type="button" class="btn btn-xs btn-facebook"><span><i class="la la-key"></i></span></button></span>
+                                                <input asp-for="Password" type="password" class="form-control" placeholder="Enter Email Password">
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="Password"></span>
+                                        </div>
+                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox ml-1">
+                                                    <input asp-for="IsRemember" type="checkbox" class="custom-control-input" id="basic_checkbox_1">
+                                                    <label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <a href="page-forgot-password.html">Forgot Password?</a>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <a href="page-forgot-password.html">Forgot Password?</a>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
                                         </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
-                                    </div>
-                                </form>
+</form>
                                 <div class="new-account mt-3">
                                     <p>Don't have an account? <a asp-controller="Account" asp-action="Registration_Admin" class="text-primary" >Sign up</a></p>
                                 </div>

@@ -1,0 +1,42 @@
+﻿@*@inject SignInManager<ApplicationUser> signinManager*@
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+
+    <partial name="~/Views\Shared\Css_Scripts\_headerScriptsFiles.cshtml" />
+
+</head>
+<body>
+    <div id="main-wrapper">
+     
+
+        <partial name="_sidebar" />
+
+
+        <div class="content-body">
+
+
+            <div class="container-fluid">
+
+                @RenderBody()
+            </div>
+        </div>
+
+    </div> <!--End Main-wrapper-->
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <partial name="~/Views\Shared\Css_Scripts\_footerScriptsFiles.cshtml" />
+
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts", true)
+    }
+</body>
+</html>
+
+
+

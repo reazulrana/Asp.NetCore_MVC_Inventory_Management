@@ -15,38 +15,42 @@
                         <div class="col-xl-12">
                             <div class="auth-form">
                                 <div class="text-center mb-3">
-                                    <img src="images/logo-full.png" alt="">
+                                    <img src="~/Projects/Images/Logo/Marnia_Logo.png" height="100" width="100" alt="">
+                                    <h3 class="text-secondary m-2">Marnia Leather</h3>
                                 </div>
+                                <h4 class="text-center text-secondary mb-4">Sign up your account</h4>
+
                                 <div class="row">
                                     <div asp-validation-summary="All" class="text-danger">
 
                                     </div>
                                 </div>
-                                <h4 class="text-center mb-4">Sign up your account</h4>
                                 <form method="Post" asp-contrller="Account" asp-action="Registration_Admin">
                                     <div class="form-group">
-                                        <label asp-for="Email" class="mb-1"><strong>Email Address</strong></label>
+                                        <label asp-for="Email" class="mb-1 text-secondary"><strong>Email Address</strong></label>
 
                                         <div class="input-group">
-                                            <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="mdi mdi-envelope"></i></button></span>
+                                            <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="la la-envelope"></i></button></span>
 
                                             <input asp-for="Email" type="text" class="form-control" placeholder="Enter Email Address">
-                                            <span class="text-danger" asp-validation-for="Email"></span>
                                         </div>
+
+                                        <span class="text-danger" asp-validation-for="Email"></span>
                                     </div>
 
                                     <div class="form-group">
-                                        <label asp-for="Password" class="mb-1"><strong>Password</strong></label>
+                                        <label asp-for="Password" class="mb-1 text-secondary"><strong>Password</strong></label>
                                         <div class="input-group">
                                             <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="la la-key"></i></button></span>
 
-                                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter Password">
-                                            <span class="text-danger" asp-validation-for="Password"></span>
+                                            <input asp-for="Password" type="password" class="form-control text-blue" placeholder="Enter Password">
                                         </div>
+
+                                        <span class="text-danger" asp-validation-for="Password"></span>
 
                                     </div>
                                     <div class="form-group">
-                                        <label asp-for="ConfirmPassword" class="mb-1"><strong>Confirm Password</strong></label>
+                                        <label asp-for="ConfirmPassword" class="mb-1 text-secondary"><strong>Confirm Password</strong></label>
                                         <div class="input-group">
                                             <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="la la-key"></i></button></span>
                                             <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Enter Confirm Password">
@@ -55,12 +59,12 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label asp-for="ConfirmPassword" class="mb-1"><strong>Confirm Password</strong></label>
+                                        <label asp-for="ConfirmPassword" class="mb-1 text-secondary"><strong>Confirm Password</strong></label>
                                         <div class="input-group">
                                             <span class="input-group-prepend"><button class="btn btn-secondary light"><i class="la la-gear"></i></button></span>
-                                           <select asp-for="UserRole" class="form-control" asp-items="@Model.Roles">
-                                               <option value="">Select Roles</option>
-                                           </select>
+                                            <select asp-for="UserRole" class="form-control" asp-items="@Model.Roles">
+                                                <option value="">Select Roles</option>
+                                            </select>
                                         </div>
                                     </div>
 

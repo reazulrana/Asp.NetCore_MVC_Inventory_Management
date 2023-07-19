@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace InevntoryManagement.ViewModels.Account
         [Required]
         [EmailAddress]
         [Display(Name ="User Name")]
-        //[Remote("IsEmailInUse", "Account")]
+        [Remote("IsEmailInUse", "Account")]
         //[ValidEmailDomain(domainName: "gmail.com", ErrorMessage = "Email Domain Must Be gmail.com")]
         public string Email { get; set; }
         [Required]

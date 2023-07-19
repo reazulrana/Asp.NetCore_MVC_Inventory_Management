@@ -59,6 +59,11 @@ namespace InevntoryManagement.Controllers
                     return RedirectToAction("index", "Home");
                 }
 
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                ModelState.AddModelError(string.Empty, "Email Or Password Is Incorrect");
+
+
+
             }
 
             return View();
@@ -218,7 +223,34 @@ namespace InevntoryManagement.Controllers
             return model;
         }
 
+        
+        [AcceptVerbs("Get","Post")]
+        public IActionResult IsEmailInUse(string email)
+        {
+            ApplicationUser checkEmail = null;
+            if (email != null) 
+            { 
+                checkEmail = userManager.Users.Where(x => x.Email.ToLower() == email.ToLower()).FirstOrDefault();
+            }
+            if(checkEmail==null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json($"The Email { email } You Enterd Is Duplicate");
+            }
 
+
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
 
     }
 }

@@ -10,11 +10,7 @@
     border:0.5px solid rgb(230,230,230)!important;
 
 }
-.la-angle-left
-{
-    padding:0px;
-    margin:0px;
-}
+
 .card-header {
     background-color: crimson !important;
 }
@@ -35,9 +31,7 @@ input, select {
     border: 1px solid rgba(0,0,0,0.15) !important
 }
 
-.dataTable{
-    background-color:white!important;
-}
+
 .btn-primary {
     background-color: #007BFD;
     border: #007BFD;
