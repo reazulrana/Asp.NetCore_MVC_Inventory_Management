@@ -258,7 +258,7 @@ namespace InevntoryManagement.Controllers
 
 
                 unitOfWork.Products.Insert(product);
-                Global_Functions.SetMessage("Product Created Successfully", "suceess");
+                Global_Functions.SetMessage("Product Created Successfully", "success");
                 return View(model);
 
             }

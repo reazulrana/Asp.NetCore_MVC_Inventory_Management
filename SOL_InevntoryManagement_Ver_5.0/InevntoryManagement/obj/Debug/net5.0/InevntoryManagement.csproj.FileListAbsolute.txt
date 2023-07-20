@@ -206,3 +206,4 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Account\Registration_Admin.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\_Admin_Layout.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\_Ecommerce_Layout.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Product\_productDetails.cshtml.g.cs

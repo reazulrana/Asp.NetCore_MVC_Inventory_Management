@@ -1,13 +1,15 @@
 ﻿@inject SignInManager<ApplicationUser> signinManager
 @{
-    if(signinManager.IsSignedIn(User) && User.IsInRole("Admin"))
-    {
-        Layout = "_Admin_Layout";
 
-    }
-    else
-    {
-        Layout = "_Ecommerce_Layout";
-    }
+    Layout = "_Admin_Layout";
+    //if(signinManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    //{
+    //    Layout = "_Admin_Layout";
+
+    //}
+    //else
+    //{
+    //    Layout = "_Ecommerce_Layout";
+    //}
 
 }

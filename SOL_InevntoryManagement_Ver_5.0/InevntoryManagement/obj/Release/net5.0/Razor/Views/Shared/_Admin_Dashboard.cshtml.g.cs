@@ -110,8 +110,36 @@ using InevntoryManagement.ViewModels.Products;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 15 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 16 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.GlobalFuntion;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 17 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Account;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 18 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"cd4e764862fb04ed96c9c7afce4d515761f153fe", @"/Views/Shared/_Admin_Dashboard.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"148930584db6c15a45ac36ad79fc8224fc9dfe08", @"/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4faa0fceb4f6999220024dc273d7f5df996c2192", @"/_ViewImports.cshtml")]
     public class Views_Shared__Admin_Dashboard : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("form-wrapper"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -148,7 +176,7 @@ using InevntoryManagement.ViewModels.Products;
             <span class=""mr-3 font-w600 text-black""><i class=""fa fa-cloud mr-2""></i>21</span>
             <select class=""form-control style-1 default-select  mr-3 "">
                 ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe6858", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe7721", async() => {
                 WriteLiteral("Medan, IDN");
             }
             );
@@ -162,7 +190,7 @@ using InevntoryManagement.ViewModels.Products;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe7834", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe8697", async() => {
                 WriteLiteral("Jakarta, IDN");
             }
             );
@@ -176,7 +204,7 @@ using InevntoryManagement.ViewModels.Products;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe8812", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe9675", async() => {
                 WriteLiteral("Surabaya, IDN");
             }
             );
@@ -374,7 +402,7 @@ using InevntoryManagement.ViewModels.Products;
                     </div>
                     <select class=""style-1 btn-secondary default-select"">
                         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe26717", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe27580", async() => {
                 WriteLiteral("Weekly (2021)");
             }
             );
@@ -388,7 +416,7 @@ using InevntoryManagement.ViewModels.Products;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe27705", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe28568", async() => {
                 WriteLiteral("Daily (2021)");
             }
             );
@@ -402,7 +430,7 @@ using InevntoryManagement.ViewModels.Products;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe28692", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe29555", async() => {
                 WriteLiteral("Yearly (2021)");
             }
             );
@@ -716,7 +744,7 @@ using InevntoryManagement.ViewModels.Products;
                                 </div>
       ");
             WriteLiteral("                      </div>\n                        </div>\n                        <div class=\"card-body\">\n                            <div class=\"basic-form\">\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe52541", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd4e764862fb04ed96c9c7afce4d515761f153fe53404", async() => {
                 WriteLiteral(@"
                                     <div class=""form-group"">
                                         <div class=""input-group input-group-lg"">

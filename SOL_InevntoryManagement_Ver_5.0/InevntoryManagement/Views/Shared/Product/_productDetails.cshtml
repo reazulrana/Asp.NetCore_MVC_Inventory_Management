@@ -1,0 +1,138 @@
+﻿@model ProductListViewModel
+@{ 
+    string photopath = Model.PhotoPath != null ? "~/" + ImagePath.GetProductImagePath(Model.PhotoPath) : ImagePath.GetBlankImageFromRootFolder();
+}
+<div class="modal fade bd-example-modal-lg" id="Modal_Product_Details_@Model.Id" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-dark modal-title">Product Details</h3>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body lefttext">
+
+                <div class="row p-1 border">
+                    <h5 class="col-md-12 px-3 py-1 bg-info">Product information</h5>
+
+
+                    <div class="col-md-4">
+                        <label asp-for="Category">Category</label>
+
+                        <input class="form-control bg-gray-dark" disabled asp-for="Category" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="BrandName">Brand</label>
+                        <input class="form-control bg-gray-dark" disabled asp-for="BrandName" />
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <label asp-for="ModelName">Model</label>
+                        <input class="form-control bg-gray-dark" disabled asp-for="ModelName" />
+                    </div>
+
+                    <div class="col-md-12">
+                        <label asp-for="Remarks">Model</label>
+                        <textarea class="form-control bg-gray-dark" disabled asp-for="Remarks" cols="50" rows="5">@Model.Remarks </textarea>
+                    </div>
+                    <div class="col-md-12 text-center">
+                      <img class="img-fluid" src="@photopath" />
+                    </div>
+
+
+
+                    @*end Category, Brand, Model, Remarks, Image DiscountPrice*@
+
+
+
+                </div>  @*end Main 1st Row *@
+
+
+                <div class="row p-1 border">
+                    <h5 class="col-md-12 px-3 py-1 bg-info">Price/Balance/Qty Information</h5>
+
+                    <div class="col-md-3">
+                        <label asp-for="Unitprice">Unt Price</label>
+                        <input class="form-control bg-gray-dark" disabled asp-for="Unitprice" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="DiscountPrice">Discount Price</label>
+                        <input class="form-control bg-gray-dark" disabled asp-for="DiscountPrice" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="OpeningBalance"></label>
+                        <input class="form-control bg-gray-dark" disabled asp-for="OpeningBalance" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="OpeningQty"></label>
+                        <input class="form-control bg-gray-dark" disabled asp-for="OpeningQty" />
+                    </div>
+                </div>
+
+                @*end UnitPrice, DicountPrice, Opening Balance, Opening Qty *@
+
+
+                <div class="row p-1 border">
+                    <h5 class="col-md-12 px-3 py-1 bg-info">Color/Size/Dimension Information</h5>
+
+                    <div class="col-md-4">
+                        <label asp-for="Color"></label>
+
+                        <input class="form-control bg-gray-dark" disabled asp-for="Color" />
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <label asp-for="SizeName">Inch/Size/Dimension</label>
+
+                        <input class="form-control bg-gray-dark" disabled asp-for="SizeName" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="SizeType">Size Type</label>
+
+                        <input class="form-control bg-gray-dark" disabled value="@(Model.SizeType=="1" ? "Size" : "Dimension")" />
+                    </div>
+                </div>
+                @*end Size, Color *@
+
+
+
+                <div class="row p-1 border">
+                    <h5 class="col-md-12 px-3 py-1 bg-info">Vendor/Manufacture/Bin Information</h5>
+
+                    <div class="col-md-4">
+                        <label asp-for="VendorName">Vendor</label>
+
+                        <input class="form-control bg-gray-dark" disabled asp-for="VendorName" />
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <label asp-for="ManufactureName">Manufacture</label>
+
+                        <input class="form-control bg-gray-dark" disabled asp-for="ManufactureName" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="BinNo">Bin No</label>
+
+                        <input class="form-control bg-gray-dark" disabled value="BinNo" />
+                    </div>
+                </div>
+                @*end Vendor, Manufacture, Bin *@
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

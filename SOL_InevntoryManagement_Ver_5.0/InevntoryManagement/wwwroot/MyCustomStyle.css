@@ -39,7 +39,17 @@ input, select {
 }
 
 .btn-primary:hover {
+    background-color: #001AFD;
+    border: #007BFD;
+    color: white
+}
+
+
+.bg-primary {
     background-color: #007BFD;
     border: #007BFD;
     color: white
+}
+.modal-body.lefttext{
+    text-align:left;
 }

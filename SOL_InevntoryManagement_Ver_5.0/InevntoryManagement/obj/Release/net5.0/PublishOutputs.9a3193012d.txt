@@ -303,7 +303,8 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\MyCustomStyle.css
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Category\AddBrandsToTable.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\DefaultImage\No_Image_Available.jpg
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Logo\Marnia_Logo.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Logo\Marnia_Logo.png
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Logo\Marnia_Logo1.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\027c8ea7-70e3-4417-a39e-5e70f67226b7_img2.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\1e6f3251-66b0-4db5-87c8-119add2e4dd6_img7.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\4d6991c1-2b5e-4676-b6dd-7347c985d7b3_img2.jpg
