@@ -4,7 +4,14 @@
 @{
     string photopath = "";
 
-        photopath = (Model.ExistingPhotoPath != null && Model.ExistingPhotoPath!="") ? "~/" + ImagePath.GetProductImagePath(Model.ExistingPhotoPath)  : "~/"+ ImagePath.GetDefaultImagePath("No_Image_Available.jpg") ;
+    photopath = (Model.ExistingPhotoPath != null && Model.ExistingPhotoPath != "") ? "~/" + ImagePath.GetProductImagePath(Model.ExistingPhotoPath) : "~/" + ImagePath.GetDefaultImagePath("No_Image_Available.jpg");
+    string collabel = "col-md-4 mt-2";
+    string colinput = "col-md-8 mt-2";
+    string tabcollabel = "col-md-2 mt-2";
+    string tabcolinput = "col-md-10 mt-2";
+    string colrow = "form-row mt-3";
+
+
 }
 
 
@@ -16,16 +23,16 @@
 
 <partial name="_Messages" />
 
-<div class="row">
+<div class="form-row">
 
     <div class="col-md-6">
         @*Category section*@
 
-        <div class="row">
-            <div class="col-md-3 mt-2">
+        <div class="form-row">
+            <div class="@collabel">
                 <label asp-for="@Model.Categories" class="col-form-label"></label>
             </div>
-            <div class="col-md-9 mt-2">
+            <div class="@colinput">
                 <div class="input-group">
                     <select asp-for="@Model.CategoryId" class="form-control single-select find_Category" asp-items="@Model.Categories">
                         <option selected="selected" value="">Select Category</option>
@@ -38,12 +45,12 @@
 
         @*for New Category Create*@
 
-        <div class="row" id="divCategory" style="display:none">
+        <div class="@colrow" id="divCategory" style="display:none">
 
-            <div class="col-md-3 mt-1">
+            <div class="@collabel">
                 <label for="txtSaveCategory">Add Category</label>
             </div>
-            <div class="col-md-9">
+            <div class="@colinput">
                 <div class="input-group">
                     <input class="form-control" id="txtSaveCategory" placeholder="Enter Category Name" />
                     <button type="button" class="btn btn-whatsapp" id="btnSaveCategory">Add <span><i class="mdi mdi-plus"></i></span></button>
@@ -53,11 +60,11 @@
         </div>
 
         @*brand section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
+        <div class="@colrow">
+            <div class="@collabel">
                 <label for="#Brands" class="col-form-label">Brand</label>
             </div>
-            <div class="col-md-9 mt-2">
+            <div class="@colinput">
                 <div class="input-group">
                     <select asp-for="@Model.Brandid" class="form-control single-select find_Brand" asp-items="@Model.Brands">
                         <option value="">Select Brand</option>
@@ -70,12 +77,12 @@
 
         @*for New Brand Create*@
 
-        <div class="row" id="divBrand" style="display:none">
+        <div class="@colrow" id="divBrand" style="display:none">
 
-            <div class="col-md-3">
+            <div class="@collabel">
                 <label for="txtSaveBrand">Add Brand</label>
             </div>
-            <div class="col-md-9">
+            <div class="@colinput">
                 <div class="input-group">
                     <input form="txtSaveBrand" class="form-control" id="txtSaveBrand" placeholder="Enter Brand Name" />
                     <button type="button" class="btn btn-whatsapp" id="btnSaveBrand">Add <span><i class="mdi mdi-plus"></i></span></button>
@@ -85,11 +92,11 @@
         </div>
 
         @*Model section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
+        <div class="@colrow">
+            <div class="@collabel">
                 <label asp-for="@Model.ModelId" class="col-form-label"></label>
             </div>
-            <div class="col-md-9 mt-2">
+            <div class="@colinput">
                 <div class="input-group">
                     <select asp-for="@Model.ModelId" class="form-control single-select find_Model" asp-items="@Model.Models">
                         <option value="">Select Model</option>
@@ -100,11 +107,11 @@
         </div>
 
         @*for New Model Create*@
-        <div class="row" id="divModel" style="display:none">
-            <div class="col-md-3">
+        <div class="@colrow" id="divModel" style="display:none">
+            <div class="@collabel">
                 <label for="txtSaveModel">Add Model</label>
             </div>
-            <div class="col-md-9">
+            <div class="@colinput">
                 <div class="input-group">
                     <input class="form-control" id="txtSaveModel" placeholder="Enter Model Name" />
                     <button type="button" class="btn btn-whatsapp" id="btnSaveModel">Add <span><i class="mdi mdi-plus"></i></span></button>
@@ -113,341 +120,43 @@
         </div>
 
         @*Code section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
+        <div class="@colrow">
+            <div class="@collabel">
                 <label asp-for="@Model.Code" class="col-form-label"></label>
             </div>
-            <div class="col-md-9 mt-2">
+            <div class="@colinput">
                 <input class="form-control" asp-for="@Model.Code" />
                 <span class="text-danger" asp-validation-for="@Model.Code"></span>
             </div>
         </div>
 
         @*Description section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
+        <div class="@colrow">
+            <div class="@collabel">
                 <label asp-for="@Model.Description" class="col-form-label"></label>
             </div>
-            <div class="col-md-9 mt-2">
+            <div class="@colinput">
                 <input class="form-control" asp-for="@Model.Description" />
                 <span class="text-danger" asp-validation-for="@Model.Description"></span>
             </div>
         </div>
 
-        @*Color section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.Color" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <div class="input-group">
-                    <select asp-for="@Model.Color" class="form-control single-select find_Color" asp-items="@Model.Colors">
-                        <option value="">Select Color</option>
-
-                    </select>
-                    <button type="button" id="btnAddColor" class="btn btn-xs btn-facebook" title="Add New Color"><span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-                <span class="text-danger" asp-validation-for="@Model.Color"></span>
-            </div>
-
-        </div>
-
-        @*for New Color Create*@
-        <div class="row" id="divColor" style="display:none">
-            <div class="col-md-3">
-                <label for="txtSaveColor">Add Brand</label>
-            </div>
-            <div class="col-md-9">
-                <div class="input-group">
-                    <input class="form-control" id="txtSaveColor" placeholder="Enter Color Name" />
-                    <button type="button" class="btn btn-whatsapp" id="btnSaveColor">Add <span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-            </div>
-        </div>
-
-        @*Size section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.Size" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <div class="form-group">
-                    <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="1" id="size" type="radio" /> Size</label>
-                    <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="2" id="dimension" type="radio" /> Dimension</label>
-                </div>
-                <div class="input-group">
-                    <select asp-for="@Model.Size" class="form-control single-select find_Size" asp-items="@Model.Sizes">
-                        <option value="">Select Size</option>
-                    </select>
-                    <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-                <span class="text-danger" asp-validation-for="@Model.Size"></span>
-            </div>
-        </div>
-
-        @*for New Size Create*@
-        <div class="row" id="divSize" style="display:none">
-            <div class="col-md-3">
-                <label for="txtSaveSize">Add Size</label>
-            </div>
-            <div class="col-md-9">
-                <div class="input-group">
-                    <input class="form-control" id="txtSaveSize" placeholder="Enter Size " />
-                    <button type="button" class="btn btn-whatsapp" id="btnSaveSize">Add <span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-            </div>
-        </div>
 
 
 
-        @*Measurement section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.Measurement" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <div class="input-group">
-                    <select asp-for="@Model.Measurement" class="form-control single-select find_Measurement" asp-items="@Model.Measurements">
-                        <option value="">Select Measurement</option>
-                    </select>
-                    <button type="button" id="btnAddMeasurement" class="btn btn-facebook btn-xs" title="Add New Measurement"><span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-                <span class="text-danger" asp-validation-for="@Model.Size"></span>
-            </div>
-        </div>
-
-        @*for New Measurement Create*@
-        <div class="row" id="divMeasurement" style="display:none">
-            <div class="col-md-3">
-                <label for="txtSaveMeasurement">Add Measurement</label>
-            </div>
-            <div class="col-md-9">
-                <div class="input-group">
-                    <input class="form-control" id="txtSaveMeasurement" placeholder="Enter Measurement " />
-                    <button type="button" class="btn btn-whatsapp" id="btnSaveMeasurement">Add <span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-        @*Source section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.Source" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <div class="input-group">
-                    <select asp-for="@Model.Source" class="form-control single-select find_Source" asp-items="@Model.Sources">
-                        <option value="">Select Source</option>
-                    </select>
-                    <button type="button" id="btnAddSource" class="btn btn-facebook btn-xs" title="Add New Source"><span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-                
-            </div>
-        </div>
-
-        @*for New Source Create*@
-        <div class="row" id="divSource" style="display:none">
-            <div class="col-md-3">
-                <label for="txtSaveSource">Add Source</label>
-            </div>
-            <div class="col-md-9">
-                <div class="input-group">
-                    <input class="form-control" id="txtSaveSource" placeholder="Enter Source " />
-                    <button type="button" class="btn btn-whatsapp" id="btnSaveSource">Add <span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-            </div>
-        </div>
-
-
-
-        @*Unit Price section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.Unitprice" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <input class="form-control" asp-for="@Model.Unitprice" />
-                <span class="text-danger" asp-validation-for="@Model.Unitprice"></span>
-            </div>
-        </div>
-
-        @*Remarks section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.Remarks" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <textarea asp-for="@Model.Remarks" class="form-control" cols="50" rows="5"></textarea>
-            </div>
-        </div>
     </div> @*end of col-md-6*@
 
 
     <div class="col-md-6">
 
-        @*Discount Price section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.DiscountPrice" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <input class="form-control" asp-for="@Model.DiscountPrice" />
-                <span class="text-danger" asp-validation-for="@Model.DiscountPrice"></span>
-            </div>
-
-        </div> @*End row section*@
-
-
-        @*Opening Balance section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.OpeningBalance" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <input class="form-control" asp-for="@Model.OpeningBalance" />
-                <span class="text-danger" asp-validation-for="@Model.OpeningBalance"></span>
-            </div>
-        </div>
-
-
-
-
-
-
-
-        @*Opening Qty section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.OpeningQty"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <input class="form-control" asp-for="@Model.OpeningQty" />
-                <span class="text-danger" asp-validation-for="@Model.OpeningQty"></span>
-            </div>
-        </div>
-
-
-
-        @*Vendor section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.Vendor" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <div class="input-group">
-                    <select asp-for="@Model.Vendor" class="form-control single-select find_Vendor" asp-items="@Model.Vendors">
-                        <option value="">Select Vendor</option>
-                    </select>
-                    <button type="button" id="btnAddVendor" class="btn btn-xs btn-facebook" title="Add New Vendor"><span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-
-            </div>
-        </div>
-
-
-        @*for New Vendor Create*@
-        <div class="row bg-danger-light py-2" id="divVendor" style="display:none">
-            <div class="col-md-3">
-                <label for="txtSaveVendor">Name</label>
-            </div>
-            <div class="col-md-9">
-                <input class="form-control" id="txtSaveVendor" placeholder="Enter Vendor Name" />
-            </div>
-
-            <div class="col-md-3">
-                <label for="txtSaveVendor">Address</label>
-            </div>
-            <div class="col-md-9">
-                <input class="form-control" id="txtSaveVendorAddress" placeholder="Enter Vendor Address" />
-            </div>
-
-            <div class="col-md-3">
-                <label for="txtSaveVendor">Context</label>
-            </div>
-            <div class="col-md-9">
-                <input class="form-control" id="txtSaveVendorContact" placeholder="Enter Vendor Contact" />
-                <button type="button" class="btn btn-whatsapp btn-xs pull-right" id="btnSaveVendor">Add <span><i class="mdi mdi-plus"></i></span></button>
-            </div>
-        </div>
-
-
-
-        @*Manufacture section*@
-        <div class="row">
-
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.Manufacture" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <div class="input-group">
-                    <select asp-for="@Model.Manufacture" class="form-control single-select find_Manufacture" asp-items="@Model.Manufactures">
-                        <option value="">Select Manufacture</option>
-                    </select>
-                    <button type="button" id="btnAddManufacture" class="btn btn-xs btn-facebook" title="Add New Manufacture"><span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-            </div>
-        </div>
-
-
-
-        @*for New Manufacture Create*@
-        <div class="row" id="divManufacture" style="display:none">
-            <div class="col-md-3">
-                <label for="txtSaveManufacture">Add Manufacture</label>
-            </div>
-            <div class="col-md-9">
-                <div class="input-group">
-                    <input class="form-control" id="txtSaveManufacture" placeholder="Enter Manufacture Name" />
-                    <button type="button" class="btn btn-whatsapp" id="btnSaveManufacture">Add <span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-            </div>
-
-        </div>
-
-
-        @*Bin section*@
-        <div class="row">
-            <div class="col-md-3 mt-2">
-                <label asp-for="@Model.Bin" class="col-form-label"></label>
-            </div>
-            <div class="col-md-9 mt-2">
-                <div class="input-group">
-                    <select asp-for="@Model.Bin" class="form-control single-select find_Bin" asp-items="@Model.Bins">
-                        <option value="">Select Bin</option>
-                    </select>
-                    <button type="button" id="btnAddBin" class="btn btn-xs btn-facebook" title="Add New Bin"><span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-            </div>
-
-        </div>
-
-
-        @*for New Bin Create*@
-        <div class="row" id="divBin" style="display:none">
-            <div class="col-md-3">
-                <label for="txtSaveBin">Add Bin</label>
-            </div>
-            <div class="col-md-9">
-                <div class="input-group">
-                    <input class="form-control" id="txtSaveBin" placeholder="Enter Bin Name" />
-                    <button type="button" class="btn btn-whatsapp" id="btnSaveBin">Add <span><i class="mdi mdi-plus"></i></span></button>
-                </div>
-            </div>
-        </div>
 
 
         @*Photo section*@
         <div class="row">
-            <div class="col-md-3 mt-2">
+            <div class="@collabel">
                 <label asp-for="@Model.Photo" class="col-form-label"></label>
             </div>
-            <div class="col-md-9 mt-2">
+            <div class="@colinput">
                 <div class="custom-file">
                     <input asp-for="@Model.Photo" class="custom-file-input" />
                     <label class="custom-file-label">Choose File....</label>
@@ -459,7 +168,384 @@
 
 
 
-
     </div> @*End col-md-6 section*@
 
 </div>  @*End row section*@
+
+
+
+
+
+
+
+
+@*Tab Section*@
+<section>
+
+    <div class="row">
+
+        <div class="custom-tab-1 p-2  mt-3 border">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#size_color"><i class="la la-paint-roller mr-2"></i> Size/Color</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#price_qty_pipeline"><i class="la la-dollar-sign mr-2"></i> Price/Qty/Order Pipeline</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#vendor_manufacture_bin"><i class="la la-user mr-2"></i>  Vendor/Manufacture/Bin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#measurement_source"><i class="la la-ruler-combined mr-2"></i> Measurement/Source</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#remarks"><i class="la la-tag mr-2"></i> Remarks</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="size_color" role="tabpanel">
+                    <div class="pt-4">
+
+                        @*Color section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Color" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <select asp-for="@Model.Color" class="form-control single-select find_Color" asp-items="@Model.Colors">
+                                        <option value="">Select Color</option>
+
+                                    </select>
+                                    <button type="button" id="btnAddColor" class="btn btn-xs btn-facebook" title="Add New Color"><span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                                <span class="text-danger" asp-validation-for="@Model.Color"></span>
+                            </div>
+
+                        </div>
+
+                        @*for New Color Create*@
+                        <div class="row" id="divColor" style="display:none">
+                            <div class="@tabcollabel">
+                                <label for="txtSaveColor">Add Brand</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <input class="form-control" id="txtSaveColor" placeholder="Enter Color Name" />
+                                    <button type="button" class="btn btn-whatsapp" id="btnSaveColor">Add <span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        @*Size Radio input section*@
+                        <div class="row">
+
+                            <div class="@tabcolinput offset-md-2">
+                                @*<div class="form-group">*@
+                                <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="1" id="size" type="radio" /> Size</label>
+                                <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="2" id="dimension" type="radio" /> Dimension</label>
+                                @*</div>*@
+
+                            </div>
+                        </div>
+
+
+                        @*Size section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Size" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <select asp-for="@Model.Size" class="form-control single-select find_Size" asp-items="@Model.Sizes">
+                                        <option value="">Select Size</option>
+                                    </select>
+                                    <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                                <span class="text-danger" asp-validation-for="@Model.Size"></span>
+                            </div>
+                        </div>
+
+                        @*for New Size Create*@
+                        <div class="row" id="divSize" style="display:none">
+                            <div class="@tabcollabel">
+                                <label for="txtSaveSize">Add Size</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <input class="form-control" id="txtSaveSize" placeholder="Enter Size " />
+                                    <button type="button" class="btn btn-whatsapp" id="btnSaveSize">Add <span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="price_qty_pipeline">
+                    <div class="pt-4">
+                        @*Unit Price section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Unitprice" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <input class="form-control" asp-for="@Model.Unitprice" />
+                                <span class="text-danger" asp-validation-for="@Model.Unitprice"></span>
+                            </div>
+                        </div>
+
+                        @*Discount Price section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.DiscountPrice" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <input class="form-control" asp-for="@Model.DiscountPrice" />
+                                <span class="text-danger" asp-validation-for="@Model.DiscountPrice"></span>
+                            </div>
+
+                        </div> @*End row section*@
+
+
+                        @*Opening Balance section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.OpeningBalance" class="col-form-label">Stock Value</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <input class="form-control" asp-for="@Model.OpeningBalance" />
+                                <span class="text-danger" asp-validation-for="@Model.OpeningBalance"></span>
+                            </div>
+                        </div>
+
+                        @*Opening Qty section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.OpeningQty">Stock Qty</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <input class="form-control" asp-for="@Model.OpeningQty" />
+                                <span class="text-danger" asp-validation-for="@Model.OpeningQty"></span>
+                            </div>
+                        </div>
+
+
+                        @*Order Pipeline section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Pipeline" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <input class="form-control" asp-for="@Model.Pipeline" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="vendor_manufacture_bin">
+                    <div class="pt-4">
+
+                        @*Vendor section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Vendor" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <select asp-for="@Model.Vendor" class="form-control single-select find_Vendor" asp-items="@Model.Vendors">
+                                        <option value="">Select Vendor</option>
+                                    </select>
+                                    <button type="button" id="btnAddVendor" class="btn btn-xs btn-facebook" title="Add New Vendor"><span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @*for New Vendor Create*@
+                        <div class="row bg-danger-light py-2" id="divVendor" style="display:none">
+                            <div class="@tabcollabel">
+                                <label for="txtSaveVendor">Name</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <input class="form-control" id="txtSaveVendor" placeholder="Enter Vendor Name" />
+                            </div>
+
+                            <div class="@tabcollabel">
+                                <label for="txtSaveVendor">Address</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <input class="form-control" id="txtSaveVendorAddress" placeholder="Enter Vendor Address" />
+                            </div>
+
+                            <div class="@tabcollabel">
+                                <label for="txtSaveVendor">Context</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <input class="form-control" id="txtSaveVendorContact" placeholder="Enter Vendor Contact" />
+                                <button type="button" class="btn btn-whatsapp btn-xs pull-right" id="btnSaveVendor">Add <span><i class="mdi mdi-plus"></i></span></button>
+                            </div>
+                        </div>
+
+
+
+                        @*Manufacture section*@
+                        <div class="row">
+
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Manufacture" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <select asp-for="@Model.Manufacture" class="form-control single-select find_Manufacture" asp-items="@Model.Manufactures">
+                                        <option value="">Select Manufacture</option>
+                                    </select>
+                                    <button type="button" id="btnAddManufacture" class="btn btn-xs btn-facebook" title="Add New Manufacture"><span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        @*for New Manufacture Create*@
+                        <div class="row" id="divManufacture" style="display:none">
+                            <div class="@tabcollabel">
+                                <label for="txtSaveManufacture">Add Manufacture</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <input class="form-control" id="txtSaveManufacture" placeholder="Enter Manufacture Name" />
+                                    <button type="button" class="btn btn-whatsapp" id="btnSaveManufacture">Add <span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        @*Bin section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Bin" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <select asp-for="@Model.Bin" class="form-control single-select find_Bin" asp-items="@Model.Bins">
+                                        <option value="">Select Bin</option>
+                                    </select>
+                                    <button type="button" id="btnAddBin" class="btn btn-xs btn-facebook" title="Add New Bin"><span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        @*for New Bin Create*@
+                        <div class="row" id="divBin" style="display:none">
+                            <div class="@tabcollabel">
+                                <label for="txtSaveBin">Add Bin</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <input class="form-control" id="txtSaveBin" placeholder="Enter Bin Name" />
+                                    <button type="button" class="btn btn-whatsapp" id="btnSaveBin">Add <span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="measurement_source">
+                    <div class="pt-4">
+
+
+                        @*Measurement section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Measurement" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <select asp-for="@Model.Measurement" class="form-control single-select find_Measurement" asp-items="@Model.Measurements">
+                                        <option value="">Select Measurement</option>
+                                    </select>
+                                    <button type="button" id="btnAddMeasurement" class="btn btn-facebook btn-xs" title="Add New Measurement"><span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                                <span class="text-danger" asp-validation-for="@Model.Measurement"></span>
+                            </div>
+                        </div>
+
+                        @*for New Measurement Create*@
+                        <div class="row" id="divMeasurement" style="display:none">
+                            <div class="@tabcollabel">
+                                <label for="txtSaveMeasurement">Add Measurement</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <input class="form-control" id="txtSaveMeasurement" placeholder="Enter Measurement " />
+                                    <button type="button" class="btn btn-whatsapp" id="btnSaveMeasurement">Add <span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @*Source section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Source" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <select asp-for="@Model.Source" class="form-control single-select find_Source" asp-items="@Model.Sources">
+                                        <option value="">Select Source</option>
+                                    </select>
+                                    <button type="button" id="btnAddSource" class="btn btn-sm btn-facebook btn-xs" title="Add New Source"><span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @*for New Source Create*@
+                        <div class="row" id="divSource" style="display:none">
+                            <div class="@tabcollabel">
+                                <label for="txtSaveSource">Add Source</label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <div class="input-group">
+                                    <input class="form-control" id="txtSaveSource" placeholder="Enter Source " />
+                                    <button type="button" class="btn btn-sm btn-whatsapp" id="btnSaveSource">Add <span><i class="mdi mdi-plus"></i></span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="remarks">
+                    <div class="pt-4">
+
+                        @*Remarks section*@
+                        <div class="row">
+                            <div class="@tabcollabel">
+                                <label asp-for="@Model.Remarks" class="col-form-label"></label>
+                            </div>
+                            <div class="@tabcolinput">
+                                <textarea asp-for="@Model.Remarks" class="form-control" cols="50" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+

@@ -40,11 +40,11 @@ namespace InevntoryManagement.ViewModels.Products
         public int DiscountPrice { get; set; }
 
         [DefaultValue(0)]
-        [Display(Name = "Opening Balance")]
+        [Display(Name = "Stock Value")]
         [Required]
         public int OpeningBalance { get; set; }
         [DefaultValue(0)]
-        [Display(Name = "Opening Qty")]
+        [Display(Name = "Stock Qty")]
         [Required]
         public int OpeningQty { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -59,8 +59,10 @@ namespace InevntoryManagement.ViewModels.Products
 
         public IFormFile Photo { get; set; }
         public string Remarks { get; set; }
+        [Required]
         public string Measurement { get; set; }
         public string Source { get; set; }
+        [Display(Name ="Order Pipeline")]
         public int Pipeline { get; set; }
         public string ExistingPhotoPath { get; set; }
 

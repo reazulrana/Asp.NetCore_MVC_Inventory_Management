@@ -75,6 +75,118 @@
             }
 
 
+            // OpeningQty Focusin and focusout
+
+            //calculate Stock Qty * UnitPrice
+            $("#OpeningQty").focusin(function () {
+
+                $(this).select();
+
+            }).focusout(function () {
+                var StockQty = $(this).val();
+                var Unitprice = $("#Unitprice").val();
+
+
+                if (StockQty == "" || StockQty == null || StockQty == undefined) {
+                    $(this).val(0);
+                    return;
+                }
+
+
+                if (Unitprice == "" || Unitprice == null || Unitprice == undefined) {
+                    $(Unitprice).val(0);
+                    return;
+                }
+                else {
+                    $("#OpeningBalance").val(StockQty * Unitprice);
+                }
+
+            })
+
+            // Unitprice Focusin and focusout
+
+            //calculate Stock Qty * UnitPrice
+            $("#Unitprice").focusin(function () {
+
+                $(this).select();
+
+            }).focusout(function () {
+                var StockQty = $("#OpeningQty").val();
+                var Unitprice = $(this).val();
+
+                if (Unitprice == "" || Unitprice == null || Unitprice == undefined) {
+                    $(this).val(0);
+                    return;
+                }
+
+                if (StockQty == "" || StockQty == null || StockQty == undefined) {
+                    $(Unitprice).val(0);
+                    return;
+                }
+                else {
+                    $("#OpeningBalance").val(StockQty * Unitprice);
+                }
+
+            })
+
+
+
+
+             //Source section
+        //show div for create Source
+            $("#btnAddSource").click(function () {
+                $("#divSource").toggle();
+
+            })
+
+            //create Source
+            $('#btnSaveSource').click(function ()
+            {
+                var val = $("#txtSaveSource").val();
+
+                if (val === undefined || val == "" || val == null)
+                {
+                    //alert("Enter Source First");
+                    sweetAlert("Source Field is Blank Please Enter Source First");
+                    $("#txtSaveSource").focus();
+                    return;
+                }
+
+                var data = {
+                    source: val
+                }
+
+                callCreate_record_with_ajax(url = '@Url.Action("Create_Source_With_Ajax", "Source")', method = "POST", data = data, dataType = "JSON", appendElement = ".find_Source", dropdownName = "Source", fieldNamtToEmpty = "#txtSaveSource", hideElement ="#divSource")
+            })
+
+            //Measurement section
+        //show div for create Measurement
+            $("#btnAddMeasurement").click(function () {
+                $("#divMeasurement").toggle();
+
+            })
+
+            //create Measurement
+            $('#btnSaveMeasurement').click(function ()
+            {
+                var val = $("#txtSaveMeasurement").val();
+
+                if (val === undefined || val == "" || val == null)
+                {
+                    sweetAlert("Measurement Field is Blank Please Enter Measurement First");
+                    $("#txtMeasurement").focus();
+                    return;
+                }
+
+                var data = {
+                    measurement: val
+                }
+
+                callCreate_record_with_ajax(url = '@Url.Action("Create_Measure_With_Ajax", "Measure")', method = "POST", data = data, dataType = "JSON", appendElement = ".find_Measurement", dropdownName = "Measurement", fieldNamtToEmpty = "#txtSaveMeasurement", hideElement ="#divMeasurement")
+
+            })
+
+
 
         //category section
         //show div for create category

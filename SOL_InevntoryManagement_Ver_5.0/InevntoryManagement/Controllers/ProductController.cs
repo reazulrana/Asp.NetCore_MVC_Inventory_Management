@@ -269,7 +269,11 @@ namespace InevntoryManagement.Controllers
                     Bin = model.Bin,
                     PhotoPath = uniquefilename,
                     Remarks = model.Remarks,
-                    DiscountPrice = model.DiscountPrice
+                    DiscountPrice = model.DiscountPrice,
+                     Measurement= model.Measurement!=null ? model.Measurement.ToUpper() : "PCS",
+                      Source=model.Source!=null ? model.Source.ToUpper() : "Local Market".ToLower(),
+                       Pipeline=model.Pipeline
+                     
                 };
 
 
@@ -395,6 +399,9 @@ namespace InevntoryManagement.Controllers
                 SizeType = result.SizeType,
                 Unitprice = result.Unitprice,
                 Vendor = result.Vendor,
+                 Source=result.Source,
+                  Measurement=result.Measurement,
+                   Pipeline=result.Pipeline //Order Pipeline
             };
             string fullpath = Path.Combine(_iWebHostEnvironment.WebRootPath, ImagePath.GetProductImagePath(result.PhotoPath));
             bool isExist = System.IO.File.Exists(fullpath);
@@ -450,6 +457,10 @@ namespace InevntoryManagement.Controllers
                     HasProduct.SizeType = model.SizeType;
                     HasProduct.Unitprice = model.Unitprice;
                     HasProduct.Vendor = model.Vendor;
+                    HasProduct.Measurement = model.Measurement!=null ?model.Measurement.ToUpper() : "PCS";
+                    HasProduct.Source = model.Source != null ? model.Source.ToUpper() : "Local Market".ToUpper();
+                    HasProduct.Pipeline = model.Pipeline;
+
                     Global_Functions.SetMessage($" {Global_Functions.DuplicateErrorMessage("Product")}. The Product Is Found Into Database with Same Code '{ model.Code }' And Same Size '{model.Size}' ", "danger");
 
 
@@ -507,9 +518,11 @@ namespace InevntoryManagement.Controllers
                     result.SizeType = model.SizeType;
                     result.Unitprice = model.Unitprice;
                     result.Vendor = model.Vendor;
+                    result.Measurement = model.Measurement != null ? model.Measurement.ToUpper() : "PCS";
+                    result.Source = model.Source != null ? model.Source.ToUpper() : "Local Market".ToUpper();
+                    result.Pipeline = model.Pipeline;
 
-
-                    if(model.Photo!=null)
+                    if (model.Photo!=null)
                     {
                         if(model.ExistingPhotoPath!=null && model.ExistingPhotoPath!="")
                         {
@@ -592,6 +605,10 @@ namespace InevntoryManagement.Controllers
                         SizeType = products.SizeType,
                         Unitprice = products.Unitprice,
                         VendorName = products.Vendor,
+                         Measurement=products.Measurement,
+                        Source = products.Source,
+                        Pipeline = products.Pipeline,
+
                     }).ToList();
         }
 

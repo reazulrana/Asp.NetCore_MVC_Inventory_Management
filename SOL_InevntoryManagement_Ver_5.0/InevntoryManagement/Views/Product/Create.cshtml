@@ -6,9 +6,7 @@
 }
 
 
-<a asp-action="Index" asp-controller="Bin">
-    Get Index
-</a>
+
 
 
 <form method="post" asp-controller="Product" asp-action="Create" enctype="multipart/form-data">
@@ -77,6 +75,63 @@
             function sweetalert(message) {
                 sweetAlert("Oops...", "You Enter ( " + message.toUpperCase() + " ) Model Is Dulicate", "error")
             }
+
+            // OpeningQty Focusin and focusout
+
+            //calculate Stock Qty * UnitPrice
+            $("#OpeningQty").focusin(function () {
+
+                $(this).select();
+                
+            }).focusout(function () {
+                var StockQty = $(this).val();
+                var Unitprice = $("#Unitprice").val();
+
+
+                if (StockQty == "" || StockQty == null || StockQty == undefined) {
+                    $(this).val(0);
+                    return;
+                }
+
+
+                if (Unitprice == "" || Unitprice == null || Unitprice == undefined) {
+                    $(Unitprice).val(0);
+                    return;
+                }
+                else
+                {
+                    $("#OpeningBalance").val(StockQty * Unitprice);
+                }
+
+            })
+       
+            // Unitprice Focusin and focusout
+
+            //calculate Stock Qty * UnitPrice
+            $("#Unitprice").focusin(function () {
+
+                $(this).select();
+
+            }).focusout(function () {
+                var StockQty = $("#OpeningQty").val();
+                var Unitprice = $(this).val();
+
+                if (Unitprice == "" || Unitprice == null || Unitprice == undefined) {
+                    $(this).val(0);
+                    return;
+                }
+
+                if (StockQty == "" || StockQty == null || StockQty == undefined) {
+                    $(Unitprice).val(0);
+                    return;
+                }
+                else {
+                    $("#OpeningBalance").val(StockQty * Unitprice);
+                }
+
+            })
+
+
 
             //Source section
         //show div for create Source

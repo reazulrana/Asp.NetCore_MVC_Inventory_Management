@@ -62,10 +62,10 @@
                         <div class="row text-md-center">
 
                             <div class="col-md-6">
-                                <a asp-controller="Vendor" asp-action="Edit" asp-route-id="@_model.VendorId" class="btn btn-block btn-primary btn-sm"><span>Edit <i class="mdi mdi-pencil"></i></span></a>
+                                <a asp-controller="Vendor" asp-action="Edit" asp-route-id="@_model.VendorId" class="btn btn-block btn-outline-secondary btn-xs"><span>Edit <i class="mdi mdi-pencil"></i></span></a>
                             </div>
                             <div class="col-md-6">
-                                <button type="button" onclick="showDeleteVendorDiv(@_model.VendorId)" id="deleteVendorButton@_model.VendorId" class="btn btn-block btn-sm btn-danger"><span>Delete <i class="mdi mdi-delete"></i></span></button>
+                                <button type="button" onclick="showDeleteVendorDiv(@_model.VendorId)" id="deleteVendorButton@_model.VendorId" class="btn btn-block btn-xs btn-outline-danger"><span>Delete <i class="mdi mdi-delete"></i></span></button>
                             </div>
 
                         </div>
@@ -78,12 +78,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <form method="post" asp-controller="Vendor" asp-action="Delete" asp-route-id="@_model.VendorId">
-                                            <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
+                                            <button type="submit" class="btn-block btn btn-xs btn-outline-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
                                         </form>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <button type="button" id="cancelDeleteVendor@_model.VendorId" onclick="CancelDelete(@_model.VendorId)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
+                                        <button type="button" id="cancelDeleteVendor@_model.VendorId" onclick="CancelDelete(@_model.VendorId)" class="btn-block btn btn-xs btn-outline-secondary"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
                                     </div>
                                 </div>
                             </div>

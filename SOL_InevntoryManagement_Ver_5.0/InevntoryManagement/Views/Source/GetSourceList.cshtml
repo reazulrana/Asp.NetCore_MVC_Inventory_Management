@@ -33,11 +33,11 @@
                        
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a asp-controller="Source" asp-action="Edit" asp-route-id="@_model.SourceId" class="btn btn-block btn-sm btn-outline-secondary"><span>Edit <i class="mdi mdi-account-edit"></i></span></a>
+                                    <a asp-controller="Source" asp-action="Edit" asp-route-id="@_model.SourceId" class="btn btn-block btn-xs btn-outline-secondary"><span>Edit <i class="mdi mdi-account-edit"></i></span></a>
                                 </div>
                                 <div class="col-md-6">
 
-                                    <button type="button" id="deleteSourceButton@_model.SourceId" onclick="NotifyDiv(@_model.SourceId)" class="btn btn-block btn-sm btn-outline-danger"><span>Delete <i class="mdi mdi-delete"></i></span></button>
+                                    <button type="button" id="deleteSourceButton@_model.SourceId" onclick="NotifyDiv(@_model.SourceId)" class="btn btn-block btn-xs btn-outline-danger"><span>Delete <i class="mdi mdi-delete"></i></span></button>
                                 </div>
 
                             </div>
