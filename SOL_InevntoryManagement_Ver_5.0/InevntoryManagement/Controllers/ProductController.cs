@@ -173,9 +173,25 @@ namespace InevntoryManagement.Controllers
                                Selected = model.Size != null ? (model.Size.ToUpper() == obj.ProductSize.ToUpper() && model.SizeType == obj.SizeType.ToString()) : false
 
                            }).ToList();
+            model.Measurements = (from obj in unitOfWork.Measures.Get()
+                           orderby obj.Measurements
+                           select new SelectListItem
+                           {
+                               Text = obj.Measurements,
+                               Value = obj.Measurements,
+                               Selected = model.Measurement != null ? model.Measurement.ToUpper() == obj.Measurements.ToUpper() : obj.Measurements.ToUpper() == "KG".ToUpper()
 
+                           }).ToList();
 
+            model.Sources = (from obj in unitOfWork.Sources.Get()
+                                  orderby obj.SourceName
+                                  select new SelectListItem
+                                  {
+                                      Text = obj.SourceName,
+                                      Value = obj.SourceName,
+                                      Selected = model.Source != null ? model.Source.ToUpper() == obj.SourceName.ToUpper() :false
 
+                                  }).ToList();
 
             return model;
         }
@@ -420,8 +436,49 @@ namespace InevntoryManagement.Controllers
                 
                 if(HasProduct != null)
                 {
-                    
+                    HasProduct.Bin = model.Bin;
+                    HasProduct.Code = model.Code;
+                    HasProduct.Color = model.Color;
+                    HasProduct.Description = model.Description;
+                    HasProduct.DiscountPrice = model.DiscountPrice;
+                    HasProduct.Manufacture = model.Manufacture;
+                    HasProduct.ModelId = model.ModelId;
+                    HasProduct.OpeningBalance = model.OpeningBalance;
+                    HasProduct.OpeningQty = model.OpeningQty;
+                    HasProduct.Remarks = model.Remarks;
+                    HasProduct.Size = model.Size;
+                    HasProduct.SizeType = model.SizeType;
+                    HasProduct.Unitprice = model.Unitprice;
+                    HasProduct.Vendor = model.Vendor;
                     Global_Functions.SetMessage($" {Global_Functions.DuplicateErrorMessage("Product")}. The Product Is Found Into Database with Same Code '{ model.Code }' And Same Size '{model.Size}' ", "danger");
+
+
+                    if (model.Photo != null)
+                    {
+                        if (model.ExistingPhotoPath != null && model.ExistingPhotoPath != "")
+                        {
+                            string fullpath = Path.Combine(_iWebHostEnvironment.WebRootPath, ImagePath.GetProductImagePath(model.ExistingPhotoPath));
+                            System.IO.File.Delete(fullpath);
+
+                        }
+
+                        string upload_photo_path = Upload_Get_UniqueFileName(model);
+                        HasProduct.PhotoPath = upload_photo_path;
+                        model.ExistingPhotoPath = upload_photo_path;
+
+                    }
+
+                    try
+                    {
+                        unitOfWork.Products.Update(HasProduct);
+                        Global_Functions.SetMessage("Product Update Successfully", "success");
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.ErrorTitle = "Product Update Error";
+                        ViewBag.ErrorMessage = ex.Message;
+                        return View("NotFound");
+                    }
 
                     return View(model);
                 }

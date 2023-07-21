@@ -180,5 +180,47 @@ namespace InevntoryManagement.Controllers
             return View();
 
         }
+
+
+
+        //call from Ajax from  product form
+        [HttpPost]
+        public JsonResult Create_Source_With_Ajax(string source)
+        {
+            string msg = "";
+
+            bool success = false;
+            Source output = new Source();
+            try
+            {
+
+                var _source = unitOfWork.Sources.Get().Where(x => x.SourceName.ToLower() == source.ToLower()).FirstOrDefault();
+
+                //Category Exist
+                if (_source != null)
+                {
+                    success = false;
+                    msg = Global_Functions.DuplicateErrorMessage("Source");
+
+                }
+                else
+                {
+                    output.SourceName = source.ToUpper();
+
+                    unitOfWork.Sources.Insert(output);
+                    success = true;
+                    msg = Global_Functions.SaveMessage("Source");
+                }
+            }
+            catch
+            {
+                success = false;
+                msg = Global_Functions.SaveErrorMessage("Source");
+            }
+            return new JsonResult(new { output, success, msg });
+
+
+        }
+
     }
 }

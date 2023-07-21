@@ -59,7 +59,9 @@ namespace InevntoryManagement.ViewModels.Products
 
         public IFormFile Photo { get; set; }
         public string Remarks { get; set; }
-
+        public string Measurement { get; set; }
+        public string Source { get; set; }
+        public int Pipeline { get; set; }
         public string ExistingPhotoPath { get; set; }
 
 
@@ -74,8 +76,10 @@ namespace InevntoryManagement.ViewModels.Products
         public List<SelectListItem> Models { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Brands { get; set; } = new List<SelectListItem>();
 
+        public List<SelectListItem> Measurements { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> Sources { get; set; } = new List<SelectListItem>();
 
-
+    
 
 
     }

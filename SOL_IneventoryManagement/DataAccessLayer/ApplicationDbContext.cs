@@ -60,6 +60,13 @@ namespace DataAccessLayer
             //modelBuilder.Entity<Brand>()
             //       .HasKey(m => new { m.BrandName, m.CategoryId });
 
+            modelBuilder.Entity<Product>().Property(x => x.Pipeline).HasDefaultValue(0);
+            modelBuilder.Entity<Product>().Property(x => x.Unitprice).HasDefaultValue(0);
+            modelBuilder.Entity<Product>().Property(x => x.OpeningBalance).HasDefaultValue(0);
+            modelBuilder.Entity<Product>().Property(x => x.OpeningQty).HasDefaultValue(0);
+            modelBuilder.Entity<Product>().Property(x => x.DiscountPrice).HasDefaultValue(0);
+
+
         }
     }
 }

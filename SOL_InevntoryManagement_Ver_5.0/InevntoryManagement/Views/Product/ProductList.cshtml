@@ -57,7 +57,7 @@
                             <th>Size</th>
                             <th>Color</th>
                             <th>Price</th>
-                            <th colspan="3">Action</th>
+                            <th>Action</th>
 
 
 
@@ -91,15 +91,15 @@
                                 <td>@_model.Color</td>
                                 <td>@_model.Unitprice</td>
                                 <td>
-                                    <a asp-action="Edit" asp-controller="Product" asp-route-id="@_model.Id" class="btn btn-outline-secondary btn-xs" title="Edit"><span><i class="mdi mdi-pencil"></i></span></a>
-                                </td>
-                                <td>
-                                    <button class="btn btn-outline-danger btn-xs" title="Delete"><span><i class="mdi mdi-delete"></i></span></button>
-                                </td>
-                                <td>
-                                    <a asp-route-id="@_model.Id" class="btn btn-outline-info btn-xs" title="Product Information" data-toggle="modal" data-target="#Modal_Product_Details_@_model.Id"><span><i class="mdi mdi-information-outline"></i></span></a>
+                                    <a asp-action="Edit" asp-controller="Product" asp-route-id="@_model.Id" class="btn btn-outline-secondary btn-xs" title="Edit">Edit<span><i class="mdi mdi-pencil"></i></span></a>
+                                    
+                                    <a asp-route-id="@_model.Id" class="btn btn-outline-info btn-xs" title="Product Information" data-toggle="modal" data-target="#Modal_Product_Details_@_model.Id">Info<span><i class="mdi mdi-information-outline"></i></span></a>
                                     @Html.Partial("~/Views/Shared/Product/_productDetails.cshtml", _model)
+                                    
+                                    <button class="btn btn-outline-danger btn-xs" title="Delete">Delete<span><i class="mdi mdi-delete"></i></span></button>
+
                                 </td>
+                               
 
                             </tr>
                             sl = sl + 1;
@@ -186,6 +186,23 @@
 
     </div>
 </div>
+
+
+
+
+
+@{
+    ProductListViewModel productlis = new ProductListViewModel();
+            }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -30,5 +30,8 @@ namespace InevntoryManagement.ViewModels.Products
         public string PhotoPath { get; set; }
         public string Remarks { get; set; }
         public int DiscountPrice { get; set; }
+        public string Measurement { get; set; } //new add
+        public string Source { get; set; } //new add
+        public int Pipeline { get; set; }  //new add
     }
 }

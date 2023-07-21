@@ -17,8 +17,8 @@
             <h3 class="card-title text-white">Create Product</h3>
         </div>
         <div class="card-body bg-danger-light">
-         
-        @Html.Partial("~/Views/Shared/Product/_Product.cshtml",Model)
+
+            @Html.Partial("~/Views/Shared/Product/_Product.cshtml", Model)
 
 
         </div> @*End card-body section*@
@@ -39,6 +39,8 @@
 
 
     <script src="~/DuplicateModelShow.js"></script>
+    <script src="~/Projects/Public/GlobalFunction.js"></script>
+
 
 
     <script>
@@ -72,6 +74,69 @@
             }
 
 
+            function sweetalert(message) {
+                sweetAlert("Oops...", "You Enter ( " + message.toUpperCase() + " ) Model Is Dulicate", "error")
+            }
+
+            //Source section
+        //show div for create Source
+            $("#btnAddSource").click(function () {
+                $("#divSource").toggle();
+
+            })
+
+            //create Source
+            $('#btnSaveSource').click(function ()
+            {
+                var val = $("#txtSaveSource").val();
+
+                if (val === undefined || val == "" || val == null)
+                {
+                    //alert("Enter Source First");
+                    sweetAlert("Source Field is Blank Please Enter Source First");
+                    $("#txtSaveSource").focus();
+                    return;
+                }
+
+                var data = {
+                    source: val
+                }
+                
+                callCreate_record_with_ajax(url = '@Url.Action("Create_Source_With_Ajax", "Source")', method = "POST", data = data, dataType = "JSON", appendElement = ".find_Source", dropdownName = "Source", fieldNamtToEmpty = "#txtSaveSource", hideElement ="#divSource")
+            })
+
+            //Measurement section
+        //show div for create Measurement
+            $("#btnAddMeasurement").click(function () {
+                $("#divMeasurement").toggle();
+
+            })
+
+            //create Measurement
+            $('#btnSaveMeasurement').click(function ()
+            {
+                var val = $("#txtSaveMeasurement").val();
+
+                if (val === undefined || val == "" || val == null)
+                {
+                    sweetAlert("Measurement Field is Blank Please Enter Measurement First");
+                    $("#txtMeasurement").focus();
+                    return;
+                }
+
+                var data = {
+                    measurement: val
+                }
+
+                callCreate_record_with_ajax(url = '@Url.Action("Create_Measure_With_Ajax", "Measure")', method = "POST", data = data, dataType = "JSON", appendElement = ".find_Measurement", dropdownName = "Measurement", fieldNamtToEmpty = "#txtSaveMeasurement", hideElement ="#divMeasurement")
+
+            })
+
+
+
+
+
+
 
         //category section
         //show div for create category
@@ -87,7 +152,8 @@
 
                 if (val === undefined || val == "" || val == null)
                 {
-                    alert("Enter Category First");
+                    sweetAlert("Category Field is Blank Please Enter Category First");
+
                     $("#txtSaveCategory").focus();
                     return;
                 }
@@ -124,7 +190,8 @@
 
                 if (IsEmptyDropdownField(catid) == true)
                 {
-                    alert("Category Not Selected")
+                    sweetAlert("Please Category Not Selected")
+
                     return;
                 }
 
@@ -141,7 +208,8 @@
                 var brandName = $("#txtSaveBrand").val();
 
                 if (IsEmptyInputField(brandName) == true) {
-                    alert("Brand Is Empty")
+                    sweetAlert("Brand Field is Blank Please Enter Brand First");
+
                     return;
                 }
 
@@ -166,7 +234,9 @@
 
             if (IsEmptyDropdownField(brandid) == true)
             {
-                alert("Brand Not Selected")
+                sweetAlert("Brand Not Selected");
+
+
                 return;
             }
 
@@ -181,7 +251,8 @@
 
                 if (IsEmptyInputField(modelName) == true)
                 {
-                    alert("Model Is Empty")
+                    sweetAlert("Model Is Empty");
+
                     return;
                 }
 
@@ -221,7 +292,7 @@
                   var colorName = $("#txtSaveColor").val();
 
                 if (IsEmptyInputField(colorName) == true) {
-                    alert("Color Is Empty");
+                    sweetAlert("Color Is Empty");
                     return;
                 }
 
@@ -246,7 +317,8 @@
 
                 if ((size == null || size == "" || size == -1))
                 {
-                    alert("No Size Type Is Selected")
+                    sweetAlert("No Size Type Is Selected");
+
                     return;
                 }
 
@@ -263,7 +335,8 @@
 
 
                 if (IsEmptyInputField(size) == true) {
-                    alert("Size Is Empty");
+
+                    sweetalert("Size Is Empty");
                     return;
                 }
 
@@ -291,7 +364,7 @@
 
                 if (IsEmptyInputField(vendor) == true)
                 {
-                    alert("Vendor Is Empty")
+                    sweetalert("Vendor Is Empty")
                     $(vendor).focus();
                 }
 
@@ -322,7 +395,7 @@
 
                 if (IsEmptyInputField(manufacturename) == true)
                 {
-                    alert("Manufacturename Is Empty")
+                    sweetalert("Manufacturename Is Empty")
                     $(manufacturename).focus();
                 }
 
@@ -350,7 +423,7 @@
                 alert(bin);
                 if (IsEmptyInputField(bin) == true)
                 {
-                    alert("Bin Is Empty")
+                    sweetalert("Bin Is Empty")
                     return;
                 }
 
@@ -501,6 +574,5 @@
         }) //end of document.ready
 
     </script>
-
 
 }

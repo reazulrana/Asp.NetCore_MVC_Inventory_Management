@@ -37,7 +37,11 @@ namespace BussinessAccessLayer.Model
         public string Remarks { get; set; }
         [DefaultValue(0)]
         public int DiscountPrice { get; set; }
-    
+        public string Measurement { get; set; }
+        public string Source { get; set; }
+        public int Pipeline { get; set; }
+
+
         public virtual Model Model { get; set; }
         public virtual ICollection<MasterDetail> MasterDetails { get; set; }
 

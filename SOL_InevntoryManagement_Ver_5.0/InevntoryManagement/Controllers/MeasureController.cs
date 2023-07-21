@@ -44,5 +44,46 @@ namespace InevntoryManagement.Controllers
             }
             return View();
         }
+
+
+        //call from Ajax from  product form
+        [HttpPost]
+        public JsonResult Create_Measure_With_Ajax(string measurement)
+        {
+            string msg = "";
+
+            bool success = false;
+            Measure output = new Measure();
+            try
+            {
+
+                var _measurement = unitOfWork.Measures.Get().Where(x => x.Measurements.ToLower() == measurement.ToLower()).FirstOrDefault();
+
+                //Measurement Exist
+                if (_measurement != null)
+                {
+                    success = false;
+                    msg = Global_Functions.DuplicateErrorMessage("Measurement");
+
+                }
+                else
+                {
+                    output.Measurements = measurement.ToUpper();
+
+                    unitOfWork.Measures.Insert(output);
+                    success = true;
+                    msg = Global_Functions.SaveMessage("Measurement");
+                }
+            }
+            catch
+            {
+                success = false;
+                msg = Global_Functions.SaveErrorMessage("Measurement");
+            }
+            return new JsonResult(new { output, success, msg });
+
+
+        }
+
     }
 }

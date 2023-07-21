@@ -56,6 +56,17 @@ function Create_record_with_ajax(url, method, data, dataType, appendElement, dro
                     $(appendElement).append(option);
                 }
 
+                    else if (dropdownName.toLocaleLowerCase() == "Measurement".toLocaleLowerCase()) {
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.measurements + '</option>'
+
+                        $(appendElement).append(option);
+                }
+                    else if (dropdownName.toLocaleLowerCase() == "Source".toLocaleLowerCase()) {
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.sourceName + '</option>'
+
+                        $(appendElement).append(option);
+                    }
+
 
 
                 alert(data.msg);
