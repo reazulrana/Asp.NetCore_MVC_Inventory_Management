@@ -29,23 +29,32 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label asp-for="@Model.CategoryName"></label>
-                                <input disabled="disabled" asp-for="@Model.CategoryName" class="form-control" />
-                                <input hidden asp-for="@Model.CategoryName" class="form-control" />
+                                <label asp-for="@Model.categoryid"></label>
+                                <select class="form-control category" asp-for="categoryid" asp-items="Model.Categories">
+                                    <option>Select Category</option>
+                                </select>
+                                <span asp-validation-for="categoryid" class="text-danger"></span>
+                                @*<input disabled="disabled" asp-for="@Model.CategoryName" class="form-control" />
+                                <input hidden asp-for="@Model.CategoryName" class="form-control" />*@
 
                             </div>
                             <div class="form-group">
-                                <label asp-for="@Model.BrandName"></label>
-                                <input disabled="disabled" asp-for="@Model.BrandName" class="form-control" />
-                                <input hidden asp-for="@Model.BrandName" />
-                                <input hidden asp-for="@Model.BrandId" />
+                                <label asp-for="@Model.brandId"></label>
+                                <select class="form-control brand" asp-for="brandId" asp-items="Model.Brands">
+                                    <option>Select Brands</option>
+                                </select>
+                                @*<input disabled="disabled" asp-for="@Model.BrandName" class="form-control" />
+        <input hidden asp-for="@Model.BrandName" />
+        <input hidden asp-for="@Model.BrandId" />*@
 
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="@Model.ModelName"></label>
-                                <input  asp-for="@Model.ModelName" class="form-control" />
                                 <input hidden asp-for="@Model.ModelId" />
+
+
+                                <label asp-for="@Model.ModelName"></label>
+                                <input asp-for="@Model.ModelName" class="form-control" />
                                 <span asp-validation-for="@Model.ModelName" class="text-danger"></span>
 
                             </div>
@@ -67,3 +76,81 @@
 
 
 
+@section Scripts
+{ 
+    <script src="~/DuplicateModelShow.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(".category").change(function () {
+            var catid = $(this).find(":selected").val();
+            alert(catid);
+            var data = {
+                catid: catid
+            };
+            Load_Dropdown_with_ajax(url = '@Url.Action("FindBrandByCategoryId", "Product")',method="GET",data=data,dataType="JSON",".brand","brand")
+        })
+
+
+
+
+
+
+
+
+        function Load_Dropdown_with_ajax(url, method, data, dataType, appendElement, dropdownName) {
+
+            $.ajax({
+                url: url,
+                method: method,
+                data: data,
+                dataType: dataType,
+                success: function (data) {
+
+                    $(appendElement).empty();
+
+                    $(appendElement).append('<option value="-1">Select ' + dropdownName + '</option>');
+
+                    if (data.success == true) {
+                        console.log(data.output)
+                        $.each(data.output, function (index, item) {
+
+                            if (dropdownName.toLocaleLowerCase() == "brand".toLocaleLowerCase()) {
+                                var option = '<option value="' + item.id + '">' + item.brandName + '</option>'
+                                $(appendElement).append(option);
+                            }
+
+                            else if (dropdownName.toLocaleLowerCase() == "model".toLocaleLowerCase()) {
+                                var option = '<option value="' + item.id + '">' + item.modelName + '</option>'
+
+                                $(appendElement).append(option);
+                            }
+
+                            else if (dropdownName.toLocaleLowerCase() == "Size".toLocaleLowerCase()) {
+                                var option = '<option value="' + item.id + '">' + item.productSize + '</option>'
+
+                                $(appendElement).append(option);
+                            }
+
+                        })
+
+
+
+                    }
+                    else {
+                        alert("Data Not Found In Database")
+
+                    }
+                },
+                error: function (err) {
+                    alert("You Call Error Functioon");
+                }
+            })
+
+        }
+
+    })
+</script>
+
+}

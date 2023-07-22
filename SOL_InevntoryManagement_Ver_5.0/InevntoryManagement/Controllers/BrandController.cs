@@ -106,6 +106,8 @@ namespace InevntoryManagement.Controllers
                           join obj2 in unitOfWork.Brands.Get()
                           on obj.Id equals obj2.CategoryId into egroups
                           from obj2 in egroups
+                          orderby obj2.BrandName
+                          orderby obj.CType
                           select new BrandListViewModel
                           {
 

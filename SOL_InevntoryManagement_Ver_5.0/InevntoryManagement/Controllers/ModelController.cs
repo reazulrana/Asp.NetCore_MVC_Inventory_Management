@@ -156,25 +156,72 @@ namespace InevntoryManagement.Controllers
         public IActionResult Edit(int id)
         {
 
-            var model = (from obj in unitOfWork.Categories.Get()
-                         join obj2 in unitOfWork.Brands.Get()
-                         on obj.Id equals obj2.CategoryId
-                         join obj3 in unitOfWork.Models.Get()
-                         on obj2.Id equals obj3.BrandId into egroup
-                         from obj3 in egroup
-                         select new ModelEditViewModel
-                         {
-                             ModelId=obj3.Id,
-                             ModelName=obj3.ModelName,
-                             CategoryName=obj.CType,
-                             BrandId=obj2.Id,
-                             BrandName=obj2.BrandName
 
-                         }).ToList().Where(x=>x.ModelId==id).FirstOrDefault();
+            
+            
+            
+            ModelEditViewModel modelEditViewModel = new ModelEditViewModel();
+             var model = unitOfWork.Models.GetByID(id);
+
+            modelEditViewModel.ModelId = model.Id;
+            modelEditViewModel.brandId = model.BrandId;
+            modelEditViewModel.ModelName = model.ModelName;
+
+            modelEditViewModel = (ModelEditViewModel)LoadCategoryBrand(modelEditViewModel);
+
+            //var model = (from obj in unitOfWork.Categories.Get()
+            //             join obj2 in unitOfWork.Brands.Get()
+            //             on obj.Id equals obj2.CategoryId
+            //             join obj3 in unitOfWork.Models.Get()
+            //             on obj2.Id equals obj3.BrandId into egroup
+            //             from obj3 in egroup
+            //             select new ModelEditViewModel
+            //             {
+            //                 ModelId=obj3.Id,
+            //                 ModelName=obj3.ModelName,
+            //               ();  CategoryName=obj.CType,
+            //                 BrandId=obj2.Id,
+            //                 BrandName=obj2.BrandName
+
+            //             }).ToList().Where(x=>x.ModelId==id).FirstOrDefault
 
 
-            return View(model);
+            return View(modelEditViewModel);
 
+        }
+
+
+
+        private ModelCreateViewModel LoadCategoryBrand(ModelEditViewModel model)
+        {
+
+            var _model = unitOfWork.Models.GetByID(model.ModelId);
+            var _brand = unitOfWork.Brands.GetByID(_model.BrandId);
+            var _category = unitOfWork.Categories.GetByID(_brand.CategoryId);
+
+
+            model.Categories = (from cat in unitOfWork.Categories.Get()
+                                                orderby cat.CType
+                                             select new SelectListItem()
+                                             {
+                                                 Text = cat.CType,
+                                                 Value = cat.Id.ToString(),
+                                                 Selected = _category.Id != 0 ? _category.Id == cat.Id : false
+                                             }).ToList();
+
+            model.Brands = (from brand in unitOfWork.Brands.Get().Where(x=>x.CategoryId==_category.Id)
+                                            orderby brand.BrandName
+                                         select new SelectListItem()
+                                         {
+                                             Text = brand.BrandName,
+                                             Value = brand.Id.ToString(),
+                                             Selected = _brand.Id != 0 ? _brand.Id == brand.Id : false
+                                         }).ToList();
+
+            model.categoryid = _category.Id;
+            model.brandId = _brand.Id;
+
+            return model;
         }
 
 
@@ -206,7 +253,7 @@ namespace InevntoryManagement.Controllers
                     {
                         return RedirectToAction("GetModelList", "Model");             
                     }
-                    var _checkModelExist = unitOfWork.Models.Get().Where(x => x.ModelName.ToLower() == model.ModelName.ToLower() && x.BrandId == model.BrandId).FirstOrDefault();
+                    var _checkModelExist = unitOfWork.Models.Get().Where(x => x.ModelName.ToLower() == model.ModelName.ToLower() && x.BrandId == model.brandId).FirstOrDefault();
 
                     if(_checkModelExist==null)
                     {

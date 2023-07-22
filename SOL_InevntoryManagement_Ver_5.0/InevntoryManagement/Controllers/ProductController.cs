@@ -171,7 +171,6 @@ namespace InevntoryManagement.Controllers
                                Text = obj.ProductSize,
                                Value = obj.ProductSize,
                                Selected = model.Size != null ? (model.Size.ToUpper() == obj.ProductSize.ToUpper() && model.SizeType == obj.SizeType.ToString()) : false
-
                            }).ToList();
             model.Measurements = (from obj in unitOfWork.Measures.Get()
                            orderby obj.Measurements
@@ -613,6 +612,8 @@ namespace InevntoryManagement.Controllers
         }
 
 
+
+        //Call from Jquery Ajax Product Form
         [HttpGet]
         public JsonResult FindBrandByCategoryId(int catid)
         {

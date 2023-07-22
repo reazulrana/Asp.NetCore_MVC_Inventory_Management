@@ -101,6 +101,14 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="@collabel">
+                                    <label asp-for="Pipeline">Order Pipeline</label>
+                                </div>
+                                <div class="@colinput">
+                                    <h5>@Model.Pipeline</h5>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="@collabel">
@@ -128,6 +136,16 @@
                                     <h5>@(Model.SizeName=="1" ? "Size" : "Dimension")</h5>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="@collabel">
+                                    <label asp-for="Measurement">Measurement</label>
+                                </div>
+                                <div class="@colinput">
+                                    <h5>@Model.Measurement</h5>
+                                </div>
+                            </div>
+
 
                             <div class="row">
                                 <div class="@collabel">
@@ -167,6 +185,17 @@
                                     <h5>@Model.Remarks</h5>
                                 </div>
                             </div>
+
+
+                            <div class="row">
+                                <div class="@collabel">
+                                    <label asp-for="Source">Source</label>
+                                </div>
+                                <div class="@colinput">
+                                    <h5>@Model.Source</h5>
+                                </div>
+                            </div>
+
 
 
                         </div>

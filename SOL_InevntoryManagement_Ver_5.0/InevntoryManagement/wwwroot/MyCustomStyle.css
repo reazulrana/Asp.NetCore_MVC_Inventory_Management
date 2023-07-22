@@ -70,3 +70,10 @@ input, select {
     text-align:left;
 }
 
+
+
+@media (max-width: 768px) {
+    .custom-tab-1 > ul{
+        font-size:10px;
+    }
+}

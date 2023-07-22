@@ -72,8 +72,22 @@
             }
 
 
+            //Prevent while " Character use
+            $("#txtSaveSize").keypress(function (event) {
+                var keycode = event.keyCode ? event.keyCode : event.which;
+               
+                alert(keycode);
+                if (keycode = 34 || keycode == 39) {
+                    sweetalert("This Caracter Is Reserv Character of HTML You Can Not Use It Rather use single Quotation Twice ''")
+                    event.preventDefault();
+                }
+
+            })
+
+
+
             function sweetalert(message) {
-                sweetAlert("Oops...", "You Enter ( " + message.toUpperCase() + " ) Model Is Dulicate", "error")
+                sweetAlert("Oops...", "You Enter ( " + message.toUpperCase() + " )", "error")
             }
 
             // OpeningQty Focusin and focusout

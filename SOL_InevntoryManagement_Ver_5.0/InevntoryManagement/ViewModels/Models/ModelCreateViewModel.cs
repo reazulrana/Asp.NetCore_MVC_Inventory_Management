@@ -10,6 +10,10 @@ namespace InevntoryManagement.ViewModels.Models
     public class ModelCreateViewModel
     {
 
+
+        [Display(Name = "Category")]
+        public int categoryid { get; set; }
+
         [Display(Name ="Brand")]
         public int brandId { get; set; }
         [Display(Name ="Category")]

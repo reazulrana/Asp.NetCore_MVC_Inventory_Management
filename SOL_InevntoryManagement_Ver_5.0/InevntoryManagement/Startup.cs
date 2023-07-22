@@ -101,9 +101,9 @@ namespace InevntoryManagement
 
 
             app.UseEndpoints(endpoints => {
-                endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=index}/{id?}");
+               // endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=index}/{id?}");
 
-                //endpoints.MapControllerRoute(name: "default", pattern: "{controller=Account}/{action=Login}/{id?}");
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller=Account}/{action=Login}/{id?}");
             });
             //app.UseMvc(route =>
             //{

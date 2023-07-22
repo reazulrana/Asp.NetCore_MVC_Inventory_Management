@@ -99,7 +99,14 @@ namespace InevntoryManagement.Controllers
         public IActionResult CategoryList()
         {
 
-            var categories = unitOfWork.Categories.Get();
+            var categories = (from cat in unitOfWork.Categories.Get()
+                              orderby cat.CType
+                              select new Category()
+                              {
+                                   Id=cat.Id,
+                                   CType=cat.CType
+                              }
+                              ).ToList();
 
 
             return View(categories);

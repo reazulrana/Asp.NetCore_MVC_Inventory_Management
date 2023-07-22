@@ -307,9 +307,16 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Logo\Marnia_Logo1.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\027c8ea7-70e3-4417-a39e-5e70f67226b7_img2.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\1e6f3251-66b0-4db5-87c8-119add2e4dd6_img7.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\23c1b80c-4780-4c45-9a10-8a510f420559_img103.png
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\3bf30b33-e72a-44ed-8ef8-91de59555f73_img8.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\4d6991c1-2b5e-4676-b6dd-7347c985d7b3_img2.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\6233a684-4267-4be8-a6a4-5b89e19ffeec_kelvinator-non-frost.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\7154c6ab-42f9-4394-83cb-538bcc6c499d_img1.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\8713cc07-8bd5-450b-b1f8-26812673d352_img12.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\97b4cf20-4e05-4200-8077-ff819379104e_img7.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\b516d5cd-6323-46d8-afd1-433c53b227b3_img104.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\c477a60b-f942-4dc8-a0c3-1bcd196f1237_img8.jpg
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\d273f79e-cc8b-4976-a0ee-16f04edadb31_img11.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Images\Product\d2ffdcad-89c4-40d1-8577-8c0fe9f45a3e_img13.jpg
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Projects\Public\GlobalFunction.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json

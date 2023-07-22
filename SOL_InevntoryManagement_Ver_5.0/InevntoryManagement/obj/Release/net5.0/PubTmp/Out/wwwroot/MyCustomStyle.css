@@ -2,6 +2,9 @@
     height: 300px !important;
 }
 
+.img-fluid.imglarge {
+    height: 350px !important;
+}
 .card-body {
     background-color: rgba(250,250,250) !important;
 }
@@ -15,16 +18,29 @@
     background-color: crimson !important;
 }
 
-.card-header h1,h2,h3,h4,h5,h6,h7
+/*.card-header h1,h2,h3,h4,h5,h6,h7
     {
     color:white!important;
-    }
+    }*/
 
     .card-footer {
         background-color: rgba(230,230,230) !important;
     }
 
 
+/*for tab working  in modal form you write
+
+ .modal {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+}
+*/
+/*.modal-body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}*/
 
 
 input, select {
@@ -39,7 +55,25 @@ input, select {
 }
 
 .btn-primary:hover {
+    background-color: #001AFD;
+    border: #007BFD;
+    color: white
+}
+
+
+.bg-primary {
     background-color: #007BFD;
     border: #007BFD;
     color: white
+}
+.modal-body.lefttext{
+    text-align:left;
+}
+
+
+
+@media (max-width: 768px) {
+    .custom-tab-1 > ul{
+        font-size:10px;
+    }
 }

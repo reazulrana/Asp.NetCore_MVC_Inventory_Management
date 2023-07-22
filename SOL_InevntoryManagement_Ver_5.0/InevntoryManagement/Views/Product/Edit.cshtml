@@ -216,7 +216,7 @@
 
 
             //ajax callCreate_record_with_ajax section
-            function callCreate_record_with_ajax(url, method, data, dataType, appendElement, dropdownName,fieldNamtToEmpty,hideElement)
+            function callCreate_record_with_ajax(url, method, data, dataType, appendElement, dropdownName,fieldNamtToEmpty=null,hideElement=null)
             {
 
                 try {
@@ -309,6 +309,24 @@
 
             })
 
+
+            //sweetalert
+            function sweetalert(message) {
+                sweetAlert("Oops...", "You Enter ( " + message.toUpperCase() + " ) Model Is Dulicate", "error")
+            }
+
+            //Prevent while " Character use
+            $("#txtSaveSize").keypress(function (event)
+            {
+                var keycode = event.keyCode ? event.keyCode : event.which;
+                
+                if (keycode = 34 || keycode==39) {
+                    sweetalert("This Caracter Is Reserv Character of HTML You Can Not Use It Rather use single Quotation Twice ''")
+
+                    event.preventDefault();
+                }
+          
+            })
 
 
             //dimension radio button click event
@@ -610,7 +628,7 @@
                                     }
 
                                     else if (dropdownName.toLocaleLowerCase() == "Size".toLocaleLowerCase()) {
-                                        var option = '<option value="' + item.id + '">' + item.productSize + '</option>'
+                                        var option = '<option value="' + item.productSize + '">' + item.productSize + '</option>'
 
                                         $(appendElement).append(option);
                                     }

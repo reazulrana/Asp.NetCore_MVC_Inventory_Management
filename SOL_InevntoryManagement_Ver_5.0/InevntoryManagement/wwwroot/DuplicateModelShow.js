@@ -1,6 +1,6 @@
 ﻿
 
-function Create_record_with_ajax(url, method, data, dataType, appendElement, dropdownName, fieldNamtToEmpty, hideElement) {
+function Create_record_with_ajax(url, method, data, dataType, appendElement, dropdownName, fieldNamtToEmpty=null, hideElement=null) {
 
     $.ajax({
         url: url,
@@ -29,7 +29,7 @@ function Create_record_with_ajax(url, method, data, dataType, appendElement, dro
                     }
 
                     else if (dropdownName.toLocaleLowerCase() == "Size".toLocaleLowerCase()) {
-                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.productSize + '</option>'
+                        var option = '<option value="' + data.output.productSize + '" selected="selected">' + data.output.productSize + '</option>'
 
                         $(appendElement).append(option);
                 }
@@ -70,9 +70,15 @@ function Create_record_with_ajax(url, method, data, dataType, appendElement, dro
 
 
                 alert(data.msg);
+                if (fieldNamtToEmpty != null)
+                {
+                    $(fieldNamtToEmpty).val('')
+                }
 
-                $(fieldNamtToEmpty).val('')
-                $(hideElement).hide();
+                if (hideElement != null)
+                {
+                    $(hideElement).hide();
+                }
 
             }
             else {
@@ -90,3 +96,4 @@ function Create_record_with_ajax(url, method, data, dataType, appendElement, dro
 
 }
             //end of axaj call function Name: Create_record_with_ajax
+

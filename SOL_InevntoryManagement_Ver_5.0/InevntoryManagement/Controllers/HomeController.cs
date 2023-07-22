@@ -12,5 +12,12 @@ namespace InevntoryManagement.Controllers
         {
             return View();
         }
+
+
+        public IActionResult admin_profile()
+        {
+
+            return View();
+        }
     }
 }
