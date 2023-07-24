@@ -170,7 +170,7 @@ namespace InevntoryManagement.Controllers
                            {
                                Text = obj.ProductSize,
                                Value = obj.ProductSize,
-                               Selected = model.Size != null ? (model.Size.ToUpper() == obj.ProductSize.ToUpper() && model.SizeType == obj.SizeType.ToString()) : false
+                               Selected = model.Size != null ? (model.Size[0].ToUpper() == obj.ProductSize.ToUpper() && model.SizeType == obj.SizeType.ToString()) : false
                            }).ToList();
             model.Measurements = (from obj in unitOfWork.Measures.Get()
                            orderby obj.Measurements
@@ -206,6 +206,38 @@ namespace InevntoryManagement.Controllers
 
             if (ModelState.IsValid)
             {
+
+
+
+
+                if (model.Size.Count > 1)
+                {
+                        bool chkDuplicate = false;
+
+                    foreach (string _size in model.Size)
+                    {
+                        // checked into data base that Duplicate Found or Not
+                        var prod = unitOfWork.Products.Get().Where(x=>x.Code.ToLower()==model.Code.ToLower() && x.Size.ToLower()==_size.ToLower()).FirstOrDefault();
+                        if (prod != null)
+                        {
+                            ModelState.AddModelError("", $"{_size } is Duplicate");
+                            chkDuplicate = true;
+
+                        }
+                        
+                      
+
+                    }
+                    if (chkDuplicate)
+                    {
+                        Global_Functions.SetMessage($"Prodcut Can Not Insert For The Duplication Pleas Check The Model Is Duplicate Or Not","danger");
+                        return View(model);
+                    }
+                
+                }
+
+
+
 
                 bool err = false;
                 //if (model.Color == "-1")
@@ -251,13 +283,16 @@ namespace InevntoryManagement.Controllers
 
                 string uniquefilename = Upload_Get_UniqueFileName(model);
 
+                List<Product> productList = new List<Product>();
+            foreach(string _size in model.Size)
+                {
                 var product = new Product()
                 {
                     Code = model.Code,
                     Description = model.Description,
                     ModelId = model.ModelId,
                     Color = model.Color,
-                    Size = model.Size,
+                    Size = _size,
                     SizeType = model.SizeType,
                     Unitprice = model.Unitprice,
                     OpeningBalance = model.OpeningBalance,
@@ -275,8 +310,14 @@ namespace InevntoryManagement.Controllers
                      
                 };
 
+                    productList.Add(product);
+                }
 
-                unitOfWork.Products.Insert(product);
+
+
+
+
+                unitOfWork.Products.Insert(productList);
                 Global_Functions.SetMessage("Product Created Successfully", "success");
                 return View(model);
 
@@ -394,7 +435,7 @@ namespace InevntoryManagement.Controllers
                 OpeningBalance = result.OpeningBalance,
                 OpeningQty = result.OpeningQty,
                 Remarks = result.Remarks,
-                Size = result.Size,
+                //Size = result.Size,
                 SizeType = result.SizeType,
                 Unitprice = result.Unitprice,
                 Vendor = result.Vendor,
@@ -438,7 +479,7 @@ namespace InevntoryManagement.Controllers
             if (ModelState.IsValid)
             {
 
-                Product HasProduct = unitOfWork.Products.Get().Where(x => x.Code.ToUpper() == model.Code.ToUpper() && x.Size == model.Size).FirstOrDefault();
+                Product HasProduct = unitOfWork.Products.Get().Where(x => x.Code.ToUpper() == model.Code.ToUpper() && x.Size == model.Size[0]).FirstOrDefault();
                 
                 if(HasProduct != null)
                 {
@@ -452,7 +493,7 @@ namespace InevntoryManagement.Controllers
                     HasProduct.OpeningBalance = model.OpeningBalance;
                     HasProduct.OpeningQty = model.OpeningQty;
                     HasProduct.Remarks = model.Remarks;
-                    HasProduct.Size = model.Size;
+                    //HasProduct.Size = model.Size;
                     HasProduct.SizeType = model.SizeType;
                     HasProduct.Unitprice = model.Unitprice;
                     HasProduct.Vendor = model.Vendor;
@@ -513,7 +554,7 @@ namespace InevntoryManagement.Controllers
                     result.OpeningBalance = model.OpeningBalance;
                     result.OpeningQty = model.OpeningQty;
                     result.Remarks = model.Remarks;
-                    result.Size = model.Size;
+                    //result.Size = model.Size;
                     result.SizeType = model.SizeType;
                     result.Unitprice = model.Unitprice;
                     result.Vendor = model.Vendor;

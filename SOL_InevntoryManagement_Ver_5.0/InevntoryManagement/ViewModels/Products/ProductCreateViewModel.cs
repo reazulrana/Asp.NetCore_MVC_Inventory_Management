@@ -27,7 +27,7 @@ namespace InevntoryManagement.ViewModels.Products
         [Required]
         public string Color { get; set; }
         [Required]
-        public string Size { get; set; }
+        public List<string> Size { get; set; }
         public string SizeType { get; set; }
         [Required]
         [Display(Name ="Unit Price")]

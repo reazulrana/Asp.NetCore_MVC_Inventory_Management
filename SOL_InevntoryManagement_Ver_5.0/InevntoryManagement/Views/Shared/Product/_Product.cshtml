@@ -254,20 +254,55 @@
 
 
                         @*Size section*@
+                       
+                        @{
+                            string _multiselect = "";
+                            Type superClass = Model.GetType().BaseType;
+
+                            if (Model.GetType().ToString()== "InevntoryManagement.ViewModels.Products.ProductCreateViewModel")
+                            {
+
+                                _multiselect = "multi-select";
+
+
+                            }
+
+                        }
+
+
                         <div class="row">
                             <div class="@tabcollabel">
                                 <label asp-for="@Model.Size" class="col-form-label"></label>
                             </div>
                             <div class="@tabcolinput">
-                                <div class="input-group">
-                                    <select asp-for="@Model.Size" class="form-control single-select find_Size" asp-items="@Model.Sizes">
-                                        <option value="">Select Size</option>
-                                    </select>
-                                    <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
-                                </div>
+                                @if (_multiselect != "")
+                                {
+                                    <div class="form-group">
+                                        <div class="input-group-addon">
+
+                                            <select asp-for="@Model.Size" class="@_multiselect find_Size" multiple="Mu" asp-items="@Model.Sizes">
+                                                <option value="">Select Size</option>
+                                            </select>
+                                            <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="input-group-addon">
+
+                                        <select asp-for="@Model.Size" class="form-control find_Size" asp-items="@Model.Sizes">
+                                            <option value="">Select Size</option>
+                                        </select>
+                                        <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
+                                    </div>
+
+                                }
+
                                 <span class="text-danger" asp-validation-for="@Model.Size"></span>
                             </div>
-                        </div>
+                                </div>
 
                         @*for New Size Create*@
                         <div class="row" id="divSize" style="display:none">

@@ -17,7 +17,6 @@ namespace BussinessAccessLayer.Model
         public int Id { get; set; }
         public string Code { get; set; }
         public string Description { get; set; }
-        
         public int ModelId { get; set; } //using for relationship
         [DefaultValue(0)]
         public string Color { get; set; }
@@ -40,8 +39,6 @@ namespace BussinessAccessLayer.Model
         public string Measurement { get; set; }
         public string Source { get; set; }
         public int Pipeline { get; set; }
-
-
         public virtual Model Model { get; set; }
         public virtual ICollection<MasterDetail> MasterDetails { get; set; }
 
