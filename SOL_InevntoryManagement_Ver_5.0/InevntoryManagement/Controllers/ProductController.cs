@@ -172,6 +172,7 @@ namespace InevntoryManagement.Controllers
                                Value = obj.ProductSize,
                                Selected = model.Size != null ? (model.Size[0].ToUpper() == obj.ProductSize.ToUpper() && model.SizeType == obj.SizeType.ToString()) : false
                            }).ToList();
+            
             model.Measurements = (from obj in unitOfWork.Measures.Get()
                            orderby obj.Measurements
                            select new SelectListItem
@@ -210,10 +211,9 @@ namespace InevntoryManagement.Controllers
 
 
 
-                if (model.Size.Count > 1)
-                {
+              
                         bool chkDuplicate = false;
-
+                string errsize = ""; // store the model size if find duplicate into the database
                     foreach (string _size in model.Size)
                     {
                         // checked into data base that Duplicate Found or Not
@@ -222,7 +222,7 @@ namespace InevntoryManagement.Controllers
                         {
                             ModelState.AddModelError("", $"{_size } is Duplicate");
                             chkDuplicate = true;
-
+                        errsize = errsize=="" ? _size : errsize + "; " + _size;
                         }
                         
                       
@@ -230,11 +230,11 @@ namespace InevntoryManagement.Controllers
                     }
                     if (chkDuplicate)
                     {
-                        Global_Functions.SetMessage($"Prodcut Can Not Insert For The Duplication Pleas Check The Model Is Duplicate Or Not","danger");
+                        Global_Functions.SetMessage($"Prodcut Can Not Insert For The Model { errsize } because you have already insert this model with smae size Pleas Check The Model Is Duplicate Or Not","danger");
                         return View(model);
                     }
                 
-                }
+                
 
 
 
@@ -435,7 +435,7 @@ namespace InevntoryManagement.Controllers
                 OpeningBalance = result.OpeningBalance,
                 OpeningQty = result.OpeningQty,
                 Remarks = result.Remarks,
-                //Size = result.Size,
+                Size = result.Size,
                 SizeType = result.SizeType,
                 Unitprice = result.Unitprice,
                 Vendor = result.Vendor,
@@ -473,36 +473,48 @@ namespace InevntoryManagement.Controllers
             model = Retirved_CategoryId_and_BrandId(model);
             model = MultiSelecListItemLoad(model) as ProductEditViewModel;
 
-            
+
 
 
             if (ModelState.IsValid)
             {
+                                         
+            var result = unitOfWork.Products.GetByID(model.Id);
 
-                Product HasProduct = unitOfWork.Products.Get().Where(x => x.Code.ToUpper() == model.Code.ToUpper() && x.Size == model.Size[0]).FirstOrDefault();
-                
-                if(HasProduct != null)
+            if (result == null)
+            {
+                ViewBag.ErrorTitle = "Product Edit Page Not Found";
+                ViewBag.ErrorMessage = $"The Product Id { model.Id } You Are Looking for Not Found";
+                return View();
+            }
+            else
+            {
+
+
+                //
+                Product HasProduct = unitOfWork.Products.Get().Where(x => x.Code.ToUpper() == model.Code.ToUpper() && x.Size == model.Size).FirstOrDefault();
+
+
+                if (HasProduct == null ||  (HasProduct!=null && result.Id == HasProduct.Id))
                 {
-                    HasProduct.Bin = model.Bin;
-                    HasProduct.Code = model.Code;
-                    HasProduct.Color = model.Color;
-                    HasProduct.Description = model.Description;
-                    HasProduct.DiscountPrice = model.DiscountPrice;
-                    HasProduct.Manufacture = model.Manufacture;
-                    HasProduct.ModelId = model.ModelId;
-                    HasProduct.OpeningBalance = model.OpeningBalance;
-                    HasProduct.OpeningQty = model.OpeningQty;
-                    HasProduct.Remarks = model.Remarks;
-                    //HasProduct.Size = model.Size;
-                    HasProduct.SizeType = model.SizeType;
-                    HasProduct.Unitprice = model.Unitprice;
-                    HasProduct.Vendor = model.Vendor;
-                    HasProduct.Measurement = model.Measurement!=null ?model.Measurement.ToUpper() : "PCS";
-                    HasProduct.Source = model.Source != null ? model.Source.ToUpper() : "Local Market".ToUpper();
-                    HasProduct.Pipeline = model.Pipeline;
 
-                    Global_Functions.SetMessage($" {Global_Functions.DuplicateErrorMessage("Product")}. The Product Is Found Into Database with Same Code '{ model.Code }' And Same Size '{model.Size}' ", "danger");
-
+                    result.Bin = model.Bin;
+                    result.Code = model.Code;
+                    result.Color = model.Color;
+                    result.Description = model.Description;
+                    result.DiscountPrice = model.DiscountPrice;
+                    result.Manufacture = model.Manufacture;
+                    result.ModelId = model.ModelId;
+                    result.OpeningBalance = model.OpeningBalance;
+                    result.OpeningQty = model.OpeningQty;
+                    result.Remarks = model.Remarks;
+                    result.Size = model.Size;
+                    result.SizeType = model.SizeType;
+                    result.Unitprice = model.Unitprice;
+                    result.Vendor = model.Vendor;
+                    result.Measurement = model.Measurement != null ? model.Measurement.ToUpper() : "PCS";
+                    result.Source = model.Source != null ? model.Source.ToUpper() : "Local Market".ToUpper();
+                    result.Pipeline = model.Pipeline;
 
                     if (model.Photo != null)
                     {
@@ -514,14 +526,14 @@ namespace InevntoryManagement.Controllers
                         }
 
                         string upload_photo_path = Upload_Get_UniqueFileName(model);
-                        HasProduct.PhotoPath = upload_photo_path;
+                        result.PhotoPath = upload_photo_path;
                         model.ExistingPhotoPath = upload_photo_path;
 
                     }
 
                     try
                     {
-                        unitOfWork.Products.Update(HasProduct);
+                        unitOfWork.Products.Update(result);
                         Global_Functions.SetMessage("Product Update Successfully", "success");
                     }
                     catch (Exception ex)
@@ -530,63 +542,15 @@ namespace InevntoryManagement.Controllers
                         ViewBag.ErrorMessage = ex.Message;
                         return View("NotFound");
                     }
-
-                    return View(model);
-                }
-
-                var result = unitOfWork.Products.GetByID(model.Id);
-
-                if (result == null)
-                {
-                    ViewBag.ErrorTitle = "Product Edit Page Not Found";
-                    ViewBag.ErrorMessage = $"The Product Id { model.Id } You Are Looking for Not Found";
-                    return View();
                 }
                 else
                 {
-                    result.Bin = model.Bin;
-                    result.Code = model.Code;
-                    result.Color = model.Color;
-                    result.Description = model.Description;
-                    result.DiscountPrice = model.DiscountPrice;
-                    result.Manufacture = model.Manufacture;
-                    result.ModelId = model.ModelId;
-                    result.OpeningBalance = model.OpeningBalance;
-                    result.OpeningQty = model.OpeningQty;
-                    result.Remarks = model.Remarks;
-                    //result.Size = model.Size;
-                    result.SizeType = model.SizeType;
-                    result.Unitprice = model.Unitprice;
-                    result.Vendor = model.Vendor;
-                    result.Measurement = model.Measurement != null ? model.Measurement.ToUpper() : "PCS";
-                    result.Source = model.Source != null ? model.Source.ToUpper() : "Local Market".ToUpper();
-                    result.Pipeline = model.Pipeline;
+                    Global_Functions.SetMessage($" {Global_Functions.DuplicateErrorMessage("Product")}. The Product Is Found Into Database with Same Code '{ model.Code }' And Same Size '{model.Size}' ", "danger");
+                    return View(model);
+                }
 
-                    if (model.Photo!=null)
-                    {
-                        if(model.ExistingPhotoPath!=null && model.ExistingPhotoPath!="")
-                        {
-                            string fullpath = Path.Combine(_iWebHostEnvironment.WebRootPath, ImagePath.GetProductImagePath(model.ExistingPhotoPath));
-                            System.IO.File.Delete(fullpath);
 
-                        }
-                        
-                        string upload_photo_path= Upload_Get_UniqueFileName(model);
-                        result.PhotoPath = upload_photo_path;
-                        model.ExistingPhotoPath = upload_photo_path;
 
-                    }
-
-                    try { 
-                    unitOfWork.Products.Update(result);
-                        Global_Functions.SetMessage("Product Update Successfully", "success");
-                    }
-                    catch(Exception ex)
-                    {
-                        ViewBag.ErrorTitle = "Product Update Error";
-                        ViewBag.ErrorMessage = ex.Message;
-                        return View("NotFound");
-                    }
                 } //end of else part
             }
 

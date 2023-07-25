@@ -280,7 +280,7 @@
                                     <div class="form-group">
                                         <div class="input-group-addon">
 
-                                            <select asp-for="@Model.Size" class="@_multiselect find_Size" multiple="Mu" asp-items="@Model.Sizes">
+                                            <select asp-for="@Model.Size" class="@_multiselect find_Size" multiple="multiple" asp-items="@Model.Sizes">
                                                 <option value="">Select Size</option>
                                             </select>
                                             <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
@@ -290,9 +290,9 @@
                                 }
                                 else
                                 {
-                                    <div class="input-group-addon">
+                                    <div class="input-group">
 
-                                        <select asp-for="@Model.Size" class="form-control find_Size" asp-items="@Model.Sizes">
+                                        <select asp-for="@(((ProductEditViewModel)Model).Size)" class="form-control find_Size" asp-items="@Model.Sizes">
                                             <option value="">Select Size</option>
                                         </select>
                                         <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
