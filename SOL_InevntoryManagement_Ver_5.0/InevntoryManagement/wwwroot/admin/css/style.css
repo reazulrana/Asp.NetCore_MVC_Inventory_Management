@@ -21004,7 +21004,9 @@ input[type="checkbox"]:checked:after {
       margin-right: 0; }
 
 .select2-container {
-  width: 100% !important; }
+  width: 100% !important; 
+
+}
 
 .select2-container--default .select2-selection--single {
   border-radius: 0.35rem;

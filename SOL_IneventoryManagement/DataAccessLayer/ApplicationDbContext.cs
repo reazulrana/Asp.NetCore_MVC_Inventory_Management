@@ -40,7 +40,7 @@ namespace DataAccessLayer
         public DbSet<Color> Colors { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Manufacture> Manufactures { get; set; }
-        public DbSet<Master> Masters { get; set; }
+        
         public DbSet<MasterDetail> MasterDetail { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Model> Models { get; set; }
@@ -51,8 +51,10 @@ namespace DataAccessLayer
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Measure> Measures { get; set; }
+        public DbSet<Branch> Branchs { get; set; }
 
-              
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<Category>()
@@ -65,6 +67,12 @@ namespace DataAccessLayer
             modelBuilder.Entity<Product>().Property(x => x.OpeningBalance).HasDefaultValue(0);
             modelBuilder.Entity<Product>().Property(x => x.OpeningQty).HasDefaultValue(0);
             modelBuilder.Entity<Product>().Property(x => x.DiscountPrice).HasDefaultValue(0);
+            modelBuilder.Entity<Purchase>().Property(x => x.ReceivedByID).HasDefaultValue(1);
+            modelBuilder.Entity<Purchase>().Property(x => x.VendorId).HasDefaultValue(1);
+            modelBuilder.Entity<Purchase>().Property(x => x.SourceId).HasDefaultValue(1);
+
+            modelBuilder.Entity<Branch>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<Color>().HasIndex(x => x.Id).IsUnique();
 
 
         }

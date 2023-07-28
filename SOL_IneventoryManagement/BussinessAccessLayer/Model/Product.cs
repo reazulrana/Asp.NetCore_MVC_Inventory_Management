@@ -15,28 +15,40 @@ namespace BussinessAccessLayer.Model
         }
         [Key]
         public int Id { get; set; }
+        [MaxLength(35, ErrorMessage = "Max Legth is 35 That You Have Excced")]
+
         public string Code { get; set; }
+        [MaxLength(120, ErrorMessage = "Max Legth is 120 That You Have Excced")]
         public string Description { get; set; }
         public int ModelId { get; set; } //using for relationship
-        [DefaultValue(0)]
+        [MaxLength(25, ErrorMessage = "Max Legth is 25 That You Have Excced")]
         public string Color { get; set; }
+        [MaxLength(50, ErrorMessage = "Max Legth is 50 That You Have Excced")]
         public string Size { get; set; }
+        [MaxLength(2, ErrorMessage = "Max Legth is 2 That You Have Excced")]
         public string SizeType { get; set; }
-        [DefaultValue(0)]
         public int Unitprice { get; set; }
-        [DefaultValue(0)]
         public int OpeningBalance { get; set; }
-        [DefaultValue(0)]
         public int OpeningQty { get; set; }
         public DateTime CreatedDate { get; set; }
+        [MaxLength(50, ErrorMessage = "Max Legth is 50 That You Have Excced")]
+
         public string Vendor { get; set; }
+        [MaxLength(50, ErrorMessage = "Max Legth is 50 That You Have Excced")]
+
         public string Manufacture { get; set; }
+        [MaxLength(10, ErrorMessage = "Max Legth is 10 That You Have Excced")]
+
         public string Bin { get; set; }
         public string PhotoPath { get; set; }
+        [MaxLength(250, ErrorMessage = "Max Legth is 250 That You Have Excced")]
         public string Remarks { get; set; }
-        [DefaultValue(0)]
         public int DiscountPrice { get; set; }
+        [MaxLength(10, ErrorMessage = "Max Legth is 10 That You Have Excced")]
+
         public string Measurement { get; set; }
+        [MaxLength(50, ErrorMessage = "Max Legth is 50 That You Have Excced")]
+
         public string Source { get; set; }
         public int Pipeline { get; set; }
         public virtual Model Model { get; set; }

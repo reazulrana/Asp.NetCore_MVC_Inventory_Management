@@ -180,6 +180,7 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Manufacture\_ManufactureList.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Modals\_duplicateMessageShow.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\NotFound.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Pagination\_PaginagionHeader.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Product\_Product.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Product\_productDetails.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\_Admin_Dashboard.cshtml.g.cs
@@ -208,4 +209,7 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\ref\InevntoryManagement.dll
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\InevntoryManagement.pdb
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\InevntoryManagement.genruntimeconfig.cache
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Pagination\_PaginagionHeader.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Purchase\Create.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Purchase\_PurcchaseDetails.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Purchase\_PurchaseProductDetails.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Purchase\_PurchasePriceDetails.cshtml.g.cs

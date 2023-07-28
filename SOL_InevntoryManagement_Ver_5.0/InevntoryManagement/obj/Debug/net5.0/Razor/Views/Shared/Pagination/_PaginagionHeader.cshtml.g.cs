@@ -138,6 +138,13 @@ using Microsoft.AspNetCore.Identity;
 #line hidden
 #nullable disable
 #nullable restore
+#line 19 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Purchase;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 1 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\Views\Shared\Pagination\_PaginagionHeader.cshtml"
 using System.Collections.Generic;
 
@@ -145,7 +152,7 @@ using System.Collections.Generic;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8fb286dcc9fe301360e77979a54d09ba520388ae", @"/Views/Shared/Pagination/_PaginagionHeader.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"561ae46aa6f8b925bcadbd4c36f5aadfc4ef9047", @"/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"690000e0c2bf0b582bb5a7a8ef47e4fbeb661085", @"/_ViewImports.cshtml")]
     public class Views_Shared_Pagination__PaginagionHeader : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

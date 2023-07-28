@@ -12,6 +12,8 @@ namespace BussinessAccessLayer.Model
         [Key]
         public int Id { get; set; }
 
+        [MaxLength(25, ErrorMessage = "Max Legth is 25 That You Have Excced")]
+        [Required]
         public string Measurements { get; set; }
 
     }

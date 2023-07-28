@@ -9,10 +9,8 @@ namespace BussinessAccessLayer.Model
     {
         [Key]
         public int DID { get; set; }
-        public int MasterId { get; set; }
         public int ProductId { get; set; }
         public int Qty { get; set; }
         public int Price { get; set; }
-        public virtual Master master { get; set; }
     }
 }

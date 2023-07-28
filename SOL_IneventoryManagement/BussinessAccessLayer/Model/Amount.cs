@@ -21,6 +21,7 @@ namespace BussinessAccessLayer.Model
 
         public virtual Purchase Purchase { get; set; }
         public virtual Sale Sale { get; set; }
+        public virtual List<MasterDetail> MasterDetails { get; set; }
 
     }
 }

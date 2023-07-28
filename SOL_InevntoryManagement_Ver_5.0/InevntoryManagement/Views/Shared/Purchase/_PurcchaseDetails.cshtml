@@ -1,0 +1,79 @@
+﻿@model PurchaseCreateViewModel
+@{
+    string colLabel = "col-md-3";
+    string colinput = "col-md-9";
+}
+
+<div class="row">
+    @*left col-md-6*@
+    <div class="col-md-6">
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="Invoice"></label>
+            </div>
+            <div class="@colinput">
+                <input asp-for="Invoice" class="form-control" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="TrDate"></label>
+            </div>
+            <div class="@colinput">
+                <input asp-for="TrDate" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="ReceiveDate"></label>
+            </div>
+            <div class="@colinput">
+                <input asp-for="ReceiveDate" class="form-control" />
+            </div>
+        </div>
+      
+
+
+    </div>
+
+
+    @*Right col-md-6*@
+<div class="col-md-6">
+    <div class="row mb-2">
+        <div class="@colLabel">
+            <label asp-for="BranchId"></label>
+        </div>
+        <div class="@colinput">
+            <select asp-for="BranchId" class="form-control">
+                <option value="">Select Branch</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="@colLabel">
+            <label asp-for="VendorId"></label>
+        </div>
+        <div class="@colinput">
+            <select asp-for="VendorId" class="form-control">
+                <option value="">Select Vendor</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="@colLabel">
+            <label asp-for="SourceId"></label>
+        </div>
+        <div class="@colinput">
+            <select asp-for="SourceId" class="form-control">
+                <option value="">Select Source</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+
+</div>

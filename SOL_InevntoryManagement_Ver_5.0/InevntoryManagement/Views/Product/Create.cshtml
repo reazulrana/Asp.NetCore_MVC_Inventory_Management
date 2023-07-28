@@ -22,9 +22,9 @@
         </div> @*End card-body section*@
         <div class="card-footer">
             <div class="row">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-whatsapp bt-xs">Create <span class="btn-icon-right"><i class="mdi mdi-plus"></i></span></button>
-                    <a asp-controller="Product" asp-action="ProductList" class="pull-right btn btn-linkedin bt-xs">Go To Product List <span class="btn-icon-right"><i class="mdi mdi-view-list"></i></span></a>
+                <div class="col-sm-12">
+                    <button type="submit" class="float-md-left btn btn-whatsapp bt-xs">Create <span class="btn-icon-right"><i class="mdi mdi-plus"></i></span></button>
+                    <a asp-controller="Product" asp-action="ProductList" class="mt-sm-2 float-md-right btn btn-linkedin bt-xs">Go To Product List <span class="btn-icon-right"><i class="mdi mdi-view-list"></i></span></a>
 
                 </div>
             </div>
@@ -59,6 +59,37 @@
                 }
                 return blnflag
             }
+            
+            //$("#CategoryId").select2({
+            //theme:"bootstrap"    
+            //});
+            //$("#Brandid").select2({
+            //theme: "bootstrap"
+            //});
+            //$("#ModelId").select2({
+            //    theme: "bootstrap"
+
+            //});
+            //$('.multi-select').select2(
+            //    {
+            //        theme: "bootstrap"
+
+            //    }
+            //);
+            //$("#ModelId").dblclick(function () {
+            //    $("#divModel").toggle();
+            //})
+
+            //put Model dropdown selected text into code inputbox
+            $("#ModelId").change(function () {
+
+                var text = $(this).find(":selected").text();
+                var codeinput = $("#Code");
+                $(codeinput).val(text);
+
+            })
+
+
 
             //checl if input text field is empty
             function IsEmptyInputField(field) {
@@ -72,12 +103,36 @@
             }
 
 
+
+            //keypress section
+            $("#Code").keydown(function (event) {
+                var keycode = event.keyCode ? event.keyCode : event.which;
+                var editcodechecked = $("#editcode").is(":checked");
+
+                if (editcodechecked == false) {
+                    if (keycode == 8 || keycode == 46)
+                    {
+                        event.preventDefault();
+                    }
+                }
+
+            })
+
+            $("#Code").keypress(function (event) {
+                var keycode = event.keyCode ? event.keyCode : event.which;
+
+                var editcodechecked = $("#editcode").is(":checked");
+                if (editcodechecked == false)
+                {
+                    event.preventDefault();
+                }
+
+            })
             //Prevent while " Character use
             $("#txtSaveSize").keypress(function (event) {
                 var keycode = event.keyCode ? event.keyCode : event.which;
                
-                alert(keycode);
-                if (keycode = 34 || keycode == 39) {
+                if (keycode == 34 || keycode == 39) {
                     sweetalert("This Caracter Is Reserv Character of HTML You Can Not Use It Rather use single Quotation Twice ''")
                     event.preventDefault();
                 }
@@ -345,7 +400,7 @@
 
             //dimension radio button click event
             // Change Placeholder attribute
-            $("#size").click(function () {
+            $("#sizelist").click(function () {
                 $('#txtSaveSize').attr("placeholder", "Enter Size");
             })
 
@@ -375,9 +430,10 @@
             })
 
 
+          
+
             //Size section
             $("#btnAddSize").click(function () {
-
 
 
                 //var size = $('input[name="SizeType"]:checked').val();
@@ -473,7 +529,6 @@
 
                 }
                 var url = '@Url.Action("Create_Manufacture_With_Ajax", "Manufacture")'
-                alert(url);
 
                 callCreate_record_with_ajax(url = url, method = "Post", data = data, dataType = "JSON", appendElement = ".find_Manufacture", dropdownName = "Manufacture", "#txtSaveManufacture", "#divVendor")
 
@@ -489,7 +544,6 @@
 
                  var bin = $("#txtSaveBin").val();
 
-                alert(bin);
                 if (IsEmptyInputField(bin) == true)
                 {
                     sweetalert("Bin Is Empty")

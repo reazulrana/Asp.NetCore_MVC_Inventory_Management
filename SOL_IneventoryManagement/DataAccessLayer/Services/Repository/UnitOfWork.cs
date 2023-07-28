@@ -31,6 +31,12 @@ namespace DataAccessLayer.Services.Repository
         BaseRepository<Measure> _Measures;
         BaseRepository<Product> _Products;
         BaseRepository<Color> _Colors;
+        BaseRepository<Branch> _Branchs;
+        BaseRepository<Purchase> _Purchase;
+        BaseRepository<MasterDetail> _MasterDetails;
+
+
+
 
 
 
@@ -151,6 +157,33 @@ namespace DataAccessLayer.Services.Repository
             get
             {
                 return _Colors ?? (_Colors = new BaseRepository<Color>(_dbContext));
+            }
+        }
+
+        //Branch
+        public IRepository<Branch> Branchs
+        {
+            get
+            {
+                return _Branchs ?? (_Branchs = new BaseRepository<Branch>(_dbContext));
+            }
+        }
+
+        //Purchase
+        public IRepository<Purchase> Purchases
+        {
+            get
+            {
+                return _Purchase ?? (_Purchase = new BaseRepository<Purchase>(_dbContext));
+            }
+        }
+
+        //MasterDetail
+        public IRepository<MasterDetail> MasterDetails
+        {
+            get
+            {
+                return _MasterDetails ?? (_MasterDetails = new BaseRepository<MasterDetail>(_dbContext));
             }
         }
     }

@@ -66,10 +66,12 @@
             </div>
             <div class="@colinput">
                 <div class="input-group">
-                    <select asp-for="@Model.Brandid" class="form-control single-select find_Brand" asp-items="@Model.Brands">
+                    <select asp-for="@Model.Brandid" class="form-control find_Brand" asp-items="@Model.Brands">
                         <option value="">Select Brand</option>
                     </select>
-                    <button type="button" id="btnAddBrand" class="btn btn-facebook btn-xs" title="Add New Category"><span><i class="mdi mdi-plus"></i></span></button>
+                    <div class="input-group-append">
+                        <button type="button" id="btnAddBrand" class="btn btn-facebook btn-xs" title="Add New Category"><span><i class="mdi mdi-plus"></i></span></button>
+                    </div>
                 </div>
                 <input hidden asp-for="Brandid" id="InputBrandid" />
             </div>
@@ -97,11 +99,13 @@
                 <label asp-for="@Model.ModelId" class="col-form-label"></label>
             </div>
             <div class="@colinput">
-                <div class="input-group">
-                    <select asp-for="@Model.ModelId" class="form-control single-select find_Model" asp-items="@Model.Models">
+                <div class="input-group border  bg-white">
+                    <select asp-for="@Model.ModelId" class="form-control  single-select find_Model" asp-items="@Model.Models">
                         <option value="">Select Model</option>
                     </select>
-                    <button type="button" id="btnAddModel" class="btn btn-facebook btn-xs" title="Add New Category"><span><i class="mdi mdi-plus"></i></span></button>
+                    <div class="input-group-append">
+                        <button type="button" id="btnAddModel" class="btn btn-facebook btn-xs" title="Add New Category"><span><i class="mdi mdi-plus"></i></span></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,7 +129,12 @@
                 <label asp-for="@Model.Code" class="col-form-label"></label>
             </div>
             <div class="@colinput">
-                <input class="form-control" asp-for="@Model.Code" />
+                
+                    <input class="form-control" asp-for="@Model.Code" />
+                    <label class="form-check-label">
+                        <input type="checkbox" id="editcode" /> Edit
+                    </label>    
+                
                 <span class="text-danger" asp-validation-for="@Model.Code"></span>
             </div>
         </div>
@@ -245,8 +254,10 @@
 
                             <div class="@tabcolinput offset-md-2">
                                 @*<div class="form-group">*@
-                                <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="1" id="size" type="radio" /> Size</label>
+                                <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="1" id="sizelist" type="radio" /> Size</label>
                                 <label class="radio-inline mr-2"><input class="size_value" asp-for="@Model.SizeType" value="2" id="dimension" type="radio" /> Dimension</label>
+                                <label class="radio-inline mr-2"><button type="button" id="btnAddSize" class="btn btn-transparent btn-xs" title="Add New Size">Add Size<span><i class="mdi mdi-plus"></i></span></button></label>
+
                                 @*</div>*@
 
                             </div>
@@ -283,7 +294,9 @@
                                             <select asp-for="@Model.Size" class="@_multiselect find_Size" multiple="multiple" asp-items="@Model.Sizes">
                                                 <option value="">Select Size</option>
                                             </select>
-                                            <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
+                                            @*<div class="input-group-append">
+                                                <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
+                                            </div>*@
                                         </div>
                                     </div>
 
@@ -295,7 +308,9 @@
                                         <select asp-for="@(((ProductEditViewModel)Model).Size)" class="form-control find_Size" asp-items="@Model.Sizes">
                                             <option value="">Select Size</option>
                                         </select>
-                                        <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
+                                        @*<div class="input-group-append">
+                                            <button type="button" id="btnAddSize" class="btn btn-facebook btn-xs" title="Add New Size"><span><i class="mdi mdi-plus"></i></span></button>
+                                        </div>*@
                                     </div>
 
                                 }

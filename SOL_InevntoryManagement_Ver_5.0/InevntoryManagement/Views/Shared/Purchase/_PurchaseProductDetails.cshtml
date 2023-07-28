@@ -1,0 +1,152 @@
+﻿@model ProductCreateViewModel
+
+@{
+    string colLabel = "col-md-3";
+    string colinput = "col-md-9";
+
+}
+
+<div class="row py-1 border">
+    <div class="col-md-12 py-1 bg-secondary ">
+        <h5 class="card-title pl-2 text-white">Product Information</h5>
+    </div>
+    <div class="col-md-6 mt-3">
+        <div class="row">
+
+            @*Code*@
+            <div class="@colLabel">
+                <label>Code</label>
+
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" id="txtProductCode" />
+                    <span class="input-group-append" disabled><button disabled class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></span>
+                </div>
+            </div>
+
+
+            @*Description*@
+            <div class="@colLabel">
+                <label>Description</label>
+
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" id="txtProductDescription" />
+                    <span class="input-group-append" disabled><button disabled class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></span>
+                </div>
+            </div>
+
+
+            @*Model*@
+            <div class="@colLabel">
+                <label>Model</label>
+
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" id="txtProductModel" />
+                    <span class="input-group-append" disabled><button disabled class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></span>
+                </div>
+            </div>
+
+
+            @*size*@
+            <div class="@colLabel">
+                <label>Size</label>
+
+            </div>
+            <div class="@colinput">
+                <input class="form-control" id="txtProductSize" />
+            </div>
+
+
+
+            @*Color*@
+            <div class="@colLabel">
+                <label>Color</label>
+
+            </div>
+            <div class="@colinput">
+                <input class="form-control" id="txtProductColor" />
+            </div>
+
+
+            @*Qty*@
+            <div class="@colLabel">
+                <label>Qty</label>
+
+            </div>
+            <div class="@colinput">
+                <input class="form-control" id="txtProductQty" />
+            </div>
+
+
+            @*Price*@
+            <div class="@colLabel">
+                <label>Purchase Price</label>
+
+            </div>
+            <div class="@colinput">
+                <input class="form-control" id="txtProductPurchasePrice" />
+            </div>
+
+            @*Price*@
+            <div class="@colLabel">
+                <label>Total Amount</label>
+
+            </div>
+            <div class="@colinput">
+                <input class="form-control" id="txtProductTotalAmount" />
+            </div>
+
+
+
+        </div> @*End row*@
+
+    </div>  @*End col-md-6*@
+</div>    @*End row*@
+
+
+
+
+
+
+<div class="row mt-2">
+    <div class="col-md-12 mt-3">
+        <table class="table table-responsive-md table-bordered text-center" id="productList">
+            <thead class="bg-secondary">
+                <tr class="text-white">
+                    <th>SL</th>
+                    <th>Image</th>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Model</th>
+                    <th>Size</th>
+                    <th>Color</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total Amount</th>
+
+                </tr>
+            </thead>
+            <tbody id="productlist">
+                <tr id="1">
+                    <td>sl</td>
+                    <td>Image</td>
+                    <td>Code</td>
+                    <td>Description</td>
+                    <td>Model</td>
+                    <td>Size</td>
+                    <td>Color</td>
+                    <td>Qty</td>
+                    <td>Price</td>
+                    <td>Total Amount</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

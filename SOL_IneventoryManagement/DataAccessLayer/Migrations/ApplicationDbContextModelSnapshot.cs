@@ -66,11 +66,40 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BinNo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Bins");
+                });
+
+            modelBuilder.Entity("BussinessAccessLayer.Model.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BranchIncharge")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Contact")
+                        .HasMaxLength(35)
+                        .HasColumnType("nvarchar(35)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.ToTable("Branchs");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Brand", b =>
@@ -81,7 +110,9 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BrandName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -101,7 +132,8 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id");
 
@@ -111,12 +143,18 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("BussinessAccessLayer.Model.Color", b =>
                 {
                     b.Property<string>("ColorName")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("ColorName");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.ToTable("Colors");
                 });
@@ -129,7 +167,8 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CustName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("MemberId")
                         .HasColumnType("int");
@@ -149,29 +188,12 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ManufactureName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Manufactures");
-                });
-
-            modelBuilder.Entity("BussinessAccessLayer.Model.Master", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("TrID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TrType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Masters");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.MasterDetail", b =>
@@ -181,7 +203,7 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MasterId")
+                    b.Property<int?>("AmountId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -195,7 +217,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("DID");
 
-                    b.HasIndex("MasterId");
+                    b.HasIndex("AmountId");
 
                     b.HasIndex("ProductId");
 
@@ -210,7 +232,9 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Measurements")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id");
 
@@ -225,13 +249,17 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ContactNo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("MemberName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id");
 
@@ -249,7 +277,9 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ModelName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -266,19 +296,23 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Bin")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(35)
+                        .HasColumnType("nvarchar(35)");
 
                     b.Property<string>("Color")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<int>("DiscountPrice")
                         .ValueGeneratedOnAdd()
@@ -286,10 +320,12 @@ namespace DataAccessLayer.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<string>("Manufacture")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Measurement")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
@@ -313,16 +349,20 @@ namespace DataAccessLayer.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SizeType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
 
                     b.Property<string>("Source")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Unitprice")
                         .ValueGeneratedOnAdd()
@@ -330,7 +370,8 @@ namespace DataAccessLayer.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<string>("Vendor")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -346,14 +387,29 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Invoice")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PurchaseNo")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("ReceiveDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ReceivedByID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("SourceId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<DateTime>("TrDate")
                         .HasColumnType("datetime2");
@@ -362,9 +418,13 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("VendorId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.HasKey("PurchaseID");
+
+                    b.HasIndex("BranchId");
 
                     b.HasIndex("SourceId");
 
@@ -384,14 +444,19 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
                     b.Property<string>("Invoice")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("TrDate")
                         .HasColumnType("datetime2");
@@ -403,6 +468,8 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("SaleID");
+
+                    b.HasIndex("BranchId");
 
                     b.HasIndex("CustomerID");
 
@@ -421,9 +488,11 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ProductSize")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("SizeType")
+                        .HasMaxLength(2)
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -439,7 +508,8 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("SourceName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -454,13 +524,16 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<string>("Contact")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("VendorName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -491,19 +564,15 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("BussinessAccessLayer.Model.MasterDetail", b =>
                 {
-                    b.HasOne("BussinessAccessLayer.Model.Master", "master")
+                    b.HasOne("BussinessAccessLayer.Model.Amount", null)
                         .WithMany("MasterDetails")
-                        .HasForeignKey("MasterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AmountId");
 
                     b.HasOne("BussinessAccessLayer.Model.Product", null)
                         .WithMany("MasterDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("master");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Model", b =>
@@ -530,6 +599,10 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Purchase", b =>
                 {
+                    b.HasOne("BussinessAccessLayer.Model.Branch", "Branch")
+                        .WithMany("Purchases")
+                        .HasForeignKey("BranchId");
+
                     b.HasOne("BussinessAccessLayer.Model.Source", "Source")
                         .WithMany("Purchases")
                         .HasForeignKey("SourceId")
@@ -537,10 +610,6 @@ namespace DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.HasOne("BussinessAccessLayer.Model.Amount", "Amount")
-                        .WithOne("Purchase")
-                        .HasForeignKey("BussinessAccessLayer.Model.Purchase", "TrID");
-
-                    b.HasOne("BussinessAccessLayer.Model.Master", "Master")
                         .WithOne("Purchase")
                         .HasForeignKey("BussinessAccessLayer.Model.Purchase", "TrID");
 
@@ -552,7 +621,7 @@ namespace DataAccessLayer.Migrations
 
                     b.Navigation("Amount");
 
-                    b.Navigation("Master");
+                    b.Navigation("Branch");
 
                     b.Navigation("Source");
 
@@ -561,6 +630,10 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Sale", b =>
                 {
+                    b.HasOne("BussinessAccessLayer.Model.Branch", null)
+                        .WithMany("Sales")
+                        .HasForeignKey("BranchId");
+
                     b.HasOne("BussinessAccessLayer.Model.Customer", "Customer")
                         .WithMany("Sales")
                         .HasForeignKey("CustomerID")
@@ -571,22 +644,25 @@ namespace DataAccessLayer.Migrations
                         .WithOne("Sale")
                         .HasForeignKey("BussinessAccessLayer.Model.Sale", "TrID");
 
-                    b.HasOne("BussinessAccessLayer.Model.Master", "Master")
-                        .WithOne("Sale")
-                        .HasForeignKey("BussinessAccessLayer.Model.Sale", "TrID");
-
                     b.Navigation("Amount");
 
                     b.Navigation("Customer");
-
-                    b.Navigation("Master");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Amount", b =>
                 {
+                    b.Navigation("MasterDetails");
+
                     b.Navigation("Purchase");
 
                     b.Navigation("Sale");
+                });
+
+            modelBuilder.Entity("BussinessAccessLayer.Model.Branch", b =>
+                {
+                    b.Navigation("Purchases");
+
+                    b.Navigation("Sales");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Brand", b =>
@@ -602,15 +678,6 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("BussinessAccessLayer.Model.Customer", b =>
                 {
                     b.Navigation("Sales");
-                });
-
-            modelBuilder.Entity("BussinessAccessLayer.Model.Master", b =>
-                {
-                    b.Navigation("MasterDetails");
-
-                    b.Navigation("Purchase");
-
-                    b.Navigation("Sale");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Member", b =>

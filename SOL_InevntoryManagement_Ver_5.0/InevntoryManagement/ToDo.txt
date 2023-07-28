@@ -1,0 +1,22 @@
+﻿Data: 07-26-2023
+Purchase Form Design
+
+Data: 07-27-2023
+Create Purchase 
+
+Pending Modify Tasks
+1. Pagination for all Page that show as a List
+2. Add Width, Height, Length Input into Size Create form
+3. Product Delete 
+
+
+
+Pending New Create Form
+1. Purchase Create Edit Delete
+2. Saele Create Edit Delete
+
+Pending Report
+1. Product Balcance 
+2. Purche Receive
+3. Sale Report
+

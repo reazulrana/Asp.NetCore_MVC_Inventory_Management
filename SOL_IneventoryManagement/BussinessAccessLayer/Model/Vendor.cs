@@ -16,8 +16,13 @@ namespace BussinessAccessLayer.Model
 
         [Key]
         public int Id { get; set; }
+        [MaxLength(50, ErrorMessage = "Max Legth is 50 That You Have Excced")]
+
         public string VendorName { get; set; }
+        [MaxLength(120, ErrorMessage = "Max Legth is 120 That You Have Excced")]
+
         public string Address { get; set; }
+        [MaxLength(36, ErrorMessage = "Max Legth is 36 That You Have Excced")]
         public string Contact { get; set; }
 
         public virtual ICollection<Purchase> Purchases { get; set; }

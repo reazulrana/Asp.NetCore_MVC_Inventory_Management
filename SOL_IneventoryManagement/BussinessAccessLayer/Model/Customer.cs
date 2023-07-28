@@ -18,6 +18,7 @@ namespace BussinessAccessLayer.Model
         [Key]
         public int ID { get; set; }
         public int MemberId { get; set; }
+        [MaxLength(50, ErrorMessage = "Max Legth is 50 That You Have Excced")]
         public string CustName { get; set; }
         public virtual Member Member { get; set; }
 
