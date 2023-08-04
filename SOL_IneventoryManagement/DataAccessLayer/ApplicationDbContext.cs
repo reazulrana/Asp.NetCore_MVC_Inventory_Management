@@ -52,6 +52,8 @@ namespace DataAccessLayer
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Measure> Measures { get; set; }
         public DbSet<Branch> Branchs { get; set; }
+        public DbSet<PaymentType> PaymentTypes { get; set; }
+
 
 
 
@@ -73,6 +75,8 @@ namespace DataAccessLayer
 
             modelBuilder.Entity<Branch>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<Color>().HasIndex(x => x.Id).IsUnique();
+            modelBuilder.Entity<PaymentType>().HasIndex(x => x.Payments).IsUnique();
+
 
 
         }

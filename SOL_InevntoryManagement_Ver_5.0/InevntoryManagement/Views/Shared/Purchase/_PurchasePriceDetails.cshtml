@@ -3,3 +3,131 @@
     string colLabel = "col-md-3";
     string colinput = "col-md-9";
 }
+
+<div class="row">
+   
+    <div class="col-md-6">
+
+        @*total Amount*@
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="TotalAmount"></label>
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" asp-for="TotalAmount" />
+                    <span class=input-group-append><button disabled="disabled" class="btn btn-light"><i>-/</i></button></span>
+                </div>
+            </div>
+        </div>
+
+
+        @*Dues Amount*@
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="Dues"></label>
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" asp-for="Dues" />
+                    <span class=input-group-append><button disabled class="btn btn-light"><i>-/</i></button></span>
+                </div>
+            </div>
+        </div>
+
+        @*Transport Amount*@
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="Transport"></label>
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" asp-for="Transport" />
+                    <span class=input-group-append><button disabled class="btn btn-light"><i>-/</i></button></span>
+                </div>
+            </div>
+        </div>
+
+
+        @*Transport Amount*@
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="Others"></label>
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" asp-for="Others" />
+                    <span class=input-group-append><button disabled class="btn btn-light"><i>-/</i></button></span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-md-6">
+
+
+
+        @*GrossAmount Amount*@
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="GrossAmount"></label>
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" asp-for="GrossAmount" />
+                    <span class=input-group-append><button disabled class="btn btn-light"><i>-/</i></button></span>
+                </div>
+            </div>
+        </div>
+
+        @*Discount Amount*@
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="Discount"></label>
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" asp-for="Discount" />
+                    <span class=input-group-append><button disabled class="btn btn-light"><i>-/</i></button></span>
+                </div>
+            </div>
+        </div>
+
+
+        @*NetAmount Amount*@
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="NetAmount"></label>
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <input class="form-control" asp-for="NetAmount" />
+                    <span class=input-group-append><button disabled class="btn btn-light"><i>-/</i></button></span>
+                </div>
+            </div>
+        </div>
+
+
+
+        @*NetAmount Amount*@
+        <div class="row mb-2">
+            <div class="@colLabel">
+                <label asp-for="PaymentTypeId"></label>
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <select asp-for="PaymentTypeId" class="form-control find_PaymentType" asp-items="Model.PaymentTypeList">
+                        <option>Select Payment</option>
+                    </select>
+
+                    <span class=input-group-append><button  id="btnAddPaymentType" class="btn btn-secondary"><i class="mdi mdi-plus"></i></button></span>
+                </div>
+            </div>
+        </div>
+
+        @Html.Partial("~/Views/Shared/Jquery_Glabal_Partial/_PaymentTypeCreate.cshtml")
+
+    </div>
+</div>

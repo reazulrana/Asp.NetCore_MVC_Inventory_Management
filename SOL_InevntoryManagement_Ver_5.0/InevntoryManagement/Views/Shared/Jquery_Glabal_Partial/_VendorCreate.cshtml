@@ -1,0 +1,29 @@
+﻿@{ 
+    string tabcollabel = "col-md-3";
+    string tabcolinput = "col-md-9";
+}
+
+@*for New Vendor Create*@
+<div class="row bg-danger-light py-2" id="divVendor" style="display:none">
+    <div class="@tabcollabel">
+        <label for="txtSaveVendor">Name</label>
+    </div>
+    <div class="@tabcolinput">
+        <input class="form-control" id="txtSaveVendor" placeholder="Enter Vendor Name" />
+    </div>
+
+    <div class="@tabcollabel">
+        <label for="txtSaveVendor">Address</label>
+    </div>
+    <div class="@tabcolinput">
+        <input class="form-control" id="txtSaveVendorAddress" placeholder="Enter Vendor Address" />
+    </div>
+
+    <div class="@tabcollabel">
+        <label for="txtSaveVendor">Context</label>
+    </div>
+    <div class="@tabcolinput">
+        <input class="form-control" id="txtSaveVendorContact" placeholder="Enter Vendor Contact" />
+        <button type="button" data-request-url='@Url.Action("Create_Vendor_With_Ajax", "Vendor")' class="btn btn-whatsapp btn-xs pull-right" id="btnSaveVendor">Add <span><i class="mdi mdi-plus"></i></span></button>
+    </div>
+</div>

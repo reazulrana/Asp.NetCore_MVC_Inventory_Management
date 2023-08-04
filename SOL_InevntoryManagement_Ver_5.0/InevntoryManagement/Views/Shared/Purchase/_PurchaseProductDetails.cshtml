@@ -1,112 +1,191 @@
-﻿@model ProductCreateViewModel
+﻿@*@model ProductCreateViewModel*@
 
 @{
-    string colLabel = "col-md-3";
-    string colinput = "col-md-9";
+    string colLabel = "col-md-3 mt-3";
+    string colinput = "col-md-9 mt-3";
 
 }
 
-<div class="row py-1 border">
-    <div class="col-md-12 py-1 bg-secondary ">
-        <h5 class="card-title pl-2 text-white">Product Information</h5>
+<div class="row">
+
+    @*Size Radio input section*@
+
+    <div class="col-md-11 offset-md-1 mt-3">
+        @*<div class="form-group">*@
+        <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="code" type="radio" /> Code</label>
+        <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="description" type="radio" /> Description</label>
+        <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="model" type="radio" /> Model</label>
+
+
+        @*</div>*@
+
     </div>
-    <div class="col-md-6 mt-3">
-        <div class="row">
 
-            @*Code*@
-            <div class="@colLabel">
-                <label>Code</label>
+    
+        @*Search*@
+        <div class="col-md-1">
+            <label>Search</label>
 
+        </div>
+
+
+        <div class="col-md-11">
+            <input class="form-control"  id="txtsearchfield" />
+        </div>
+
+
+
+    <div class="row">
+
+
+        <div class="col-md-8">
+            <div class="row">
+                @*left section*@
+
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+
+
+
+
+                        @*Code*@
+                        <div class="@colLabel">
+                            <label>Code</label>
+
+                        </div>
+
+
+                        <div class="@colinput">
+                            <input hidden class="form-control" id="txtProductId" />
+
+                                <input class="form-control" id="txtProductCode" />
+                        </div>
+
+
+                        @*Description*@
+                        <div class="@colLabel">
+                            <label>Description</label>
+
+                        </div>
+                        <div class="@colinput">
+                                <input class="form-control" id="txtProductDescription" />
+                        </div>
+
+
+                        @*Model*@
+                        <div class="@colLabel">
+                            <label>Model</label>
+
+                        </div>
+                        <div class="@colinput">
+                                <input class="form-control" id="txtProductModel" />
+                        </div>
+
+
+                        @*size*@
+                        <div class="@colLabel">
+                            <label>Size</label>
+
+                        </div>
+                        <div class="@colinput">
+                            <input class="form-control" id="txtProductSize" />
+                        </div>
+
+
+
+
+
+
+                    </div> @*End row*@
+
+                </div>  @*End col-md-4*@
+
+
+                @*Middle Section*@
+
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+
+                        @*Color*@
+                        <div class="@colLabel">
+                            <label>Color</label>
+
+                        </div>
+                        <div class="@colinput">
+                            <input class="form-control" id="txtProductColor" />
+                        </div>
+
+
+                        @*Qty*@
+                        <div class="@colLabel">
+                            <label>Qty</label>
+
+                        </div>
+                        <div class="@colinput">
+                            <input class="form-control" id="txtProductQty" />
+                        </div>
+
+
+                        @*Price*@
+                        <div class="@colLabel">
+                            <label>Purchase Price</label>
+
+                        </div>
+                        <div class="@colinput">
+                            <input class="form-control" id="txtProductPurchasePrice" />
+                        </div>
+
+                        @*Price*@
+                        <div class="@colLabel">
+                            <label>Total Amount</label>
+
+                        </div>
+                        <div class="@colinput">
+                            <input class="form-control" id="txtProductTotalAmount" />
+                        </div>
+
+
+
+                    </div> @*End row*@
+
+                </div>  @*End col-md-4*@
             </div>
-            <div class="@colinput">
-                <div class="input-group">
-                    <input class="form-control" id="txtProductCode" />
-                    <span class="input-group-append" disabled><button disabled class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></span>
+        </div>
+
+        @*image section*@
+
+        <div class="col-md-4">
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label>Image</label>
+                    <div class="card-img-top">
+                        <img class="img-fluid pimage" src="~/Projects/Images/DefaultImage/No_Image_Available.jpg" />
+                    </div>
+                    <input hidden id="txtImage" />
                 </div>
             </div>
+        </div>
 
 
-            @*Description*@
-            <div class="@colLabel">
-                <label>Description</label>
 
-            </div>
-            <div class="@colinput">
-                <div class="input-group">
-                    <input class="form-control" id="txtProductDescription" />
-                    <span class="input-group-append" disabled><button disabled class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></span>
+        @*button section*@
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" id="btnAddProduct" class="col-md-4 btn-xs btn btn-facebook">Add <span><i class="mdi mdi-plus"></i></span></button>
+                    <button type="button" id="btnClearProduct" class="col-md-4  btn-xs btn btn-youtube">Clear <span><i class="mdi mdi-delete-sweep"></i></span></button>
+
                 </div>
-            </div>
 
-
-            @*Model*@
-            <div class="@colLabel">
-                <label>Model</label>
 
             </div>
-            <div class="@colinput">
-                <div class="input-group">
-                    <input class="form-control" id="txtProductModel" />
-                    <span class="input-group-append" disabled><button disabled class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></span>
-                </div>
-            </div>
+        </div>
+    </div>
 
-
-            @*size*@
-            <div class="@colLabel">
-                <label>Size</label>
-
-            </div>
-            <div class="@colinput">
-                <input class="form-control" id="txtProductSize" />
-            </div>
-
-
-
-            @*Color*@
-            <div class="@colLabel">
-                <label>Color</label>
-
-            </div>
-            <div class="@colinput">
-                <input class="form-control" id="txtProductColor" />
-            </div>
-
-
-            @*Qty*@
-            <div class="@colLabel">
-                <label>Qty</label>
-
-            </div>
-            <div class="@colinput">
-                <input class="form-control" id="txtProductQty" />
-            </div>
-
-
-            @*Price*@
-            <div class="@colLabel">
-                <label>Purchase Price</label>
-
-            </div>
-            <div class="@colinput">
-                <input class="form-control" id="txtProductPurchasePrice" />
-            </div>
-
-            @*Price*@
-            <div class="@colLabel">
-                <label>Total Amount</label>
-
-            </div>
-            <div class="@colinput">
-                <input class="form-control" id="txtProductTotalAmount" />
-            </div>
-
-
-
-        </div> @*End row*@
-
-    </div>  @*End col-md-6*@
 </div>    @*End row*@
+
+
 
 
 
@@ -150,3 +229,4 @@
     </div>
 
 </div>
+

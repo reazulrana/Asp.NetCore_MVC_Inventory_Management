@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Hosting;
 using InevntoryManagement.GlobalFuntion;
 using Newtonsoft.Json;
 using System.Data;
+using System.Text;
+using InevntoryManagement.ViewModels.Purchase;
+
 namespace InevntoryManagement.Controllers
 {
     public class ProductController : Controller
@@ -657,6 +660,61 @@ namespace InevntoryManagement.Controllers
                 success = true;
             }
             return new JsonResult(new { output, success });
+        }
+
+
+
+        //call from create purchase form input name code autocomplete
+        [HttpGet]
+        public JsonResult FindProduct(string term, string searchField)
+        {
+            List<Autocomplete> output = null;
+
+
+            if(term!=null && term != "")
+            {
+                output=(from cats in unitOfWork.Categories.Get()
+                 join brands in unitOfWork.Brands.Get()
+                 on cats.Id equals brands.CategoryId
+                 join models in unitOfWork.Models.Get()
+                 on brands.Id equals models.BrandId
+                 join products in unitOfWork.Products.Get()
+                 on models.Id equals products.ModelId into egroups
+                 from products in egroups
+                 orderby products.Description
+                 select new Autocomplete()
+                 {
+                     code = products.Code,
+                     value = products.Id.ToString(),
+                     description = products.Description,
+                     color = products.Color,
+                     model = models.ModelName,
+                     id = products.Id.ToString(),
+                     size = products.Size,
+                      category=cats.CType,
+                     photopath =products.PhotoPath
+
+                 }).Where(x => searchField=="code"? x.code.ToLower().Contains(term.ToLower()): searchField=="model"? x.model.ToLower().Contains(term.ToLower()): x.description.ToLower().Contains(term.ToLower())).ToList();
+
+
+                       
+                        
+            }
+
+            //StringBuilder st = new StringBuilder();
+            //st.Append("<table> </br>");
+            //st.Append("<tbody> </br>");
+            //st.Append("<tr> </br>");
+            //foreach(string c in output)
+            //{
+            //    st.Append("<td>" + c + "</td>");
+            //}
+
+            //st.Append("</tr> </br>");
+            //st.Append("</tbody>");
+            //st.Append("</table>");
+
+            return new JsonResult(new { output });
         }
 
 

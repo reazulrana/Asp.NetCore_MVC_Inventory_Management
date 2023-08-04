@@ -415,30 +415,8 @@
                             </div>
                         </div>
 
-                        @*for New Vendor Create*@
-                        <div class="row bg-danger-light py-2" id="divVendor" style="display:none">
-                            <div class="@tabcollabel">
-                                <label for="txtSaveVendor">Name</label>
-                            </div>
-                            <div class="@tabcolinput">
-                                <input class="form-control" id="txtSaveVendor" placeholder="Enter Vendor Name" />
-                            </div>
+                        @Html.Partial("~/Views/Shared/Jquery_Glabal_Partial/_VendorCreate.cshtml")
 
-                            <div class="@tabcollabel">
-                                <label for="txtSaveVendor">Address</label>
-                            </div>
-                            <div class="@tabcolinput">
-                                <input class="form-control" id="txtSaveVendorAddress" placeholder="Enter Vendor Address" />
-                            </div>
-
-                            <div class="@tabcollabel">
-                                <label for="txtSaveVendor">Context</label>
-                            </div>
-                            <div class="@tabcolinput">
-                                <input class="form-control" id="txtSaveVendorContact" placeholder="Enter Vendor Contact" />
-                                <button type="button" class="btn btn-whatsapp btn-xs pull-right" id="btnSaveVendor">Add <span><i class="mdi mdi-plus"></i></span></button>
-                            </div>
-                        </div>
 
 
 
@@ -557,18 +535,8 @@
                             </div>
                         </div>
 
-                        @*for New Source Create*@
-                        <div class="row" id="divSource" style="display:none">
-                            <div class="@tabcollabel">
-                                <label for="txtSaveSource">Add Source</label>
-                            </div>
-                            <div class="@tabcolinput">
-                                <div class="input-group">
-                                    <input class="form-control" id="txtSaveSource" placeholder="Enter Source " />
-                                    <button type="button" class="btn btn-sm btn-whatsapp" id="btnSaveSource">Add <span><i class="mdi mdi-plus"></i></span></button>
-                                </div>
-                            </div>
-                        </div>
+                        @Html.Partial("~/Views/Shared/Jquery_Glabal_Partial/_SourceCreate.cshtml")
+
 
                     </div>
                 </div>

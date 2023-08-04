@@ -1,0 +1,17 @@
+﻿@{
+    string tabcollabel = "col-md-2";
+    string tabcolinput = "col-md-10";
+}
+
+@*for New Source Create*@
+<div class="row" id="divSource" style="display:none">
+    <div class="@tabcollabel">
+        <label for="txtSaveSource">Add Source</label>
+    </div>
+    <div class="@tabcolinput">
+        <div class="input-group">
+            <input class="form-control" id="txtSaveSource" placeholder="Enter Source " />
+            <button type="button" data-request-url='@Url.Action("Create_Source_With_Ajax","Source")' class="btn btn-sm btn-whatsapp" id="btnSaveSource">Add <span><i class="mdi mdi-plus"></i></span></button>
+        </div>
+    </div>
+</div>

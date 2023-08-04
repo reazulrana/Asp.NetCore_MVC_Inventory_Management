@@ -27,6 +27,8 @@ namespace DataAccessLayer.Services.Interface
         IRepository<Branch> Branchs { get; }
         IRepository<Purchase> Purchases { get; }
         IRepository<MasterDetail> MasterDetails { get; }
+        IRepository<PaymentType> PaymentTypes { get; }
+
 
 
 

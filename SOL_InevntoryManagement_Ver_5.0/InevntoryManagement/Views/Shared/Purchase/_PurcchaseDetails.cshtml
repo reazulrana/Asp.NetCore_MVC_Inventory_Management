@@ -20,7 +20,7 @@
                 <label asp-for="TrDate"></label>
             </div>
             <div class="@colinput">
-                <input asp-for="TrDate" class="form-control" />
+                <input asp-for="TrDate" class="form-control datepicker-default" />
             </div>
         </div>
 
@@ -29,7 +29,7 @@
                 <label asp-for="ReceiveDate"></label>
             </div>
             <div class="@colinput">
-                <input asp-for="ReceiveDate" class="form-control" />
+                <input asp-for="ReceiveDate" class="form-control datepicker-default" />
             </div>
         </div>
       
@@ -42,34 +42,57 @@
 <div class="col-md-6">
     <div class="row mb-2">
         <div class="@colLabel">
-            <label asp-for="BranchId"></label>
+            <label asp-for="@Model.BranchId" class="col-form-label"></label>
         </div>
         <div class="@colinput">
-            <select asp-for="BranchId" class="form-control">
-                <option value="">Select Branch</option>
-            </select>
+            <div class="input-group border  bg-white">
+                <select asp-for="@Model.BranchId" class="form-control  single-select find_Branch" asp-items="@Model.BranchList">
+                    <option value="">Select Branch</option>
+                </select>
+                <div class="input-group-append">
+                    <button type="button" id="btnAddBranch" class="btn btn-facebook btn-xs" title="Add New Category"><span><i class="mdi mdi-plus"></i></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("~/Views/Shared/Jquery_Glabal_Partial/_BranchCreate.cshtml")
+
+
+
+    <div class="row mb-2">
+        <div class="@colLabel">
+            <label asp-for="@Model.VendorId" class="col-form-label"></label>
+        </div>
+        <div class="@colinput">
+            <div class="input-group">
+                <select asp-for="@Model.VendorId" class="form-control single-select find_Vendor" asp-items="@Model.VendorList">
+                    <option value="">Select Vendor</option>
+                </select>
+                <button type="button" id="btnAddVendor" class="btn btn-xs btn-facebook" title="Add New Vendor"><span><i class="mdi mdi-plus"></i></span></button>
+            </div>
+
         </div>
     </div>
 
     <div class="row mb-2">
-        <div class="@colLabel">
-            <label asp-for="VendorId"></label>
-        </div>
-        <div class="@colinput">
-            <select asp-for="VendorId" class="form-control">
-                <option value="">Select Vendor</option>
-            </select>
-        </div>
+        @Html.Partial("~/Views/Shared/Jquery_Glabal_Partial/_VendorCreate.cshtml")
+
     </div>
+
 
     <div class="row mb-2">
         <div class="@colLabel">
-            <label asp-for="SourceId"></label>
+            <label asp-for="@Model.SourceId" class="col-form-label"></label>
         </div>
         <div class="@colinput">
-            <select asp-for="SourceId" class="form-control">
-                <option value="">Select Source</option>
-            </select>
+            <div class="input-group">
+                <select asp-for="@Model.SourceId" class="form-control single-select find_Source" asp-items="@Model.SourceList">
+                    <option value="">Select Source</option>
+                </select>
+                <button type="button" id="btnAddSource" class="btn btn-sm btn-facebook btn-xs" title="Add New Source"><span><i class="mdi mdi-plus"></i></span></button>
+            </div>
+
         </div>
     </div>
 </div>

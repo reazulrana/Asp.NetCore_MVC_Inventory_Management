@@ -1,4 +1,5 @@
 ﻿using BussinessAccessLayer.Model;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -48,12 +49,32 @@ namespace InevntoryManagement.ViewModels.Purchase
         public List<int> Price { get; set; }= new List<int>();
         #endregion
 
-        public Amount amount { get; set; }
+        #region PriceDetails
+        [Display(Name ="Product Cost")]
+        public int TotalAmount { get; set; }
+        [Display(Name ="Due")]
+        public int Dues { get; set; }
+        [Display(Name = "Transport")]
+        public int Transport { get; set; }
+        public int Others { get; set; }
+        [Display(Name = "Total Amount")]
+        public int GrossAmount { get; set; }
+        public int Discount { get; set; }
+        [Display(Name = "Net Amount")]
+
+        public int NetAmount { get; set; }
+        [Display(Name = "Payment Type")]
+        public int PaymentTypeId { get; set; }
+        #endregion
+
+        //public Amount amount { get; set; }
 
         #region List Section
-        public List<Branch> BranchList { get; set; } = new List<Branch>();
-        public List<Vendor> VendorList { get; set; } = new List<Vendor>();
-        public List<Source> SourceList { get; set; } = new List<Source>();
+        public List<SelectListItem> BranchList { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> VendorList { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> SourceList { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> PaymentTypeList { get; set; } = new List<SelectListItem>();
+
         #endregion
 
     }

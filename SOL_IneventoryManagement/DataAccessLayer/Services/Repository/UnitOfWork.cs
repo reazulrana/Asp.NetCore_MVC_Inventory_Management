@@ -34,6 +34,8 @@ namespace DataAccessLayer.Services.Repository
         BaseRepository<Branch> _Branchs;
         BaseRepository<Purchase> _Purchase;
         BaseRepository<MasterDetail> _MasterDetails;
+        BaseRepository<PaymentType> _PaymentTypes;
+
 
 
 
@@ -184,6 +186,16 @@ namespace DataAccessLayer.Services.Repository
             get
             {
                 return _MasterDetails ?? (_MasterDetails = new BaseRepository<MasterDetail>(_dbContext));
+            }
+        }
+
+
+        //PaymentTypes
+        public IRepository<PaymentType> PaymentTypes
+        {
+            get
+            {
+                return _PaymentTypes ?? (_PaymentTypes = new BaseRepository<PaymentType>(_dbContext));
             }
         }
     }

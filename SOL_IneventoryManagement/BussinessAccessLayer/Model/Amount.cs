@@ -13,11 +13,12 @@ namespace BussinessAccessLayer.Model
         public int TrType { get; set; }
         public int TotalAmount { get; set; }
         public int Dues { get; set; }
-        public int Traport { get; set; }
+        public int Transport { get; set; }
         public int Others { get; set; }
         public int GrossAmount { get; set; }
         public int Discount { get; set; }
         public int NetAmount { get; set; }
+        public int PaymentTypeId { get; set; }
 
         public virtual Purchase Purchase { get; set; }
         public virtual Sale Sale { get; set; }

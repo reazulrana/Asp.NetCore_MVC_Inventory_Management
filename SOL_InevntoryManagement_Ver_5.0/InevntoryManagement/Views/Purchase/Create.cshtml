@@ -4,41 +4,301 @@
     ViewBag.Title = "New Purchase";
 }
 
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title text-white">Create Purchase</h3>
-    </div>
-    <div class="card-body">
-        <div class="col-md-12 mb-2">
-            @Html.Partial("~/Views/Shared/Purchase/_PurcchaseDetails.cshtml", Model)
+<style>
+
+    .ui-menu-item:hover {
+        color: white;
+        background-color: black
+    }
+</style>
+
+<form method="post" asp-controller="purchase" asp-action="Create">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title text-white">Create Purchase</h3>
         </div>
+        <div class="card-body">
+            <div class="col-md-12 border mb-2">
+                <div class="row">
+                    <div class="col-md-12 pl-2 bg-dark">
+                        <h5 class="card-title p-2 text-white">Purchase Information</h5>
+                    </div>
+                </div>
 
-        <div class="col-md-12 mb-2">
-            @Html.Partial("~/Views/Shared/Purchase/_PurchaseProductDetails.cshtml", Model)
+                @Html.Partial("~/Views/Shared/Purchase/_PurcchaseDetails.cshtml", Model)
+            </div>
+
+            <div class="border col-md-12 mb-2">
+                <div class="row">
+                    <div class="col-md-12 pl-2 bg-dark">
+                        <h5 class="card-title text-white p-2">Product Information</h5>
+                    </div>
+                </div>
+
+                @Html.Partial("~/Views/Shared/Purchase/_PurchaseProductDetails.cshtml")
+            </div>
+
+            <div class="col-md-12 border mb-2">
+                <div class="row">
+                    <div class="col-md-12 pl-2 bg-dark mb-2">
+                        <h5 class="card-title p-2 text-white">Costing Information</h5>
+                    </div>
+                </div>
+
+                @Html.Partial("~/Views/Shared/Purchase/_PurchasePriceDetails.cshtml", Model)
+            </div>
+
+
         </div>
-
+        <div class="card-footer">
+            <div class="form-group">
+                <button class="btn btn-facebook col-md-3 btn-xs">Create<span class="pl-2"><i class="mdi mdi-plus"></i></span></button>
+                <button class="btn btn-info col-md-3 btn-xs float-md-right">List<span class="pl-2"><i class="mdi mdi-view-list"></i></span></button>
+            </div>
+        </div>
     </div>
-    <div class="card-footer">
 
-    </div>
-</div>
-
-
-
+</form>
 @section Scripts
 {
-<script>
-    $(document).ready(function () {
+
+    <script src="~/DuplicateModelShow.js"></script>
+
+    <script>
+
+        //const { table } = require("console");
+
+        $(document).ready(function () {
+
+
+
+            //btnAddPaymentType
+            $("#btnAddPaymentType").click(function () {
+                $("#divPaymentType").toggle()
+
+            })
+       
 
         /*$('#TrDate').datepicker();*/
         $("#productlist tr").dblclick(function () {
-            var id = $(this).find("td");
-            $.each(id, function () {
-                alert($(this).text())
-            })
+            var id = product();
+
+            alert(id.Code);
+        })
+
+        //product add to prodcut list tabel
+        $("#btnAddProduct").click(function () {
+
+            var _product = product();
+            if (_product.TotalAmount == "" || _product.TotalAmount == "0" || _product.TotalAmount == isNaN)
+            {
+                alert("Total Price is '0'");
+                return;
+            }
+            append_New_Row();
+        })
+
+        //calculate Total Price with qty change
+        $("#txtProductQty").focus(function ()
+        {
+            var val = $(this).val();
+            if (isNaN(val))
+            {
+                $(this).val('0');
+            }
+
+
 
         })
-    })
 
-</script>
+        $("#txtProductQty").focusout(function () {
+            var qty = $(this).val()
+            var price = $('#txtProductPurchasePrice').val()
+
+            var totalprice = qty * price;
+            if (isNaN(totalprice)) {
+                alert("Qty Is Not Number Please Type Number")
+                $(this).focus();
+            }
+
+            $('#txtProductTotalAmount').val(qty * price);
+        })
+
+        //calculate Total Price with price change
+            $("#txtProductPurchasePrice").focus(function () {
+            var val = $(this).val();
+            if (isNaN(val)) {
+                $(this).val('0');
+            }
+
+
+
+        })
+
+        $("#txtProductPurchasePrice").focusout(function () {
+            var qty = $(this).val()
+            var price = $('#txtProductQty').val()
+
+            var totalprice = qty * price;
+            if (isNaN(totalprice)) {
+                alert("Purchase Is Not Number Please Type Number")
+                $(this).focus();
+            }
+
+            $('#txtProductTotalAmount').val(qty * price);
+        })
+
+
+
+        function product() {
+            var _product = {
+                ProductId: $("#txtProductId").val(),
+                Image: $("#txtImage").val(),
+                Code: $("#txtProductCode").val(),
+                Description: $("#txtProductDescription").val(),
+                Model: $("#txtProductModel").val(),
+                Size: $("#txtProductSize").val(),
+                Color: $("#txtProductColor").val(),
+                Qty: $("#txtProductQty").val(),
+                PurchasePrice: $("#txtProductPurchasePrice").val(),
+                TotalAmount: $("#txtProductTotalAmount").val(),
+            }
+            return _product
+        }
+
+
+        function append_New_Row()
+        {
+
+            var LastSl = $('#productlist tr').length + 1;
+            var p = product();
+            var sl = '<td><input name="ProductId" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
+            var Image = '<td>' + p.Image + '</td>';
+            var Code = '<td>' + p.Code + '</td>';
+            var Description = '<td>' + p.Description + '</td>';
+            var Model = '<td>' + p.Model + '</td>';
+            var Size = '<td>' + p.Size + '</td>';
+            var Color = '<td>' + p.Color + '</td>';
+            var Qty = '<td> <input name="Qty" type="text" value="' + p.Qty + '"/>' + p.Qty + '</td>';
+            var PurchasePrice = '<td> <input name="Price" type="text" value="' + p.PurchasePrice + '"/>' + p.PurchasePrice + '</td>';
+            var TotalAmount = '<td>' + (p.Qty * p.PurchasePrice)+ '</td>';
+
+
+            var tr = '<tr>' + sl + Image + Code + Description + Model + Size + Color + Qty + PurchasePrice + TotalAmount + '</tr>'
+
+            $('#productlist').append(tr);
+
+
+
+
+        }
+
+
+        //Autocomplete Section
+        $.ui.autocomplete.prototype._renderMenu = function (ul, items) {
+            var self = this;
+            //table definitions
+
+            ul.append("<div style='height:200px; overflow-y:scroll; z-index:10000'><table class='prodcutAutocomplete table table-border'><thead class='bg-secondary text-white'><tr> <th>Sl</th> <th>Code</th> <th>Description</th> <th>Category</th> <th>Model</th> <th>Size</th> <th>Color</th> </tr></thead><tbody></tbody></table></div>");
+            $.each(items, function (index, item) {
+                self._renderItemData(ul, ul.find("table tbody"), item);
+            });
+        };
+        $.ui.autocomplete.prototype._renderItemData = function (ul, table, item) {
+            return this._renderItem(table, item).data("ui-autocomplete-item", item);
+        };
+        $.ui.autocomplete.prototype._renderItem = function (table, item) {
+
+            //var items = JSON.stringify(item)
+            return $("<tr class='ui-menu-item' role='presentation'></tr>")
+                .attr("data-val", item.id) //this line for passing item to focus object and select object
+                //.data("item.autocomplete", item)
+                //item.length == isNaN ? 1 : (item.length + 1)
+                //<tr> <th>Sl</th> <th>Code</th> <th>Description</th> <th>Category</th> <th>Model</th> <th>Size</th> <th>Color</th> </tr >
+                .append("<td>" + ($(".prodcutAutocomplete tbody tr").length+1) + "</td> <td>" + item.code + "</td> <td>" + item.description + "</td> <td>" + item.category + "</td> <td>" + item.model + "</td> <td>" + item.size + "</td> <td>" + item.color + "</td>")
+                .appendTo(table);
+        };
+
+        //radion Button Code Description Model Change event
+
+        var searchfield="" // this parameter is used for search code description model autocomplete globally
+        $(".searchField").change(function () {
+             searchfield = $(this).val();
+
+
+        })
+
+        $("#txtsearchfield").autocomplete({
+            minLength: 1,
+            focus: function (event, ui) {
+                if (ui.item != undefined) {
+                   var photopath = "/Projects/Images/Product/";
+                    photopath = ui.item.photopath == null ? "/Projects/Images/DefaultImage/No_Image_Available.jpg" : photopath + ui.item.photopath
+
+                    $("#txtImage").val(ui.item.photopath),
+                        $("#txtProductId").val(ui.item.value),
+
+                        $("#txtProductCode").val(ui.item.code),
+                        $("#txtProductDescription").val(ui.item.description),
+                        $("#txtProductModel").val(ui.item.model),
+                        $("#txtProductSize").val(ui.item.size),
+                        $("#txtProductColor").val(ui.item.color),
+                        $(".pimage").attr("src",  photopath)
+
+                }
+                return false;
+            }, // end of focuas
+            //you can write for select too
+            select: function (event, ui) {
+                var photopath = "/Projects/Images/Product/";
+                photopath = ui.item.photopath == null ? "/Projects/Images/DefaultImage/No_Image_Available.jpg" : photopath + ui.item.photopath
+                $("#txtProductCode").val(ui.item.code),
+                    $("#txtProductId").val(ui.item.value),
+                    $("#txtProductDescription").val(ui.item.description),
+                    $("#txtProductModel").val(ui.item.model),
+                    $("#txtProductSize").val(ui.item.size),
+                    $("#txtProductColor").val(ui.item.color),
+                    $(".pimage").attr("src", photopath)
+                searchfield = "";
+                return false
+            },
+            //source: projects,
+             source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("FindProduct","Product")',
+                    method: "Get",
+                    data: { term: request.term, searchField: searchfield},
+                    dataType: "JSON",
+                    success: function (data) {
+                        var starttable = '<table>'
+                        var endtable = '</table>'
+                        var td = '<td> Rana </td>';
+                        var tr = '<tr>' + td + '</tr>'
+                        var table = starttable + tr + endtable
+                        response(data.output)
+                    },
+                    error: function (err) {
+
+                    }
+                }) //end of ajax
+
+            } // end of source bracket
+
+
+        })
+    });
+
+        //random json values
+        //var projects = [
+        //    { id: 1, value: "Thomas", model: 134, description: "Teacher" },
+        //    { id: 65, value: "Richard", model: 1743, description: "Waiter" },
+        //    { id: 235, value: "Harold", model: 7342, description: "Cleaner" },
+        //    { id: 78, value: "Santa Maria", model: 787, description: "Manager" },
+        //    { id: 75, value: "Gunner", model: 788, description: "Director" },
+        //    { id: 124, value: "Shad", model: 124, description: "Chairman" },
+        //    { id: 1233, value: "Aziz", model: 3544, description: "Bangladeshi" },
+        //    { id: 244, value: "Buet", model: 7847, description: "Student" }
+        //];
+    </script>
 }
+

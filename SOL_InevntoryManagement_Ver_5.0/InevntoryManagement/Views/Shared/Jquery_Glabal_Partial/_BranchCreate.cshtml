@@ -1,0 +1,43 @@
+﻿@{ 
+    string colLabel = "col-md-3";
+    string colinput = "col-md-9";
+}
+
+@*for New Branch Create*@
+<div class="row border bg-danger-light py-2 px-2" id="divBranch" style="display:none">
+    <div class="col-md-12 text-center py-3">
+        <h3>Add Branch</h3>
+    </div>
+    <div class="@colLabel my-2">
+        <label>Branch Name</label>
+    </div>
+    <div class="@colinput my-2">
+
+        <input class="form-control" id="txtSaveBranch" placeholder="Enter Branch Name" />
+
+
+    </div>
+
+
+    @*Contact No Field*@
+    <div class="@colLabel my-2">
+        <label for="txtSaveContact">Contact</label>
+
+    </div>
+    <div class="@colinput my-2">
+
+        <input class="form-control" id="txtSaveContact" placeholder="Enter Contact No" />
+    </div>
+
+    @*Branch Incharge No Field*@
+    <div class="@colLabel my-2">
+        <label for="txtSaveBranchIncharge">Incharge Name</label>
+
+    </div>
+
+    <div class="@colinput my-2">
+        <input class="form-control" id="txtSaveBranchIncharge" placeholder="Enter Branch Incharge Name" />
+        <button type="button" id="btnSaveBranch" data-request-url='@Url.Action("Create_Branch_With_Ajax","Branch")' class="btn btn-secondary btn-xs btn-block">Create <span><i class="mdi mdi-plus"></i></span></button>
+
+    </div>
+</div>

@@ -41,6 +41,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("Others")
                         .HasColumnType("int");
 
+                    b.Property<int>("PaymentTypeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TotalAmount")
                         .HasColumnType("int");
 
@@ -50,10 +53,12 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("TrType")
                         .HasColumnType("int");
 
-                    b.Property<int>("Traport")
+                    b.Property<int>("Transport")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentTypeId");
 
                     b.ToTable("Amounts");
                 });
@@ -286,6 +291,26 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("BrandId");
 
                     b.ToTable("Models");
+                });
+
+            modelBuilder.Entity("BussinessAccessLayer.Model.PaymentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Payments")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Payments")
+                        .IsUnique();
+
+                    b.ToTable("PaymentTypes");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Product", b =>
@@ -540,6 +565,15 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Vendors");
                 });
 
+            modelBuilder.Entity("BussinessAccessLayer.Model.Amount", b =>
+                {
+                    b.HasOne("BussinessAccessLayer.Model.PaymentType", null)
+                        .WithMany("Amounts")
+                        .HasForeignKey("PaymentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BussinessAccessLayer.Model.Brand", b =>
                 {
                     b.HasOne("BussinessAccessLayer.Model.Category", "Category")
@@ -688,6 +722,11 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("BussinessAccessLayer.Model.Model", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("BussinessAccessLayer.Model.PaymentType", b =>
+                {
+                    b.Navigation("Amounts");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Product", b =>

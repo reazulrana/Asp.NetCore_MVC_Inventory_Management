@@ -91,16 +91,6 @@
 
 
 
-            //checl if input text field is empty
-            function IsEmptyInputField(field) {
-                var val = field
-                var blnflag = false
-                if (val == "" || val === undefined || val == null) {
-                    blnflag = true
-
-                }
-                return blnflag
-            }
 
 
 
@@ -202,32 +192,7 @@
 
 
 
-            //Source section
-        //show div for create Source
-            $("#btnAddSource").click(function () {
-                $("#divSource").toggle();
-
-            })
-
-            //create Source
-            $('#btnSaveSource').click(function ()
-            {
-                var val = $("#txtSaveSource").val();
-
-                if (val === undefined || val == "" || val == null)
-                {
-                    //alert("Enter Source First");
-                    sweetAlert("Source Field is Blank Please Enter Source First");
-                    $("#txtSaveSource").focus();
-                    return;
-                }
-
-                var data = {
-                    source: val
-                }
-                
-                callCreate_record_with_ajax(url = '@Url.Action("Create_Source_With_Ajax", "Source")', method = "POST", data = data, dataType = "JSON", appendElement = ".find_Source", dropdownName = "Source", fieldNamtToEmpty = "#txtSaveSource", hideElement ="#divSource")
-            })
+       
 
             //Measurement section
         //show div for create Measurement
@@ -475,38 +440,8 @@
 
             })
 
-            //Vendor section
-            $("#btnAddVendor").click(function () {
-                $("#divVendor").toggle();
+           
 
-            })
-
-            $("#btnSaveVendor").click(function () {
-                var vendor = $("#txtSaveVendor").val();
-                var vendoraddress = $("#txtSaveVendorAddress").val();
-                var vendorcontact = $("#txtSaveVendorContact").val();
-
-
-                if (IsEmptyInputField(vendor) == true)
-                {
-                    sweetalert("Vendor Is Empty")
-                    $(vendor).focus();
-                }
-
-                var data = {
-                    vendor: vendor,
-                    vendoraddress: vendoraddress,
-                    vendorcontact: vendorcontact
-                }
-
-
-                callCreate_record_with_ajax(url = '@Url.Action("Create_Vendor_With_Ajax", "Vendor")', method = "Post", data = data, dataType = "JSON", appendElement = ".find_Vendor", dropdownName = "Vendor", "#txtSaveVendor", "#divVendor")
-                 $("#txtSaveVendorAddress").val('');
-                $("#txtSaveVendorContact").val('');
-
-
-
-            })
 
             //Manufacture section
             $("#btnAddManufacture").click(function () {
