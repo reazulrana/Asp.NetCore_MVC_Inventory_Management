@@ -1,5 +1,6 @@
 ﻿using BussinessAccessLayer.Model;
 using DataAccessLayer.Services.Interface;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,12 +49,27 @@ namespace DataAccessLayer.Services.Repository
 
 
 
-
+ 
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {
            this._dbContext= dbContext;
        
+        }
+
+        public void BeginTransaction()
+        {
+            _dbContext.Database.BeginTransaction();
+      
+        }
+
+        public void CommitTransaction()
+        {
+            _dbContext.Database.CommitTransaction();
+        }
+        public void RollbackTransaction()
+        {
+            _dbContext.Database.RollbackTransaction();
         }
 
 

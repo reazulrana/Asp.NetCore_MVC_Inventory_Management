@@ -40,6 +40,8 @@ namespace InevntoryManagement.ViewModels.Purchase
         
         [Display(Name ="Source")]
         public int SourceId { get; set; }
+
+        [MaxLength(200,ErrorMessage ="Max Length Character Is 200 Please Keep The Field Length Below 200 Character")]
         public string Remarks { get; set; }
         #endregion
 
@@ -53,6 +55,9 @@ namespace InevntoryManagement.ViewModels.Purchase
         [Display(Name ="Product Cost")]
         public int TotalAmount { get; set; }
         [Display(Name ="Due")]
+
+        public int PaymentOnCash { get; set; }
+        
         public int Dues { get; set; }
         [Display(Name = "Transport")]
         public int Transport { get; set; }

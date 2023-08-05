@@ -28,10 +28,8 @@ namespace BussinessAccessLayer.Model
         [MaxLength(200, ErrorMessage = "Max Legth is 200 That You Have Excced")]
 
         public string Remarks { get; set; }
+        public int BranchId { get; set; }
         public virtual Branch Branch { get; set; }
-
-        [ForeignKey("TrID")]
-        public virtual Amount Amount { get; set; }
         public virtual Source Source { get; set; }
         public virtual Vendor Vendor { get; set; }
 

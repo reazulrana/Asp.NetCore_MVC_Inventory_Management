@@ -12,6 +12,8 @@ namespace BussinessAccessLayer.Model
         public int TrID { get; set; }
         public int TrType { get; set; }
         public int TotalAmount { get; set; }
+        public int PaymentOnCash { get; set; }
+
         public int Dues { get; set; }
         public int Transport { get; set; }
         public int Others { get; set; }
@@ -20,8 +22,6 @@ namespace BussinessAccessLayer.Model
         public int NetAmount { get; set; }
         public int PaymentTypeId { get; set; }
 
-        public virtual Purchase Purchase { get; set; }
-        public virtual Sale Sale { get; set; }
         public virtual List<MasterDetail> MasterDetails { get; set; }
 
     }

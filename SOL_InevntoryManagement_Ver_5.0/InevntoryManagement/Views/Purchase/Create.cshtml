@@ -6,7 +6,7 @@
 
 <style>
 
-    .ui-menu-item:hover {
+    .divAutocomplete table tbody tr:hover {
         color: white;
         background-color: black
     }
@@ -18,12 +18,25 @@
             <h3 class="card-title text-white">Create Purchase</h3>
         </div>
         <div class="card-body">
+            @*Global Message*@
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-danger" asp-validation-summary="All"></div>
+                </div>
+            </div>
+
+            <partial name="_Messages" />
+
+
+
             <div class="col-md-12 border mb-2">
                 <div class="row">
                     <div class="col-md-12 pl-2 bg-dark">
                         <h5 class="card-title p-2 text-white">Purchase Information</h5>
                     </div>
                 </div>
+
+
 
                 @Html.Partial("~/Views/Shared/Purchase/_PurcchaseDetails.cshtml", Model)
             </div>
@@ -53,12 +66,16 @@
         <div class="card-footer">
             <div class="form-group">
                 <button class="btn btn-facebook col-md-3 btn-xs">Create<span class="pl-2"><i class="mdi mdi-plus"></i></span></button>
-                <button class="btn btn-info col-md-3 btn-xs float-md-right">List<span class="pl-2"><i class="mdi mdi-view-list"></i></span></button>
+
+                <a asp-action="ListPurchase" asp-controller="Purchase" class="btn btn-info col-md-3 btn-xs float-md-right">List<span class="pl-2"><i class="mdi mdi-view-list"></i></span></a>
             </div>
         </div>
     </div>
 
 </form>
+
+
+
 @section Scripts
 {
 
@@ -71,6 +88,104 @@
         $(document).ready(function () {
 
 
+            $("#PaymentOnCash").change(function () {
+                let amountbill = amountclass()
+                $("#Dues").val((amountbill.TotalAmount - amountbill.PaymentOnCash))
+
+
+
+            });
+            $("#Discount").change(function()
+            {
+                let amountbill = amountclass()
+                $("#NetAmount").val((amountbill.GrossAmount - amountbill.Discount))
+
+
+            })
+
+            $("#Transport").change(function () {
+                let amountbill = amountclass()
+                let totalbill = 0
+
+                totalbill = parseInt((parseInt(amountbill.TotalAmount) + parseInt(amountbill.Transport) + parseInt(amountbill.Others)))
+                $("#GrossAmount").val(totalbill)
+                $("#NetAmount").val(totalbill)
+            })
+
+            $("#Others").change(function () {
+                let amountbill = amountclass()
+                let totalbill =0
+
+                totalbill = parseInt((parseInt(amountbill.TotalAmount) + parseInt(amountbill.Transport) + parseInt(amountbill.Others)))
+                $("#GrossAmount").val(totalbill)
+                $("#NetAmount").val(totalbill)
+
+            })
+
+
+            function ClearField()
+            {
+                $("#txtsearchfield").val('')
+                $("#txtProductId").val('')
+                $("#txtProductCode").val('')
+                $("#txtProductDescription").val('')
+
+                $("#txtProductModel").val('')
+                $("#txtProductSize").val('')
+                $("#txtProductColor").val('')
+                $(".pimage").attr("src", '')
+                $("#txtImage").val('')
+               $("#txtProductQty").val('0')
+               $("#txtProductPurchasePrice").val('0')
+               $("#txtProductTotalAmount").val('0')
+            }
+
+            function amountclass()
+            {
+                let _amount = {
+                    TotalAmount: $("#TotalAmount").val(),
+                    PaymentOnCash: $("#PaymentOnCash").val(),
+                    Dues: $("#Dues").val(),
+                    Transport: $("#Transport").val(),
+                    Others: $("#Others").val(),
+                    GrossAmount: $("#GrossAmount").val(),
+                    Discount: $("#Discount").val(),
+                    NetAmount: $("#NetAmount").val(),
+                    PaymentTypeId: $("#PaymentTypeId").val(),
+
+
+                }
+
+                return _amount
+            }
+
+
+            //clear all product field
+            $("#btnClearProduct").click(function () {
+
+                
+            })
+
+
+
+            //calculate total product purchage price amount
+            function calculatePurchageProduct()
+            {
+                let tr = $("#productlist tr")
+                $("#TotalAmount").val('0')
+                if ($(tr).length > 0) {
+                    var amount = 0;
+                    $(tr).each(function (i, item) {
+                        amount = (amount + parseInt($(this).find("td:last").prev().text()));
+                    })
+                    $("#TotalAmount").val(amount)
+                    $("#GrossAmount").val(amount)
+                    $("#NetAmount").val(amount)
+                }
+
+
+            }
+
 
             //btnAddPaymentType
             $("#btnAddPaymentType").click(function () {
@@ -80,11 +195,11 @@
        
 
         /*$('#TrDate').datepicker();*/
-        $("#productlist tr").dblclick(function () {
-            var id = product();
+        //$("#productlist tr").dblclick(function () {
+        //    var id = product();
 
-            alert(id.Code);
-        })
+        //    alert(id.Code);
+        //})
 
         //product add to prodcut list tabel
         $("#btnAddProduct").click(function () {
@@ -167,28 +282,42 @@
         }
 
 
+
+            
+            //tr Remove from product table By Delete Button click
+            $("#productlist").on("click", "button", function () {
+
+                if(confirm("Do You Want to Remove Row"))
+                {
+                $(this).closest("tr").remove();
+                    calculatePurchageProduct();
+                }
+            })
+
         function append_New_Row()
         {
 
             var LastSl = $('#productlist tr').length + 1;
             var p = product();
-            var sl = '<td><input name="ProductId" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
-            var Image = '<td>' + p.Image + '</td>';
+            var sl = '<td><input hidden name="ProductId" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
+            var Image = '<td><img src="' + $("#txtImage").val() + '" height=90 width=90 /> </td>';
             var Code = '<td>' + p.Code + '</td>';
             var Description = '<td>' + p.Description + '</td>';
             var Model = '<td>' + p.Model + '</td>';
             var Size = '<td>' + p.Size + '</td>';
             var Color = '<td>' + p.Color + '</td>';
-            var Qty = '<td> <input name="Qty" type="text" value="' + p.Qty + '"/>' + p.Qty + '</td>';
-            var PurchasePrice = '<td> <input name="Price" type="text" value="' + p.PurchasePrice + '"/>' + p.PurchasePrice + '</td>';
-            var TotalAmount = '<td>' + (p.Qty * p.PurchasePrice)+ '</td>';
+            var Qty = '<td> <input hidden name="Qty" type="text" value="' + p.Qty + '"/>' + p.Qty + '</td>';
+            var PurchasePrice = '<td> <input hidden name="Price" type="text" value="' + p.PurchasePrice + '"/>' + p.PurchasePrice + '</td>';
+            var TotalAmount = '<td>' + (p.Qty * p.PurchasePrice) + '</td>';
+            var action = '<td><button type="button" class="btn btn-xs btn-danger delete_Product"><span><i class="mdi mdi-delete"></i></span></button></td>';
 
 
-            var tr = '<tr>' + sl + Image + Code + Description + Model + Size + Color + Qty + PurchasePrice + TotalAmount + '</tr>'
+
+            var tr = '<tr id="'+ sl +'">' + sl + Image + Code + Description + Model + Size + Color + Qty + PurchasePrice + TotalAmount + action  + '</tr>'
 
             $('#productlist').append(tr);
-
-
+            calculatePurchageProduct();
+            ClearField()
 
 
         }
@@ -199,7 +328,7 @@
             var self = this;
             //table definitions
 
-            ul.append("<div style='height:200px; overflow-y:scroll; z-index:10000'><table class='prodcutAutocomplete table table-border'><thead class='bg-secondary text-white'><tr> <th>Sl</th> <th>Code</th> <th>Description</th> <th>Category</th> <th>Model</th> <th>Size</th> <th>Color</th> </tr></thead><tbody></tbody></table></div>");
+            ul.append("<div class='divAutocomplete' style='height:200px; overflow-y:scroll; z-index:10000'><table class='prodcutAutocomplete table table-border'><thead class='bg-secondary text-white'><tr> <th>Sl</th> <th>Code</th> <th>Description</th> <th>Category</th> <th>Model</th> <th>Size</th> <th>Color</th> </tr></thead><tbody></tbody></table></div>");
             $.each(items, function (index, item) {
                 self._renderItemData(ul, ul.find("table tbody"), item);
             });
@@ -221,9 +350,10 @@
 
         //radion Button Code Description Model Change event
 
-        var searchfield="" // this parameter is used for search code description model autocomplete globally
+        var searchfield="model" // this parameter is used for search code description model autocomplete globally
         $(".searchField").change(function () {
-             searchfield = $(this).val();
+            searchfield = $(this).val();
+            $("#txtsearchfield").focus();
 
 
         })
@@ -235,15 +365,17 @@
                    var photopath = "/Projects/Images/Product/";
                     photopath = ui.item.photopath == null ? "/Projects/Images/DefaultImage/No_Image_Available.jpg" : photopath + ui.item.photopath
 
-                    $("#txtImage").val(ui.item.photopath),
-                        $("#txtProductId").val(ui.item.value),
+                   // $("#txtImage").val(ui.item.photopath),
+                        $("#txtProductId").val(ui.item.value)
 
-                        $("#txtProductCode").val(ui.item.code),
-                        $("#txtProductDescription").val(ui.item.description),
-                        $("#txtProductModel").val(ui.item.model),
-                        $("#txtProductSize").val(ui.item.size),
-                        $("#txtProductColor").val(ui.item.color),
-                        $(".pimage").attr("src",  photopath)
+                        $("#txtProductCode").val(ui.item.code)
+                        $("#txtProductDescription").val(ui.item.description)
+
+                        $("#txtProductModel").val(ui.item.model)
+                        $("#txtProductSize").val(ui.item.size)
+                        $("#txtProductColor").val(ui.item.color)
+                        $(".pimage").attr("src", photopath)
+                    $("#txtImage").val(photopath)
 
                 }
                 return false;
@@ -259,7 +391,8 @@
                     $("#txtProductSize").val(ui.item.size),
                     $("#txtProductColor").val(ui.item.color),
                     $(".pimage").attr("src", photopath)
-                searchfield = "";
+                $("#txtImage").val(photopath)
+                //searchfield = "";
                 return false
             },
             //source: projects,

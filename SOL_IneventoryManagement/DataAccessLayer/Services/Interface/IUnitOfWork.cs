@@ -30,7 +30,9 @@ namespace DataAccessLayer.Services.Interface
         IRepository<PaymentType> PaymentTypes { get; }
 
 
-
+        void BeginTransaction();
+        void CommitTransaction();
+        void RollbackTransaction();
 
 
 

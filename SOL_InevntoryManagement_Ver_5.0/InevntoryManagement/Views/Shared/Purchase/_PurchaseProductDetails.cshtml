@@ -2,11 +2,11 @@
 
 @{
     string colLabel = "col-md-3 mt-3";
-    string colinput = "col-md-9 mt-3";
+    string colinput = "col-md-12 mt-1";
 
 }
 
-<div class="row">
+<div class="form-row">
 
     @*Size Radio input section*@
 
@@ -14,7 +14,7 @@
         @*<div class="form-group">*@
         <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="code" type="radio" /> Code</label>
         <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="description" type="radio" /> Description</label>
-        <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="model" type="radio" /> Model</label>
+        <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="model" type="radio" checked="checked" /> Model</label>
 
 
         @*</div>*@
@@ -23,13 +23,7 @@
 
     
         @*Search*@
-        <div class="col-md-1">
-            <label>Search</label>
-
-        </div>
-
-
-        <div class="col-md-11">
+           <div class="@colinput">
             <input class="form-control"  id="txtsearchfield" />
         </div>
 
@@ -49,45 +43,42 @@
 
 
                         @*Code*@
-                        <div class="@colLabel">
-                            <label>Code</label>
+                        @*<div class="@colLabel">
 
-                        </div>
+                        </div>*@
 
 
                         <div class="@colinput">
                             <input hidden class="form-control" id="txtProductId" />
+                            <label>Code</label>
 
-                                <input class="form-control" id="txtProductCode" />
+                            <input class="form-control" id="txtProductCode" />
                         </div>
 
 
                         @*Description*@
-                        <div class="@colLabel">
+                     
+                        <div class="@colinput">
                             <label>Description</label>
 
-                        </div>
-                        <div class="@colinput">
-                                <input class="form-control" id="txtProductDescription" />
+                            <input class="form-control" id="txtProductDescription" />
                         </div>
 
 
                         @*Model*@
-                        <div class="@colLabel">
+                    
+                        <div class="@colinput">
                             <label>Model</label>
 
-                        </div>
-                        <div class="@colinput">
-                                <input class="form-control" id="txtProductModel" />
+                            <input class="form-control" id="txtProductModel" />
                         </div>
 
 
                         @*size*@
-                        <div class="@colLabel">
+                  
+                        <div class="@colinput">
                             <label>Size</label>
 
-                        </div>
-                        <div class="@colinput">
                             <input class="form-control" id="txtProductSize" />
                         </div>
 
@@ -107,40 +98,48 @@
                     <div class="row">
 
                         @*Color*@
-                        <div class="@colLabel">
+                        @*<div class="@colLabel">
                             <label>Color</label>
 
-                        </div>
+                        </div>*@
                         <div class="@colinput">
+                            <label>Color</label>
+
                             <input class="form-control" id="txtProductColor" />
                         </div>
 
 
                         @*Qty*@
-                        <div class="@colLabel">
+                        @*<div class="@colLabel">
                             <label>Qty</label>
 
-                        </div>
+                        </div>*@
                         <div class="@colinput">
+                            <label>Qty</label>
+
                             <input class="form-control" id="txtProductQty" />
                         </div>
 
 
                         @*Price*@
-                        <div class="@colLabel">
+                        @*<div class="@colLabel">
                             <label>Purchase Price</label>
 
-                        </div>
+                        </div>*@
                         <div class="@colinput">
+                            <label>Purchase Price</label>
+
                             <input class="form-control" id="txtProductPurchasePrice" />
                         </div>
 
                         @*Price*@
-                        <div class="@colLabel">
+                        @*<div class="@colLabel">
                             <label>Total Amount</label>
 
-                        </div>
+                        </div>*@
                         <div class="@colinput">
+                            <label>Total Amount</label>
+
                             <input class="form-control" id="txtProductTotalAmount" />
                         </div>
 
@@ -161,7 +160,7 @@
                     <div class="card-img-top">
                         <img class="img-fluid pimage" src="~/Projects/Images/DefaultImage/No_Image_Available.jpg" />
                     </div>
-                    <input hidden id="txtImage" />
+                    <input type="text" hidden id="txtImage" value="" />
                 </div>
             </div>
         </div>
@@ -194,7 +193,7 @@
 
 <div class="row mt-2">
     <div class="col-md-12 mt-3">
-        <table class="table table-responsive-md table-bordered text-center" id="productList">
+        <table class="table  table-bordered text-center">
             <thead class="bg-secondary">
                 <tr class="text-white">
                     <th>SL</th>
@@ -207,22 +206,12 @@
                     <th>Qty</th>
                     <th>Price</th>
                     <th>Total Amount</th>
+                    <th>action</th>
 
                 </tr>
             </thead>
             <tbody id="productlist">
-                <tr id="1">
-                    <td>sl</td>
-                    <td>Image</td>
-                    <td>Code</td>
-                    <td>Description</td>
-                    <td>Model</td>
-                    <td>Size</td>
-                    <td>Color</td>
-                    <td>Qty</td>
-                    <td>Price</td>
-                    <td>Total Amount</td>
-                </tr>
+           
             </tbody>
 
         </table>

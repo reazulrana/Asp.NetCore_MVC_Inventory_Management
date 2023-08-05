@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using InevntoryManagement.ViewModels.Purchase;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using InevntoryManagement.GlobalFuntion;
+using BussinessAccessLayer.Model;
 
 namespace InevntoryManagement.Controllers
 {
@@ -39,9 +41,85 @@ namespace InevntoryManagement.Controllers
         [HttpPost]
         public IActionResult Create(PurchaseCreateViewModel model)
         {
-            
+
             model = LoadMultySelectList(model);
 
+
+            if (ModelState.IsValid)
+            {
+                if (model.ProductId == null || model.ProductId.Count == 0)
+                {
+
+                    Global_Functions.SetMessage($"Product List is Empty ", "danger");
+                    return View(model);
+                }
+
+                try { 
+                unitOfWork.BeginTransaction();
+
+
+                Purchase _purchase = new Purchase()
+                {
+                    PurchaseNo = model.Invoice,
+                    ReceiveDate = model.ReceiveDate,
+                    Remarks = model.Remarks,
+                    SourceId = model.SourceId,
+                    TrDate = model.TrDate,
+                    VendorId = model.VendorId,
+                    ReceivedByID = 1,
+                     BranchId=model.BranchId,
+                     
+                };
+
+                unitOfWork.Purchases.Insert(_purchase);
+
+                Amount _amount = new Amount()
+                {
+                    Discount = model.Discount,
+                    Dues = model.Dues,
+                    GrossAmount = model.GrossAmount,
+                    NetAmount = model.NetAmount,
+                    Others = model.Others,
+                    PaymentTypeId = model.PaymentTypeId,
+                    TotalAmount = model.TotalAmount,
+                    TrType = 1,
+                    TrID = _purchase.PurchaseID,
+                     Transport=model.Transport,
+                      PaymentOnCash=model.PaymentOnCash,
+                       
+                      
+                };
+                unitOfWork.Amounts.Insert(_amount);
+
+                List<MasterDetail> masterDetailslist = new List<MasterDetail>();
+                for(int i = 0; i <= model.ProductId.Count - 1; i++)
+                {
+                    MasterDetail masterDetail = new MasterDetail()
+                    {
+                        AmountId = _amount.Id,
+                        ProductId= model.ProductId[i],
+                        Price =model.Price[i],
+                        Qty = model.Qty[i],
+                    };
+                    masterDetailslist.Add(masterDetail);
+
+                }
+                unitOfWork.CommitTransaction();
+
+                unitOfWork.MasterDetails.Insert(masterDetailslist);
+                Global_Functions.SetMessage($"Purchase Create Purchase ID( {_purchase.PurchaseID.ToString()} )", "success");
+                return RedirectToAction("Create","Purchase");
+                }
+                catch(Exception ex)
+                {
+                    unitOfWork.RollbackTransaction();
+                }
+
+
+
+
+
+            }
 
 
             return View(model);

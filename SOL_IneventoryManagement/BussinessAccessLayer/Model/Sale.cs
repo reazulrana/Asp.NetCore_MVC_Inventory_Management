@@ -22,9 +22,6 @@ namespace BussinessAccessLayer.Model
         public string Remarks { get; set; }
 
 
-
-        [ForeignKey("TrID")]
-        public virtual Amount Amount { get; set; }
         public virtual Customer Customer { get; set; }
 
     }

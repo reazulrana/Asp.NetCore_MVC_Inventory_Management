@@ -24,5 +24,6 @@ namespace DataAccessLayer.Services.Interface
 
         void Update(TEntity entityToUpdate);
 
+
     }
 }
