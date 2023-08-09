@@ -18,6 +18,14 @@ namespace InevntoryManagement.Controllers
         {
             this.unitOfWork = unitOfWork;
         }
+
+
+        public IActionResult VendorPanel(string vendor)
+        {
+
+
+            return View();
+        }
         public IActionResult VendorList()
         {
             List<VendorListViewModel> _VendorListViewModel = (from obj in unitOfWork.Vendors.Get()

@@ -14,5 +14,7 @@ namespace BussinessAccessLayer.Model
         public int Price { get; set; }
         [Required]
         public int AmountId { get; set; }
+
+        public Product Product { get; set; } 
     }
 }

@@ -1,0 +1,233 @@
+﻿@*@model ProductListViewModel
+@{
+    string photopath = (Model.PhotoPath != null && Model.PhotoPath != "") ? "~/" + ImagePath.GetProductImagePath(Model.PhotoPath) : "~/" + ImagePath.GetDefaultImagePath("No_Image_Available.jpg");
+    //string price = Model.DiscountPrice > 0 ? "<del>" + Model.Unitprice.ToString() + "</del>" + Model.DiscountPrice.ToString() : Model.Unitprice.ToString();
+    string collabel = "col-md-4 offset-md-1";
+    string colinput = "col-md-7";
+}*@
+<style>
+/*.modalTable{
+    max-width:992px;
+    overflow-x:scroll
+}*/
+</style>
+<div class="modal fade bd-example-modal-lg" id="Modal_Purchase_Details" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title text-white">Purchase Invoice Details</h4>
+                <button type="button" class="close text-white" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body lefttext">
+                <div class="row">
+                    <div class="col-md-6 text-white p-2 border">
+                        <h4 class="text-white bg-blue-dark px-3 py-2">Vendor/Seller Information</h4>
+
+                        @* Purchase No *@
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-blue">Purchase No</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-blue" id="modalpurchaseno"><b>001</b></h6>
+                            </div>
+                        </div>
+
+                        @* Purchase Date *@
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-blue">Purchase Date</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-blue" id="modalpurchasedate"><b></b></h6>
+                            </div>
+                        </div>
+
+                        @* Received Date *@
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-blue">Received Date</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-blue" id="modalReceiveddate"><b></b></h6>
+                            </div>
+                        </div>
+
+
+                        @* Branch Date *@
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-blue">Branch</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-blue" id="modalbranch"><b></b></h6>
+                            </div>
+                        </div>
+
+
+                        @* Vendor Date *@
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-blue">Vendor</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6  class="text-blue" id="modalvendor"><b><a  class="text-blue" href="#"></a></b></h6>
+                            </div>
+                        </div>
+
+
+                        @* Source Date *@
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-blue">Source</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-blue" id="modalsource"><b></b></h6>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    @* Invoice Costing Information Date *@
+
+                <div class="col-md-6 p-2 border">
+                    <h4 class="text-white bg-success px-3 py-2">Purchase Bill Information</h4>
+                    
+
+                    @* Product Cost *@
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-green">Product Cost</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-green" id="modalproductcost"><b></b></h6>
+                        </div>
+                    </div>
+
+                    @* Product Cost *@
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-green">Dues</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-green" id="modaldues"><b></b></h6>
+                        </div>
+                    </div>
+
+
+                    @* Transport Cost *@
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-green">Transport Cost</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-green" id="modaltransportcost"><b></b></h6>
+                        </div>
+                    </div>
+
+
+
+
+                    @* Others Charges *@
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-green">Other Charges</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-green" id="modalothercharges"><b></b></h6>
+                        </div>
+                    </div>
+
+
+
+
+                    @* Gross Bill Amount *@
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-green">Gross Bill Amount</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-green" id="modalgrossbillamount"><b></b></h6>
+                        </div>
+                    </div>
+
+
+                    @* Discount *@
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-green">Discount</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-green" id="modaldiscount"><b></b></h6>
+                        </div>
+                    </div>
+
+
+                    @* Net Bill Amount *@
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-danger">Net Bill Amount</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-danger" id="modalnetbillamount"><b></b></h6>
+                        </div>
+                    </div>
+
+
+                </div>
+                    <div class="col-md-12">
+                        <h6 class="text-blue" id="modalremarks"><small><b></b></small></h6>
+
+                    </div>
+
+      
+
+                </div>
+
+
+                @*table section*@
+
+                        <div class="row mt-2">
+                            <div class="col-md-12 mt-3">
+                                <table class="table table-bordered table-responsive table-hover  text-center">
+                                    <thead class="bg-blue">
+                                        <tr class="text-white">
+                                            <th><small>SL</small></th>
+                                            <th><small>Image</small></th>
+                                            <th><small>Code</small></th>
+                                            <th><small>Description</small></th>
+                                            <th><small>Model</small></th>
+                                            <th><small>Size</small></th>
+                                            <th><small>Color</small></th>
+                                            <th><small>Qty</small></th>
+                                            <th><small>Price</small></th>
+                                            <th><small>Total Amount</small></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modalproductlist">
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

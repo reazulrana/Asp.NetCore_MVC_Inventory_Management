@@ -72,8 +72,19 @@ input, select {
 }
 
 
-
+.purchaselist{
+    max-width:992px;
+    overflow-x:scroll;
+}
 /*
+.purchaselist table thead tr th
+{
+    width:500px;
+}
+.purchaselist table tbody tr td {
+        width: 500px;
+    }*/
+    /*
 .input-group > .select2-container--bootstrap {
     width: auto !important;
     flex: 1 1 auto;
@@ -93,7 +104,7 @@ input, select {
         padding: 0.5rem 1rem;
         background-color: white;
     }*/
-/*
+    /*
 
 .input-group > .select2-container--bootstrap, .input-group > .select2-container--default {
     width: auto!important;
@@ -129,8 +140,8 @@ input, select {
             height: inherit;
         }
 */
-@media (max-width: 768px) {
-    .custom-tab-1 > ul{
+    @media (max-width: 768px) {
+        .custom-tab-1 > ul{
         font-size:10px;
     }
 }

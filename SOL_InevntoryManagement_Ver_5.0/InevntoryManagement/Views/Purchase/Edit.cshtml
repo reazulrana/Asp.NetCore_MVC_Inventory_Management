@@ -1,4 +1,4 @@
-﻿@model PurchaseCreateViewModel
+﻿@model PurchaseEditViewModel
 
 @{
     ViewBag.Title = "New Purchase";
@@ -12,7 +12,7 @@
     }
 </style>
 
-<form method="post" asp-controller="purchase" asp-action="Create">
+<form method="post" asp-controller="purchase" asp-action="Edit">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title text-white">Create Purchase</h3>
@@ -35,8 +35,8 @@
                         <h5 class="card-title p-2 text-white">Purchase Information</h5>
                     </div>
                 </div>
-
-
+                    
+                <input hidden type="text" asp-for="@Model.id" />
 
                 @Html.Partial("~/Views/Shared/Purchase/_PurcchaseDetails.cshtml", Model)
             </div>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                @Html.Partial("~/Views/Shared/Purchase/_PurchaseProductDetails.cshtml")
+                @Html.Partial("~/Views/Shared/Purchase/_PurchaseEditProductDetails.cshtml",Model)
             </div>
 
             <div class="col-md-12 border mb-2">
@@ -65,7 +65,7 @@
         </div>
         <div class="card-footer">
             <div class="form-group">
-                <button class="btn btn-facebook col-md-3 btn-xs">Create<span class="pl-2"><i class="mdi mdi-plus"></i></span></button>
+                <button class="btn btn-facebook col-md-3 btn-xs">Update<span class="pl-2"><i class="ml-1 mdi mdi-pencil"></i></span></button>
 
                 <a asp-action="ListPurchase" asp-controller="Purchase" class="btn btn-info col-md-3 btn-xs float-md-right">List<span class="pl-2"><i class="mdi mdi-view-list"></i></span></a>
             </div>
@@ -163,7 +163,7 @@
             //clear all product field
             $("#btnClearProduct").click(function () {
 
-                
+
             })
 
 
@@ -178,11 +178,9 @@
                     $(tr).each(function (i, item) {
                         amount = (amount + parseInt($(this).find("td:last").prev().text()));
                     })
-
                     $("#TotalAmount").val(amount) //product cost
 
 
-                     //Call amountclass To Get Update Total AMount After Adding New Product   
                     let _amountclass = amountclass();
 
                     let grossamount = (parseInt(_amountclass.TotalAmount) + parseInt(_amountclass.Transport) + parseInt(_amountclass.Others))
@@ -192,16 +190,17 @@
                     $("#Dues").val(parseInt(_amountclass.TotalAmount) - parseInt(_amountclass.PaymentOnCash))
                 }
 
-
             }
 
+
+        
 
             //btnAddPaymentType
             $("#btnAddPaymentType").click(function () {
                 $("#divPaymentType").toggle()
 
             })
-       
+
 
         /*$('#TrDate').datepicker();*/
         //$("#productlist tr").dblclick(function () {
@@ -292,7 +291,7 @@
 
 
 
-            
+
             //tr Remove from product table By Delete Button click
             $("#productlist").on("click", "button", function () {
 

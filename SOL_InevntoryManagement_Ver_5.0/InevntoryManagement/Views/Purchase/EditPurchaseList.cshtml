@@ -1,0 +1,237 @@
+﻿@model List<PurchaseListViewModel>
+
+@{
+    ViewBag.Title = "Purchase Invoice List";
+    string tdwidth = "200px";
+}
+
+
+<style>
+    th {
+        white-space: nowrap;
+    }
+
+    td {
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title text-white">Purchase Invoice List</h4>
+    </div>
+    <div class="card-body">
+        
+
+        
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <a asp-controller="Purchase" asp-action="Create" class="float-md-right btn btn-facebook btn-xs">Create<span><i class="ml-1 mdi mdi-plus"></i></span></a>
+            </div>
+        </div>
+
+        @*<div class="purchaselist">*@
+        <div class="row mt-2">
+            <div class="col-md-12 mt-3">
+                <table class="table table-bordered  table-danger table-responsive text-center">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th>SL</th>
+                            <th title="Purchase No"><small>#P. No</small></th>
+                            <th title="Purchase Date"><small>P. Date</small></th>
+                            <th title="Branch"><small>Branch</small></th>
+                            <th title="Vendor"><small>Vendor</small></th>
+                            <th title="Source"><small>Source</small></th>
+                            <th title="Product Cost"><small>Product Cost</small></th>
+                            <th title="Cash Payment"><small>Cash Payment</small></th>
+                            <th title="Dues"><small>Dues</small></th>
+                            <th title="Transport"><small>Transport</small></th>
+                            <th title="Others"><small>Others</small></th>
+                            <th title="Gross Amount"><small>Gross Bill Amount</small></th>
+                            <th title="Discount"><small>Discount</small></th>
+                            <th title="Net Amount"><small>Net Bill Amount</small></th>
+                            <th colspan="2" title="Edit/Delete"><small>Action</small></th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="productlist">
+                        @if (Model == null || Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="15">Purchase Invoice Not Avaulable</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            int sl = 1;
+                            @foreach (var m in Model)
+                            {
+                    <tr data-id="@m.id">
+                        <td>@sl</td>
+                        <td><a href="#" data-id="@m.id" id="showModalProductDetails" data-toggle="modal" data-target="#Modal_Purchase_Details"><h6> @m.PurchaseNo</h6></a></td>
+                        <td>@m.TrDate.ToShortDateString()</td>
+                        <td>@m.Branch</td>
+                        <td>@m.Vendor</td>
+                        <td>@m.Source</td>
+                        <td>@m.TotalAmount</td>
+                        <td>@m.PaymentOnCash</td>
+                        <td>@m.Dues</td>
+                        <td>@m.Transport</td>
+                        <td>@m.Others</td>
+                        <td>@m.GrossAmount</td>
+                        <td>@m.Discount</td>
+                        <td>@m.NetAmount</td>
+                        <td><a asp-controller="Purchase" asp-action="Edit" asp-route-id="@m.id" class="btn btn-secondary light btn-xs">Edit<span><i class="ml-1 mdi mdi-pencil"></i></span></a></td>
+                        <td>
+                            <form method="post" asp-controller="Purchase" asp-action="Delete" asp-route-id="@m.id">
+                                <button class="btn btn-danger light btn-xs">Delete<span><i class="ml-1 mdi mdi-delete"></i></span></button>
+
+                            </form>
+                        </td>
+
+                    </tr>
+                                sl = sl + 1;
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+        @*</div>*@
+    </div>
+    <div class="card-footer">
+
+    </div>
+</div>
+
+
+
+
+
+@*@for(int i=1; i<25; i++) {
+    <div class="col-md-12 py-2 gradient-@i">
+        <h4 class="text-white">gradient-@i</h4>
+    </div>
+    }*@
+
+
+
+@Html.Partial("~/Views/Shared/Purchase/Modals/_PurchaseInformation.cshtml")
+
+
+
+
+
+@section Scripts{
+
+    <script>
+    $(document).ready(function ()
+    {
+
+
+        $("#productlist tr").dblclick(function () {
+
+            let id = $(this).data("id");
+            ajaxcall(id)
+        })
+
+
+        function ajaxcall(id)
+        {
+
+
+            $.ajax({
+                url: '@Url.Action("ShowPurchaseDetails","Purchase")',
+                method: "POST",
+                data: { id: id },
+                dataType: "JSON",
+                success: function (data)
+                {
+
+                    if (data.output != null)
+                    {
+                        $("#modalpurchaseno b").text(data.output.purchaseno);
+                        $("#modalpurchasedate b").text(data.output.trDate);
+                        $("#modalReceiveddate b").text(data.output.trDate);
+                        $("#modalbranch b").text(data.output.branch);
+                        $("#modalvendor b a").text(data.output.vendor);
+                        $("#modalsource b").text(data.output.source);
+                        $("#modalproductcost b").text(data.output.totalAmount);
+                        $("#modaldues b").text(data.output.dues);
+                        $("#modaltransportcost b").text(data.output.transport);
+                        $("#modalothercharges b").text(data.output.others);
+                        $("#modalgrossbillamount b").text(data.output.grossAmount);
+                        $("#modaldiscount b").text(data.output.discount);
+                        $("#modalnetbillamount b").text(data.output.netAmount);
+                        $("#modalremarks small b").text(data.output.remarks);
+
+                        $("#modalvendor b a").attr("href", '@Url.Action("VendorPanel","Vendor")?vendor=' + data.output.vendor )
+                    }
+                    $("#modalproductlist").empty()
+                    $.each(data.output.purchaseProductInfos, function (i, item) {
+
+                        //console.log(item);
+                        newRowAppend(item)
+
+                    })
+                    //console.log(data.output);
+
+                    //console.log(data.output.purchaseProductInfos);
+
+                }
+            })//end of ajax call
+
+
+            $("#Modal_Purchase_Details").modal('toggle')
+
+        }
+        $("#showModalProductDetails").click(function () {
+            let id = $(this).data("id")
+            //alert(id);
+            ajaxcall(id)
+        })
+
+
+
+
+        function newRowAppend(data)
+        {
+
+            let tblbody = $("#modalproductlist")
+            sl = $("#modalproductlist tr").length
+            sl= (sl == null || sl == undefined || sl==0)? 1 : (sl+1)
+            let imgpath = "/Projects/Images/Product/";
+            //var photopath = "";
+            //photopath = ui.item.photopath == null ? " : photopath + ui.item.photopath
+
+            imgpath = (data.photopath == null || data.photopath == "") ? "/Projects/Images/DefaultImage/No_Image_Available.jpg" : imgpath + data.photopath
+
+            let tdsl = '<td>' + sl + '</td>'
+            let tdimage = '<td> <img height=72 width=72 src="' + imgpath + '" /></td>'
+            let tdcode = '<td>' + data.code + '</td>'
+            let tddescription = '<td>' + data.description + '</td>'
+            let tdmodel = '<td>' + data.model + '</td>'
+            let tdsize = '<td>' + data.size + '</td>'
+            let tdcolor = '<td>' + data.color + '</td>'
+            let tdqty = '<td>' + data.qty + '</td>'
+            let tdprice = '<td>' + data.price + '</td>'
+            let tdtotalamount = '<td>' + (data.qty * data.price) + '</td>'
+
+            let tr = "<tr>" + tdsl + tdimage + tdcode + tddescription + tdmodel + tdsize + tdcolor + tdqty + tdprice + tdtotalamount + "</tr>"
+            $(tblbody).append(tr);
+
+
+
+
+
+        }
+
+    })
+    </script>
+
+}
