@@ -2,7 +2,7 @@
 @model PaginatedList<ProductListViewModel>
 @{
     ViewBag.Title = "Product List";
-
+    //HttpContext httpContext = new HttpContext();
     //bool haspreviousPage=Model.Has
 }
 
@@ -16,24 +16,22 @@
 
             <div class="row pb-5">
 
-                <div class="col-sm-3">
+                <div class="col-md-6 float-md-left">
 
                     <div class="input-group">
-                        <input asp-for="@Model.SearchText" placeholder="Search" class="form-control pull-right" />
+                        <input asp-for="@Model.SearchText" placeholder="Search" class="col-md-9 form-control" />
                         <span class="input-group-append"><button class="btn btn-facebook pull-right" title="Search"><span><i class="la la-search"></i></span></button></span>
 
                     </div>
 
                 </div>
 
-                <div class="col-sm-3">
-                    <div class="row text-center">
+                <div class="col-md-6 float-md-right">
                         <div class="input-group">
-                            <select class="form-control" name="PageSize" asp-items="@ViewBag.rowSize as List<SelectListItem>">
+                            <select class="float-md-right form-control col-md-9" name="PageSize" asp-items="@ViewBag.rowSize as List<SelectListItem>">
                                 <option selected="selected">Select Row</option>
                             </select>
-                            <span class="input-group-append"><button class="btn btn-facebook btn-xs"><i class="la la-2x la-refresh"></i></button></span>
-                        </div>
+                            <span class="float-md-right input-group-append"><button class="btn btn-facebook btn-xs"><i class="la la-2x la-refresh"></i></button></span>
                     </div>
 
 
@@ -46,7 +44,7 @@
 
         <div class="row">
             <div class="col-md-12 mt-3">
-                <table class="table table-responsive-md table-bordered text-center" id="productList">
+                <table class="table table-responsive table-bordered text-center" id="productList">
                     <thead class="bg-secondary">
                         <tr class="text-white">
                             <th>SL</th>
@@ -77,6 +75,7 @@
                         {
                             string photopath = @_model.PhotoPath != null ? "~/" + ImagePath.GetProductImagePath(_model.PhotoPath) : ImagePath.GetBlankImageFromRootFolder();
                             // string url = @_model.PhotoPath != null ? ImagePath.GetProductImagePath(_model.PhotoPath) : ImagePath.GetBlankImageFromRootFolder();
+                            
                             <tr>
                                 <td>@sl</td>
                                 <td>

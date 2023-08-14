@@ -195,7 +195,7 @@
 
                         <div class="row mt-2">
                             <div class="col-md-12 mt-3">
-                                <table class="table table-bordered table-responsive table-hover  text-center">
+                                <table class="table table-bordered table-responsive text-center">
                                     <thead class="bg-blue">
                                         <tr class="text-white">
                                             <th><small>SL</small></th>
@@ -208,10 +208,11 @@
                                             <th><small>Qty</small></th>
                                             <th><small>Price</small></th>
                                             <th><small>Total Amount</small></th>
+                                            @*<th><small>Action</small></th>*@
 
                                         </tr>
                                     </thead>
-                                    <tbody id="modalproductlist">
+                                    <tbody class="table-danger light" id="modalproductlist">
                                     </tbody>
 
                                 </table>
@@ -221,7 +222,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary light" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-youtube btn-xs" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

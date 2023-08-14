@@ -1,4 +1,4 @@
-﻿@model ProductCreateViewModel
+﻿@model PurchaseCreateViewModel
 
 @{
     string colLabel = "col-md-3 mt-3";
@@ -8,18 +8,27 @@
 
 <div class="form-row">
 
+   
+
     @*Size Radio input section*@
 
-    <div class="col-md-11 offset-md-1 mt-3">
+    <div class="col-md-12 mt-2">
         @*<div class="form-group">*@
-        <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="code" type="radio" /> Code</label>
-        <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="description" type="radio" /> Description</label>
-        <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="model" type="radio" checked="checked" /> Model</label>
+        <div class="row">
+            <div class="col-md-2">
+                <label>Search</label>
+            </div>
+            <div class="col-md-10">
 
+                <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="code" type="radio" /> Code</label>
+                <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="description" type="radio" /> Description</label>
+                <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="model" type="radio" checked="checked" /> Model</label>
+            </div>
+        </div>
 
-        @*</div>*@
+            @*</div>*@
 
-    </div>
+        </div>
 
 
     @*Search*@
@@ -211,6 +220,33 @@
                 </tr>
             </thead>
             <tbody id="productlist">
+
+                @if (Model.PurchaseProductInfos.Count > 0)
+                {
+                    int sl = 1;
+                    foreach (var p in Model.PurchaseProductInfos)
+                    {
+                        string _photopath = (p.photopath == null || p.photopath == "") ? "~/" + ImagePath.GetDefaultImagePath("No_Image_Avaiable.jpg") : "~/" + ImagePath.GetProductImagePath(p.photopath);
+                        int totalamount = p.qty * p.price;
+                        <tr>
+                            <td>SL <input hidden type="text" name="ProductIds" value="@p.ProdId" /> </td>
+                            <td><input hidden type="text" name="Images" value="@p.photopath" />  <img width="72" height="72" src="@_photopath" alt="No Image" asp-append-version="true" /></td>
+                            <td><input hidden type="text" name="Codes" value="@p.code" /> @p.code</td>
+                            <td><input hidden type="text" name="Descriptions" value="@p.description" /> @p.description</td>
+                            <td><input hidden type="text" name="Models" value="@p.model" /> @p.model</td>
+                            <td><input hidden type="text" name="Sizes" value="@p.size" />@p.size</td>
+                            <td><input hidden type="text" name="Colors" value="@p.color" /> @p.color</td>
+                            <td><input hidden type="text" name="Qtys" value="@p.qty" /> @p.qty</td>
+                            <td><input hidden type="text" name="Prices" value="@p.price" /> @p.price.ToString("#,##0")</td>
+                            <td>
+                                @totalamount
+                            </td>
+                            <td><button type="button" class="btn btn-xs btn-danger delete_Product"><span><i class="mdi mdi-delete"></i></span></button></td>
+
+                        </tr>
+                        sl = sl + 1;
+                    }
+                }
             </tbody>
 
         </table>

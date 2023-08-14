@@ -48,8 +48,15 @@ namespace InevntoryManagement.Controllers
                 }
 
                 unitOfWork.Categories.Insert(category);
+                Global_Functions.SetMessage($"Category {model.Ctype} Is Created Successfully", "danger");
+                  return View();
+            }
+            else
+            {
+                Global_Functions.SetMessage($"Category {model.Ctype} Is Not Created Successfully", "danger");
 
             }
+
             return View();
         }
 
@@ -151,6 +158,7 @@ namespace InevntoryManagement.Controllers
                 {
                     result.CType = model.Ctype;
                     unitOfWork.Categories.Update(result);
+                    Global_Functions.SetMessage($"Category {model.Ctype} Is Updated Succesfully", "success");
                     return RedirectToAction("CategoryList", "Category");
                 }
 
@@ -161,7 +169,7 @@ namespace InevntoryManagement.Controllers
 
 
             }
-
+            Global_Functions.SetMessage($"Category {model.Ctype} Is Not Updated Succesfully", "danger");
             return View();
         }
 

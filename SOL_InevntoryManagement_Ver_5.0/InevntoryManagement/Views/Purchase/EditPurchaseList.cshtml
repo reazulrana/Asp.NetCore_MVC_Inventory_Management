@@ -1,7 +1,7 @@
 ﻿@model List<PurchaseListViewModel>
 
 @{
-    ViewBag.Title = "Purchase Invoice List";
+    ViewBag.Title = "Purchase Invoice Edit List";
     string tdwidth = "200px";
 }
 
@@ -19,11 +19,20 @@
 
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title text-white">Purchase Invoice List</h4>
+        <h4 class="card-title text-white">Purchase Invoice Edit/Delete List</h4>
     </div>
     <div class="card-body">
-        
+        <div class="row">
+            <div class="col-md-12">
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_Messages" />
+            </div>
 
+        </div>
         
 
 
@@ -34,8 +43,8 @@
         </div>
 
         @*<div class="purchaselist">*@
-        <div class="row mt-2">
-            <div class="col-md-12 mt-3">
+        <div class="row mt-1">
+            <div class="col-md-12">
                 <table class="table table-bordered  table-danger table-responsive text-center">
                     <thead class="bg-info">
                         <tr class="text-white">
@@ -71,7 +80,7 @@
                             {
                     <tr data-id="@m.id">
                         <td>@sl</td>
-                        <td><a href="#" data-id="@m.id" id="showModalProductDetails" data-toggle="modal" data-target="#Modal_Purchase_Details"><h6> @m.PurchaseNo</h6></a></td>
+                        <td><a href="#" class="productids" data-id="@m.id" id="showModalProductDetails" data-toggle="modal" data-target="#Modal_Purchase_Details"><h6> @m.PurchaseNo</h6></a></td>
                         <td>@m.TrDate.ToShortDateString()</td>
                         <td>@m.Branch</td>
                         <td>@m.Vendor</td>
@@ -87,7 +96,7 @@
                         <td><a asp-controller="Purchase" asp-action="Edit" asp-route-id="@m.id" class="btn btn-secondary light btn-xs">Edit<span><i class="ml-1 mdi mdi-pencil"></i></span></a></td>
                         <td>
                             <form method="post" asp-controller="Purchase" asp-action="Delete" asp-route-id="@m.id">
-                                <button class="btn btn-danger light btn-xs">Delete<span><i class="ml-1 mdi mdi-delete"></i></span></button>
+                                <button class="btn btn-danger light btn-xs btndelete">Delete<span><i class="ml-1 mdi mdi-delete"></i></span></button>
 
                             </form>
                         </td>
@@ -105,7 +114,11 @@
         @*</div>*@
     </div>
     <div class="card-footer">
-
+        <div class="row">
+            <div class="col-md-12">
+                <a asp-action="PurchaseList" asp-controller="Purchase" class="float-md-right col-md-2 btn btn-xs btn-facebook">Purchase List<span class="btn-icon-right"><i class="ml-1 mdi mdi-view-list"></i></span></a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -133,6 +146,26 @@
     $(document).ready(function ()
     {
 
+
+        //$(".btndelete").click(function () 
+        //{
+        //    e.preventDefault();
+        //    if (confirm("Are Sure To Delete The Purchase"));
+        //    {
+        //        return;
+        //    }
+                
+        //})
+
+        $("#productlist").on("click", "button", function (e) {
+            if (confirm("Do You Want to Remove Row")) {
+
+            }
+            else {
+                e.preventDefault();
+
+            }
+        })
 
         $("#productlist tr").dblclick(function () {
 
@@ -190,7 +223,7 @@
             $("#Modal_Purchase_Details").modal('toggle')
 
         }
-        $("#showModalProductDetails").click(function () {
+        $(".productids").click(function () {
             let id = $(this).data("id")
             //alert(id);
             ajaxcall(id)

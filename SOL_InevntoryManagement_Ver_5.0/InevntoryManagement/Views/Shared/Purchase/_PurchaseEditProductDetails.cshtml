@@ -217,18 +217,18 @@
                     int sl = 1;
                     foreach (var p in Model.PurchaseProductInfos)
                     {
-                        string _photopath = (p.photopath == null || p.photopath=="") ? "~/"+ ImagePath.GetDefaultImagePath("No_Image_Avaiable.jpg") : "~/" + ImagePath.GetProductImagePath(p.photopath);
+                        string _photopath = (p.photopath == null || p.photopath=="") ? "~/"+ ImagePath.GetDefaultImagePath("No_Image_Available.jpg") : "~/" + ImagePath.GetProductImagePath(p.photopath);
                         int totalamount = p.qty * p.price;
                 <tr>
-                    <td>SL <input hidden type="text" name="ProductId" value="@p.ProdId" /> </td>
-                    <td><img width="72" height="72" src="@_photopath" alt="No Image" asp-append-version="true" /></td>
-                    <td>@p.code</td>
-                    <td>@p.description</td>
-                    <td>@p.model</td>
-                    <td>@p.size</td>
-                    <td>@p.color</td>
-                    <td><input hidden type="text" name="Qty" value="@p.qty" /> @p.qty</td>
-                    <td><input hidden type="text" name="Price" value="@p.price" /> @p.price.ToString("#,##0")</td>
+                    <td>SL <input hidden type="text" name="ProductIds" value="@p.ProdId" /> </td>
+                    <td><input hidden type="text" name="Images" value="@p.photopath" />  <img width="72" height="72" src="@_photopath" alt="No Image" asp-append-version="true" /></td>
+                    <td><input hidden type="text" name="Codes" value="@p.code" /> @p.code</td>
+                    <td><input hidden type="text" name="Descriptions" value="@p.description" /> @p.description</td>
+                    <td><input hidden type="text" name="Models" value="@p.model" /> @p.model</td>
+                    <td><input hidden type="text" name="Sizes" value="@p.size" />@p.size</td>
+                    <td><input hidden type="text" name="Colors" value="@p.color" /> @p.color</td>
+                    <td><input hidden type="text" name="Qtys" value="@p.qty" /> @p.qty</td>
+                    <td><input hidden type="text" name="Prices" value="@p.price" /> @p.price.ToString("#,##0")</td>
                     <td>
                             @totalamount
                     </td>

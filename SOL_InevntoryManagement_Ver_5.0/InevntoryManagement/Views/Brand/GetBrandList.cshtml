@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Brand List";
+    string padding = "py-3";
 }
 
 
@@ -13,6 +14,21 @@
                 <h4 class="card-title text-white">All Brand List</h4>
             </div>
             <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div asp-validation-summary="All" class="text-danger">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <partial name="_Messages" />
+                    </div>
+                </div>
+
                 <div class="row py-2">
                     <div class="col-md-12">
                         <a asp-controller="Brand" asp-action="Create" class="btn pull-right btn-secondary btn-sm"><span> Create Brand <i aria-hidden="true" class="mdi mdi-plus"></i> </span> </a>
@@ -21,18 +37,18 @@
 
                 @if (Model != null && Model.Count > 0)
                 {
-                    <div class="row py-2 bg-info border divHeaderPart">
-                        <div class="col-md-2 py-2" style="line-height:10.5px">
-                            <h5 class="text-white">SL No</h5>
+                    <div class="row bg-blue-dark border divHeaderPart">
+                        <div class="col-md-2 text-center">
+                            <h5 class="@padding text-white">SL No</h5>
                         </div>
-                        <div class="col-md-3 py-2" style="line-height:10.5px">
-                            <h5 class="text-white">Category</h5>
+                        <div class="col-md-3 text-center">
+                            <h5 class="@padding text-white">Category</h5>
                         </div>
-                        <div class="col-md-3 py-2" style="line-height:10.5px">
-                            <h5 class="text-white">Brand</h5>
+                        <div class="col-md-3 text-center">
+                            <h5 class="@padding text-white">Brand</h5>
                         </div>
-                        <div class="col-md-4 py-2" style="line-height:10.5px">
-                            <h5 class="text-white">Action</h5>
+                        <div class="col-md-4 text-center">
+                            <h5 class="@padding text-white">Action</h5>
                         </div>
                     </div>
 
@@ -40,16 +56,16 @@
                     foreach (var brand in Model)
                     {
                         <div class="row py-2 border border-bottom divBodyParent">
-                            <div class="col-md-1">
+                            <div class="col-md-2 text-center">
                                 @sl
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 text-center">
                                 @brand.Ctype
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 text-center">
                                 @brand.brandName
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-4 text-center">
 
                                 <div class="row">
                                     <div class="col-md-6">

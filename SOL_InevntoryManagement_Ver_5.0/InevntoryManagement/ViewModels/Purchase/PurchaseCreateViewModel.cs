@@ -46,9 +46,15 @@ namespace InevntoryManagement.ViewModels.Purchase
         #endregion
 
         #region For MasterDetails
-        public List<int> ProductId { get; set; } = new List<int>();
-        public List<int> Qty { get; set; }= new List<int>();
-        public List<int> Price { get; set; }= new List<int>();
+        public List<int> ProductIds { get; set; } = new List<int>();
+        public List<string> Images { get; set; } = new List<string>();
+        public List<string> Codes { get; set; } = new List<string>();
+        public List<string> Descriptions { get; set; } = new List<string>();
+        public List<string> Models { get; set; } = new List<string>();
+        public List<string> Sizes { get; set; } = new List<string>();
+        public List<string> Colors { get; set; } = new List<string>();
+        public List<int> Qtys { get; set; }= new List<int>();
+        public List<int> Prices { get; set; }= new List<int>();
         #endregion
 
         #region PriceDetails
@@ -79,6 +85,8 @@ namespace InevntoryManagement.ViewModels.Purchase
         public List<SelectListItem> VendorList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> SourceList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> PaymentTypeList { get; set; } = new List<SelectListItem>();
+        public List<PurchaseProductInfo> PurchaseProductInfos { get; set; } = new List<PurchaseProductInfo>();
+
 
         #endregion
 

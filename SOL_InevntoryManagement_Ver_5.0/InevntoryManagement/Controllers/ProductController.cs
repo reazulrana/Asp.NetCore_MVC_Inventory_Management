@@ -364,9 +364,9 @@ namespace InevntoryManagement.Controllers
 
             };
 
-            var porduct = PaginatedList<ProductListViewModel>.Create(productlist.ToList(), pagenumber ?? 1 , pagesize);
-            
-            porduct.SearchText = SearchText;
+            var product = PaginatedList<ProductListViewModel>.Create(productlist.ToList(), pagenumber ?? 1 , pagesize);
+            product = IsImageFileExist(product);
+            product.SearchText = SearchText;
                         
             List<SelectListItem> rowsize = new List<SelectListItem>()
             { new SelectListItem(){
@@ -403,7 +403,22 @@ namespace InevntoryManagement.Controllers
             ViewBag.rowSize = rowsize;
 
 
-            return View(porduct);
+            return View(product);
+        }
+
+        public PaginatedList<ProductListViewModel> IsImageFileExist(PaginatedList<ProductListViewModel> porduct)
+        {
+            
+            foreach(var p in porduct)
+            {
+                string absolutePath = _iWebHostEnvironment.WebRootPath;
+                string filename = ImagePath.GetProductImagePath(p.PhotoPath);
+
+                p.PhotoPath = ((p.PhotoPath!=null || p.PhotoPath != "") &&  Global_Functions.IsFileExist(absolutePath,filename) == true) ? p.PhotoPath : null;
+
+
+            }
+            return porduct;
         }
 
 
@@ -449,12 +464,7 @@ namespace InevntoryManagement.Controllers
             string fullpath = Path.Combine(_iWebHostEnvironment.WebRootPath, ImagePath.GetProductImagePath(result.PhotoPath));
             bool isExist = System.IO.File.Exists(fullpath);
             product.ExistingPhotoPath = isExist == true ? result.PhotoPath : null;
-
-
-
-
-
-
+            
             product = Retirved_CategoryId_and_BrandId(product);
             product = MultiSelecListItemLoad(product) as ProductEditViewModel;
 
@@ -470,14 +480,8 @@ namespace InevntoryManagement.Controllers
         [HttpPost]
         public IActionResult Edit(ProductEditViewModel model)
         {
-
-
-
             model = Retirved_CategoryId_and_BrandId(model);
             model = MultiSelecListItemLoad(model) as ProductEditViewModel;
-
-
-
 
             if (ModelState.IsValid)
             {
@@ -582,6 +586,10 @@ namespace InevntoryManagement.Controllers
         //ProductListData Retirved from Database
         List<ProductListViewModel> GetProductListViewLoadedFromDatabas()
         {
+
+            string absoluteFolder = _iWebHostEnvironment.WebRootPath;
+
+
             return (from cats in unitOfWork.Categories.Get()
                     join brands in unitOfWork.Brands.Get()
                     on cats.Id equals brands.CategoryId
@@ -606,7 +614,7 @@ namespace InevntoryManagement.Controllers
                         ModelName = models.ModelName,
                         OpeningBalance = products.OpeningBalance,
                         OpeningQty = products.OpeningQty,
-                        PhotoPath = products.PhotoPath,
+                        PhotoPath = products.PhotoPath, // ((products.PhotoPath!=null || products.PhotoPath!="") && Global_Functions.IsFileExist(absoluteFolder,products.PhotoPath)==true)?products.PhotoPath:null,
                         Remarks = products.Remarks,
                         SizeName = products.Size,
                         SizeType = products.SizeType,
@@ -615,7 +623,6 @@ namespace InevntoryManagement.Controllers
                          Measurement=products.Measurement,
                         Source = products.Source,
                         Pipeline = products.Pipeline,
-
                     }).ToList();
         }
 
@@ -669,9 +676,10 @@ namespace InevntoryManagement.Controllers
         public JsonResult FindProduct(string term, string searchField)
         {
             List<Autocomplete> output = null;
+            string absoluteFolder = _iWebHostEnvironment.WebRootPath;
 
 
-            if(term!=null && term != "")
+            if (term!=null && term != "")
             {
                 output=(from cats in unitOfWork.Categories.Get()
                  join brands in unitOfWork.Brands.Get()
@@ -679,6 +687,7 @@ namespace InevntoryManagement.Controllers
                  join models in unitOfWork.Models.Get()
                  on brands.Id equals models.BrandId
                  join products in unitOfWork.Products.Get()
+                 
                  on models.Id equals products.ModelId into egroups
                  from products in egroups
                  orderby products.Description
@@ -692,7 +701,7 @@ namespace InevntoryManagement.Controllers
                      id = products.Id.ToString(),
                      size = products.Size,
                       category=cats.CType,
-                     photopath =products.PhotoPath
+                     photopath = ((products.PhotoPath != null && products.PhotoPath != "") && Global_Functions.IsFileExist(absoluteFolder, products.PhotoPath) == true) ? products.PhotoPath : null,
 
                  }).Where(x => searchField=="code"? x.code.ToLower().Contains(term.ToLower()): searchField=="model"? x.model.ToLower().Contains(term.ToLower()): x.description.ToLower().Contains(term.ToLower())).ToList();
 

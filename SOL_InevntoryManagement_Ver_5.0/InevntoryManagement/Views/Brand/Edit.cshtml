@@ -11,6 +11,19 @@
                     <h4 class="card-title text-white">Edit Brand</h4>  
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div asp-validation-summary="All" class="text-danger">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <partial name="_Messages"/>
+                        </div>
+                    </div>
                     <div class="row mb-2">
                         <div class="col-md-12">
                             <a class="pull-right btn btn-secondary btn-sm" asp-controller="Brand" asp-action="Brand">Create Brand  <span class="btn-icon-right"><i class="mdi mdi-plus"></i></span> </a>
@@ -29,17 +42,17 @@
                         </div>
 
                     </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <input hidden asp-for="@Model.brandId" />
-                                <label class="col-form-label" asp-for="@Model.brandName"></label>
-                            </div>
-                            <div class="col-md-10">
-                                <input asp-for="@Model.brandName" class="form-control" />
-                            </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input hidden asp-for="@Model.brandId" />
+                            <label class="col-form-label" asp-for="@Model.brandName"></label>
                         </div>
-
+                        <div class="col-md-10">
+                            <input asp-for="@Model.brandName" class="form-control" />
+                        </div>
                     </div>
+
+                </div>
                 <div class="card-footer bg-secondary">
                     <div class="form-group">
                         <button type="submit" class="btn btn-secondary btn-sm">Update <span class="btn-icon-right"><i class="mdi mdi-floppy"></i></span></button>

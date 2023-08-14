@@ -58,6 +58,8 @@ namespace InevntoryManagement.Controllers
                     ManufactureName = model.ManufactureName
                 };
                 unitOfWork.Manufactures.Insert(manufacture);
+                Global_Functions.SetMessage($"Manufacture { model.ManufactureName } Is Created Successfully", "success");
+
                 return RedirectToAction("ListManufactures","Manufacture");
             }
             
@@ -129,6 +131,8 @@ namespace InevntoryManagement.Controllers
 
                 manufacture.ManufactureName = model.ManufactureName;
                 unitOfWork.Manufactures.Update(manufacture);
+                Global_Functions.SetMessage($"Manufacture { model.ManufactureName } Is Updated Successfully", "success");
+
                 return RedirectToAction("Edit");
                 //return Json(new { success = true });
 
@@ -161,6 +165,8 @@ namespace InevntoryManagement.Controllers
                 }
 
                 unitOfWork.Manufactures.Delete(deleteModel);
+                Global_Functions.SetMessage($"Manufacture { deleteModel.ManufactureName } Is Deleted Successfully", "success");
+
                 return RedirectToAction("Edit", "Manufacture");
 
             }

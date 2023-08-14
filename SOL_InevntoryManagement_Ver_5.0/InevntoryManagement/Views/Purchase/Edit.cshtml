@@ -1,7 +1,7 @@
 ﻿@model PurchaseEditViewModel
 
 @{
-    ViewBag.Title = "New Purchase";
+    ViewBag.Title = "Edit Purchase";
 }
 
 <style>
@@ -9,6 +9,11 @@
     .divAutocomplete table tbody tr:hover {
         color: white;
         background-color: black
+    }
+
+    .purchaseno {
+        background-color: lightgray !important;
+        color: white;
     }
 </style>
 
@@ -87,6 +92,13 @@
 
         $(document).ready(function () {
 
+
+            onloadPage()
+            function onloadPage()
+            {
+                $("#Invoice").attr("disabled", "disabled");
+                $("#Invoice").addClass("..purchaseno");
+            }
 
             $("#PaymentOnCash").change(function () {
                 let amountbill = amountclass()
@@ -307,18 +319,19 @@
 
             var LastSl = $('#productlist tr').length + 1;
             var p = product();
-            var sl = '<td><input hidden name="ProductId" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
-            var Image = '<td><img src="' + $("#txtImage").val() + '" height=90 width=90 /> </td>';
-            var Code = '<td>' + p.Code + '</td>';
-            var Description = '<td>' + p.Description + '</td>';
-            var Model = '<td>' + p.Model + '</td>';
-            var Size = '<td>' + p.Size + '</td>';
-            var Color = '<td>' + p.Color + '</td>';
-            var Qty = '<td> <input hidden name="Qty" type="text" value="' + p.Qty + '"/>' + p.Qty + '</td>';
-            var PurchasePrice = '<td> <input hidden name="Price" type="text" value="' + p.PurchasePrice + '"/>' + p.PurchasePrice + '</td>';
+            let _photopath = (p.Image == "" || p.Image == null) ? "/Projects/Images/DefaultImage/No_Image_Available.jpg" : "/Projects/Images/Product/" + p.Image
+
+            var sl = '<td><input hidden name="ProductIds" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
+            var Image = '<td> <input hidden name="Images" value="' + p.Image + '" />  <img src = "' + _photopath + '" height = 90 width = 90 /> </td > ';
+            var Code = '<td> <input hidden name="Codes" value="' + p.Code + '" />' + p.Code + '</td>';
+            var Description = '<td><input hidden name="Descriptions" value="' + p.Description + '" />' + p.Description + '</td>';
+            var Model = '<td><input hidden name="Models" value="' + p.Model + '" />' + p.Model + '</td>';
+            var Size = '<td><input hidden name="Sizes" value="' + p.Size + '" />' + p.Size + '</td>';
+            var Color = '<td><input hidden name="Colors" value="' + p.Color + '" />' + p.Color + '</td>';
+            var Qty = '<td> <input hidden name="Qtys" type="text" value="' + p.Qty + '"/>' + p.Qty + '</td>';
+            var PurchasePrice = '<td> <input hidden name="Prices" type="text" value="' + p.PurchasePrice + '"/>' + p.PurchasePrice + '</td>';
             var TotalAmount = '<td>' + (p.Qty * p.PurchasePrice) + '</td>';
             var action = '<td><button type="button" class="btn btn-xs btn-danger delete_Product"><span><i class="mdi mdi-delete"></i></span></button></td>';
-
 
 
             var tr = '<tr id="'+ sl +'">' + sl + Image + Code + Description + Model + Size + Color + Qty + PurchasePrice + TotalAmount + action  + '</tr>'
@@ -383,7 +396,7 @@
                         $("#txtProductSize").val(ui.item.size)
                         $("#txtProductColor").val(ui.item.color)
                         $(".pimage").attr("src", photopath)
-                    $("#txtImage").val(photopath)
+                    $("#txtImage").val(ui.item.photopath)
 
                 }
                 return false;
@@ -399,7 +412,7 @@
                     $("#txtProductSize").val(ui.item.size),
                     $("#txtProductColor").val(ui.item.color),
                     $(".pimage").attr("src", photopath)
-                $("#txtImage").val(photopath)
+                $("#txtImage").val(ui.item.photopath)
                 //searchfield = "";
                 return false
             },

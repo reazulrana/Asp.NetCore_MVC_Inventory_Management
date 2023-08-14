@@ -26,18 +26,13 @@
             </div>
 
             <partial name="_Messages" />
-
-
-
+            
             <div class="col-md-12 border mb-2">
                 <div class="row">
                     <div class="col-md-12 pl-2 bg-dark">
                         <h5 class="card-title p-2 text-white">Purchase Information</h5>
                     </div>
                 </div>
-
-
-
                 @Html.Partial("~/Views/Shared/Purchase/_PurcchaseDetails.cshtml", Model)
             </div>
 
@@ -47,7 +42,6 @@
                         <h5 class="card-title text-white p-2">Product Information</h5>
                     </div>
                 </div>
-
                 @Html.Partial("~/Views/Shared/Purchase/_PurchaseProductDetails.cshtml")
             </div>
 
@@ -57,7 +51,6 @@
                         <h5 class="card-title p-2 text-white">Costing Information</h5>
                     </div>
                 </div>
-
                 @Html.Partial("~/Views/Shared/Purchase/_PurchasePriceDetails.cshtml", Model)
             </div>
 
@@ -69,17 +62,21 @@
 
                 <a asp-action="ListPurchase" asp-controller="Purchase" class="btn btn-info col-md-3 btn-xs float-md-right">List<span class="pl-2"><i class="mdi mdi-view-list"></i></span></a>
             </div>
+
+            <button type="button" class="btn btn-danger" id="btnTestP">Test Product Button</button>
+
         </div>
     </div>
 
 </form>
 
 
-
 @section Scripts
 {
 
     <script src="~/DuplicateModelShow.js"></script>
+    <script src="~/ProductAddRemove.js"></script>
+    <script src="~/Amount.js"></script>
 
     <script>
 
@@ -88,76 +85,60 @@
         $(document).ready(function () {
 
 
-            $("#PaymentOnCash").change(function () {
-                let amountbill = amountclass()
-                $("#Dues").val((amountbill.TotalAmount - amountbill.PaymentOnCash))
+            //$("#PaymentOnCash").change(function () {
+            //    let amountbill = amountclass()
+            //    $("#Dues").val((amountbill.TotalAmount - amountbill.PaymentOnCash))
 
 
 
-            });
-            $("#Discount").change(function()
-            {
-                let amountbill = amountclass()
-                $("#NetAmount").val((amountbill.GrossAmount - amountbill.Discount))
+            //});
+            //$("#Discount").change(function()
+            //{
+            //    let amountbill = amountclass()
+            //    $("#NetAmount").val((amountbill.GrossAmount - amountbill.Discount))
 
 
-            })
+            //})
 
-            $("#Transport").change(function () {
-                let amountbill = amountclass()
-                let totalbill = 0
+            //$("#Transport").change(function () {
+            //    let amountbill = amountclass()
+            //    let totalbill = 0
 
-                totalbill = parseInt((parseInt(amountbill.TotalAmount) + parseInt(amountbill.Transport) + parseInt(amountbill.Others)))
-                $("#GrossAmount").val(totalbill)
-                $("#NetAmount").val(totalbill)
-            })
+            //    totalbill = parseInt((parseInt(amountbill.TotalAmount) + parseInt(amountbill.Transport) + parseInt(amountbill.Others)))
+            //    $("#GrossAmount").val(totalbill)
+            //    $("#NetAmount").val(totalbill)
+            //})
 
-            $("#Others").change(function () {
-                let amountbill = amountclass()
-                let totalbill =0
+            //$("#Others").change(function () {
+            //    let amountbill = amountclass()
+            //    let totalbill =0
 
-                totalbill = parseInt((parseInt(amountbill.TotalAmount) + parseInt(amountbill.Transport) + parseInt(amountbill.Others)))
-                $("#GrossAmount").val(totalbill)
-                $("#NetAmount").val(totalbill)
+            //    totalbill = parseInt((parseInt(amountbill.TotalAmount) + parseInt(amountbill.Transport) + parseInt(amountbill.Others)))
+            //    $("#GrossAmount").val(totalbill)
+            //    $("#NetAmount").val(totalbill)
 
-            })
-
-
-            function ClearField()
-            {
-                $("#txtsearchfield").val('')
-                $("#txtProductId").val('')
-                $("#txtProductCode").val('')
-                $("#txtProductDescription").val('')
-
-                $("#txtProductModel").val('')
-                $("#txtProductSize").val('')
-                $("#txtProductColor").val('')
-                $(".pimage").attr("src", '')
-                $("#txtImage").val('')
-               $("#txtProductQty").val('0')
-               $("#txtProductPurchasePrice").val('0')
-               $("#txtProductTotalAmount").val('0')
-            }
-
-            function amountclass()
-            {
-                let _amount = {
-                    TotalAmount: $("#TotalAmount").val(),
-                    PaymentOnCash: $("#PaymentOnCash").val(),
-                    Dues: $("#Dues").val(),
-                    Transport: $("#Transport").val(),
-                    Others: $("#Others").val(),
-                    GrossAmount: $("#GrossAmount").val(),
-                    Discount: $("#Discount").val(),
-                    NetAmount: $("#NetAmount").val(),
-                    PaymentTypeId: $("#PaymentTypeId").val(),
+            //})
 
 
-                }
 
-                return _amount
-            }
+            //function amountclass()
+            //{
+            //    let _amount = {
+            //        TotalAmount: $("#TotalAmount").val(),
+            //        PaymentOnCash: $("#PaymentOnCash").val(),
+            //        Dues: $("#Dues").val(),
+            //        Transport: $("#Transport").val(),
+            //        Others: $("#Others").val(),
+            //        GrossAmount: $("#GrossAmount").val(),
+            //        Discount: $("#Discount").val(),
+            //        NetAmount: $("#NetAmount").val(),
+            //        PaymentTypeId: $("#PaymentTypeId").val(),
+
+
+            //    }
+
+            //    return _amount
+            //}
 
 
             //clear all product field
@@ -168,32 +149,32 @@
 
 
 
-            //calculate total product purchage price amount
-            function calculatePurchageProduct()
-            {
-                let tr = $("#productlist tr")
-                $("#TotalAmount").val('0')
-                if ($(tr).length > 0) {
-                    var amount = 0;
-                    $(tr).each(function (i, item) {
-                        amount = (amount + parseInt($(this).find("td:last").prev().text()));
-                    })
+            ////calculate total product purchage price amount
+            //function calculatePurchageProduct()
+            //{
+            //    let tr = $("#productlist tr")
+            //    $("#TotalAmount").val('0')
+            //    if ($(tr).length > 0) {
+            //        var amount = 0;
+            //        $(tr).each(function (i, item) {
+            //            amount = (amount + parseInt($(this).find("td:last").prev().text()));
+            //        })
 
-                    $("#TotalAmount").val(amount) //product cost
-
-
-                     //Call amountclass To Get Update Total AMount After Adding New Product   
-                    let _amountclass = amountclass();
-
-                    let grossamount = (parseInt(_amountclass.TotalAmount) + parseInt(_amountclass.Transport) + parseInt(_amountclass.Others))
-                    let netamount = (grossamount - parseInt(_amountclass.Discount))
-                    $("#GrossAmount").val(grossamount)
-                    $("#NetAmount").val(netamount)
-                    $("#Dues").val(parseInt(_amountclass.TotalAmount) - parseInt(_amountclass.PaymentOnCash))
-                }
+            //        $("#TotalAmount").val(amount) //product cost
 
 
-            }
+            //         //Call amountclass To Get Update Total AMount After Adding New Product   
+            //        let _amountclass = amountclass();
+
+            //        let grossamount = (parseInt(_amountclass.TotalAmount) + parseInt(_amountclass.Transport) + parseInt(_amountclass.Others))
+            //        let netamount = (grossamount - parseInt(_amountclass.Discount))
+            //        $("#GrossAmount").val(grossamount)
+            //        $("#NetAmount").val(netamount)
+            //        $("#Dues").val(parseInt(_amountclass.TotalAmount) - parseInt(_amountclass.PaymentOnCash))
+            //    }
+
+
+            //}
 
 
             //btnAddPaymentType
@@ -210,126 +191,146 @@
         //    alert(id.Code);
         //})
 
-        //product add to prodcut list tabel
-        $("#btnAddProduct").click(function () {
+        //product section
 
-            var _product = product();
-            if (_product.TotalAmount == "" || _product.TotalAmount == "0" || _product.TotalAmount == isNaN)
-            {
-                alert("Total Price is '0'");
-                return;
-            }
-            append_New_Row();
-        })
+        ////product add to prodcut list tabel
+        //$("#btnAddProduct").click(function () {
 
-        //calculate Total Price with qty change
-        $("#txtProductQty").focus(function ()
-        {
-            var val = $(this).val();
-            if (isNaN(val))
-            {
-                $(this).val('0');
-            }
+        //    var _product = product();
+        //    if (_product.TotalAmount == "" || _product.TotalAmount == "0" || _product.TotalAmount == isNaN)
+        //    {
+        //        alert("Total Price is '0'");
+        //        return;
+        //    }
+        //    append_New_Row();
+        //})
+
+        ////calculate Total Price with qty change
+        //$("#txtProductQty").focus(function ()
+        //{
+        //    var val = $(this).val();
+        //    if (isNaN(val))
+        //    {
+        //        $(this).val('0');
+        //    }
 
 
 
-        })
+        //})
 
-        $("#txtProductQty").focusout(function () {
-            var qty = $(this).val()
-            var price = $('#txtProductPurchasePrice').val()
+        //$("#txtProductQty").focusout(function () {
+        //    var qty = $(this).val()
+        //    var price = $('#txtProductPurchasePrice').val()
 
-            var totalprice = qty * price;
-            if (isNaN(totalprice)) {
-                alert("Qty Is Not Number Please Type Number")
-                $(this).focus();
-            }
+        //    var totalprice = qty * price;
+        //    if (isNaN(totalprice)) {
+        //        alert("Qty Is Not Number Please Type Number")
+        //        $(this).focus();
+        //    }
 
-            $('#txtProductTotalAmount').val(qty * price);
-        })
+        //    $('#txtProductTotalAmount').val(qty * price);
+        //})
 
         //calculate Total Price with price change
-            $("#txtProductPurchasePrice").focus(function () {
-            var val = $(this).val();
-            if (isNaN(val)) {
-                $(this).val('0');
-            }
+
+        //    $("#txtProductPurchasePrice").focus(function () {
+        //    var val = $(this).val();
+        //    if (isNaN(val)) {
+        //        $(this).val('0');
+        //    }
 
 
 
-        })
+        //})
 
-        $("#txtProductPurchasePrice").focusout(function () {
-            var qty = $(this).val()
-            var price = $('#txtProductQty').val()
+        //$("#txtProductPurchasePrice").focusout(function () {
+        //    var qty = $(this).val()
+        //    var price = $('#txtProductQty').val()
 
-            var totalprice = qty * price;
-            if (isNaN(totalprice)) {
-                alert("Purchase Is Not Number Please Type Number")
-                $(this).focus();
-            }
+        //    var totalprice = qty * price;
+        //    if (isNaN(totalprice)) {
+        //        alert("Purchase Is Not Number Please Type Number")
+        //        $(this).focus();
+        //    }
 
-            $('#txtProductTotalAmount').val(qty * price);
-        })
-
-
-
-        function product() {
-            var _product = {
-                ProductId: $("#txtProductId").val(),
-                Image: $("#txtImage").val(),
-                Code: $("#txtProductCode").val(),
-                Description: $("#txtProductDescription").val(),
-                Model: $("#txtProductModel").val(),
-                Size: $("#txtProductSize").val(),
-                Color: $("#txtProductColor").val(),
-                Qty: $("#txtProductQty").val(),
-                PurchasePrice: $("#txtProductPurchasePrice").val(),
-                TotalAmount: $("#txtProductTotalAmount").val(),
-            }
-            return _product
-        }
+        //    $('#txtProductTotalAmount').val(qty * price);
+        //})
 
 
+
+        //function product() {
+        //    var _product = {
+        //        ProductId: $("#txtProductId").val(),
+        //        Image: $("#txtImage").val(),
+        //        Code: $("#txtProductCode").val(),
+        //        Description: $("#txtProductDescription").val(),
+        //        Model: $("#txtProductModel").val(),
+        //        Size: $("#txtProductSize").val(),
+        //        Color: $("#txtProductColor").val(),
+        //        Qty: $("#txtProductQty").val(),
+        //        PurchasePrice: $("#txtProductPurchasePrice").val(),
+        //        TotalAmount: $("#txtProductTotalAmount").val(),
+        //    }
+        //    return _product
+        //}
+
+
+            //function ClearField() {
+            //    $("#txtsearchfield").val('')
+            //    $("#txtProductId").val('')
+            //    $("#txtProductCode").val('')
+            //    $("#txtProductDescription").val('')
+
+            //    $("#txtProductModel").val('')
+            //    $("#txtProductSize").val('')
+            //    $("#txtProductColor").val('')
+            //    $(".pimage").attr("src", '')
+            //    $("#txtImage").val('')
+            //    $("#txtProductQty").val('0')
+            //    $("#txtProductPurchasePrice").val('0')
+            //    $("#txtProductTotalAmount").val('0')
+            //}
 
             
-            //tr Remove from product table By Delete Button click
-            $("#productlist").on("click", "button", function () {
+        //    //tr Remove from product table By Delete Button click
+        //    $("#productlist").on("click", "button", function () {
 
-                if(confirm("Do You Want to Remove Row"))
-                {
-                $(this).closest("tr").remove();
-                    calculatePurchageProduct();
-                }
-            })
+        //        if(confirm("Do You Want to Remove Row"))
+        //        {
+        //        $(this).closest("tr").remove();
+        //            calculatePurchageProduct();
+        //        }
+        //    })
 
-        function append_New_Row()
-        {
+        //function append_New_Row()
+        //{
+        //    let LastSl = $('#productlist tr').length + 1;
+        //    let p = product();
 
-            var LastSl = $('#productlist tr').length + 1;
-            var p = product();
-            var sl = '<td><input hidden name="ProductId" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
-            var Image = '<td><img src="' + $("#txtImage").val() + '" height=90 width=90 /> </td>';
-            var Code = '<td>' + p.Code + '</td>';
-            var Description = '<td>' + p.Description + '</td>';
-            var Model = '<td>' + p.Model + '</td>';
-            var Size = '<td>' + p.Size + '</td>';
-            var Color = '<td>' + p.Color + '</td>';
-            var Qty = '<td> <input hidden name="Qty" type="text" value="' + p.Qty + '"/>' + p.Qty + '</td>';
-            var PurchasePrice = '<td> <input hidden name="Price" type="text" value="' + p.PurchasePrice + '"/>' + p.PurchasePrice + '</td>';
-            var TotalAmount = '<td>' + (p.Qty * p.PurchasePrice) + '</td>';
-            var action = '<td><button type="button" class="btn btn-xs btn-danger delete_Product"><span><i class="mdi mdi-delete"></i></span></button></td>';
+        //    let _photopath = (p.Image == "" || p.Image == null) ? "/Projects/Images/DefaultImage/No_Image_Available.jpg" : "/Projects/Images/Product/" + p.Image
 
-
-
-            var tr = '<tr id="'+ sl +'">' + sl + Image + Code + Description + Model + Size + Color + Qty + PurchasePrice + TotalAmount + action  + '</tr>'
-
-            $('#productlist').append(tr);
-            calculatePurchageProduct();
-            ClearField()
+        //    let sl = '<td><input hidden name="ProductIds" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
+        //    let Image = '<td> <input hidden name="Images" value="' + p.Image + '" />  <img src = "' + _photopath + '" height = 90 width = 90 /> </td > ';
+        //    let Code = '<td> <input hidden name="Codes" value="' + p.Code + '" />' + p.Code + '</td>';
+        //    let Description = '<td><input hidden name="Descriptions" value="' + p.Description + '" />' + p.Description + '</td>';
+        //    let Model = '<td><input hidden name="Models" value="' + p.Model + '" />' + p.Model + '</td>';
+        //    let Size = '<td><input hidden name="Sizes" value="' + p.Size + '" />' + p.Size + '</td>';
+        //    let Color = '<td><input hidden name="Colors" value="' + p.Color + '" />' + p.Color + '</td>';
+        //    let Qty = '<td> <input hidden name="Qtys" type="text" value="' + p.Qty + '"/>' + p.Qty + '</td>';
+        //    let PurchasePrice = '<td> <input hidden name="Prices" type="text" value="' + p.PurchasePrice + '"/>' + p.PurchasePrice + '</td>';
+        //    let TotalAmount = '<td>' + (p.Qty * p.PurchasePrice) + '</td>';
+        //    let action = '<td><button type="button" class="btn btn-xs btn-danger delete_Product"><span><i class="mdi mdi-delete"></i></span></button></td>';
 
 
-        }
+
+        //    var tr = '<tr id="'+ sl +'">' + sl + Image + Code + Description + Model + Size + Color + Qty + PurchasePrice + TotalAmount + action  + '</tr>'
+
+        //    $('#productlist').append(tr);
+        //    calculatePurchageProduct();
+        //    ClearField()
+
+
+        //}
 
 
         //Autocomplete Section
@@ -384,7 +385,7 @@
                         $("#txtProductSize").val(ui.item.size)
                         $("#txtProductColor").val(ui.item.color)
                         $(".pimage").attr("src", photopath)
-                    $("#txtImage").val(photopath)
+                    $("#txtImage").val(ui.item.photopath)
 
                 }
                 return false;
@@ -400,7 +401,7 @@
                     $("#txtProductSize").val(ui.item.size),
                     $("#txtProductColor").val(ui.item.color),
                     $(".pimage").attr("src", photopath)
-                $("#txtImage").val(photopath)
+                $("#txtImage").val(ui.item.photopath)
                 //searchfield = "";
                 return false
             },

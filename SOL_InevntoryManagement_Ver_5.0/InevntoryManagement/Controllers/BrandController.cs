@@ -48,6 +48,18 @@ namespace InevntoryManagement.Controllers
         public IActionResult Create(BrandCreateViewModel model)
         {
 
+            var catList = (from obj in unitOfWork.Categories.Get()
+                           select new SelectListItem()
+                           {
+                               Value = obj.Id.ToString(),
+                               Text = obj.CType
+
+                           }).ToList();
+
+            model.Categories = catList;
+
+
+
             if (ModelState.IsValid)
             {
 
@@ -76,21 +88,16 @@ namespace InevntoryManagement.Controllers
                         }
                     }
                     unitOfWork.Brands.Insert(brands);
+                    Global_Functions.SetMessage($"Brands List Created Successfully", "success");
+                    return View(model);
+
                 }
 
             }
 
 
 
-            var catList = (from obj in unitOfWork.Categories.Get()
-                           select new SelectListItem()
-                           {
-                               Value = obj.Id.ToString(),
-                               Text = obj.CType
-
-                           }).ToList();
-
-            model.Categories = catList;
+      
 
 
             return View(model);
@@ -104,10 +111,10 @@ namespace InevntoryManagement.Controllers
 
             var output = (from obj in unitOfWork.Categories.Get()
                           join obj2 in unitOfWork.Brands.Get()
-                          on obj.Id equals obj2.CategoryId into egroups
-                          from obj2 in egroups
+                          on obj.Id equals obj2.CategoryId //into egroups
+                         //from obj2 in egroups
                           orderby obj2.BrandName
-                          orderby obj.CType
+                          //orderby obj.CType
                           select new BrandListViewModel
                           {
 
@@ -173,6 +180,7 @@ namespace InevntoryManagement.Controllers
                     updatebrand.CategoryId = model.categoryId;
                     updatebrand.BrandName = model.brandName.ToUpper();
                     unitOfWork.Brands.Update(updatebrand);
+                    Global_Functions.SetMessage($"Brand Update { model.brandName } Successfully", "success");
                     return RedirectToAction("GetBrandList", "Brand");
 
                 }
@@ -213,6 +221,8 @@ namespace InevntoryManagement.Controllers
                 else
                 {
                     unitOfWork.Brands.Delete(deletebrand);
+                    Global_Functions.SetMessage($"Brand Deleted { deletebrand.BrandName } Successfully", "success");
+
                     return RedirectToAction("GetBrandList", "Brand");
                 }
 

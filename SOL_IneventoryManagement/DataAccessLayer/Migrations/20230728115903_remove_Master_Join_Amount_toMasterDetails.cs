@@ -22,9 +22,9 @@ namespace DataAccessLayer.Migrations
             migrationBuilder.DropTable(
                 name: "Masters");
 
-            migrationBuilder.DropIndex(
-                name: "IX_MasterDetail_MasterId",
-                table: "MasterDetail");
+            //migrationBuilder.DropIndex(
+            //    name: "IX_MasterDetail_MasterId",
+            //    table: "MasterDetail");
 
             migrationBuilder.DropColumn(
                 name: "MasterId",

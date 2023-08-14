@@ -1,0 +1,147 @@
+﻿.img-fluid {
+    height: 300px !important;
+}
+
+.img-fluid.imglarge {
+    height: 350px !important;
+}
+.card-body {
+    background-color: rgba(250,250,250) !important;
+}
+.form-control {
+    background-color: white !important;
+    border:0.5px solid rgb(230,230,230)!important;
+    height:41px !important
+
+}
+
+.card-header {
+    background-color: crimson !important;
+}
+
+/*.card-header h1,h2,h3,h4,h5,h6,h7
+    {
+    color:white!important;
+    }*/
+
+    .card-footer {
+        background-color: rgba(230,230,230) !important;
+    }
+
+
+/*for tab working  in modal form you write
+
+ .modal {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+}
+*/
+/*.modal-body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}*/
+
+
+input, select {
+    border: 1px solid rgba(0,0,0,0.15) !important
+}
+
+
+.btn-primary {
+    background-color: #007BFD;
+    border: #007BFD;
+    color:white
+}
+
+.btn-primary:hover {
+    background-color: #001AFD;
+    border: #007BFD;
+    color: white
+}
+
+
+.bg-primary {
+    background-color: #007BFD;
+    border: #007BFD;
+    color: white
+}
+.modal-body.lefttext{
+    text-align:left;
+}
+
+
+.purchaselist{
+    max-width:992px;
+    overflow-x:scroll;
+}
+/*
+.purchaselist table thead tr th
+{
+    width:500px;
+}
+.purchaselist table tbody tr td {
+        width: 500px;
+    }*/
+    /*
+.input-group > .select2-container--bootstrap {
+    width: auto !important;
+    flex: 1 1 auto;
+    background-color: white;
+}
+
+    .input-group> .select2-container--bootstrap .select2-selection--single {
+        height: 40px;
+        line-height: inherit;
+        padding: 0.5rem 1rem;
+        background-color:white;
+    }
+
+    .input-group > .select2-container--bootstrap .select2-selection--multiple {
+        height: 40px;
+        line-height: inherit;
+        padding: 0.5rem 1rem;
+        background-color: white;
+    }*/
+    /*
+
+.input-group > .select2-container--bootstrap, .input-group > .select2-container--default {
+    width: auto!important;
+    flex: 1 1 auto;
+}
+
+    .input-group > .select2-container--bootstrap .select2-selection--single,
+    .input-group > .select2-container--default .select2-selection--single,
+    .input-group > .select2-container--bootstrap .select2-selection--multiple,
+    .input-group > .select2-container--default .select2-selection--multiple {
+        height: 100%;
+        line-height: inherit;
+        border-radius: 4px 0 0 4px;
+    }
+
+        .input-group > .select2-container--bootstrap .select2-selection--single .select2-selection__rendered,
+        .input-group > .select2-container--default .select2-selection--single .select2-selection__rendered,
+        .input-group > .select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered,
+        .input-group > .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+            height: inherit;
+            display: -webkit-box !important;
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -webkit-box-align: center !important;
+            -ms-flex-align: center !important;
+            align-items: center !important;
+        }
+
+        .input-group > .select2-container--bootstrap .select2-selection--single .select2-selection__arrow,
+        .input-group > .select2-container--default .select2-selection--single .select2-selection__arrow,
+        .input-group > .select2-container--bootstrap .select2-selection--multiple .select2-selection__arrow,
+        .input-group > .select2-container--default .select2-selection--multiple .select2-selection__arrow {
+            height: inherit;
+        }
+*/
+    @media (max-width: 768px) {
+        .custom-tab-1 > ul{
+        font-size:10px;
+    }
+}

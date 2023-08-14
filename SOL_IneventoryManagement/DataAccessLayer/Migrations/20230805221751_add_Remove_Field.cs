@@ -22,13 +22,13 @@ namespace DataAccessLayer.Migrations
                 name: "FK_Sales_Amounts_TrID",
                 table: "Sales");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Sales_TrID",
-                table: "Sales");
+            //migrationBuilder.DropIndex(
+            //    name: "IX_Sales_TrID",
+            //    table: "Sales");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Purchases_TrID",
-                table: "Purchases");
+            //migrationBuilder.DropIndex(
+            //    name: "IX_Purchases_TrID",
+            //    table: "Purchases");
 
             migrationBuilder.DropColumn(
                 name: "TrID",

@@ -32,7 +32,31 @@ namespace InevntoryManagement.Controllers
         public IActionResult Create()
         {
             PurchaseCreateViewModel model = new PurchaseCreateViewModel();
+
+
+
             model = LoadMultySelectList(model);
+            //int maxno = unitOfWork.Purchases.Get().Select(X=>X.PurchaseNo).Max(x => int.Parse(x.PurchaseNo.Substring(x.PurchaseNo.Length-(x.PurchaseNo.IndexOf("-")-1))));
+            List<int> s = unitOfWork.Purchases.Get().Select(x => int.Parse(x.PurchaseNo.Substring((x.PurchaseNo.IndexOf("-") + 1)))).ToList();
+
+            //List<int> sb= s as List<int>;
+           
+            string maxno = s.Count>0? (s.Max() + 1).ToString() : "1" ;
+
+            string day = DateTime.Today.Day.ToString().Length == 1 ? "0" + DateTime.Today.Day.ToString() : DateTime.Today.Day.ToString();
+            string month = DateTime.Today.Month.ToString().Length == 1 ? "0" + DateTime.Today.Month.ToString() : DateTime.Today.Month.ToString(); ;
+            string year = DateTime.Today.Year.ToString().Substring(2, 2);
+            string fulldate = day + "/" + month + "/" + year.ToString();
+
+            fulldate = fulldate + "-" + maxno;
+
+
+            //string invoice =  "/" + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString("yy") + "-" + Global_Functions.ze maxno.ToString();
+
+
+
+
+            model.Invoice = fulldate;
 
             return View(model);
         }
@@ -47,14 +71,26 @@ namespace InevntoryManagement.Controllers
 
             if (ModelState.IsValid)
             {
-                if (model.ProductId == null || model.ProductId.Count == 0)
+                if (model.ProductIds == null || model.ProductIds.Count == 0)
                 {
 
                     Global_Functions.SetMessage($"Product List is Empty ", "danger");
                     return View(model);
                 }
 
-                try {
+                try
+                {
+
+                    Purchase purchaseduplicateInvoice = unitOfWork.Purchases.Get().Where(x => x.PurchaseNo.ToLower() == model.Invoice.ToLower()).FirstOrDefault();
+
+                    if (purchaseduplicateInvoice != null)
+                    {
+                        model.PurchaseProductInfos = GetProductTableList(model);
+                        Global_Functions.SetMessage("purchase no I already exist into the dtatabase", "danger");
+                        return View(model);
+                    }
+
+
                     unitOfWork.BeginTransaction();
 
 
@@ -92,14 +128,14 @@ namespace InevntoryManagement.Controllers
                     unitOfWork.Amounts.Insert(_amount);
 
                     List<MasterDetail> masterDetailslist = new List<MasterDetail>();
-                    for (int i = 0; i <= model.ProductId.Count - 1; i++)
+                    for (int i = 0; i <= model.ProductIds.Count - 1; i++)
                     {
                         MasterDetail masterDetail = new MasterDetail()
                         {
                             AmountId = _amount.Id,
-                            ProductId = model.ProductId[i],
-                            Price = model.Price[i],
-                            Qty = model.Qty[i],
+                            ProductId = model.ProductIds[i],
+                            Price = model.Prices[i],
+                            Qty = model.Qtys[i],
                         };
                         masterDetailslist.Add(masterDetail);
 
@@ -121,6 +157,28 @@ namespace InevntoryManagement.Controllers
 
             }
 
+            model.PurchaseProductInfos = GetProductTableList(model);
+            //if(model.ProductIds.Count>0)
+            //{
+            //    for(int i=0; i<model.ProductIds.Count;i++)
+            //    {
+            //        PurchaseProductInfo pi = new PurchaseProductInfo()
+            //        {
+            //            ProdId = model.ProductIds[i],
+            //            code = model.Codes[i],
+            //            color = model.Colors[i],
+            //            description = model.Descriptions[i],
+            //            model = model.Models[i],
+            //            photopath = model.Images[i],
+            //            price = model.Prices[i],
+            //            qty = model.Qtys[i],
+            //            size = model.Sizes[i]
+
+            //        };
+
+            //        model.PurchaseProductInfos.Add(pi);
+            //    }    
+            //}
 
             return View(model);
         }
@@ -311,9 +369,165 @@ namespace InevntoryManagement.Controllers
 
             output = LoadMultySelectList(output) as PurchaseEditViewModel;
 
-            
+
 
             return View(output);
+
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Edit(PurchaseEditViewModel model)
+        {
+            //extracrt Purchasno from date
+            // string _invoice = model.Invoice.Substring(model.Invoice.IndexOf("-")+1);
+
+            if (ModelState.IsValid)
+            {
+                //extracrt Purchas record extracting number from  from date
+                // Purchase _p = unitOfWork.Purchases.Get().Where(x => x.PurchaseNo.Substring(x.PurchaseNo.IndexOf("-")+1).ToLower() == _invoice.ToLower()).FirstOrDefault();
+                Purchase _p = unitOfWork.Purchases.Get().Where(x => x.PurchaseID == model.id).FirstOrDefault();
+                if (_p != null)
+                {
+                    //extracrt Purchas record extracting number from  from date
+                    //if (_p.PurchaseID != model.id && _p.PurchaseNo.Substring(_p.PurchaseNo.IndexOf("-")+1).ToLower() == _invoice.ToLower())
+                    if (_p.PurchaseID != model.id && _p.PurchaseNo.ToLower() == model.Invoice.ToLower())
+                    {
+                        Global_Functions.SetMessage($"Purchase No You Enterd Is Already Exist Into Database", "danger");
+                        model.PurchaseProductInfos = GetProductTableList(model);
+                        model = LoadMultySelectList(model) as PurchaseEditViewModel;
+                        return View(model);
+                    }
+
+                    try
+                    {
+                        unitOfWork.BeginTransaction();
+                        Purchase p = unitOfWork.Purchases.GetByID(model.id);
+
+                        //p.PurchaseID = model.id;
+                        //p.PurchaseNo = model.Invoice;
+                        p.ReceiveDate = model.ReceiveDate;
+                        p.TrDate = model.TrDate;
+                        p.BranchId = model.BranchId;
+                        p.VendorId = model.VendorId;
+                        p.SourceId = model.SourceId;
+
+                        unitOfWork.Purchases.Update(p);
+
+                        Amount amount = unitOfWork.Amounts.Get().Where(x => x.TrID == model.id && x.TrType == 1).FirstOrDefault();
+                        amount.TotalAmount = model.TotalAmount;
+                        amount.PaymentOnCash = model.PaymentOnCash;
+                        amount.Dues = model.Dues;
+                        amount.Transport = model.Transport;
+                        amount.Others = model.Others;
+                        amount.GrossAmount = model.GrossAmount;
+                        amount.Discount = model.Discount;
+                        amount.NetAmount = model.NetAmount;
+                        amount.PaymentTypeId = model.PaymentTypeId;
+                        unitOfWork.Amounts.Update(amount);
+                        List<MasterDetail> masterdetails = unitOfWork.MasterDetails.Get().Where(x => x.AmountId == amount.Id).ToList();
+
+                        if (masterdetails.Count > 0)
+                        {
+                            foreach (MasterDetail m in masterdetails)
+                            {
+                                MasterDetail ms = unitOfWork.MasterDetails.Get().Where(x => x.DID == m.DID).FirstOrDefault();
+
+
+                                unitOfWork.MasterDetails.Delete(ms);
+                            }
+
+                        }
+                        if (model.ProductIds.Count > 0)
+                        {
+                            List<MasterDetail> masterDetailslist = new List<MasterDetail>();
+                            for (int i = 0; i < model.ProductIds.Count; i++)
+                            {
+                                MasterDetail _ms = new MasterDetail()
+                                {
+                                    AmountId = amount.Id,
+                                    ProductId = model.ProductIds[i],
+                                    Price = model.Prices[i],
+                                    Qty = model.Qtys[i],
+
+                                };
+                                masterDetailslist.Add(_ms);
+                            }
+
+                            unitOfWork.MasterDetails.Insert(masterDetailslist);
+
+                        }
+
+                        unitOfWork.CommitTransaction();
+                        Global_Functions.SetMessage("Purchase Update Successfully", "success");
+                        model = LoadMultySelectList(model) as PurchaseEditViewModel;
+                        model.PurchaseProductInfos = GetProductTableList(model);
+                        model.Invoice = p.PurchaseNo;
+                        model.TrDate = p.TrDate;
+                        model.ReceiveDate = p.ReceiveDate;
+                        return View(model);
+                    }
+                    catch
+                    {
+                        unitOfWork.RollbackTransaction();
+                    }
+
+                }
+            }
+            // model.PurchaseProductInfos = getoutput(model.id);
+            model = LoadMultySelectList(model) as PurchaseEditViewModel;
+
+            model.PurchaseProductInfos = GetProductTableList(model);
+
+            return View(model);
+
+
+        }
+
+
+
+        //Delete Section
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+
+            Purchase _purchase = unitOfWork.Purchases.GetByID(id);
+            if (_purchase != null)
+            {
+                Amount _amount = unitOfWork.Amounts.Get(x => x.TrID == _purchase.PurchaseID && x.TrType==1).FirstOrDefault();
+                List<MasterDetail> masterdetails = unitOfWork.MasterDetails.Get(x => x.AmountId == _amount.Id).ToList();
+
+                try
+                {
+                    unitOfWork.BeginTransaction();
+                    unitOfWork.MasterDetails.Delete(masterdetails);
+                    unitOfWork.Amounts.Delete(_amount);
+                    unitOfWork.Purchases.Delete(_purchase);
+
+
+
+                    unitOfWork.CommitTransaction();
+                    Global_Functions.SetMessage($"The Purchase { id } Deleted Successfully", "success");
+                    return RedirectToAction("EditPurchaseList", "Purchase");
+                }
+                catch(Exception ex)
+                {
+                    Global_Functions.SetMessage($"The Purchase { ex.Message } is not Deleted Successfully", "success");
+
+                    unitOfWork.RollbackTransaction();
+                }
+
+
+
+            }
+            else
+            {
+
+            }
+            //Global_Functions.SetMessage($"The Purchase { id } Deleted Successfully", "success");
+            return RedirectToAction("EditPurchaseList", "Purchase");
+
 
         }
 
@@ -360,102 +574,34 @@ namespace InevntoryManagement.Controllers
             }
 
             return output.PurchaseProductInfos;
-        } 
-
-        [HttpPost]
-        public IActionResult Edit(PurchaseEditViewModel model)
+        }
+        List<PurchaseProductInfo> GetProductTableList(PurchaseCreateViewModel model)
         {
-
-            if(ModelState.IsValid)
+            if (model.ProductIds.Count > 0)
             {
-                Purchase _p = unitOfWork.Purchases.Get().Where(x=>x.PurchaseNo.ToLower()== model.Invoice.ToLower()).FirstOrDefault();
-                if(_p != null)
+                for (int i = 0; i < model.ProductIds.Count; i++)
                 {
-                    if(_p.PurchaseID!=model.id && _p.PurchaseNo.ToLower()==model.Invoice.ToLower())
+                    PurchaseProductInfo pi = new PurchaseProductInfo()
                     {
-                        Global_Functions.SetMessage($"Purchase No You Enterd Is Already Exist Into Database", "danger");
-                        model.PurchaseProductInfos = getoutput(model.id);
-                        model = LoadMultySelectList(model) as PurchaseEditViewModel;
-                        return View(model);
-                    }
+                        ProdId = model.ProductIds[i],
+                        code = model.Codes[i],
+                        color = model.Colors[i],
+                        description = model.Descriptions[i],
+                        model = model.Models[i],
+                        photopath = model.Images[i],
+                        price = model.Prices[i],
+                        qty = model.Qtys[i],
+                        size = model.Sizes[i]
 
-                    try { 
-                    unitOfWork.BeginTransaction();
-                        Purchase p = unitOfWork.Purchases.GetByID(model.id);
+                    };
 
-                        p.PurchaseID = model.id;
-                        p.PurchaseNo = model.Invoice;
-                        p.ReceiveDate = model.ReceiveDate;
-                        p.TrDate = model.TrDate;
-                        p.BranchId = model.BranchId;
-                        p.VendorId = model.VendorId;
-                        p.SourceId = model.SourceId;
-                        
-                        unitOfWork.Purchases.Update(p);
-
-                        Amount amount = unitOfWork.Amounts.Get().Where(x => x.TrID == model.id && x.TrType == 1).FirstOrDefault();
-                        amount.TotalAmount = model.TotalAmount;
-                        amount.PaymentOnCash = model.PaymentOnCash;
-                        amount.Dues = model.Dues;
-                        amount.Transport = model.Transport;
-                        amount.Others = model.Others;
-                        amount.GrossAmount = model.GrossAmount;
-                        amount.Discount = model.Discount;
-                        amount.NetAmount = model.NetAmount;
-                        amount.PaymentTypeId = model.PaymentTypeId;
-                        unitOfWork.Amounts.Update(amount);
-                        List<MasterDetail> masterdetails = unitOfWork.MasterDetails.Get().Where(x => x.AmountId==amount.Id ).ToList();
-
-                        if (masterdetails.Count > 0)
-                        {
-                            foreach(MasterDetail m in masterdetails)
-                            {
-                                MasterDetail ms = unitOfWork.MasterDetails.Get().Where(x => x.DID == m.DID).FirstOrDefault();
-                          
-
-                                unitOfWork.MasterDetails.Delete(ms);
-                            }
-                            
-                        }
-                        if(model.ProductId.Count>0)
-                        {
-                            List<MasterDetail> masterDetailslist = new List<MasterDetail>();
-                            for(int i=0;i<model.ProductId.Count;i++)
-                            {
-                                MasterDetail _ms = new MasterDetail()
-                                {
-                                    AmountId = amount.Id,
-                                    ProductId = model.ProductId[i],
-                                    Price = model.Price[i],
-                                    Qty = model.Qty[i],
-
-                                };
-                                masterDetailslist.Add(_ms);
-                            }
-
-                            unitOfWork.MasterDetails.Insert(masterDetailslist);
-
-                        }
-
-                        unitOfWork.CommitTransaction();
-                        Global_Functions.SetMessage("Purchase Update Successfully","success");
-                        model = LoadMultySelectList(model) as PurchaseEditViewModel;
-
-                        return View(model);
-                    }
-                    catch
-                    {
-                        unitOfWork.RollbackTransaction();
-                    }
-
+                    model.PurchaseProductInfos.Add(pi);
                 }
+
             }
-            model.PurchaseProductInfos = getoutput(model.id);
-            model = LoadMultySelectList(model) as PurchaseEditViewModel;
 
 
-
-            return View(model);
+            return model.PurchaseProductInfos;
         }
 
 
@@ -467,7 +613,7 @@ namespace InevntoryManagement.Controllers
                                 {
                                     Text = obj.Name,
                                     Value = obj.Id.ToString(),
-                                    Selected=model.BranchId !=0?true :false
+                                    Selected = model.BranchId != 0 ? true : false
                                 }).ToList();
 
             model.VendorList = (from obj in unitOfWork.Vendors.Get()
@@ -487,13 +633,13 @@ namespace InevntoryManagement.Controllers
                                 }).ToList();
 
             model.PaymentTypeList = (from obj in unitOfWork.PaymentTypes.Get()
-                                select new SelectListItem()
-                                {
-                                    Text = obj.Payments,
-                                    Value = obj.Id.ToString(),
-                                    Selected = model.PaymentTypeId != 0 ? true : false
+                                     select new SelectListItem()
+                                     {
+                                         Text = obj.Payments,
+                                         Value = obj.Id.ToString(),
+                                         Selected = model.PaymentTypeId != 0 ? true : false
 
-                                }).ToList();
+                                     }).ToList();
 
             return model;
         }
@@ -508,7 +654,7 @@ namespace InevntoryManagement.Controllers
 
             Purchase p = unitOfWork.Purchases.GetByID(id);
 
-        
+
             p.Branch = unitOfWork.Branchs.GetByID(p.BranchId);
             p.Vendor = unitOfWork.Vendors.GetByID(p.VendorId);
             p.Source = unitOfWork.Sources.GetByID(p.SourceId);
@@ -580,7 +726,7 @@ namespace InevntoryManagement.Controllers
 
 
 
-            return new JsonResult(new { output});
+            return new JsonResult(new { output });
         }
     }
 }

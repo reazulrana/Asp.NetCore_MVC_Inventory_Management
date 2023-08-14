@@ -13,7 +13,7 @@ namespace InevntoryManagement.ViewModels.Purchase
 
 
 
-       public  List<PurchaseProductInfo> PurchaseProductInfos { get; set; } = new List<PurchaseProductInfo>();
+       //public  List<PurchaseProductInfo> PurchaseProductInfos { get; set; } = new List<PurchaseProductInfo>();
 
 
     }

@@ -23,7 +23,24 @@
             <div class="card-body">
 
                 @*<partial name="_ErrorMessage" view-data="ViewData" />*@
-                <partial name="_Messages" />
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                    <div class="text-danger" asp-validation-summary="All">
+
+                    </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <partial name="_Messages" />
+
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-md-12">
