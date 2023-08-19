@@ -28,6 +28,8 @@ namespace DataAccessLayer.Services.Interface
         IRepository<Purchase> Purchases { get; }
         IRepository<MasterDetail> MasterDetails { get; }
         IRepository<PaymentType> PaymentTypes { get; }
+        IRepository<Sale> Sales { get; }
+
 
 
         void BeginTransaction();

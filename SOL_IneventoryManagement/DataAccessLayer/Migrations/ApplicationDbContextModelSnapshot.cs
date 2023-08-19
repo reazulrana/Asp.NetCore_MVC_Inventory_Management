@@ -174,9 +174,15 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Contact")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CustName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<int>("MemberId")
                         .HasColumnType("int");
@@ -465,7 +471,7 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BranchId")
+                    b.Property<int>("BranchId")
                         .HasColumnType("int");
 
                     b.Property<int>("CustomerID")
@@ -475,9 +481,20 @@ namespace DataAccessLayer.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("OrderNo")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("PaymentTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Remarks")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("SaleType")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<DateTime>("TrDate")
                         .HasColumnType("datetime2");
@@ -576,13 +593,11 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Customer", b =>
                 {
-                    b.HasOne("BussinessAccessLayer.Model.Member", "Member")
+                    b.HasOne("BussinessAccessLayer.Model.Member", null)
                         .WithMany("Customers")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.MasterDetail", b =>
@@ -593,11 +608,13 @@ namespace DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BussinessAccessLayer.Model.Product", null)
+                    b.HasOne("BussinessAccessLayer.Model.Product", "Product")
                         .WithMany("MasterDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BussinessAccessLayer.Model.Model", b =>
@@ -653,7 +670,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.HasOne("BussinessAccessLayer.Model.Branch", null)
                         .WithMany("Sales")
-                        .HasForeignKey("BranchId");
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BussinessAccessLayer.Model.Customer", "Customer")
                         .WithMany("Sales")

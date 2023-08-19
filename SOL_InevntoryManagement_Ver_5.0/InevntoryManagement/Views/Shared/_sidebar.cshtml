@@ -156,7 +156,7 @@
 
 
 
-            @*Start Product Section*@
+            @*Start Pruchase Section*@
 
             <li>
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -171,6 +171,21 @@
 
             </li>
 
+
+            @*Start Sales Section*@
+
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-144-layout"></i>
+                    <span class="nav-text">Sale</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a asp-controller="Sale" asp-action="Create">Create</a></li>
+                    <li><a asp-controller="Sale" asp-action="EditSaleList">Edit</a></li>
+                    <li><a asp-controller="Sale" asp-action="SaleList">Purchase List</a></li>
+                </ul>
+
+            </li>
 
             @*Start Settings Section*@
 

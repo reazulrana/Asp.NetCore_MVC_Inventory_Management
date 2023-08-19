@@ -63,7 +63,6 @@ namespace DataAccessLayer
             //       .HasKey(m => new { m.CType});
             //modelBuilder.Entity<Brand>()
             //       .HasKey(m => new { m.BrandName, m.CategoryId });
-
             modelBuilder.Entity<Product>().Property(x => x.Pipeline).HasDefaultValue(0);
             modelBuilder.Entity<Product>().Property(x => x.Unitprice).HasDefaultValue(0);
             modelBuilder.Entity<Product>().Property(x => x.OpeningBalance).HasDefaultValue(0);
@@ -72,13 +71,9 @@ namespace DataAccessLayer
             modelBuilder.Entity<Purchase>().Property(x => x.ReceivedByID).HasDefaultValue(1);
             modelBuilder.Entity<Purchase>().Property(x => x.VendorId).HasDefaultValue(1);
             modelBuilder.Entity<Purchase>().Property(x => x.SourceId).HasDefaultValue(1);
-
             modelBuilder.Entity<Branch>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<Color>().HasIndex(x => x.Id).IsUnique();
             modelBuilder.Entity<PaymentType>().HasIndex(x => x.Payments).IsUnique();
-
-
-
         }
     }
 }

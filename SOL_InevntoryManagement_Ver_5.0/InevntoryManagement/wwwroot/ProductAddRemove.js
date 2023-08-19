@@ -58,6 +58,22 @@ $("#txtProductPurchasePrice").focusout(function () {
 })
 
 
+function ClearField() {
+    $("#txtsearchfield").val('')
+    $("#txtProductId").val('')
+    $("#txtProductCode").val('')
+    $("#txtProductDescription").val('')
+
+    $("#txtProductModel").val('')
+    $("#txtProductSize").val('')
+    $("#txtProductColor").val('')
+    $(".pimage").attr("src", '')
+    $("#txtImage").val('')
+    $("#txtProductQty").val('0')
+    $("#txtProductPurchasePrice").val('0')
+    $("#txtProductTotalAmount").val('0')
+}
+
 
 function product() {
     var _product = {
@@ -81,10 +97,24 @@ function product() {
 //tr Remove from product table By Delete Button click
 $("#productlist").on("click", "button", function () {
 
-    if (confirm("Do You Want to Remove Row")) {
-        $(this).closest("tr").remove();
+        let amount = amountclass();
+        let totalpartsamount = parseInt($(this).closest("tr").find("td:last").prev().text())
+
+        let substractamount = (parseInt(amount.TotalAmount) - parseInt(totalpartsamount))
+        let paymentoncash = parseInt(amount.PaymentOnCash);
+        let result = (substractamount >= paymentoncash) ? true : false;
+    if (result) {
+        if (confirm("Do You Want to Remove Row")) {
+
+            $(this).closest("tr").remove();
+        }
+
+        }
+        else
+        {
+            alert("Row Can Not Remove Because PaymentOnCase Is Higer Than ProductCost (  Product Cost Is " + substractamount + " and CashOnPayment Is " + paymentoncash + ")")
+        }
         calculatePurchageProduct();
-    }
 })
 
 function append_New_Row() {

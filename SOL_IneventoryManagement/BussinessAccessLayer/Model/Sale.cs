@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BussinessAccessLayer.Model
 {
-   public class Sale
+    public class Sale
     {
         [Key]
         public int SaleID { get; set; }
@@ -20,7 +20,14 @@ namespace BussinessAccessLayer.Model
         [MaxLength(200, ErrorMessage = "Max Legth is 200 That You Have Excced")]
 
         public string Remarks { get; set; }
+        public int PaymentTypeId { get; set; }
+        [MaxLength(30, ErrorMessage = "Max Legth is 30 That You Have Excced")]
 
+        public string OrderNo { get; set; }
+        [MaxLength(30, ErrorMessage = "Max Legth is 30 That You Have Excced")]
+        public string SaleType { get; set; }
+
+        public int BranchId { get; set; }
 
         public virtual Customer Customer { get; set; }
 

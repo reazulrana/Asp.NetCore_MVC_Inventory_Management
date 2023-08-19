@@ -1,0 +1,51 @@
+﻿@model SaleCreateViewModel
+@{
+    ViewBag.Title = "Create New Sele";
+    string margin = "mt-1";
+}
+
+
+<div class="row">
+  
+
+    <div class="col-md-12">
+        <h5 class="py-2 pl-3 text-white bg-blue-dark ">
+            Customer Information
+        </h5>
+        <div class="row">
+            @*<div class="col-md-3">
+                <label asp-for="CustName"></label>
+            </div>*@
+            <div class="col-md-12">
+                <label asp-for="CustName"></label>
+
+                <input class="form-control" name="CustName" />
+            </div>
+        </div>
+
+        <div class="row @margin">
+            @*<div class="col-md-3">
+                <label asp-for="Address"></label>
+            </div>*@
+              <div class="col-md-12">
+                  <label asp-for="Address"></label>
+
+                  <input class="form-control" name="Address" />
+              </div>
+        </div>
+
+        <div class="row @margin">
+            @*<div class="col-md-3">
+                <label asp-for="Contact"></label>
+            </div>*@
+              <div class="col-md-12">
+                  <label asp-for="Contact"></label>
+
+                  <input class="form-control" name="Contact" />
+              </div>
+        </div>
+
+
+
+    </div>
+</div>

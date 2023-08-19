@@ -385,6 +385,15 @@ namespace InevntoryManagement.Controllers
 
             if (ModelState.IsValid)
             {
+
+                if(model.ProductIds == null || model.ProductIds.Count>0)
+                {
+                    Global_Functions.SetMessage($"Product List Is Empty", "danger");
+                    model.PurchaseProductInfos = GetProductTableList(model);
+                    model = LoadMultySelectList(model) as PurchaseEditViewModel;
+                    return View(model);
+                }
+
                 //extracrt Purchas record extracting number from  from date
                 // Purchase _p = unitOfWork.Purchases.Get().Where(x => x.PurchaseNo.Substring(x.PurchaseNo.IndexOf("-")+1).ToLower() == _invoice.ToLower()).FirstOrDefault();
                 Purchase _p = unitOfWork.Purchases.Get().Where(x => x.PurchaseID == model.id).FirstOrDefault();

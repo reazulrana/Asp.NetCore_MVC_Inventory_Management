@@ -17,11 +17,17 @@ namespace BussinessAccessLayer.Model
 
         [Key]
         public int ID { get; set; }
-        public int MemberId { get; set; }
-        [MaxLength(50, ErrorMessage = "Max Legth is 50 That You Have Excced")]
+       // public int MemberId { get; set; }
+        [MaxLength(70, ErrorMessage = "Max Legth is 70 That You Have Excced")]
+        [Required]
         public string CustName { get; set; }
-        public virtual Member Member { get; set; }
-
+        
+        [MaxLength(100, ErrorMessage = "Max Legth is 100 That You Have Excced")]
+        public string Address { get; set; }
+        
+        [MaxLength(40, ErrorMessage = "Max Legth is 40 That You Have Excced")]
+        public string Contact { get; set; }
+        //public virtual Member Member { get; set; }
         public virtual ICollection<Sale> Sales { get; set; }
         
     }

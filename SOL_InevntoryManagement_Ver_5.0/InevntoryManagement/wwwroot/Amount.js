@@ -55,6 +55,12 @@ function amountclass() {
 //calculate total product purchage price amount
 function calculatePurchageProduct() {
     let tr = $("#productlist tr")
+    
+    $("#Dues").val("0");
+    $("#GrossAmount").val("0");
+    $("#NetAmount").val("0");
+    
+
     $("#TotalAmount").val('0')
     if ($(tr).length > 0) {
         var amount = 0;
@@ -74,6 +80,21 @@ function calculatePurchageProduct() {
         $("#NetAmount").val(netamount)
         $("#Dues").val(parseInt(_amountclass.TotalAmount) - parseInt(_amountclass.PaymentOnCash))
     }
+    else {
+        // if no tr found in table body and  afete update amount cost bill
+        //let amounts = amountclass();
+        $("#GrossAmount").val(parseInt($("#Transport").val()) + parseInt($("#Others").val()))
+
+        $("#NetAmount").val(parseInt($("#GrossAmount").val()) - parseInt($("#Discount").val()))
+
+    }
 
 
 }
+
+
+//btnAddPaymentType
+$("#btnAddPaymentType").click(function () {
+    $("#divPaymentType").toggle()
+
+})

@@ -1,0 +1,49 @@
+﻿@model SaleCreateViewModel
+@{
+    ViewBag.Title = "Create New Sele";
+    string margin = "mt-1";
+}
+
+
+<div class="row border">
+    <div class="col-md-7">
+        @Html.Partial("~/Views/Shared/sales/_CustomerInformation.cshtml", Model);
+    </div>
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="bg-blue-dark text-white py-2 pl-3">
+                    Invoice Details
+                </h5>
+            </div>
+            <div class="col-md-12 @margin">
+                <label asp-for="Invoice"></label>
+                <input class="form-control" asp-for="Invoice" />
+            </div>
+            <div class="col-md-12 @margin">
+                <label asp-for="TrDate"></label>
+                <input class="form-control  datepicker-default" asp-for="TrDate" />
+            </div>
+            <div class="col-md-12 @margin">
+                <label asp-for="BranchId"></label>
+                <select id="branchname" asp-for="BranchId" class="form-control" asp-items="@Model.BranchList">
+                    <option>Select Branch</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{ 
+<script>
+    $(document).ready(function () {
+
+
+        $("#TrDate").datepicker();
+        $("#branchname").select2()
+
+    })
+</script>
+}
