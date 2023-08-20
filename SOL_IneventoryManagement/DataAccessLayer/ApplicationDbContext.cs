@@ -53,6 +53,10 @@ namespace DataAccessLayer
         public DbSet<Measure> Measures { get; set; }
         public DbSet<Branch> Branchs { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
+        public DbSet<SellingType> SellingTypes { get; set; }
+        public DbSet<SellFrom> SellFroms { get; set; }
+
+
 
 
 

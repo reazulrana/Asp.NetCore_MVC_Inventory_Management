@@ -5,30 +5,40 @@
 }
 
 
-<div class="row border">
-    <div class="col-md-7">
-        @Html.Partial("~/Views/Shared/sales/_CustomerInformation.cshtml", Model);
+<div class="card">
+    <div class="card-header">
+
     </div>
-    <div class="col-md-5">
+    <div class="card-body">
+        <div class="row border">
+            <div class="col-md-12 bg-danger-light">
+                @Html.Partial("~/Views/Shared/sales/_SaleDetails.cshtml", Model);
+
+            </div>
+            <div class="col-md-12 @margin">
+                @Html.Partial("~/Views/Shared/sales/_CustomerInformation.cshtml", Model);
+            </div>
+
+            <div class="col-md-12 @margin bg-success-light">
+                <h5 class="row py-2 px-3 bg-blue-dark text-white">Product Add</h5>
+
+                @Html.Partial("~/Views/Shared/sales/_SalesProductDetails.cshtml", Model);
+
+            </div>
+
+            <div class="col-md-12 @margin bg-primary-light">
+                <h5 class="row py-2 px-3 bg-blue-dark text-white">Bill Information</h5>
+
+                @Html.Partial("~/Views/Shared/sales/_SalesPriceDetails.cshtml", Model);
+
+            </div>
+
+        </div>
+    </div>
+    <div class="card-footer">
         <div class="row">
-            <div class="col-md-12">
-                <h5 class="bg-blue-dark text-white py-2 pl-3">
-                    Invoice Details
-                </h5>
-            </div>
-            <div class="col-md-12 @margin">
-                <label asp-for="Invoice"></label>
-                <input class="form-control" asp-for="Invoice" />
-            </div>
-            <div class="col-md-12 @margin">
-                <label asp-for="TrDate"></label>
-                <input class="form-control  datepicker-default" asp-for="TrDate" />
-            </div>
-            <div class="col-md-12 @margin">
-                <label asp-for="BranchId"></label>
-                <select id="branchname" asp-for="BranchId" class="form-control" asp-items="@Model.BranchList">
-                    <option>Select Branch</option>
-                </select>
+            <div class="col-md-3">
+                <button class="btn btn-xs btn-facebook">Create<span><i class="mdi mdi-plus"></i></span></button>
             </div>
         </div>
     </div>
@@ -36,7 +46,11 @@
 
 
 
+
 @section Scripts{ 
+    <script src="~/DuplicateModelShow.js"></script>
+    <script src="~/ProductAddRemove.js"></script>
+    <script src="~/Amount.js"></script>
 <script>
     $(document).ready(function () {
 
@@ -44,6 +58,29 @@
         $("#TrDate").datepicker();
         $("#branchname").select2()
 
+        $("#Invoice").keydown(function (event) {
+            let keyCode = event.keyCode ? event.keyCode : event.which
+
+            if ($(this).length <= 9)
+            {
+                event.preventDefault();
+            }
+
+
+        })
+
+        // end of #invoice keydown event
+
+
+        $("#Invoice").keypress(function (event) {
+            let keyCode = event.keyCode ? event.keyCode : event.which
+
+            if ($(this).length <= 9) {
+                event.preventDefault();
+            }
+
+
+        })
     })
 </script>
 }

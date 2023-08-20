@@ -1,0 +1,112 @@
+﻿@model SaleCreateViewModel
+@{
+    string colLabel = "col-md-3";
+    string colinput = "col-md-4";
+}
+
+<div class="row">
+
+
+    @*total Amount*@
+
+    <div class="@colinput">
+        <label asp-for="TotalAmount"></label>
+
+        <input class="form-control" asp-for="TotalAmount" />
+    </div>
+
+
+    @*Cash Payemnt Amount*@
+
+    <div class="@colinput">
+        <label>Payment On Cash</label>
+
+        <input asp-for="PaymentOnCash" class="form-control" />
+    </div>
+
+    @*Dues Amount*@
+
+    <div class="@colinput">
+        <label asp-for="Dues"></label>
+
+        <input class="form-control" asp-for="Dues" />
+    </div>
+
+    @*Transport Amount*@
+
+    <div class="@colinput">
+        <label asp-for="Transport"></label>
+
+        <input class="form-control" asp-for="Transport" />
+    </div>
+
+
+    @*Transport Amount*@
+
+    <div class="@colinput">
+        <label asp-for="Others"></label>
+
+        <input class="form-control" asp-for="Others" />
+    </div>
+
+
+
+
+
+
+    @*GrossAmount Amount*@
+
+    <div class="@colinput">
+        <label asp-for="GrossAmount"></label>
+
+        <input class="form-control" asp-for="GrossAmount" />
+    </div>
+
+    @*Discount Amount*@
+
+    <div class="@colinput">
+        <label asp-for="Discount"></label>
+
+        <input class="form-control" asp-for="Discount" />
+    </div>
+
+
+    @*NetAmount Amount*@
+
+    <div class="@colinput">
+        <label asp-for="NetAmount"></label>
+
+        <input class="form-control" asp-for="NetAmount" />
+    </div>
+
+
+
+    @*NetAmount Amount*@
+
+    <div class="@colinput">
+        <label asp-for="PaymentTypeId"></label>
+
+        <div class="input-group">
+            <select asp-for="PaymentTypeId" class="form-control find_PaymentType" asp-items="Model.PaymentTypeList">
+                <option>Select Payment</option>
+            </select>
+
+            <span class=input-group-append><button type="button" id="btnAddPaymentType" class="btn btn-secondary"><i class="mdi mdi-plus"></i></button></span>
+        </div>
+        <span asp-validation-for="PaymentTypeId" class="text-danger"></span>
+        @Html.Partial("~/Views/Shared/Jquery_Glabal_Partial/_PaymentTypeCreate.cshtml")
+    </div>
+
+
+
+    <div class="col-md-12">
+        <label asp-for="Remarks"></label>
+
+        <textarea asp-for="Remarks" class="form-control" cols="50" rows="5">
+
+    </textarea>
+        <span asp-validation-for="Remarks"></span>
+    </div>
+
+</div>
+

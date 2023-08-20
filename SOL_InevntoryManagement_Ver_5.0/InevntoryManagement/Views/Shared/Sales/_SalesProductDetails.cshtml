@@ -1,0 +1,256 @@
+﻿@model SaleCreateViewModel
+
+@{
+    string colLabel = "col-md-3 mt-3";
+    string colinput = "col-md-12 mt-1";
+
+}
+
+<div class="form-row">
+
+
+
+    @*Size Radio input section*@
+
+    <div class="col-md-12 mt-2">
+        @*<div class="form-group">*@
+        <div class="row">
+            <div class="col-md-2">
+                <label>Search</label>
+            </div>
+            <div class="col-md-10">
+
+                <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="code" type="radio" /> Code</label>
+                <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="description" type="radio" /> Description</label>
+                <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="model" type="radio" checked="checked" /> Model</label>
+            </div>
+        </div>
+
+        @*</div>*@
+
+    </div>
+
+
+    @*Search*@
+    <div class="@colinput">
+        <input class="form-control" id="txtsearchfield" />
+    </div>
+
+
+
+    <div class="row">
+
+
+        <div class="col-md-8">
+            <div class="row">
+                @*left section*@
+
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+
+
+
+
+                        @*Code*@
+                        @*<div class="@colLabel">
+
+                            </div>*@
+
+
+                        <div class="@colinput">
+                            <input hidden class="form-control" id="txtProductId" />
+                            <label>Code</label>
+
+                            <input class="form-control" id="txtProductCode" />
+                        </div>
+
+
+                        @*Description*@
+
+                        <div class="@colinput">
+                            <label>Description</label>
+
+                            <input class="form-control" id="txtProductDescription" />
+                        </div>
+
+
+                        @*Model*@
+
+                        <div class="@colinput">
+                            <label>Model</label>
+
+                            <input class="form-control" id="txtProductModel" />
+                        </div>
+
+
+                        @*size*@
+
+                        <div class="@colinput">
+                            <label>Size</label>
+
+                            <input class="form-control" id="txtProductSize" />
+                        </div>
+
+
+
+
+
+
+                    </div> @*End row*@
+
+                </div>  @*End col-md-4*@
+
+
+                @*Middle Section*@
+
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+
+                        @*Color*@
+                        @*<div class="@colLabel">
+                                <label>Color</label>
+
+                            </div>*@
+                        <div class="@colinput">
+                            <label>Color</label>
+
+                            <input class="form-control" id="txtProductColor" />
+                        </div>
+
+
+                        @*Qty*@
+                        @*<div class="@colLabel">
+                                <label>Qty</label>
+
+                            </div>*@
+                        <div class="@colinput">
+                            <label>Qty</label>
+
+                            <input class="form-control" id="txtProductQty" />
+                        </div>
+
+
+                        @*Price*@
+                        @*<div class="@colLabel">
+                                <label>Purchase Price</label>
+
+                            </div>*@
+                        <div class="@colinput">
+                            <label>Purchase Price</label>
+
+                            <input class="form-control" id="txtProductPurchasePrice" />
+                        </div>
+
+                        @*Price*@
+                        @*<div class="@colLabel">
+                                <label>Total Amount</label>
+
+                            </div>*@
+                        <div class="@colinput">
+                            <label>Total Amount</label>
+
+                            <input class="form-control" id="txtProductTotalAmount" />
+                        </div>
+
+
+
+                    </div> @*End row*@
+
+                </div>  @*End col-md-4*@
+            </div>
+        </div>
+
+        @*image section*@
+
+        <div class="col-md-4">
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label>Image</label>
+                    <div class="card-img-top">
+                        <img class="img-fluid pimage" src="~/Projects/Images/DefaultImage/No_Image_Available.jpg" />
+                    </div>
+                    <input type="text" hidden id="txtImage" value="" />
+                </div>
+            </div>
+        </div>
+
+
+
+        @*button section*@
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" id="btnAddProduct" class="col-md-4 btn-xs btn btn-facebook">Add <span><i class="mdi mdi-plus"></i></span></button>
+                    <button type="button" id="btnClearProduct" class="col-md-4  btn-xs btn btn-youtube">Clear <span><i class="mdi mdi-delete-sweep"></i></span></button>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>    @*End row*@
+
+
+
+
+
+
+
+
+<div class="row mt-2">
+    <div class="col-md-12 mt-3">
+        <table class="table  table-bordered table-responsive text-center">
+            <thead class="bg-secondary">
+                <tr class="text-white">
+                    <th>SL</th>
+                    <th>Image</th>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Model</th>
+                    <th>Size</th>
+                    <th>Color</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total Amount</th>
+                    <th>action</th>
+
+                </tr>
+            </thead>
+            <tbody id="productlist">
+
+                @if (Model.PurchaseProductInfos.Count > 0)
+                {
+                    int sl = 1;
+                    foreach (var p in Model.PurchaseProductInfos)
+                    {
+                        string _photopath = (p.photopath == null || p.photopath == "") ? "~/" + ImagePath.GetDefaultImagePath("No_Image_Avaiable.jpg") : "~/" + ImagePath.GetProductImagePath(p.photopath);
+                        int totalamount = p.qty * p.price;
+                        <tr>
+                            <td>SL <input hidden type="text" name="ProductIds" value="@p.ProdId" /> </td>
+                            <td><input hidden type="text" name="Images" value="@p.photopath" />  <img width="72" height="72" src="@_photopath" alt="No Image" asp-append-version="true" /></td>
+                            <td><input hidden type="text" name="Codes" value="@p.code" /> @p.code</td>
+                            <td><input hidden type="text" name="Descriptions" value="@p.description" /> @p.description</td>
+                            <td><input hidden type="text" name="Models" value="@p.model" /> @p.model</td>
+                            <td><input hidden type="text" name="Sizes" value="@p.size" />@p.size</td>
+                            <td><input hidden type="text" name="Colors" value="@p.color" /> @p.color</td>
+                            <td><input hidden type="text" name="Qtys" value="@p.qty" /> @p.qty</td>
+                            <td><input hidden type="text" name="Prices" value="@p.price" /> @p.price.ToString("#,##0")</td>
+                            <td>
+                                @totalamount
+                            </td>
+                            <td><button type="button" class="btn btn-xs btn-danger delete_Product"><span><i class="mdi mdi-delete"></i></span></button></td>
+
+                        </tr>
+                        sl = sl + 1;
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+

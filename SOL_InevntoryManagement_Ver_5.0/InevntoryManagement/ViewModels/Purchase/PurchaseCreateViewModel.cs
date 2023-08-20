@@ -72,8 +72,8 @@ namespace InevntoryManagement.ViewModels.Purchase
         public int GrossAmount { get; set; }
         public int Discount { get; set; }
         [Display(Name = "Net Amount")]
-
         public int NetAmount { get; set; }
+        
         [Display(Name = "Payment Type")]
         public int PaymentTypeId { get; set; }
         #endregion

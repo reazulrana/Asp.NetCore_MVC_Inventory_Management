@@ -29,6 +29,10 @@ namespace DataAccessLayer.Services.Interface
         IRepository<MasterDetail> MasterDetails { get; }
         IRepository<PaymentType> PaymentTypes { get; }
         IRepository<Sale> Sales { get; }
+        IRepository<SellFrom> SellFroms { get; }
+        IRepository<SellingType> SellingTypes { get; }
+
+
 
 
 

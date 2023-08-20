@@ -45,7 +45,7 @@ namespace InevntoryManagement.Controllers
 
             string day = DateTime.Today.Day.ToString().Length == 1 ? "0" + DateTime.Today.Day.ToString() : DateTime.Today.Day.ToString();
             string month = DateTime.Today.Month.ToString().Length == 1 ? "0" + DateTime.Today.Month.ToString() : DateTime.Today.Month.ToString(); ;
-            string year = DateTime.Today.Year.ToString().Substring(2, 2);
+            string year = DateTime.Today.Year.ToString().Length>=4? DateTime.Today.Year.ToString().Substring(2, 2): DateTime.Today.Year.ToString();
             string fulldate = day + "/" + month + "/" + year.ToString();
 
             fulldate = fulldate + "-" + maxno;

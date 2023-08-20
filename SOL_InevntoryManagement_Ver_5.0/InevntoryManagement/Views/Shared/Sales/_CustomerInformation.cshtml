@@ -5,44 +5,60 @@
 }
 
 
-<div class="row">
+<div class="row border bg-info-light py-1">
   
 
     <div class="col-md-12">
-        <h5 class="py-2 pl-3 text-white bg-blue-dark ">
+        <h5 class="row py-2 pl-3 text-white bg-blue-dark ">
             Customer Information
         </h5>
-        <div class="row">
-            @*<div class="col-md-3">
+
+        <div class="row p-1 @margin">
+            <div class="col-md-12 mb-4">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Search Contact</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input id="searchcontact" class="form-control" placeholder="Search Contact No" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
                 <label asp-for="CustName"></label>
-            </div>*@
-            <div class="col-md-12">
-                <label asp-for="CustName"></label>
+            </div>
+            <div class="col-md-5">
+                @*<label asp-for="CustName"></label>*@
 
                 <input class="form-control" name="CustName" />
+                <span asp-validation-for="CustName" class="text-danger"></span>
             </div>
+
+
+            <div class="col-md-1">
+            <label asp-for="Contact"></label>
+        </div>
+            <div class="col-md-4">
+                @*<label asp-for="Contact"></label>*@
+
+                <input class="form-control" name="Contact" />
+                <span asp-validation-for="Contact" class="text-danger"></span>
+
+            </div>
+
         </div>
 
+
         <div class="row @margin">
-            @*<div class="col-md-3">
+            <div class="col-md-2">
                 <label asp-for="Address"></label>
-            </div>*@
-              <div class="col-md-12">
-                  <label asp-for="Address"></label>
+            </div>
+            <div class="col-md-10">
+                @*<label asp-for="Address"></label>*@
 
-                  <input class="form-control" name="Address" />
-              </div>
-        </div>
-
-        <div class="row @margin">
-            @*<div class="col-md-3">
-                <label asp-for="Contact"></label>
-            </div>*@
-              <div class="col-md-12">
-                  <label asp-for="Contact"></label>
-
-                  <input class="form-control" name="Contact" />
-              </div>
+                <input class="form-control" name="Address" />
+            </div>
         </div>
 
 

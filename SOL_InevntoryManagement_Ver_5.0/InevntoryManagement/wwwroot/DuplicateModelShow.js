@@ -71,12 +71,22 @@ function Create_record_with_ajax(url, method, data, dataType, appendElement, dro
 
                     $(appendElement).append(option);
                 }
-                    else if (dropdownName.toLocaleLowerCase() == "PaymentType".toLocaleLowerCase()) {
+                    else if (dropdownName.toLocaleLowerCase() == "PaymentType".toLocaleLowerCase())
+                    {
                         var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.payments + '</option>'
 
                         $(appendElement).append(option);
-                    }
+                }
+                    else if (dropdownName.toLocaleLowerCase() == "SaleFrom".toLocaleLowerCase()) {
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.saleFrom + '</option>'
 
+                        $(appendElement).append(option);
+                    }
+                    else if (dropdownName.toLocaleLowerCase() == "SaleType".toLocaleLowerCase()) {
+                        var option = '<option value="' + data.output.id + '" selected="selected">' + data.output.types + '</option>'
+
+                        $(appendElement).append(option);
+                    }
 
 
 
@@ -258,4 +268,64 @@ $('#btnSavePaymentType').click(function () {
     }
 
     Create_record_with_ajax(url = url, method = "POST", data = data, dataType = "JSON", appendElement = ".find_PaymentType", dropdownName = "PaymentType", fieldNamtToEmpty = "#txtSavePaymentType", hideElement = "#divPaymentType")
+})
+
+
+
+
+//btn add salefrom
+$("#btnAddSaleFrom").click(function () {
+    $("#divSaleFrom").toggle();
+
+})
+
+
+
+
+//create SaleFrom
+$('#btnSaveSaleFrom').click(function () {
+    var val = $("#txtSaveSaleFrom").val();
+    var url = $(this).data("request-url")
+    if (val === undefined || val == "" || val == null) {
+        //alert("Enter Source First");
+        sweetAlert("Sale From Field is Blank Please Enter Source First");
+        $("#txtSaveSaleFrom").focus();
+        return;
+    }
+
+    var data = {
+        SaleFrom: val
+    }
+
+    Create_record_with_ajax(url = url, method = "POST", data = data, dataType = "JSON", appendElement = ".find_Salefrom", dropdownName = "SaleFrom", fieldNamtToEmpty = "#txtSaveSaleFrom", hideElement = "#divSaleFrom")
+})
+
+
+
+
+//btn add salefrom
+$("#btnAddSaleType").click(function () {
+    $("#divSaleType").toggle();
+
+})
+
+
+
+
+//create SaleFrom
+$('#btnSaveSaleType').click(function () {
+    var val = $("#txtSaveSaleType").val();
+    var url = $(this).data("request-url")
+    if (val === undefined || val == "" || val == null) {
+        //alert("Enter Source First");
+        sweetAlert("Sale Type Field is Blank Please Enter Source First");
+        $("#txtSaveSaleType").focus();
+        return;
+    }
+
+    var data = {
+        SaleType: val
+    }
+
+    Create_record_with_ajax(url = url, method = "POST", data = data, dataType = "JSON", appendElement = ".find_SaleType", dropdownName = "SaleType", fieldNamtToEmpty = "#txtSaveSaleType", hideElement = "#divSaleType")
 })

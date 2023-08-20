@@ -1,0 +1,128 @@
+﻿@model SaleCreateViewModel
+
+@{
+    string margin = "mt-1";
+    string collabel = "col-md-3";
+    string colinput = "col-md-9";
+
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h5 class="row bg-blue-dark text-white py-2 pl-3">
+            Invoice Details
+        </h5>
+    </div>
+</div>
+<div class="row @margin">
+    <div class="col-md-6">
+        <div class="row @margin">
+            <div class="@collabel">
+                <label asp-for="Invoice"></label>
+
+            </div>
+            <div class="@colinput">
+                <input class="form-control" asp-for="Invoice" />
+            </div>
+        </div>
+        
+        <div class="row @margin">
+            <div class="@collabel @margin">
+                <label asp-for="TrDate"></label>
+            </div>
+            <div class="@colinput">
+                <input class="form-control  datepicker-default" asp-for="TrDate" />
+            </div>
+        </div>
+
+        <div class="row @margin">
+            <div class="@collabel @margin">
+                <label asp-for="BranchId"></label>
+            </div>
+            <div class="@colinput">
+                <div class="input-group">
+                    <select id="branchname" asp-for="BranchId" class="form-control" asp-items="@Model.BranchList">
+                        <option>Select Branch</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button type="button" id="btnAddBranch" class="btn btn-facebook btn-xs" title="Add New Category"><span><i class="mdi mdi-plus"></i></span></button>
+                    </div>
+                </div>
+                <span class="text-danger" asp-validation-for="BranchId"></span>
+                @Html.Partial("~/Views/Shared/Jquery_Glabal_Partial/_BranchCreate.cshtml")
+            </div>
+        </div>
+    </div>  @*end of col-md-6*@
+
+
+
+
+<div class="col-md-6">
+
+
+    <div class="row @margin">
+        <div class="@collabel">
+            <label asp-for="SaleFrom"></label>
+        </div>
+
+        <div class="@colinput">
+            <div class="input-group">
+                <select asp-for="SaleFrom" class="form-control find_Salefrom" asp-items="@Model.SaleFromList">
+                    <option>Select Platform</option>
+                </select>
+                <div class="input-group-append">
+                    <button type="button" id="btnAddSaleFrom" class="btn btn-facebook btn-xs" title="Add New Sale Platform"><span><i class="mdi mdi-plus"></i></span></button>
+                </div>
+                @Html.Partial("~/Views/Shared/Jquery_Glabal_Partial/_SaleFromCreate.cshtml")
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+    <div class="row @margin">
+        <div class="@collabel">
+            <label asp-for="SaleType"></label>
+        </div>
+
+        <div class="@colinput">
+            <div class="input-group">
+                <select asp-for="SaleType" class="form-control find_SaleType" asp-items="@Model.SaleTypeList">
+                    <option>Select Sale Type</option>
+                </select>
+                <div class="input-group-append">
+                    <button type="button" id="btnAddSaleType" class="btn btn-facebook btn-xs" title="Add New Sale Type"><span><i class="mdi mdi-plus"></i></span></button>
+                </div>
+                @Html.Partial("~/Views/Shared/Jquery_Glabal_Partial/_SaleTypeCreate.cshtml")
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+    @*<div class="row @margin">
+        <div class="@collabel">
+            <label asp-for="Remarks"></label>
+        </div>
+
+        <div class="@colinput">
+            <textarea asp-for="Remarks" class="form-control" cols="50" rows="10"></textarea>
+        </div>
+
+    </div>*@
+</div>  @*end of col-md-6*@
+        
+</div>
+

@@ -37,7 +37,11 @@ namespace DataAccessLayer.Services.Repository
         BaseRepository<MasterDetail> _MasterDetails;
         BaseRepository<PaymentType> _PaymentTypes;
         BaseRepository<Sale> _Sales;
+        BaseRepository<SellFrom> _SellFroms;
+        BaseRepository<SellingType> _SellingTypes;
 
+
+        
 
 
 
@@ -224,6 +228,29 @@ namespace DataAccessLayer.Services.Repository
             get
             {
                 return _Sales ?? (_Sales = new BaseRepository<Sale>(_dbContext));
+            }
+        }
+
+
+
+        //SaleFrom
+        public IRepository<SellFrom> SellFroms
+        {
+            get
+            {
+                return _SellFroms ?? (_SellFroms = new BaseRepository<SellFrom>(_dbContext));
+            }
+        }
+
+
+
+
+        //SaleFrom
+        public IRepository<SellingType> SellingTypes
+        {
+            get
+            {
+                return _SellingTypes ?? (_SellingTypes = new BaseRepository<SellingType>(_dbContext));
             }
         }
     }
