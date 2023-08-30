@@ -3,17 +3,45 @@
     string tabcolinput = "col-md-9";
 }
 
-@*for New Source Create*@
-<div class="row bg-danger-light border" id="divPaymentType" style="display:none">
-    <div class="@tabcollabel">
+@*for New Source Create style="display:none"*@
+<div class="row bg-blue-dark border p-2 mt-2 text-white" id="divPaymentType">
+    <div class="col-md-12">
         <label for="txtSavePaymentType">Add Payment</label>
 
     </div>
-    <div class="@tabcolinput">
+    @*<div class="@tabcolinput">*@
 
-        <div class="input-group">
-            <input class="form-control" id="txtSavePaymentType" placeholder="Enter Payment Type " />
-            <button type="button" data-request-url='@Url.Action("Create_PaymentType_With_Ajax","PaymentType")' class="btn btn-sm btn-whatsapp" id="btnSavePaymentType">Add <span><i class="mdi mdi-plus"></i></span></button>
-        </div>
+    <div class="col-md-12">
+
+        <input class="form-control" id="txtSavePaymentType" placeholder="Enter Payment Type " />
     </div>
+
+    <label class="col-md-12 mt-1">
+        <input class="form-check-inline" type="checkbox" id="IsSelectedPayment" />Default
+    </label>
+
+    <div class="col-md-12">
+        <button type="button" data-request-url='@Url.Action("Create_PaymentType_With_Ajax","PaymentType")' class="btn-block btn btn-sm btn-whatsapp" id="btnSavePaymentType">Add <span><i class="mdi mdi-plus"></i></span></button>
+    </div>
+    @*</div>*@
+
+    <hr />
+
+
+    <div class="col-md-12">
+        <table class="table border">
+            <thead class="bg-danger light text-white">
+                <tr>
+                    <th style="font-size:10px">Sl</th>
+                    <th style="font-size:10px">Name</th>
+                    <th style="font-size:10px">Selected</th>
+
+                    <th style="font-size:10px">Default</th>
+                </tr>
+            </thead>
+            <tbody class="text-white" id="PaymentTypeTableList">
+            </tbody>
+        </table>
+    </div>
+
 </div>

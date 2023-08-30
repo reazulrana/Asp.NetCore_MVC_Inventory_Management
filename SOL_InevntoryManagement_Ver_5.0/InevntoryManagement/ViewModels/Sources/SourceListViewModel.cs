@@ -12,6 +12,6 @@ namespace InevntoryManagement.ViewModels.Sources
         [Display(Name="Source")]
         public string SourceName { get; set; }
 
-
+        public bool IsSelected { get; set; }
     }
 }

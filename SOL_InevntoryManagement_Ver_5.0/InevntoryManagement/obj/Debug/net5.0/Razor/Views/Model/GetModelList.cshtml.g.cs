@@ -152,6 +152,13 @@ using InevntoryManagement.ViewModels.Sales;
 #line hidden
 #nullable disable
 #nullable restore
+#line 21 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Settings;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 22 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
 using System.Collections.Generic;
 
@@ -159,7 +166,7 @@ using System.Collections.Generic;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5a8f780be1467b95c7d8a26bf657833b95b5ee1d", @"/Views/Model/GetModelList.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9ea8b1925518a03bf62dbe5cbdf3fb9bd5e3ce09", @"/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7cad59e37cf3cc5e4fb7330fd2bf4e1e8c02e6ea", @"/_ViewImports.cshtml")]
     public class Views_Model_GetModelList : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<ModelListViewModel>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-danger"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -229,7 +236,7 @@ using System.Collections.Generic;
 
 ");
             WriteLiteral("\r\n\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("div", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d11585", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("div", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d11810", async() => {
                 WriteLiteral("\r\n\r\n                    ");
             }
             );
@@ -252,7 +259,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper.ValidationSumma
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\r\n                    </div>\r\n                </div>\r\n\r\n\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d13458", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d13683", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();
@@ -267,7 +274,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper.ValidationSumma
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d14751", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d14976", async() => {
                 WriteLiteral("<span>Create <i class=\"mdi mdi-plus\"></i></span>");
             }
             );
@@ -358,7 +365,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper.ValidationSumma
 #line hidden
 #nullable disable
             WriteLiteral("\r\n                            </div>\r\n\r\n                            <div class=\"col-sm-4\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d19677", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d19902", async() => {
                 WriteLiteral("<span>Edit <i class=\"mdi mdi-pencil\"></i> </span>");
             }
             );
@@ -434,7 +441,7 @@ WriteAttributeValue("", 3913, _model.ModelId, 3913, 15, false);
 #line hidden
 #nullable disable
             WriteLiteral("\'</strong> </p>\r\n\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">\r\n                                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d24869", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a8f780be1467b95c7d8a26bf657833b95b5ee1d25094", async() => {
                 WriteLiteral("\r\n                                                    <button type=\"submit\" class=\"btn-block btn btn-xs btn-danger\"><span>Yes <i class=\"mdi mdi-delete\"></i></span></button>\r\n                                                ");
             }
             );

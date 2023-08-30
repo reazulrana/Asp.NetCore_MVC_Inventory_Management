@@ -126,7 +126,7 @@ namespace InevntoryManagement.Controllers
                              {
                                  Text = obj.VendorName.ToUpper(),
                                  Value = obj.VendorName.ToUpper(),
-                                 Selected = model.Vendor != null ? model.Vendor.ToUpper() == obj.VendorName.ToUpper() : false
+                                 Selected = model.Vendor != null ? model.Vendor.ToUpper() == obj.VendorName.ToUpper() : obj.IsSelected
                              }).ToList();
 
             model.Manufactures = (from obj in unitOfWork.Manufactures.Get()
@@ -135,7 +135,7 @@ namespace InevntoryManagement.Controllers
                                   {
                                       Text = obj.ManufactureName.ToUpper(),
                                       Value = obj.ManufactureName.ToUpper(),
-                                      Selected = model.Manufacture != null ? model.Manufacture.ToUpper() == obj.ManufactureName.ToUpper() : false
+                                      Selected = model.Manufacture != null ? model.Manufacture.ToUpper() == obj.ManufactureName.ToUpper() : obj.IsSelected
 
                                   }).ToList();
 
@@ -145,7 +145,7 @@ namespace InevntoryManagement.Controllers
                           {
                               Text = obj.BinNo,
                               Value = obj.BinNo.ToUpper(),
-                              Selected = model.Bin != null ? model.Bin.ToUpper() == obj.BinNo.ToUpper() : false
+                              Selected = model.Bin != null ? model.Bin.ToUpper() == obj.BinNo.ToUpper() : obj.IsSelected
 
                           }).ToList();
 
@@ -155,7 +155,7 @@ namespace InevntoryManagement.Controllers
                             {
                                 Text = obj.ColorName,
                                 Value = obj.ColorName.ToUpper(),
-                                Selected = model.Color != null ? model.Color.ToUpper() == obj.ColorName.ToUpper() : false
+                                Selected = model.Color != null ? model.Color.ToUpper() == obj.ColorName.ToUpper() : obj.IsSelected
 
                             }).ToList();
 
@@ -173,7 +173,7 @@ namespace InevntoryManagement.Controllers
                            {
                                Text = obj.ProductSize,
                                Value = obj.ProductSize,
-                               Selected = model.Size != null ? (model.Size[0].ToUpper() == obj.ProductSize.ToUpper() && model.SizeType == obj.SizeType.ToString()) : false
+                               Selected = model.Size != null ? (model.Size[0].ToUpper() == obj.ProductSize.ToUpper() && model.SizeType == obj.SizeType.ToString()) : obj.IsSelected
                            }).ToList();
             
             model.Measurements = (from obj in unitOfWork.Measures.Get()
@@ -182,7 +182,7 @@ namespace InevntoryManagement.Controllers
                            {
                                Text = obj.Measurements,
                                Value = obj.Measurements,
-                               Selected = model.Measurement != null ? model.Measurement.ToUpper() == obj.Measurements.ToUpper() : obj.Measurements.ToUpper() == "KG".ToUpper()
+                               Selected = model.Measurement != null ? model.Measurement.ToUpper() == obj.Measurements.ToUpper() : obj.IsSelected
 
                            }).ToList();
 
@@ -192,7 +192,7 @@ namespace InevntoryManagement.Controllers
                                   {
                                       Text = obj.SourceName,
                                       Value = obj.SourceName,
-                                      Selected = model.Source != null ? model.Source.ToUpper() == obj.SourceName.ToUpper() :false
+                                      Selected = model.Source != null ? model.Source.ToUpper() == obj.SourceName.ToUpper() : obj.IsSelected
 
                                   }).ToList();
 

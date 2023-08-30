@@ -14,11 +14,11 @@ namespace InevntoryManagement.Controllers
 {
     public class SaleController : Controller
     {
-        private readonly IUnitOfWork unitofWork;
+        private readonly IUnitOfWork unitOfWork;
 
-        public SaleController(IUnitOfWork unitofWork)
+        public SaleController(IUnitOfWork unitOfWork)
         {
-            this.unitofWork = unitofWork;
+            this.unitOfWork = unitOfWork;
         }
         
         public IActionResult Index()
@@ -38,7 +38,7 @@ namespace InevntoryManagement.Controllers
 
 
             //int maxno = unitOfWork.Purchases.Get().Select(X=>X.PurchaseNo).Max(x => int.Parse(x.PurchaseNo.Substring(x.PurchaseNo.Length-(x.PurchaseNo.IndexOf("-")-1))));
-            List<int> s = unitofWork.Sales.Get().Select(x => int.Parse(x.Invoice.Substring((x.Invoice.IndexOf("-") + 1)))).ToList();
+            List<int> s = unitOfWork.Sales.Get().Select(x => int.Parse(x.Invoice.Substring((x.Invoice.IndexOf("-") + 1)))).ToList();
 
             //List<int> sb= s as List<int>;
 
@@ -59,12 +59,12 @@ namespace InevntoryManagement.Controllers
         private List<SelectListItem> BranchList(SaleCreateViewModel model)
         {
             List<SelectListItem> output = new List<SelectListItem>();
-            output = (from obj in unitofWork.Branchs.Get()
+            output = (from obj in unitOfWork.Branchs.Get()
                       select new SelectListItem()
                       {
                           Text = obj.Name,
                           Value = obj.Id.ToString(),
-                          Selected = model.BranchId != 0 ? obj.Id == model.BranchId : false
+                          Selected = model.BranchId != 0 ? obj.Id == model.BranchId : obj.IsSelected
                       }).ToList();
 
             return output;
@@ -76,12 +76,12 @@ namespace InevntoryManagement.Controllers
         private List<SelectListItem> SaleTypes(SaleCreateViewModel model)
         {
             List<SelectListItem> output = new List<SelectListItem>();
-            output = (from obj in unitofWork.SellingTypes.Get()
+            output = (from obj in unitOfWork.SellingTypes.Get()
                       select new SelectListItem()
                       {
                           Text = obj.Types!=null? obj.Types:null,
                           Value = obj.Id!=0? obj.Id.ToString():null,
-                          Selected = model.SaleType!=null ? obj.Types.ToLower() == model.SaleType.ToLower() : false
+                          Selected = model.SaleType!=null ? obj.Types.ToLower() == model.SaleType.ToLower() :  obj.IsSelected
                       }).ToList();
 
             return output;
@@ -94,12 +94,12 @@ namespace InevntoryManagement.Controllers
         private List<SelectListItem> SaleFroms(SaleCreateViewModel model)
         {
             List<SelectListItem> output = new List<SelectListItem>();
-            output = (from obj in unitofWork.SellFroms.Get()
+            output = (from obj in unitOfWork.SellFroms.Get()
                       select new SelectListItem()
                       {
                           Text = obj.SaleFrom != null ? obj.SaleFrom : null,
                           Value = obj.Id != 0 ? obj.Id.ToString() : null,
-                          Selected = model.SaleFrom != null ? obj.SaleFrom.ToLower() == model.SaleFrom.ToLower() : false
+                          Selected = model.SaleFrom != null ? obj.SaleFrom.ToLower() == model.SaleFrom.ToLower() :  obj.IsSelected
                       }).ToList();
 
             return output;
@@ -112,23 +112,51 @@ namespace InevntoryManagement.Controllers
         private List<SelectListItem> PaymentTypeList(SaleCreateViewModel model)
         {
             List<SelectListItem> output = new List<SelectListItem>();
-            output = (from obj in unitofWork.PaymentTypes.Get()
+            output = (from obj in unitOfWork.PaymentTypes.Get()
                       select new SelectListItem()
                       {
                           Text = obj.Payments != null ? obj.Payments : null,
                           Value = obj.Id != 0 ? obj.Id.ToString() : null,
-                          Selected = model.PaymentTypeId != 0 ? obj.Id == model.PaymentTypeId : obj.Payments.ToUpper()=="Cash".ToUpper()
+                          Selected = model.PaymentTypeId != 0 ? obj.Id == model.PaymentTypeId : obj.IsSelected
                       }).ToList();
 
             return output;
         }
 
 
+        //Clear All IsSelected Field in Sellfrom Table From Database
+        private void clear_IsSelected_SaleFrom()
+        {
+            List<SellFrom> sellFroms = unitOfWork.SellFroms.Get().ToList();
+
+            foreach (var sellfrom in sellFroms)
+            {
+                var _sellfrom = unitOfWork.SellFroms.GetByID(sellfrom.Id);
+                _sellfrom.IsSelected = false;
+                unitOfWork.SellFroms.Update(_sellfrom);
+            }
+
+        }
+
+
+        //Clear All IsSelected Field in SellType Table From Database
+        private void clear_IsSelected_SellType()
+        {
+            List<SellingType> sellingTypes = unitOfWork.SellingTypes.Get().ToList();
+
+            foreach (var sellingType in sellingTypes)
+            {
+                var _sellingType = unitOfWork.SellingTypes.GetByID(sellingType.Id);
+                _sellingType.IsSelected = false;
+                unitOfWork.SellingTypes.Update(_sellingType);
+            }
+
+        }
 
         // Call from Sale form with ajax btnSaveSaleFrom
 
         [HttpPost]
-        public JsonResult Create_SaleFrom_With_Ajax(string SaleFrom)
+        public JsonResult Create_SaleFrom_With_Ajax(string SaleFrom,bool isselected)
         {
             string msg = "";
 
@@ -137,8 +165,13 @@ namespace InevntoryManagement.Controllers
             try
             {
 
-                var _salefrom = unitofWork.SellFroms.Get().Where(x => x.SaleFrom.ToLower() == SaleFrom.ToLower()).FirstOrDefault();
+                var _salefrom = unitOfWork.SellFroms.Get().Where(x => x.SaleFrom.ToLower() == SaleFrom.ToLower()).FirstOrDefault();
 
+                if(isselected)
+                {
+                    //Clear All IsSelected Field in Branch Table From Database
+                    clear_IsSelected_SaleFrom();
+                }
                 //Category Exist
                 if (_salefrom != null)
                 {
@@ -149,8 +182,9 @@ namespace InevntoryManagement.Controllers
                 else
                 {
                     output.SaleFrom = SaleFrom.ToUpper();
+                    output.IsSelected = isselected;
+                    unitOfWork.SellFroms.Insert(output);
 
-                    unitofWork.SellFroms.Insert(output);
                     success = true;
                     msg = Global_Functions.SaveMessage("Sale From");
                 }
@@ -170,7 +204,7 @@ namespace InevntoryManagement.Controllers
         // Call from Sale form with ajax btnSaveSaleFrom
 
         [HttpPost]
-        public JsonResult Create_SaleType_With_Ajax(string SaleType)
+        public JsonResult Create_SaleType_With_Ajax(string SaleType,bool isselected)
         {
             string msg = "";
 
@@ -178,8 +212,13 @@ namespace InevntoryManagement.Controllers
             SellingType output = new SellingType();
             try
             {
+                if (isselected)
+                {
+                    //Clear All IsSelected Field in Branch Table From Database
+                    clear_IsSelected_SaleFrom();
+                }
 
-                var _saletype = unitofWork.SellingTypes.Get().Where(x => x.Types.ToLower() == SaleType.ToLower()).FirstOrDefault();
+                var _saletype = unitOfWork.SellingTypes.Get().Where(x => x.Types.ToLower() == SaleType.ToLower()).FirstOrDefault();
 
                 //SaleType Is Exist
                 if (_saletype != null)
@@ -191,8 +230,8 @@ namespace InevntoryManagement.Controllers
                 else
                 {
                     output.Types = SaleType.ToUpper();
-
-                    unitofWork.SellingTypes.Insert(output);
+                    output.IsSelected = isselected;
+                    unitOfWork.SellingTypes.Insert(output);
                     success = true;
                     msg = Global_Functions.SaveMessage("Sale Type");
                 }
@@ -203,9 +242,13 @@ namespace InevntoryManagement.Controllers
                 msg = Global_Functions.SaveErrorMessage("Sale Type");
             }
             return new JsonResult(new { output, success, msg });
-
-
         }
+
+
+
+
+        
+
 
     }
 }

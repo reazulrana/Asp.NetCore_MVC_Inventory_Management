@@ -61,12 +61,17 @@ namespace InevntoryManagement.Controllers
 
             if(ModelState.IsValid)
             {
+                if (model.IsSelected)
+                {
+                    clear_IsSelected_Vendor(); //Clear All IsSelected Field in Size Table From Database
+                }
 
                 Vendor _vendor = new Vendor()
                 {
                     VendorName = model.VendorName.ToUpper(),
                     Address = model.Address,
-                    Contact = model.Contact
+                    Contact = model.Contact,
+                     IsSelected=model.IsSelected
 
                 };
                 unitOfWork.Vendors.Insert(_vendor);
@@ -104,7 +109,9 @@ namespace InevntoryManagement.Controllers
                 VendorId = vendor.Id,
                 VendorName = vendor.VendorName,
                 Address = vendor.Address,
-                Contact = vendor.Contact
+                Contact = vendor.Contact,
+                 IsSelected=vendor.IsSelected
+                 
             }; 
              
 
@@ -135,11 +142,16 @@ namespace InevntoryManagement.Controllers
                     return View("NotFound");
                 }
 
+                if(model.IsSelected)
+                {
+                    clear_IsSelected_Vendor(); //Clear All IsSelected Field in Size Table From Database
+                }
 
 
                 vendor.VendorName = model.VendorName.ToUpper();
                     vendor.Address = model.Address;
                 vendor.Contact = model.Contact;
+                vendor.IsSelected = model.IsSelected;
                 unitOfWork.Vendors.Update(vendor);
                 Global_Functions.SetMessage($"Vendor Update Successfully Previous Name {oldVendrName} to Current Name {vendor.VendorName}", "success");
                 return RedirectToAction("VendorList","Vendor");
@@ -150,6 +162,21 @@ namespace InevntoryManagement.Controllers
 
         }
 
+
+
+        //Clear All IsSelected Field in Vendor Table From Database
+        private void clear_IsSelected_Vendor()
+        {
+            List<Size> sizes = unitOfWork.Sizes.Get().ToList();
+
+            foreach (var size in sizes)
+            {
+                var _size = unitOfWork.Sizes.GetByID(size.Id);
+                _size.IsSelected = false;
+                unitOfWork.Sizes.Update(_size);
+            }
+
+        }
 
 
 
@@ -215,7 +242,7 @@ namespace InevntoryManagement.Controllers
         // Call from ajax 
 
         [HttpPost]
-        public JsonResult Create_Vendor_With_Ajax(string vendor, string vendoraddress, string vendorcontact)
+        public JsonResult Create_Vendor_With_Ajax(string vendor, string vendoraddress, string vendorcontact,bool isselected)
         {
             string msg = "";
 
@@ -226,6 +253,11 @@ namespace InevntoryManagement.Controllers
 
                 var _vendor = unitOfWork.Vendors.Get().Where(x => x.VendorName.ToLower() == vendor.ToLower()).FirstOrDefault();
 
+
+                if(isselected)
+                {
+                    clear_IsSelected_Vendor(); //Clear All IsSelected Field in Vendor Table From Database
+                }
                 //Category Exist
                 if (_vendor != null)
                 {
@@ -238,7 +270,7 @@ namespace InevntoryManagement.Controllers
                     output.VendorName = vendor.ToUpper();
                     output.Address = vendoraddress;
                     output.Contact = vendorcontact;
-
+                    output.IsSelected = isselected;
                     unitOfWork.Vendors.Insert(output);
                     success = true;
                     msg = Global_Functions.SaveMessage("Vendor");

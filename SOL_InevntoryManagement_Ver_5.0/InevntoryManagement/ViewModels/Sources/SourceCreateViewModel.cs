@@ -13,6 +13,7 @@ namespace InevntoryManagement.ViewModels.Sources
         [Display(Name ="Source")]
         [Remote("FindSource", "Source")]
         public string SourceName { get; set; }
+        public bool IsSelected { get; set; }
 
     }
 }

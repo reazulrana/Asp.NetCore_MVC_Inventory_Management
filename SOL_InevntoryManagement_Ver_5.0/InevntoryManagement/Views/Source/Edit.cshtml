@@ -30,14 +30,20 @@
                         <label asp-for="@Model.SourceName"></label>
                         <input class="form-control" asp-for="@Model.SourceName" />
                         <span asp-validation-for="@Model.SourceName" class="text-danger"></span>
+
+                        <label class="form-check-label">
+                            <input class="form-check-inline" type="checkbox" asp-for="@Model.IsSelected" /> Default
+                        </label>
                     </div>
                 </div>
+
+                
             </div>
 
         </div>
         <div class="card-footer">
             <div class="form-group">
-                <button type="submit" asp-controller="Source" asp-action="Update" class="btn btn-outline-success btn-sm"><span class="mdi mdi-48px">Update <i class="mdi mdi-update"></i></span></button>
+                <button type="submit" class="btn btn-outline-success btn-sm"><span class="mdi mdi-48px">Update <i class="mdi mdi-update"></i></span></button>
              </div>
         </div>
     </div>

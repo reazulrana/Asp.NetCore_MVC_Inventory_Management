@@ -76,8 +76,9 @@ namespace DataAccessLayer
             modelBuilder.Entity<Purchase>().Property(x => x.VendorId).HasDefaultValue(1);
             modelBuilder.Entity<Purchase>().Property(x => x.SourceId).HasDefaultValue(1);
             modelBuilder.Entity<Branch>().HasIndex(x => x.Name).IsUnique();
-            modelBuilder.Entity<Color>().HasIndex(x => x.Id).IsUnique();
+            modelBuilder.Entity<Color>().HasIndex(x => x.ColorName).IsUnique();
             modelBuilder.Entity<PaymentType>().HasIndex(x => x.Payments).IsUnique();
+            
         }
     }
 }

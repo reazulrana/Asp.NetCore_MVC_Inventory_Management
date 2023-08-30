@@ -11,5 +11,7 @@ namespace InevntoryManagement.ViewModels.Sizes
 
         [Required]
         public int SizeId { get; set; }
+        [Required]
+        public string Size { get; set; }
     }
 }

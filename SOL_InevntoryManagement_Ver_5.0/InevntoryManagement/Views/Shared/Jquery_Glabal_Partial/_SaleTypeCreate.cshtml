@@ -1,20 +1,29 @@
 ﻿@{
-    //string tabcollabel = "col-md-4";
-    string tabcolinput = "col-md-12";
+//string tabcollabel = "col-md-4";
+//string tabcolinput = "col-md-12";
 }
 
 @*for New Source Create*@
-<div class="row" id="divSaleType" style="display:none">
+<div class="row p-2 bg-blue-dark text-white mt-2" id="divSaleType" style="display:none">
     @*<div class="@tabcollabel">
         </div>*@
-    <div class="@tabcolinput">
+    @*<div class="@tabcolinput">*@
+    <div class="col-md-12">
         <label for="txtSaveSaleType">Add Sell Type</label>
-
-        <div class="input-group">
-            <input class="form-control" id="txtSaveSaleType" placeholder="Enter Sale Type " />
-            <span class="input-group-append">
-                <button type="button" data-request-url='@Url.Action("Create_SaleType_With_Ajax","Sale")' class="btn btn-sm btn-whatsapp" id="btnSaveSaleType">Add <span><i class="mdi mdi-plus"></i></span></button>
-            </span>
-        </div>
     </div>
+    <div class="col-md-12">
+        <input class="form-control" id="txtSaveSaleType" placeholder="Enter Sale Type " />
+    </div>
+
+
+
+
+    <label class="col-md-12 mt-1">
+        <input class="form-check-inline" type="checkbox" id="IsSelectedSaleType" />Default
+    </label>
+
+    <div class="col-md-12">
+        <button type="button" data-request-url='@Url.Action("Create_SaleType_With_Ajax","Sale")' class="btn-block btn btn-sm btn-whatsapp" id="btnSaveSaleType">Add <span><i class="mdi mdi-plus"></i></span></button>
+    </div>
+    @*</div>*@
 </div>

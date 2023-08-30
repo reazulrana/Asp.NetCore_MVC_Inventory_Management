@@ -24,7 +24,7 @@ namespace BussinessAccessLayer.Model
         public string Address { get; set; }
         [MaxLength(36, ErrorMessage = "Max Legth is 36 That You Have Excced")]
         public string Contact { get; set; }
-
+        public bool IsSelected { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
 
 

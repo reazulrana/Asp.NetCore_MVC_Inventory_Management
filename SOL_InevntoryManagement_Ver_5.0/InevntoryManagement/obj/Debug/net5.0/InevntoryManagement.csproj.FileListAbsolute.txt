@@ -183,6 +183,7 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Jquery_Glabal_Partial\_BranchCreate.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Jquery_Glabal_Partial\_PaymentTypeCreate.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Jquery_Glabal_Partial\_SaleFromCreate.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Jquery_Glabal_Partial\_SaleTypeCreate.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Jquery_Glabal_Partial\_SourceCreate.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Jquery_Glabal_Partial\_VendorCreate.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Manufacture\_Delete.cshtml.g.cs
@@ -230,4 +231,4 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\ref\InevntoryManagement.dll
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\InevntoryManagement.pdb
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\InevntoryManagement.genruntimeconfig.cache
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Shared\Jquery_Glabal_Partial\_SaleTypeCreate.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Debug\net5.0\Razor\Views\Settings\DefaultSettings.cshtml.g.cs

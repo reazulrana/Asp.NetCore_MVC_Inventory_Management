@@ -24,7 +24,7 @@ namespace InevntoryManagement.ViewModels.Sales
         [Display(Name ="Sell Type")]
         public string SaleType { get; set; } //corporate
         [Required]
-        [Display(Name = "Sell From")]
+        [Display(Name = "Sell Point")]
         public string SaleFrom { get; set; } // Online/Showroom
 
         [Display(Name = "Customer Name")]

@@ -24,6 +24,7 @@
                     <input hidden asp-for="@Model.SizeId" />
                     <input asp-for="@Model.Size" class="form-control border" placeholder="Enter Size" title="Size" />
                     <span asp-validation-for="@Model.Size" class="text-danger"></span>
+                   
                 </div>
             </div>
 
@@ -37,7 +38,9 @@
                     <select asp-for="@Model.Type" class="form-control" asp-items="@Model.Types" title="Size/Dimension">
                     </select>
                     <span asp-validation-for="@Model.Type class=" text-danger"></span>
-
+                    <label class="mt-1">
+                        <input class="form-check-inline" type="checkbox" asp-for="@Model.IsSelected" />Default
+                    </label>
                 </div>
             </div>
 

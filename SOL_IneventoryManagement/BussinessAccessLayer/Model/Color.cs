@@ -11,10 +11,11 @@ namespace BussinessAccessLayer.Model
     public class Color
     {
 
-        [DatabaseGenerated(databaseGeneratedOption:DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(databaseGeneratedOption:DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { get; set; }
         [MaxLength(25, ErrorMessage = "Max Legth is 25 That You Have Excced")]
-        [Key]
         public string ColorName { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

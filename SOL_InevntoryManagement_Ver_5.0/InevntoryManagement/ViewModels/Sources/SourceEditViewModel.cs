@@ -11,7 +11,9 @@ namespace InevntoryManagement.ViewModels.Sources
 
         [Required(ErrorMessage ="Source Id Filed Is Required")]
         public int Id { get; set; }
-
+        [Required]
+        [Display(Name = "Source")]
+        public string SourceName { get; set; }
 
     }
 }

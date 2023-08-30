@@ -15,6 +15,7 @@ namespace BussinessAccessLayer.Model
         [MaxLength(25, ErrorMessage = "Max Legth is 25 That You Have Excced")]
         [Required]
         public string Measurements { get; set; }
+        public bool IsSelected { get; set; }
 
     }
 }

@@ -10,5 +10,6 @@ namespace BussinessAccessLayer.Model
     {
         public int Id { get; set; }
         public string SaleFrom { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

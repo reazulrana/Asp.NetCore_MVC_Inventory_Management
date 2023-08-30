@@ -1,0 +1,736 @@
+﻿@model DefaultSettingsViewModel
+
+@{ 
+    ViewBag.Title = "Default Settings";
+}
+
+
+@*<a href="E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\">E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\Views\Shared\_Messages.cshtml</a>*@
+<div class="row">
+    <div class="col-md-12">
+        <partial name="~/Views\Shared\_Messages.cshtml" />
+    </div>
+    @* Start branch section*@
+    <div class="col-md-6">
+
+        <table class="table table-danger border bg-info-light">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Branch List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Branches.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Branch Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+
+                    <tr>
+                        <td>1</td>
+                        <td>No Branch</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultBranch" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+
+                    @foreach (var m in Model.Branches)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.Name</td>
+                            <td><input asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultBranch" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End branch section*@
+
+    @* Start Color section*@
+
+    <div class="col-md-6">
+
+        <table class="table border table-danger">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Color List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Colors.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Color Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+                    <tr>
+                        <td>1</td>
+                        <td>No Color</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultColors" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    @foreach (var m in Model.Colors)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.ColorName</td>
+                            <td><input class="checkbox checked" asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultColors" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End Color section*@
+
+
+
+    @* Start Manufactures section*@
+
+    <div class="col-md-6">
+
+        <table class="table border table-danger">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Manufactures List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Manufactures.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Manufactures Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+
+                    <tr>
+                        <td>1</td>
+                        <td>No Manufacture</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultManufacture" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    @foreach (var m in Model.Manufactures)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.ManufactureName</td>
+                            <td><input asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultManufacture" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End Manufactures section*@
+
+
+
+
+    @* Start Measures section*@
+
+    <div class="col-md-6">
+
+        <table class="table border table-danger">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Measures List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Manufactures.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Measures Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+
+                    <tr>
+                        <td>1</td>
+                        <td>No Measurement</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultMeasure" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    @foreach (var m in Model.Measures)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.Measurements</td>
+                            <td><input asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultMeasure" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End Measures section*@
+
+
+
+    @* Start PaymentTypes section*@
+
+    <div class="col-md-6">
+
+        <table class="table border table-danger">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Payment Types List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.PaymentTypes.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Payment Types Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+
+                    <tr>
+                        <td>1</td>
+                        <td>No Payment Types</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultPaymentTypes" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    @foreach (var m in Model.PaymentTypes)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.Payments</td>
+                            <td><input asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultPaymentTypes" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End PaymentTypes section*@
+
+
+
+
+    @* Start SellFroms section*@
+
+    <div class="col-md-6">
+
+        <table class="table border table-success">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Sell Froms List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.SellFroms.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Sell Froms Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+
+                    <tr>
+                        <td>1</td>
+                        <td>No Sell From</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultSellFrom" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    @foreach (var m in Model.SellFroms)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.SaleFrom</td>
+                            <td><input asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultSellFrom" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End SellFroms section*@
+
+
+
+
+
+
+
+
+    @* Start SellingTypes section*@
+
+    <div class="col-md-6">
+
+        <table class="table border table-danger">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Selling Types List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.SellingTypes.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Selling Types Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+
+                    <tr>
+                        <td>1</td>
+                        <td>No Sellng Type</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultSellingTypes" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    @foreach (var m in Model.SellingTypes)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.Types</td>
+                            <td><input asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultSellingTypes" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End SellingTypes section*@
+
+
+
+    @* Start Sizes section*@
+
+    <div class="col-md-6">
+
+        <table class="table border table-danger">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Size/Dimension Types List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Sizes.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Size/Dimension Types Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+
+                    <tr>
+                        <td>1</td>
+                        <td>No Size</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultSizes" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+
+                    @foreach (var m in Model.Sizes)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.ProductSize</td>
+                            <td><input asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultSizes" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End Sizes section*@
+
+
+
+
+    @* Start Sources section*@
+
+    <div class="col-md-6">
+
+        <table class="table border table-danger">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Sources List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Sources.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Sources Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+
+                    <tr>
+                        <td>1</td>
+                        <td>No Source</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultSource" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    @foreach (var m in Model.Sources)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.SourceName</td>
+                            <td><input asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultSource" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End Sources section*@
+
+
+    @* Start Vendors section*@
+
+    <div class="col-md-6">
+
+        <table class="table border table-danger">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-3 bg-red text-white" colspan="4">Vendors List</th>
+                </tr>
+                <tr class="bg-blue-dark light text-white">
+                    <th>
+                        SL
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Vendors.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">There Is No Vendors Available</td>
+                    </tr>
+                }
+                else
+                {
+                    int sl = 2;
+
+                    <tr>
+                        <td>1</td>
+                        <td>No Source</td>
+                        <td><input class="checkbox checked" type="checkbox" disabled="disabled" /></td>
+                        <td>
+                            <form method="post" asp-controller="Settings" asp-action="SetDefaultVendor" asp-route-id=@int.Parse("0")>
+                                <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    @foreach (var m in Model.Vendors)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@m.VendorName</td>
+                            <td><input asp-for="@m.IsSelected" disabled="disabled" /></td>
+                            <td>
+                                <form method="post" asp-controller="Settings" asp-action="SetDefaultVendor" asp-route-id="@m.Id">
+                                    <button class="btn btn-youtube btn-xs" type="submit">Set Default</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        sl = sl + 1;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    @* End Vendors section*@
+
+</div>

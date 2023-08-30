@@ -21,6 +21,7 @@ namespace BussinessAccessLayer.Model
         public string Contact { get; set; }
         [MaxLength(50, ErrorMessage = "Max Legth is 50 That You Have Excced")]
         public string BranchIncharge { get; set; }
+        public bool IsSelected { get; set; }
         public virtual List<Purchase> Purchases { get; set; } = new List<Purchase>();
         public virtual List<Sale> Sales { get; set; } = new List<Sale>();
 

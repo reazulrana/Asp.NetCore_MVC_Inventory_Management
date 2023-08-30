@@ -21,6 +21,7 @@ namespace BussinessAccessLayer.Model
         [MaxLength(2, ErrorMessage = "Max Legth is 2 That You Have Excced")]
 
         public int SizeType { get; set; }
+        public bool IsSelected { get; set; }
 
     }
 }

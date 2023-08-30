@@ -12,6 +12,8 @@ namespace BussinessAccessLayer.Model
         public int Id { get; set; }
         [MaxLength(50, ErrorMessage = "Max Legth is 50 That You Have Excced")]
         public string ManufactureName { get; set; }
+        public bool IsSelected { get; set; }
+
 
     }
 }

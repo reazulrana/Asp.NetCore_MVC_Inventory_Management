@@ -17,7 +17,11 @@ ViewBag.Title = "Create Source";
                         <label asp-for="@Model.SourceName"></label>
                         <input class="form-control" asp-for="@Model.SourceName" />
                         <span asp-validation-for="@Model.SourceName" class="text-danger"></span>
+                        <label class="mt-1">
+                            <input class="form-check-inline" type="checkbox" asp-for="@Model.IsSelected" />Default
+                        </label>
                     </div>
+                    
                 </div>
             </div>
 

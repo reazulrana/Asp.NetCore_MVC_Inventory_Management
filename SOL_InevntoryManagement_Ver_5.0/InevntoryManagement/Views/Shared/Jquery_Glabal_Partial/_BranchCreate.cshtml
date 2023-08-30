@@ -4,15 +4,17 @@
 }
 
 @*for New Branch Create*@
-<div class="row border bg-danger-light py-2 px-2" id="divBranch" style="display:none">
+<div class="row border bg-blue-dark text-white p-2 mt-2" id="divBranch" style="display:none">
     <div class="col-md-12 text-center py-3">
-        <h3>Add Branch</h3>
+        <h3 class="text-white">Add Branch</h3>
     </div>
     <div class="@colLabel my-2">
         <label>Branch Name</label>
     </div>
     <div class="@colinput my-2">
-
+        <label class="mt-1">
+            <input class="form-check-inline" type="checkbox" id="IsSelectedBranch" />Default
+        </label>
         <input class="form-control" id="txtSaveBranch" placeholder="Enter Branch Name" />
 
 
@@ -36,8 +38,29 @@
     </div>
 
     <div class="@colinput my-2">
+
         <input class="form-control" id="txtSaveBranchIncharge" placeholder="Enter Branch Incharge Name" />
-        <button type="button" id="btnSaveBranch" data-request-url='@Url.Action("Create_Branch_With_Ajax","Branch")' class="btn btn-secondary btn-xs btn-block">Create <span><i class="mdi mdi-plus"></i></span></button>
+
+        <button type="button" id="btnSaveBranch" data-request-url='@Url.Action("Create_Branch_With_Ajax","Branch")' class="btn btn-youtube btn-xs btn-block">Add <span><i class="mdi mdi-plus"></i></span></button>
 
     </div>
+    <hr />
+
+        <div class="col-md-12">
+            <table class="table border">
+                <thead class="bg-danger light text-white">
+                    <tr>
+                        <th style="font-size:10px">Sl</th>
+                        <th style="font-size:10px">Name</th>
+                        <th style="font-size:10px">Selected</th>
+
+                        <th style="font-size:10px">Default</th>
+                    </tr>
+                </thead>
+                <tbody class="text-white" id="BranchTableList">
+                </tbody>
+            </table>
+        </div>
 </div>
+
+@*<table class="table"*@

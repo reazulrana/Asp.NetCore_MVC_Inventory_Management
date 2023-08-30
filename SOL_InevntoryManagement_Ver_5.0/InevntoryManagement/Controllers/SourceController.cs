@@ -26,7 +26,9 @@ namespace InevntoryManagement.Controllers
                           select new SourceListViewModel()
                           {
                               SourceId = obj.Id,
-                              SourceName = obj.SourceName
+                              SourceName = obj.SourceName,
+                               IsSelected=obj.IsSelected
+
                           }
                           ).ToList();
                          
@@ -48,10 +50,16 @@ namespace InevntoryManagement.Controllers
 
             if(ModelState.IsValid)
             {
+                if (model.IsSelected)
+                {
+                    clear_Islected_Source(); // All IsSelected Field Value in Database Will be 0
 
+                }
                 Source source = new Source()
                 {
-                    SourceName = model.SourceName
+                    SourceName = model.SourceName,
+                     IsSelected=model.IsSelected
+                     
                 };
                 unitOfWork.Sources.Insert(source);
                 Global_Functions.SetMessage($"Source Is Created Successfully ( {model.SourceName} )", "success");
@@ -100,8 +108,8 @@ namespace InevntoryManagement.Controllers
                 SourceEditViewModel model = new SourceEditViewModel()
                 {
                     Id = source.Id,
-                    SourceName = source.SourceName
-
+                    SourceName = source.SourceName,
+                     IsSelected=source.IsSelected
                 };
                 return View(model);
 
@@ -130,9 +138,13 @@ namespace InevntoryManagement.Controllers
                 {
 
                     oldSourceName = source.SourceName;
+                    if (updatemodel.IsSelected)
+                    {
+                        clear_Islected_Source(); // All IsSelected Field Value in Database Will be 0
 
+                    }
                     source.SourceName = updatemodel.SourceName.ToUpper();
-
+                    source.IsSelected = updatemodel.IsSelected;
                     unitOfWork.Sources.Update(source);
                     Global_Functions.SetMessage(message:$"Source Update Successfully from {oldSourceName} to {source.SourceName}",status:"success");
 
@@ -151,7 +163,20 @@ namespace InevntoryManagement.Controllers
             return View();
 
         }
+        // All IsSelected Field in source table Value in Database Will be 0
+        private void clear_Islected_Source()
+        {
+            List<Source> sources = unitOfWork.Sources.Get().ToList();
 
+            foreach(var source in sources )
+            {
+                var _source = unitOfWork.Sources.GetByID(source.Id);
+                _source.IsSelected = false;
+                unitOfWork.Sources.Update(_source);
+            }
+
+
+        }
 
 
         [HttpPost]
@@ -185,7 +210,7 @@ namespace InevntoryManagement.Controllers
 
         //call from Ajax from  product form
         [HttpPost]
-        public JsonResult Create_Source_With_Ajax(string source)
+        public JsonResult Create_Source_With_Ajax(string source,bool isselected)
         {
             string msg = "";
 
@@ -195,6 +220,12 @@ namespace InevntoryManagement.Controllers
             {
 
                 var _source = unitOfWork.Sources.Get().Where(x => x.SourceName.ToLower() == source.ToLower()).FirstOrDefault();
+
+                if(isselected)
+                {
+                    // All IsSelected Field in source table Value in Database Will be 0
+                    clear_Islected_Source();
+                }
 
                 //Category Exist
                 if (_source != null)
@@ -206,6 +237,7 @@ namespace InevntoryManagement.Controllers
                 else
                 {
                     output.SourceName = source.ToUpper();
+                    output.IsSelected = isselected;
 
                     unitOfWork.Sources.Insert(output);
                     success = true;

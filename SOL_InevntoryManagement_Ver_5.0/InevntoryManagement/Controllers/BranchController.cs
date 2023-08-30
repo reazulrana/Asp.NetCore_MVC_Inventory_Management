@@ -23,11 +23,23 @@ namespace InevntoryManagement.Controllers
             return View();
         }
 
+        //Clear All IsSelected Field in Branch Table From Database
+        private void clear_IsSelected_Branch()
+        {
+            List<Branch> branchs = unitOfWork.Branchs.Get().ToList();
 
+            foreach (var branch in branchs)
+            {
+                var _branch = unitOfWork.Branchs.GetByID(branch.Id);
+                _branch.IsSelected = false;
+                unitOfWork.Branchs.Update(_branch);
+            }
+
+        }
 
         // Call From Jquery Ajax
         [HttpPost]
-        public JsonResult Create_Branch_With_Ajax(string branch, string contact, string incharge)
+        public JsonResult Create_Branch_With_Ajax(string branch, string contact, string incharge,bool isselected)
         {
             string msg = "";
 
@@ -47,11 +59,16 @@ namespace InevntoryManagement.Controllers
                 }
                 else
                 {
+                    if(isselected)
+                    {
+                        clear_IsSelected_Branch(); //Clear All IsSelected Field in Branch Table From Database
+                    }
+
                     output.Name = branch.ToUpper();
 
                     output.Contact = contact.ToUpper();
                     output.BranchIncharge = incharge.ToUpper();
-
+                    output.IsSelected = isselected;
                     unitOfWork.Branchs.Insert(output);
                     success = true;
                     msg = Global_Functions.SaveMessage("Branch");
@@ -69,8 +86,35 @@ namespace InevntoryManagement.Controllers
 
 
 
-        // call with ajax function from Purchase Create form jquery 
+        // call with ajax function from Sale Form Branch List Table
+        [HttpGet]
+        public JsonResult GetAjaxBranchList()
+        {
+            var output = unitOfWork.Branchs.Get();
 
+
+            return new JsonResult(new { output });
+        }
+
+
+        [HttpPost]
+        public JsonResult BranchMakeDefault(string id)
+        {
+            int intid = int.Parse(id);
+            var branch = unitOfWork.Branchs.GetByID(intid);
+            string msg = "There Is Some Problem. You Cannot update the Record";
+            if(branch!=null)
+            {
+                clear_IsSelected_Branch();
+                branch.IsSelected = true;
+
+                unitOfWork.Branchs.Update(branch);
+                msg = "Record Update Successfully";
+            }
+
+            return new JsonResult(new { msg });
+        }
+        
 
     }
 }

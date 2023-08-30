@@ -11,8 +11,12 @@
             <h2 class="card-title text-white">Create Size/Dimension</h2>
         </div>
         <div class="card-body">
-
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-danger" asp-validation-summary="All"></div>
+                    <partial name="_Messages" />
+                </div>
+            </div>
 
             @*Type Section*@
 
@@ -34,11 +38,13 @@
                     <label asp-for="@Model.Size" class="col-form-label"></label>
                 </div>
                 <div class="col-md-10">
-                    <div class="text-danger" asp-validation-summary="All"></div>
-                    <partial name="_Messages" />
+
 
                     <input asp-for="@Model.Size" class="form-control border" placeholder="Enter Size" title="Size" />
                     <span asp-validation-for="@Model.Size" class="text-danger"></span>
+                    <label class="mt-1">
+                        <input class="form-check-inline" type="checkbox" asp-for="@Model.IsSelected" />Default
+                    </label>
                 </div>
             </div>
 

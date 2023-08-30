@@ -13,5 +13,6 @@ namespace BussinessAccessLayer.Model
         [Required]
         [MaxLength(25,ErrorMessage ="Max Length Is 25 You Can Not Exceed This Length ")]
         public string Types { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

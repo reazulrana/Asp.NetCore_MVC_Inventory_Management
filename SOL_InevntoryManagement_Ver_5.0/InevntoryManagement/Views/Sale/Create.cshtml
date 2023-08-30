@@ -51,20 +51,31 @@
     <script src="~/DuplicateModelShow.js"></script>
     <script src="~/ProductAddRemove.js"></script>
     <script src="~/Amount.js"></script>
-<script>
+    <script>
     $(document).ready(function () {
 
+        //BranchTableList
+       // getlist();
 
-        $("#TrDate").datepicker();
-        $("#branchname").select2()
+        //$("#TrDate").datepicker();
+        //$("#branchname").select2()
+        
+        callBranchListOnFormLoad('@Url.Action("GetAjaxBranchList","Branch")');
+        callPaymentTypeListOnFormLoad('@Url.Action("GetAjaxPaymentTypeList", "PaymentType")');
+
+        //function getlist() {
+        //    alert("Welcome to GetList Branch");
+        //}
+
+
 
         $("#Invoice").keydown(function (event) {
             let keyCode = event.keyCode ? event.keyCode : event.which
 
-            if ($(this).length <= 9)
-            {
+            //if ($(this).length <= 9)
+            //{
                 event.preventDefault();
-            }
+            //}
 
 
         })
@@ -82,5 +93,5 @@
 
         })
     })
-</script>
+    </script>
 }

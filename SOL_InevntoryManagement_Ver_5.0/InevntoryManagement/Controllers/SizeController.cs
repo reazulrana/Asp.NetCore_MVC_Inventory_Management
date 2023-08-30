@@ -107,11 +107,17 @@ namespace InevntoryManagement.Controllers
             {
 
                 string strSize = model.Type == 1 ? "Size" : "Dimension";
+                if (model.IsSelected)
+                {
+                    clear_IsSelected_Size(); //Clear All IsSelected Field in Size Table From Database
 
+                }
                 Size size = new Size()
                 {
                     ProductSize = model.Size,
-                    SizeType = model.Type
+                    SizeType = model.Type,
+                     IsSelected=model.IsSelected
+                     
 
                 };
 
@@ -159,7 +165,7 @@ namespace InevntoryManagement.Controllers
                 {
                     output.ProductSize = size.ToUpper();
                     output.SizeType = sizetype;
-
+                    //output.IsSelected = IsSelected
                     unitOfWork.Sizes.Insert(output);
                     success = true;
                     msg = Global_Functions.SaveMessage("Size");
@@ -204,6 +210,7 @@ namespace InevntoryManagement.Controllers
                     SizeId = result.Id,
                     Size = result.ProductSize,
                     Type = result.SizeType,
+                     IsSelected=result.IsSelected,
                     Types = new List<SelectListItem>()
                      {
                          new SelectListItem()
@@ -261,10 +268,15 @@ namespace InevntoryManagement.Controllers
 
                 else
                 {
+                    if (model.IsSelected)
+                    {
+                        clear_IsSelected_Size(); //Clear All IsSelected Field in Size Table From Database
+
+                    }
 
                     result.ProductSize = model.Size;
                     result.SizeType = model.Type;
-
+                    result.IsSelected = model.IsSelected;
                     unitOfWork.Sizes.Update(result);
                     Global_Functions.SetMessage($"Size Update Successfully from { strsize } To {model.Size }", "success");
                     return RedirectToAction("SizeList", "Size");
@@ -313,6 +325,19 @@ namespace InevntoryManagement.Controllers
             return View();
         }
 
+        //Clear All IsSelected Field in Size Table From Database
+        private void clear_IsSelected_Size()
+        {
+            List<Size> sizes = unitOfWork.Sizes.Get().ToList();
+
+            foreach (var size in sizes)
+            {
+                var _size = unitOfWork.Sizes.GetByID(size.Id);
+                _size.IsSelected = false;
+                unitOfWork.Sizes.Update(_size);
+            }
+
+        }
 
 
 

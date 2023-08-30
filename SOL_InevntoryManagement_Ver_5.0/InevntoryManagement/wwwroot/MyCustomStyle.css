@@ -11,7 +11,9 @@
 .form-control {
     background-color: white !important;
     border:0.5px solid rgb(230,230,230)!important;
-    height:41px !important
+    height:33px !important;
+    font-size:11px
+
 
 }
 
@@ -140,8 +142,14 @@ input, select {
             height: inherit;
         }
 */
+
+    table {
+        width:100%
+    }
+
     @media (max-width: 768px) {
         .custom-tab-1 > ul{
         font-size:10px;
     }
 }
+

@@ -42,6 +42,9 @@
                 </div>
                 <div class="col-md-10">
                     <input asp-for="@Model.Contact" class="form-control" />
+                    <label class="mt-1">
+                        <input class="form-check-inline" type="checkbox" asp-for="@Model.IsSelected" />Default
+                    </label>
                 </div>
             </div>
 

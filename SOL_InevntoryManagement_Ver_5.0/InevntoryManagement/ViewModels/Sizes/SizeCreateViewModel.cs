@@ -16,8 +16,8 @@ namespace InevntoryManagement.ViewModels.Sizes
 
         [Required]
         public int Type{ get; set; }
-
-       public  List<SelectListItem> Types { get; set; }
+        public bool IsSelected { get; set; }
+        public  List<SelectListItem> Types { get; set; }
 
     }
 }

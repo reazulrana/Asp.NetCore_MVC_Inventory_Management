@@ -23,6 +23,9 @@
         <label for="txtSaveVendor">Context</label>
     </div>
     <div class="@tabcolinput">
+        <label class="mt-1">
+            <input class="form-check-inline" type="checkbox" id="IsSelectedVendor" />Default
+        </label>
         <input class="form-control" id="txtSaveVendorContact" placeholder="Enter Vendor Contact" />
         <button type="button" data-request-url='@Url.Action("Create_Vendor_With_Ajax", "Vendor")' class="btn btn-whatsapp btn-xs pull-right" id="btnSaveVendor">Add <span><i class="mdi mdi-plus"></i></span></button>
     </div>

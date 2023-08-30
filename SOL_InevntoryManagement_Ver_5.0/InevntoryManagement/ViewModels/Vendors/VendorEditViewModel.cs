@@ -11,6 +11,7 @@ namespace InevntoryManagement.ViewModels.Vendors
 
         [Required]
         public int VendorId { get; set; }
+        public string VendorName { get; set; }
 
     }
 }

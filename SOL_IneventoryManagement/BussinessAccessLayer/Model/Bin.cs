@@ -15,6 +15,7 @@ namespace BussinessAccessLayer.Model
         [MaxLength(10, ErrorMessage = "Max Legth is 10 That You Have Excced")]
 
         public string BinNo { get; set; }
+        public bool IsSelected { get; set; }
 
     }
 }
