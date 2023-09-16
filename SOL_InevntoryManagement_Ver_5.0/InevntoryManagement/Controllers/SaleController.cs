@@ -9,7 +9,8 @@ using InevntoryManagement.ViewModels.Sales;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BussinessAccessLayer.Model;
 using InevntoryManagement.GlobalFuntion;
-
+using InevntoryManagement.ViewModels.Purchase;
+using System.Data.SqlClient;
 namespace InevntoryManagement.Controllers
 {
     public class SaleController : Controller
@@ -19,6 +20,7 @@ namespace InevntoryManagement.Controllers
         public SaleController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+            //SqlConnection
         }
         
         public IActionResult Index()
@@ -27,6 +29,8 @@ namespace InevntoryManagement.Controllers
             return View();
         }
 
+
+        [HttpGet]
         public IActionResult Create()
         {
             SaleCreateViewModel model = new SaleCreateViewModel();
@@ -53,6 +57,153 @@ namespace InevntoryManagement.Controllers
             model.Invoice = fulldate;
             return View(model);
         }
+
+
+        [HttpPost]
+        public IActionResult Create(SaleCreateViewModel model, string btnSave)
+        {
+
+
+            model.BranchList = BranchList(model);
+            model.SaleTypeList = SaleTypes(model);
+
+            model.SaleFromList = SaleFroms(model);
+            model.PaymentTypeList = PaymentTypeList(model);
+            model.PurchaseProductInfos = GetProductTableList(model);
+
+            if (ModelState.IsValid)
+            {
+                if (model.ProductIds == null || model.ProductIds.Count <= 0)
+                {
+                    Global_Functions.SetMessage("Prodcut List Is Empty", "danger");
+                    return View(model);
+                }
+
+                try
+                {
+                    unitOfWork.BeginTransaction();
+                    //customer section
+                    Customer customer = new Customer()
+                    {
+                        CustName = model.CustName,
+                        Address = model.Address,
+                        Contact = model.Contact
+                    };
+                    unitOfWork.Customers.Insert(customer);
+
+
+                    //sale sectioon
+                    Sale sale = new Sale()
+                    {
+                        Invoice = model.Invoice,
+                        TrDate = model.TrDate,
+                        CustomerID = customer.ID,
+                        UserID = 1,
+                        Remarks = model.Remarks,
+                        BranchId = model.BranchId,
+                        //OrderNo=model.order
+                        PaymentTypeId = model.PaymentTypeId,
+                        SaleType = model.SaleType,
+                        SaleFrom = model.SaleFrom,
+                        //OrderNo=model.order
+                    };
+
+
+                    unitOfWork.Sales.Insert(sale);
+
+
+                    Amount amount = new Amount()
+                    {
+                        TrID = sale.SaleID,
+                        Discount = model.Discount,
+                        Dues = model.Dues,
+                        GrossAmount = model.GrossAmount,
+                        NetAmount = model.NetAmount,
+                        Others = model.Others,
+                        PaymentOnCash = model.PaymentOnCash,
+                        PaymentTypeId = model.PaymentTypeId,
+                        TotalAmount = model.TotalAmount,
+                        Transport = model.Transport,
+                        TrType = 2
+                    };
+                    unitOfWork.Amounts.Insert(amount);
+
+                    List<MasterDetail> masterDetailslist = new List<MasterDetail>();
+                    for (int i = 0; i <= model.ProductIds.Count - 1; i++)
+                    {
+                        MasterDetail masterDetail = new MasterDetail()
+                        {
+                            AmountId = amount.Id,
+                            ProductId = model.ProductIds[i],
+                            Price = model.Prices[i],
+                            Qty = model.Qtys[i],
+                        };
+                        masterDetailslist.Add(masterDetail);
+
+                    }
+                    unitOfWork.MasterDetails.Insert(masterDetailslist);
+
+                    unitOfWork.CommitTransaction();
+                    Global_Functions.SetMessage("Sale Invoice Saved Successfully", "success");
+
+                    if (btnSave.ToLower() == "saveprint")
+                    {
+                        return RedirectToAction("Print", "Report",new { saleid= sale.SaleID });
+                    }
+                    return View(model);
+
+               
+
+                }
+                catch
+                {
+                    unitOfWork.RollbackTransaction();
+
+                }
+
+
+
+            }
+
+
+
+
+
+
+            return View(model);
+        }
+
+
+        List<PurchaseProductInfo> GetProductTableList(SaleCreateViewModel model)
+        {
+            if (model.ProductIds.Count > 0)
+            {
+                for (int i = 0; i < model.ProductIds.Count; i++)
+                {
+                    PurchaseProductInfo pi = new PurchaseProductInfo()
+                    {
+                        ProdId = model.ProductIds[i],
+                        code = model.Codes[i],
+                        color = model.Colors[i],
+                        description = model.Descriptions[i],
+                        model = model.Models[i],
+                        photopath = model.Images[i],
+                        price = model.Prices[i],
+                        qty = model.Qtys[i],
+                        size = model.Sizes[i]
+
+                    };
+
+                    model.PurchaseProductInfos.Add(pi);
+                }
+
+            }
+
+
+            return model.PurchaseProductInfos;
+        }
+
+
 
 
         //Get All Branch From Database

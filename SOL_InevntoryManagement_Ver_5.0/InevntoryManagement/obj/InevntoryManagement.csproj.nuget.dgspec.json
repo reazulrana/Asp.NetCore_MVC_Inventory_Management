@@ -114,6 +114,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.151, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -192,6 +196,9 @@
               },
               "E:\\Asp.Net Core Project\\SOL_IneventoryManagement\\DataAccessLayer\\DataAccessLayer.csproj": {
                 "projectPath": "E:\\Asp.Net Core Project\\SOL_IneventoryManagement\\DataAccessLayer\\DataAccessLayer.csproj"
+              },
+              "E:\\Asp.Net Core Project\\SOL_InevntoryManagement_Ver_5.0\\WinReportingSol\\WinReportingSol.csproj": {
+                "projectPath": "E:\\Asp.Net Core Project\\SOL_InevntoryManagement_Ver_5.0\\WinReportingSol\\WinReportingSol.csproj"
               }
             }
           }
@@ -206,6 +213,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AspNetCore.Reporting": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.17, )"
@@ -250,6 +261,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "System.Text.Encoding.CodePages": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Westwind.AspNetCore.LiveReload": {
               "target": "Package",
               "version": "[0.4.2, )"
@@ -275,6 +290,21 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
         }
+      }
+    },
+    "E:\\Asp.Net Core Project\\SOL_InevntoryManagement_Ver_5.0\\WinReportingSol\\WinReportingSol.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Asp.Net Core Project\\SOL_InevntoryManagement_Ver_5.0\\WinReportingSol\\WinReportingSol.csproj",
+        "projectName": "WinReportingSol",
+        "projectPath": "E:\\Asp.Net Core Project\\SOL_InevntoryManagement_Ver_5.0\\WinReportingSol\\WinReportingSol.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
       }
     }
   }

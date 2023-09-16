@@ -31,6 +31,8 @@ namespace DataAccessLayer.Services.Interface
         IRepository<Sale> Sales { get; }
         IRepository<SellFrom> SellFroms { get; }
         IRepository<SellingType> SellingTypes { get; }
+        IRepository<Customer> Customers { get; }
+
 
 
 

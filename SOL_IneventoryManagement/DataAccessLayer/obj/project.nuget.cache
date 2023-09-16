@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "GZUpHBzmqgSgRvq8bFXNpu4VtYsT67YpnraX3dc0Jndkq4986X6yyGyFA5OjcxdwvUhTyg0dNU1JmMCW4CITdA==",
+  "dgSpecHash": "uQaycBjJYJ4oswIfvVUfMA/sehW337o7LMXlR3T3pVMRSFTA8Amg+QkHCnkt4gOYALvoj+smCX44gncbfMCcqw==",
   "success": true,
   "projectFilePath": "E:\\Asp.Net Core Project\\SOL_IneventoryManagement\\DataAccessLayer\\DataAccessLayer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\rana5\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\microsoft.aspnet.mvc\\5.2.9\\microsoft.aspnet.mvc.5.2.9.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.9\\microsoft.aspnet.razor.3.2.9.nupkg.sha512",

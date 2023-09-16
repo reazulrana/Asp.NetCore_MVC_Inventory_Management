@@ -15,6 +15,7 @@ using DataAccessLayer.Services.Interface;
 using DataAccessLayer.Services.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using DataAccessLayer.Dapper;
 
 namespace InevntoryManagement
 {
@@ -41,6 +42,11 @@ namespace InevntoryManagement
             services.AddDbContext<AppDbContext>
             (options => options.UseSqlServer(_config.GetConnectionString("DatabasDbConnection")));
 
+            //dapper
+
+
+
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
@@ -61,8 +67,10 @@ namespace InevntoryManagement
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>();
 
-             //policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-             //use for identityuser
+            services.AddScoped<IService, Service>(); //dapper Line
+                
+            //policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+            //use for identityuser
             services.AddMvc(options =>
             {
                 //options.EnableEndpointRouting = false;

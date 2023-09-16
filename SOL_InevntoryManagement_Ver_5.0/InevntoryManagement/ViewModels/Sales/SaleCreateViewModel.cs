@@ -18,7 +18,7 @@ namespace InevntoryManagement.ViewModels.Sales
         [Required]
         [Display(Name ="Invoice Date")]
         public DateTime TrDate { get; set; }
-        public int CustomerID { get; set; }
+        //public int CustomerID { get; set; }
 
         [Required]
         [Display(Name ="Sell Type")]

@@ -22,7 +22,7 @@ namespace BussinessAccessLayer.Model
         public int NetAmount { get; set; }
         public int PaymentTypeId { get; set; }
 
-        public virtual List<MasterDetail> MasterDetails { get; set; }
+        public virtual List<MasterDetail> MasterDetails { get; set; } = new List<MasterDetail>();
 
     }
 }

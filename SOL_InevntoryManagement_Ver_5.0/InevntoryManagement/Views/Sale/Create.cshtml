@@ -5,57 +5,87 @@
 }
 
 
-<div class="card">
-    <div class="card-header">
-
-    </div>
-    <div class="card-body">
-        <div class="row border">
-            <div class="col-md-12 bg-danger-light">
-                @Html.Partial("~/Views/Shared/sales/_SaleDetails.cshtml", Model);
-
-            </div>
-            <div class="col-md-12 @margin">
-                @Html.Partial("~/Views/Shared/sales/_CustomerInformation.cshtml", Model);
-            </div>
-
-            <div class="col-md-12 @margin bg-success-light">
-                <h5 class="row py-2 px-3 bg-blue-dark text-white">Product Add</h5>
-
-                @Html.Partial("~/Views/Shared/sales/_SalesProductDetails.cshtml", Model);
-
-            </div>
-
-            <div class="col-md-12 @margin bg-primary-light">
-                <h5 class="row py-2 px-3 bg-blue-dark text-white">Bill Information</h5>
-
-                @Html.Partial("~/Views/Shared/sales/_SalesPriceDetails.cshtml", Model);
-
-            </div>
-
+<form method="post" asp-controller="Sale" asp-action="Create">
+    <div class="card" id="parentdiv">
+        <div class="card-header">
+            Create Sale Invoice
         </div>
-    </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-md-3">
-                <button class="btn btn-xs btn-facebook">Create<span><i class="mdi mdi-plus"></i></span></button>
+        <div class="card-body">
+            <div class="row border">
+                <div class="col-md-12">
+                    <partial name="~/Views/Shared/_Messages.cshtml" /> 
+                </div>
+                <div class="col-md-12 bg-danger-light">
+                    @Html.Partial("~/Views/Shared/sales/_SaleDetails.cshtml", Model);
+
+                </div>
+                <div class="col-md-12 py-3 @margin">
+                    @Html.Partial("~/Views/Shared/sales/_CustomerInformation.cshtml", Model);
+                </div>
+
+                <div class="col-md-12 @margin bg-success-light">
+                    <h5 class="row py-2 px-3 bg-blue-dark text-white">Product Add</h5>
+
+                    @Html.Partial("~/Views/Shared/sales/_SalesProductDetails.cshtml", Model);
+
+                </div>
+
+                <div class="col-md-12 @margin bg-primary-light">
+                    <h5 class="row py-2 px-3 bg-blue-dark text-white">Bill Information</h5>
+
+                    @Html.Partial("~/Views/Shared/sales/_SalesPriceDetails.cshtml", Model);
+
+                </div>
+
             </div>
         </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="submit" name="btnSave" value="save" class="btn btn-xs btn-facebook">Save<span><i class="mdi mdi-plus"></i></span></button>
+                    <button type="submit" name="btnSave" value="saveprint" class="btn btn-xs btn-facebook">Save and  Print<span><i class="mdi mdi-plus"></i></span></button>
+
+                    <button type="button" id="btnExport" class="btn btn-xs btn-facebook">Export<span><i class="mdi mdi-plus"></i></span></button>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" name="btnSave" value="saveprint" class="btn btn-xs btn-facebook">Save and  Print<span><i class="mdi mdi-plus"></i></span></button>
+
+                </div>
+                <div class="col-md-4">
+
+                    <button type="button" id="btnExport" class="btn btn-xs btn-facebook">Export<span><i class="mdi mdi-plus"></i></span></button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-
+</form>
 
 
 @section Scripts{ 
     <script src="~/DuplicateModelShow.js"></script>
     <script src="~/ProductAddRemove.js"></script>
     <script src="~/Amount.js"></script>
+    <script src="~/Sales.js"></script>
     <script>
     $(document).ready(function () {
 
         //BranchTableList
        // getlist();
+
+        $("#btnExport").click(function () {
+            let element = $("#parentdiv")
+
+
+            html2pdf().from(element).set({
+                margin: [10, 10, 10, 10],
+                pagebreak: {avoid:"tr"},
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait', compressPDF: true }
+
+
+            }).save();
+
+        })
 
         //$("#TrDate").datepicker();
         //$("#branchname").select2()

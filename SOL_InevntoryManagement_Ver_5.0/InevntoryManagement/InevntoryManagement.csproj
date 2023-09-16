@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
@@ -25,16 +26,27 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
     <PackageReference Include="Westwind.AspNetCore.LiveReload" Version="0.4.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\SOL_IneventoryManagement\BussinessAccessLayer\BussinessAccessLayer.csproj" />
     <ProjectReference Include="..\..\SOL_IneventoryManagement\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\WinReportingSol\WinReportingSol.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\Projects\Images\Product\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\Reports\Report1.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Reports\rptSaleInvoice.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

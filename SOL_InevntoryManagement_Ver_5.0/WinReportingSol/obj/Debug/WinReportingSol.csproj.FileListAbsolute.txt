@@ -1,0 +1,16 @@
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\WinReportingSol.exe.config
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\WinReportingSol.exe
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\WinReportingSol.pdb
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.csproj.AssemblyReference.cache
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.Properties.Resources.resources
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.csproj.GenerateResource.cache
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\RdlCompile.cache
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\RdlCompile.compiled
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.csproj.CoreCompileInputs.cache
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.exe
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.pdb
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\EntityFramework.dll
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\EntityFramework.SqlServer.dll
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\EntityFramework.xml
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\EntityFramework.SqlServer.xml
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.csproj.CopyComplete
