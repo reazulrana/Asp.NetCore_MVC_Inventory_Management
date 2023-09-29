@@ -8,11 +8,31 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Dapper
 {
-    public interface IService
+    public interface IDapperService
     {
+        #region Sales Section
         SaleInvoiceInfo GetSaleInvoiceById(int id);
         List<SaleInvoiceInfo> GetAllInvoiceList { get; }
+        List<SaleDetails> GetSaletList { get; }
+
+
+
+
+        #endregion
+
+        #region Amounts Section
         Amount GetSaleAmountByTrID(int id);
+        #endregion
+
+        #region Products Section
         List<ProductInfo> GetSaleProductInfoById(int SaleId);
+        List<ProductBalance> GetProductBalance { get; }
+        ProductBalance GetProductBalanceById(int id);
+
+        List<ProductBalance> GetProductBalanceSatrtwith(string term, string searchfield);
+
+
+        #endregion
+
     }
 }

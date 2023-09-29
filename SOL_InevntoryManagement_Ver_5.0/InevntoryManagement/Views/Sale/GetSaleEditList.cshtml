@@ -1,0 +1,75 @@
+﻿@model List<SaleDetails>
+
+@{ 
+    ViewBag.Title = "Sale Edit List";
+
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row mt-2">
+            <div class="col-md-12 mt-3">
+                <table class="table  table-bordered table-responsive text-center">
+                    <thead class="bg-secondary">
+                        <tr class="text-white">
+                            <th><small>SL</small></th>
+                            <th><small>Invoice No# </small> </th>
+                            <th><small>Invoice Date</small> </th>
+                            <th><small>Branch</small> </th>
+                            <th><small>Payment Type</small> </th>
+                            <th><small>Product Price</small> </th>
+                            <th><small>Cash On Payment</small> </th>
+                            <th><small>Dues</small> </th>
+                            <th><small>Transport</small> </th>
+                            <th><small>Others</small> </th>
+                            <th><small>Discount</small> </th>
+                            <th><small>Net Amount</small> </th>
+                            <th colspan="2">Edit/Delete</small> </th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="productlist">
+
+                        @if (Model.Count > 0)
+                        {
+                            int sl = 1;
+                            foreach (var p in Model)
+                            {
+                                //string _photopath = (p.photopath == null || p.photopath == "") ? "~/" + ImagePath.GetDefaultImagePath("No_Image_Avaiable.jpg") : "~/" + ImagePath.GetProductImagePath(p.photopath);
+                                //int totalamount = p.qty * p.price;
+                        <tr>
+                            <td>@sl </td>
+                            <td>@p.Invoice</td>
+                            <td>@p.TrDate</td>
+                            <td>@p.Branch </td>
+                            <td>@p.PaymentType</td>
+                            <td>@p.TotalAmount</td>
+                            <td>@p.PaymentOnCash</td>
+                            <td>@p.Dues</td>
+                            <td>@p.Transport</td>
+                            <td>@p.Others</td>
+                            <td>@p.Discount</td>
+                            <td>@p.NetAmount</td>
+                            <td>
+                                <a asp-controller="Report" asp-action="PrintSaleInvoice" asp-route-saleid="@p.SaleID" class="btn btn-outline-info btn-xs" title="Print Invoice"><span class="ml-1"><i class="mdi mdi-view-list"></i></span></a>
+                                <a asp-controller="Sale" asp-action="Edit" asp-route-id="@p.SaleID" class="btn btn-outline-info btn-xs" title="Details"><span class="ml-1"><i class="mdi mdi-eye"></i></span></a>
+
+                                <a asp-controller="Sale" asp-action="Edit" asp-route-id="@p.SaleID" class="btn btn-outline-info btn-xs" title="Edit"><span class="ml-1"><i class="mdi mdi-pencil"></i></span></a>
+                                <a asp-controller="Sale" asp-action="Delete" asp-route-id="@p.SaleID" class="btn btn-outline-danger btn-xs" title="Delete"><span class="ml-1"><i class="mdi mdi-delete"></i></span></a>
+                            </td>
+                           
+
+
+                        </tr>
+                                sl = sl + 1;
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+

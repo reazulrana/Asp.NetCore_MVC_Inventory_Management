@@ -67,7 +67,7 @@ namespace InevntoryManagement
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>();
 
-            services.AddScoped<IService, Service>(); //dapper Line
+            services.AddScoped<IDapperService, DapperService>(); //dapper Line
                 
             //policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             //use for identityuser

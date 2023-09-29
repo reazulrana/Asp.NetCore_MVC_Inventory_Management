@@ -1,0 +1,58 @@
+﻿@model List<ProductBalance>
+@{
+    ViewBag.Title = "Product Balance";
+}
+
+
+@*tp.Id, tp.Code,tp.Description,tp.CType,tp.ModelName,tp.Size, 
+    coalesce(tp.pQty,0) as purqty, coalesce(ts.sQty,0) saleQty*@
+<h1>Welcome To Product Balance Page</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Sl</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Model</th>
+            <th>Size</th>
+            <th>Total Purchase Qty</th>
+            <th>Total Sale Qty</th>
+            <th>Balance</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            foreach(ProductBalance p in Model) 
+            {
+        <tr>
+
+            <td></td>
+            <td>@p.code</td>
+            <td>@p.Description</td>
+            <td>@p.CType</td>
+            <td>@p.ModelName</td>
+            <td>@p.Size</td>
+            <td>@p.purqty</td>
+            <td>@p.saleQty</td>
+            <td>@p.Balance</td>
+
+
+        </tr>
+            }
+        }
+        else
+        {
+            <tr>
+
+                <td>
+                    <h1>Product Balance Not Avaiable</h1>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

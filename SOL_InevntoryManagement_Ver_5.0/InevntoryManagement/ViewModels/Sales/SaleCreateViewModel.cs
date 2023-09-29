@@ -1,5 +1,6 @@
 ﻿using BussinessAccessLayer.Model;
-using InevntoryManagement.ViewModels.Purchase;
+using BussinessAccessLayer.ExtendModel;
+//using InevntoryManagement.ViewModels.Purchase;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,10 @@ namespace InevntoryManagement.ViewModels.Sales
 
         [Required]
         [Display(Name ="Sell Type")]
-        public string SaleType { get; set; } //corporate
+        public int SaleType { get; set; } //corporate
         [Required]
         [Display(Name = "Sell Point")]
-        public string SaleFrom { get; set; } // Online/Showroom
+        public int SaleFrom { get; set; } // Online/Showroom
 
         [Display(Name = "Customer Name")]
         [Required]
@@ -46,7 +47,7 @@ namespace InevntoryManagement.ViewModels.Sales
         //public virtual Customer Customer { get; set; }
         //[MaxLength(30, ErrorMessage = "Max Legth is 30 That You Have Excced")]
         //public string OrderNo { get; set; }
-
+        
 
 
 
@@ -91,7 +92,7 @@ namespace InevntoryManagement.ViewModels.Sales
         public List<SelectListItem> SaleTypeList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> SaleFromList { get; set; } = new List<SelectListItem>();
         
-        public List<PurchaseProductInfo> PurchaseProductInfos { get; set; } = new List<PurchaseProductInfo>();
+        public List<ProductInfo> ProductInfos { get; set; } = new List<ProductInfo>();
 
 
 

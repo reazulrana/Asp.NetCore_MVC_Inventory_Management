@@ -15,6 +15,8 @@ using Newtonsoft.Json;
 using System.Data;
 using System.Text;
 using InevntoryManagement.ViewModels.Purchase;
+using DataAccessLayer.Dapper;
+using BussinessAccessLayer.ExtendModel;
 
 namespace InevntoryManagement.Controllers
 {
@@ -22,16 +24,27 @@ namespace InevntoryManagement.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IWebHostEnvironment _iWebHostEnvironment;
+        private readonly IDapperService dapperService;
 
-        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment _hostingEnvironment)
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment _hostingEnvironment,IDapperService dapperService)
         {
 
             this.unitOfWork = unitOfWork;
             this._iWebHostEnvironment = _hostingEnvironment;
-
-
+            this.dapperService = dapperService;
         }
 
+
+
+        [HttpGet]
+        [ResponseCache(Duration =10)]
+        public IActionResult ProductBalance()
+        {
+            List<ProductBalance> output = dapperService.GetProductBalance;
+
+            return View(output);
+
+        }
 
         [HttpGet]
         public IActionResult Create()
@@ -710,21 +723,20 @@ namespace InevntoryManagement.Controllers
                         
             }
 
-            //StringBuilder st = new StringBuilder();
-            //st.Append("<table> </br>");
-            //st.Append("<tbody> </br>");
-            //st.Append("<tr> </br>");
-            //foreach(string c in output)
-            //{
-            //    st.Append("<td>" + c + "</td>");
-            //}
+            return new JsonResult(new { output });
+        }
 
-            //st.Append("</tr> </br>");
-            //st.Append("</tbody>");
-            //st.Append("</table>");
+       [HttpGet]
+        public JsonResult FindProductwithbalance(string term, string searchField)
+        {
+            List<ProductBalance> output = new List<ProductBalance>();
+            
+                 output= dapperService.GetProductBalanceSatrtwith(term,searchField);
+            
 
             return new JsonResult(new { output });
         }
+
 
 
     }

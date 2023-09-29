@@ -514,12 +514,12 @@ namespace DataAccessLayer.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("SaleFrom")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SaleFrom")
+                        .HasColumnType("int");
 
-                    b.Property<string>("SaleType")
+                    b.Property<int>("SaleType")
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("TrDate")
                         .HasColumnType("datetime2");

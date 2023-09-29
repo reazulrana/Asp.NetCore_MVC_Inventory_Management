@@ -85,7 +85,7 @@ namespace InevntoryManagement.ViewModels.Purchase
         public List<SelectListItem> VendorList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> SourceList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> PaymentTypeList { get; set; } = new List<SelectListItem>();
-        public List<PurchaseProductInfo> PurchaseProductInfos { get; set; } = new List<PurchaseProductInfo>();
+        public List<ProductInfo> PurchaseProductInfos { get; set; } = new List<ProductInfo>();
 
 
         #endregion

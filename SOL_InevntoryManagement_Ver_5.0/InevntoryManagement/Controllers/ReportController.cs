@@ -18,9 +18,9 @@ namespace InevntoryManagement.Controllers
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IService _service;
+        private readonly IDapperService _service;
 
-        public ReportController(IWebHostEnvironment webHostEnvironment, IUnitOfWork unitOfWork, IService service)
+        public ReportController(IWebHostEnvironment webHostEnvironment, IUnitOfWork unitOfWork, IDapperService service)
         {
             this._webHostEnvironment = webHostEnvironment;
             this._unitOfWork = unitOfWork;
@@ -32,7 +32,9 @@ namespace InevntoryManagement.Controllers
             return View();
         }
 
-        public IActionResult Print(int saleid)
+
+        [HttpGet]
+        public IActionResult PrintSaleInvoice(int saleid)
         {
             //SaleInvoice tmodel = new SaleInvoice()
             //{
@@ -75,7 +77,7 @@ namespace InevntoryManagement.Controllers
 
             // Sale Table
             param.Add("pinvoice", sale.Invoice);
-            param.Add("pInvoiceDate", sale.TrDate.ToString());
+            param.Add("pInvoiceDate", sale.TrDate.ToShortDateString().ToString());
             param.Add("pBranch", branch.Name);
             param.Add("pPaymentType", paymentType.Payments);
             param.Add("pRemarks", sale.Remarks);
@@ -91,9 +93,9 @@ namespace InevntoryManagement.Controllers
             param.Add("pNetAmount", saleinvoice.amount.NetAmount.ToString());
             
             //Seller company information
-            param.Add("pCompanyName", CompanyInformation.Name);
-            param.Add("pCompanyAddress", CompanyInformation.Address);
-            param.Add("pCompanyContact", CompanyInformation.Contact);
+            param.Add("pCompanyName","Company Name: " + CompanyInformation.Name);
+            param.Add("pCompanyAddress", "Address: " + CompanyInformation.Address);
+            param.Add("pCompanyContact", "Contact No: " + CompanyInformation.Contact);
 
 
 

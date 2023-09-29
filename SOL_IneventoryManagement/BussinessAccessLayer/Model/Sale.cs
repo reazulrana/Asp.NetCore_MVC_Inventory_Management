@@ -25,8 +25,8 @@ namespace BussinessAccessLayer.Model
 
         public string OrderNo { get; set; }
         [MaxLength(30, ErrorMessage = "Max Legth is 30 That You Have Excced")]
-        public string SaleType { get; set; } //corporate
-        public string SaleFrom { get; set; } // Online/Showroom
+        public int SaleType { get; set; } //corporate
+        public int SaleFrom { get; set; } // Online/Showroom
 
         public int BranchId { get; set; }
 

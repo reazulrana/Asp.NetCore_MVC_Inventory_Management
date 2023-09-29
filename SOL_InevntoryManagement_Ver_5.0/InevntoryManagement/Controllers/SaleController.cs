@@ -9,17 +9,22 @@ using InevntoryManagement.ViewModels.Sales;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BussinessAccessLayer.Model;
 using InevntoryManagement.GlobalFuntion;
-using InevntoryManagement.ViewModels.Purchase;
+//using InevntoryManagement.ViewModels.Purchase;
 using System.Data.SqlClient;
+using DataAccessLayer.Dapper;
+using BussinessAccessLayer.ExtendModel;
+
 namespace InevntoryManagement.Controllers
 {
     public class SaleController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IDapperService dapperService;
 
-        public SaleController(IUnitOfWork unitOfWork)
+        public SaleController(IUnitOfWork unitOfWork,IDapperService dapperService)
         {
             this.unitOfWork = unitOfWork;
+            this.dapperService = dapperService;
             //SqlConnection
         }
         
@@ -28,6 +33,9 @@ namespace InevntoryManagement.Controllers
 
             return View();
         }
+
+
+        #region create part
 
 
         [HttpGet]
@@ -46,7 +54,7 @@ namespace InevntoryManagement.Controllers
 
             //List<int> sb= s as List<int>;
 
-            string maxno = s.Count > 0 ? (s.Max() + 1).ToString() : "1";
+            string maxno = s.Count > 0 ? (s.Max() + 1).ToString() : "1"; // Increment 1 with last Invoice No 
 
             string day = DateTime.Today.Day.ToString().Length == 1 ? "0" + DateTime.Today.Day.ToString() : DateTime.Today.Day.ToString();
             string month = DateTime.Today.Month.ToString().Length == 1 ? "0" + DateTime.Today.Month.ToString() : DateTime.Today.Month.ToString(); ;
@@ -69,7 +77,7 @@ namespace InevntoryManagement.Controllers
 
             model.SaleFromList = SaleFroms(model);
             model.PaymentTypeList = PaymentTypeList(model);
-            model.PurchaseProductInfos = GetProductTableList(model);
+            model.ProductInfos = GetProductTableList(model);
 
             if (ModelState.IsValid)
             {
@@ -148,7 +156,7 @@ namespace InevntoryManagement.Controllers
 
                     if (btnSave.ToLower() == "saveprint")
                     {
-                        return RedirectToAction("Print", "Report",new { saleid= sale.SaleID });
+                        return RedirectToAction("PrintSaleInvoice", "Report",new { saleid= sale.SaleID });
                     }
                     return View(model);
 
@@ -161,27 +169,144 @@ namespace InevntoryManagement.Controllers
 
                 }
 
-
-
             }
-
-
-
-
-
 
             return View(model);
         }
+        #endregion
 
 
-        List<PurchaseProductInfo> GetProductTableList(SaleCreateViewModel model)
+   
+
+
+
+
+
+
+
+
+
+
+        #region Edit Section
+        [HttpGet]
+        public IActionResult GetSaleEditList()
+        {
+
+            List<SaleDetails> salelist = dapperService.GetSaletList;
+
+            return View(salelist);
+
+        }
+
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+
+
+            Sale sale = unitOfWork.Sales.GetByID(id);
+            if(sale==null)
+            {
+                ViewBag.ErrorTitle = "Sale Data Not Found";
+                ViewBag.ErrorMessage = $"The Id {id} You are Finding is not exist in database";
+                return View("NotFound");
+            }
+
+
+            try
+            {
+                Customer customer = unitOfWork.Customers.GetByID(sale.CustomerID);
+                Amount amount = unitOfWork.Amounts.Get(a => a.TrID == sale.SaleID && a.TrType == 2).FirstOrDefault();
+                SaleEditViewModel model = new SaleEditViewModel();
+                model.saleid = sale.SaleID;
+                model.Invoice = sale.Invoice;
+                model.TrDate = sale.TrDate;
+                model.BranchId = sale.BranchId;
+                model.SaleType = sale.SaleType;
+                model.SaleFrom = sale.SaleFrom;
+                model.PaymentTypeId = sale.PaymentTypeId;
+                model.Remarks = sale.Remarks;
+                model.CustName = customer.CustName;
+                model.Address = customer.Address;
+                model.Contact = customer.Contact;
+                model.TotalAmount = amount.TotalAmount;
+                model.PaymentOnCash = amount.PaymentOnCash;
+                model.Dues = amount.Dues;
+                model.Transport = amount.Transport;
+                model.Others = amount.Others;
+                model.GrossAmount = amount.GrossAmount;
+                model.Discount = amount.Discount;
+                model.NetAmount = amount.NetAmount;
+                model.TotalAmount = amount.TotalAmount;
+
+
+                model.BranchList = BranchList(model);
+                model.SaleTypeList = SaleTypes(model);
+
+                model.SaleFromList = SaleFroms(model);
+                model.PaymentTypeList = PaymentTypeList(model);
+                model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
+                 
+                return View(model);
+            }
+
+            catch(Exception ex)
+            {
+                ViewBag.ErrorTitle = "Sale Data Not Found";
+                ViewBag.ErrorMessage = ex.Message;
+                return View("NotFound");
+            }
+
+            
+        }
+
+
+        #endregion
+
+
+        #region Private Method and Properties
+        
+
+
+        //Get All Branch From Database
+        private List<SelectListItem> BranchList(SaleCreateViewModel model)
+        {
+            List<SelectListItem> output = new List<SelectListItem>();
+            List<Branch> brancs = unitOfWork.Branchs.Get().ToList();
+            foreach(Branch b in brancs)
+            {
+                SelectListItem _output= new SelectListItem
+                {
+                    Text = b.Name,
+                    Value = b.Id.ToString(),
+                    Selected = model.BranchId != 0 ? b.Id == model.BranchId : b.IsSelected
+
+                };
+                output.Add(_output);
+
+            }
+
+            //output = (from obj in unitOfWork.Branchs.Get()
+            //          select new SelectListItem()
+            //          {
+            //              Text = obj.Name,
+            //              Value = obj.Id.ToString(),
+            //              Selected = model.BranchId != 0 ? obj.Id == model.BranchId : obj.IsSelected
+            //          }).ToList();
+
+            return output;
+        }
+
+
+        List<ProductInfo> GetProductTableList(SaleCreateViewModel model)
         {
             if (model.ProductIds.Count > 0)
             {
                 for (int i = 0; i < model.ProductIds.Count; i++)
                 {
-                    PurchaseProductInfo pi = new PurchaseProductInfo()
+                    ProductInfo pi = new ProductInfo()
                     {
+                        
                         ProdId = model.ProductIds[i],
                         code = model.Codes[i],
                         color = model.Colors[i],
@@ -194,32 +319,16 @@ namespace InevntoryManagement.Controllers
 
                     };
 
-                    model.PurchaseProductInfos.Add(pi);
+                    model.ProductInfos.Add(pi);
                 }
 
             }
 
 
-            return model.PurchaseProductInfos;
+            return model.ProductInfos;
         }
 
 
-
-
-        //Get All Branch From Database
-        private List<SelectListItem> BranchList(SaleCreateViewModel model)
-        {
-            List<SelectListItem> output = new List<SelectListItem>();
-            output = (from obj in unitOfWork.Branchs.Get()
-                      select new SelectListItem()
-                      {
-                          Text = obj.Name,
-                          Value = obj.Id.ToString(),
-                          Selected = model.BranchId != 0 ? obj.Id == model.BranchId : obj.IsSelected
-                      }).ToList();
-
-            return output;
-        }
 
 
 
@@ -232,7 +341,7 @@ namespace InevntoryManagement.Controllers
                       {
                           Text = obj.Types!=null? obj.Types:null,
                           Value = obj.Id!=0? obj.Id.ToString():null,
-                          Selected = model.SaleType!=null ? obj.Types.ToLower() == model.SaleType.ToLower() :  obj.IsSelected
+                          Selected = model.SaleType!=0 ? obj.Id == model.SaleType :  obj.IsSelected
                       }).ToList();
 
             return output;
@@ -250,7 +359,7 @@ namespace InevntoryManagement.Controllers
                       {
                           Text = obj.SaleFrom != null ? obj.SaleFrom : null,
                           Value = obj.Id != 0 ? obj.Id.ToString() : null,
-                          Selected = model.SaleFrom != null ? obj.SaleFrom.ToLower() == model.SaleFrom.ToLower() :  obj.IsSelected
+                          Selected = model.SaleFrom != 0 ? obj.Id == model.SaleFrom :  obj.IsSelected
                       }).ToList();
 
             return output;
@@ -303,7 +412,9 @@ namespace InevntoryManagement.Controllers
             }
 
         }
+        #endregion
 
+        #region Ajax Part
         // Call from Sale form with ajax btnSaveSaleFrom
 
         [HttpPost]
@@ -397,8 +508,36 @@ namespace InevntoryManagement.Controllers
 
 
 
+        // Call from Sale form with ajax btnaddproduct
 
-        
+        [HttpPost]
+        public JsonResult checkBalance(int productid)
+        {
+
+            bool success = false;
+            int prdBalance = 0; //ProductBalance
+
+            ProductBalance pb = dapperService.GetProductBalanceById(productid);
+            if(pb!=null)
+            {
+                success = true;
+                prdBalance = pb.Balance;
+            }
+
+
+
+
+           
+            return new JsonResult(new {success, prdBalance });
+        }
+
+
+
+        #endregion
+
+
+
+
 
 
     }

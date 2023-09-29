@@ -3,7 +3,23 @@
     ViewBag.Title = "Create New Sele";
     string margin = "mt-1";
 }
-
+<style>
+    .divAutocomplete table{
+        background-color:white;
+    }
+    .divAutocomplete table tr:hover td {
+        background-color: darkblue;
+        color: white;
+    }
+    .divAutocomplete table tbody tr td {
+        background-color: white;
+        color: black;
+    }
+    #swal2-content{
+        font-size:13px;
+        color:red
+    }
+</style>
 
 <form method="post" asp-controller="Sale" asp-action="Create">
     <div class="card" id="parentdiv">
@@ -43,18 +59,9 @@
             <div class="row">
                 <div class="col-md-4">
                     <button type="submit" name="btnSave" value="save" class="btn btn-xs btn-facebook">Save<span><i class="mdi mdi-plus"></i></span></button>
-                    <button type="submit" name="btnSave" value="saveprint" class="btn btn-xs btn-facebook">Save and  Print<span><i class="mdi mdi-plus"></i></span></button>
-
-                    <button type="button" id="btnExport" class="btn btn-xs btn-facebook">Export<span><i class="mdi mdi-plus"></i></span></button>
+                    <button type="submit" name="btnSave" value="saveprint" class="btn btn-xs btn-facebook">Save and  Print<span class="ml-2"><i class="mdi mdi-printer"></i></span></button>
                 </div>
-                <div class="col-md-4">
-                    <button type="submit" name="btnSave" value="saveprint" class="btn btn-xs btn-facebook">Save and  Print<span><i class="mdi mdi-plus"></i></span></button>
-
-                </div>
-                <div class="col-md-4">
-
-                    <button type="button" id="btnExport" class="btn btn-xs btn-facebook">Export<span><i class="mdi mdi-plus"></i></span></button>
-                </div>
+     
             </div>
         </div>
     </div>
@@ -64,14 +71,20 @@
 
 @section Scripts{ 
     <script src="~/DuplicateModelShow.js"></script>
-    <script src="~/ProductAddRemove.js"></script>
-    <script src="~/Amount.js"></script>
-    <script src="~/Sales.js"></script>
+    <script src="~/SaleProductAddRemove.js"></script>
+    <script src="~/SaleAmount.js"></script>
+    <script src="~/SalesAutocomplete.js"></script>
     <script>
     $(document).ready(function () {
 
         //BranchTableList
        // getlist();
+
+
+        function sweetalert(message) {
+
+            sweetAlert("Oops...", "'" + message.toUpperCase() + "'", "error")
+        }
 
         $("#btnExport").click(function () {
             let element = $("#parentdiv")

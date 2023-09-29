@@ -31,7 +31,7 @@
             <div class="col-md-5">
                 @*<label asp-for="CustName"></label>*@
 
-                <input class="form-control" name="CustName" />
+                <input class="form-control" asp-for="CustName" name="CustName" />
                 <span asp-validation-for="CustName" class="text-danger"></span>
             </div>
 
@@ -42,7 +42,7 @@
             <div class="col-md-4">
                 @*<label asp-for="Contact"></label>*@
 
-                <input class="form-control" name="Contact" />
+                <input class="form-control" asp-for="Contact"  name="Contact" />
                 <span asp-validation-for="Contact" class="text-danger"></span>
 
             </div>
@@ -57,7 +57,7 @@
             <div class="col-md-10">
                 @*<label asp-for="Address"></label>*@
 
-                <input class="form-control" name="Address" />
+                <input class="form-control" asp-for="Address" name="Address" />
             </div>
         </div>
 

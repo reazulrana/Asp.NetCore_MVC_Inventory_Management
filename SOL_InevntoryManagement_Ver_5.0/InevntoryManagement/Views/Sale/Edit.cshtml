@@ -1,0 +1,118 @@
+﻿@model SaleEditViewModel
+@{
+    ViewBag.Title = "Create New Sele";
+    string margin = "mt-1";
+}
+
+
+<form method="post" asp-controller="Sale" asp-action="Edit">
+    <div class="card" id="parentdiv">
+        <div class="card-header">
+            Create Sale Invoice
+        </div>
+        <div class="card-body">
+            <div class="row border">
+                <div class="col-md-12">
+                    <partial name="~/Views/Shared/_Messages.cshtml" />
+                </div>
+                <div class="col-md-12 bg-danger-light">
+                    @Html.Partial("~/Views/Shared/sales/_SaleDetails.cshtml", Model);
+
+                </div>
+                <div class="col-md-12 py-3 @margin">
+                    @Html.Partial("~/Views/Shared/sales/_CustomerInformation.cshtml", Model);
+                </div>
+
+                <div class="col-md-12 @margin bg-success-light">
+                    <h5 class="row py-2 px-3 bg-blue-dark text-white">Product Add</h5>
+
+                    @Html.Partial("~/Views/Shared/sales/_SalesProductDetails.cshtml", Model);
+
+                </div>
+
+                <div class="col-md-12 @margin bg-primary-light">
+                    <h5 class="row py-2 px-3 bg-blue-dark text-white">Bill Information</h5>
+
+                    @Html.Partial("~/Views/Shared/sales/_SalesPriceDetails.cshtml", Model);
+
+                </div>
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="submit" name="btnSave" value="save" class="btn btn-xs btn-facebook">Save<span><i class="mdi mdi-plus"></i></span></button>
+                    <button type="submit" name="btnSave" value="saveprint" class="btn btn-xs btn-facebook">Save and  Print<span class="ml-2"><i class="mdi mdi-printer"></i></span></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+@section Scripts{
+    <script src="~/DuplicateModelShow.js"></script>
+    <script src="~/SaleProductAddRemove.js"></script>
+    <script src="~/SaleAmount.js"></script>
+    <script src="~/SalesAutocomplete.js"></script>
+    <script>
+    $(document).ready(function () {
+
+        //BranchTableList
+       // getlist();
+
+        $("#btnExport").click(function () {
+            let element = $("#parentdiv")
+
+
+            html2pdf().from(element).set({
+                margin: [10, 10, 10, 10],
+                pagebreak: {avoid:"tr"},
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait', compressPDF: true }
+
+
+            }).save();
+
+        })
+
+        //$("#TrDate").datepicker();
+        //$("#branchname").select2()
+
+        callBranchListOnFormLoad('@Url.Action("GetAjaxBranchList","Branch")');
+        callPaymentTypeListOnFormLoad('@Url.Action("GetAjaxPaymentTypeList", "PaymentType")');
+
+        //function getlist() {
+        //    alert("Welcome to GetList Branch");
+        //}
+
+
+
+        $("#Invoice").keydown(function (event) {
+            let keyCode = event.keyCode ? event.keyCode : event.which
+
+            //if ($(this).length <= 9)
+            //{
+                event.preventDefault();
+            //}
+
+
+        })
+
+        // end of #invoice keydown event
+
+
+        $("#Invoice").keypress(function (event) {
+            let keyCode = event.keyCode ? event.keyCode : event.which
+
+            if ($(this).length <= 9) {
+                event.preventDefault();
+            }
+
+
+        })
+    })
+    </script>
+}

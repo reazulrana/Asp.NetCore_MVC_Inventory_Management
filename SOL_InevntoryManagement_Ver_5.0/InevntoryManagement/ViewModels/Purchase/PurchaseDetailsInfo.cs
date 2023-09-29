@@ -29,7 +29,7 @@ namespace InevntoryManagement.ViewModels.Purchase
         #endregion
 
         #region For MasterDetails
-        public List<PurchaseProductInfo> PurchaseProductInfos { get; set; } = new List<PurchaseProductInfo>();
+        public List<ProductInfo> PurchaseProductInfos { get; set; } = new List<ProductInfo>();
         #endregion
 
         #region PriceDetails

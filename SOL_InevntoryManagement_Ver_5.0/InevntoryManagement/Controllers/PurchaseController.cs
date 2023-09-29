@@ -8,6 +8,7 @@ using InevntoryManagement.ViewModels.Purchase;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using InevntoryManagement.GlobalFuntion;
 using BussinessAccessLayer.Model;
+//using BussinessAccessLayer.ExtendModel;
 
 namespace InevntoryManagement.Controllers
 {
@@ -313,7 +314,7 @@ namespace InevntoryManagement.Controllers
                     Brand brand = unitOfWork.Brands.GetByID(model.BrandId);
                     Category category = unitOfWork.Categories.GetByID(brand.CategoryId);
 
-                    PurchaseProductInfo purchaseProductInfo = new PurchaseProductInfo()
+                    ProductInfo purchaseProductInfo = new ProductInfo()
                     {
                         category = category.CType,
                         code = m.Product.Code,
@@ -542,7 +543,7 @@ namespace InevntoryManagement.Controllers
 
 
         //load data from database by id for edit view
-        List<PurchaseProductInfo> getoutput(int id)
+        List<ProductInfo> getoutput(int id)
         {
             PurchaseEditViewModel output = new PurchaseEditViewModel();
 
@@ -564,7 +565,7 @@ namespace InevntoryManagement.Controllers
                     Brand brand = unitOfWork.Brands.GetByID(model.BrandId);
                     Category category = unitOfWork.Categories.GetByID(brand.CategoryId);
 
-                    PurchaseProductInfo purchaseProductInfo = new PurchaseProductInfo()
+                    ProductInfo purchaseProductInfo = new ProductInfo()
                     {
                         category = category.CType,
                         code = m.Product.Code,
@@ -584,13 +585,13 @@ namespace InevntoryManagement.Controllers
 
             return output.PurchaseProductInfos;
         }
-        List<PurchaseProductInfo> GetProductTableList(PurchaseCreateViewModel model)
+        List<ProductInfo> GetProductTableList(PurchaseCreateViewModel model)
         {
             if (model.ProductIds.Count > 0)
             {
                 for (int i = 0; i < model.ProductIds.Count; i++)
                 {
-                    PurchaseProductInfo pi = new PurchaseProductInfo()
+                    ProductInfo pi = new ProductInfo()
                     {
                         ProdId = model.ProductIds[i],
                         code = model.Codes[i],
@@ -681,7 +682,7 @@ namespace InevntoryManagement.Controllers
                     Brand brand = unitOfWork.Brands.GetByID(model.BrandId);
                     Category category = unitOfWork.Categories.GetByID(brand.CategoryId);
 
-                    PurchaseProductInfo purchaseProductInfo = new PurchaseProductInfo()
+                    ProductInfo purchaseProductInfo = new ProductInfo()
                     {
                         category = category.CType,
                         code = m.Product.Code,

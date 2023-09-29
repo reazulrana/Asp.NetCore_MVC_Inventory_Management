@@ -19,7 +19,7 @@
                 <label>Search</label>
             </div>
             <div class="col-md-10">
-
+                <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="Category" type="radio" /> Category</label>
                 <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="code" type="radio" /> Code</label>
                 <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="description" type="radio" /> Description</label>
                 <label class="radio-inline mr-2"><input class="searchField" name="searcheField" value="model" type="radio" checked="checked" /> Model</label>
@@ -33,7 +33,7 @@
 
     @*Search*@
     <div class="@colinput">
-        <input class="form-control" id="txtsearchfield"  data-url="@Url.Action("FindProduct","Product")"/>
+        <input class="form-control" id="txtsearchfield"  data-url="@Url.Action("FindProductwithbalance","Product")"/>
     </div>
 
 
@@ -108,9 +108,9 @@
 
                         @*Color*@
                         @*<div class="@colLabel">
-                                <label>Color</label>
+            <label>Color</label>
 
-                            </div>*@
+        </div>*@
                         <div class="@colinput">
                             <label>Color</label>
 
@@ -118,11 +118,18 @@
                         </div>
 
 
+                        <div class="@colinput">
+                            <label>Qty</label>
+
+                            <input  class="form-control" id="txtTotalSell" />
+                            <input class="form-control" id="txtTotalBalance" />
+                        </div>
+
                         @*Qty*@
                         @*<div class="@colLabel">
-                                <label>Qty</label>
+            <label>Qty</label>
 
-                            </div>*@
+        </div>*@
                         <div class="@colinput">
                             <label>Qty</label>
 
@@ -132,20 +139,20 @@
 
                         @*Price*@
                         @*<div class="@colLabel">
-                                <label>Purchase Price</label>
+            <label>Purchase Price</label>
 
-                            </div>*@
+        </div>*@
                         <div class="@colinput">
                             <label>Unit Sell Price</label>
 
-                            <input class="form-control" id="txtProductPurchasePrice" />
+                            <input class="form-control" id="txtProductSalePrice" />
                         </div>
 
                         @*Price*@
                         @*<div class="@colLabel">
-                                <label>Total Amount</label>
+            <label>Total Amount</label>
 
-                            </div>*@
+        </div>*@
                         <div class="@colinput">
                             <label>Total Amount</label>
 
@@ -181,7 +188,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-6">
-                    <button type="button" id="btnAddProduct" class="col-md-4 btn-xs btn btn-facebook">Add <span><i class="mdi mdi-plus"></i></span></button>
+                    <button type="button" id="btnAddProduct" data-url="@Url.Action("checkBalance","Sale")" class="col-md-4 btn-xs btn btn-facebook">Add <span><i class="mdi mdi-plus"></i></span></button>
                     <button type="button" id="btnClearProduct" class="col-md-4  btn-xs btn btn-youtube">Clear <span><i class="mdi mdi-delete-sweep"></i></span></button>
 
                 </div>
@@ -221,10 +228,10 @@
             </thead>
             <tbody id="productlist">
 
-                @if (Model.PurchaseProductInfos.Count > 0)
+                @if (Model.ProductInfos.Count > 0)
                 {
                     int sl = 1;
-                    foreach (var p in Model.PurchaseProductInfos)
+                    foreach (var p in Model.ProductInfos)
                     {
                         string _photopath = (p.photopath == null || p.photopath == "") ? "~/" + ImagePath.GetDefaultImagePath("No_Image_Avaiable.jpg") : "~/" + ImagePath.GetProductImagePath(p.photopath);
                         int totalamount = p.qty * p.price;

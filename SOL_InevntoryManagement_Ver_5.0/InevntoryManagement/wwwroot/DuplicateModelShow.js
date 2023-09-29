@@ -1,4 +1,9 @@
-﻿
+﻿//Public Variable Decleration
+
+let urlpath = "";
+let paymenturlpath=""
+
+
 
 function Create_record_with_ajax(url, method, data, dataType, appendElement, dropdownName, fieldNamtToEmpty=null, hideElement=null) {
 
@@ -326,7 +331,7 @@ $("#btnSaveBranch").click(function () {
 
     $("#txtSaveContact").val('');
     $("#txtSaveBranchIncharge").val('');
-    callBranchListOnFormLoad();
+    callBranchListOnFormLoad(urlpath); // load branch list in #BranchTableList id under partial View view/shared/Jquery_Glabal_Partial/_BranchCreate
 
 })
 
@@ -344,7 +349,7 @@ $("#BranchTableList").on("click", "button", function () {
 
             if (data.msg != null) {
                 alert(data.msg);
-                callBranchListOnFormLoad('/Branch/GetAjaxBranchList');
+                callBranchListOnFormLoad(urlpath);
 
             }
         }
@@ -352,8 +357,8 @@ $("#BranchTableList").on("click", "button", function () {
 
 
 })
-
 function callBranchListOnFormLoad(url) {
+    urlpath = urlpath
     $.ajax({
         url: url,
         method: "GET",
@@ -428,7 +433,7 @@ $("#PaymentTypeTableList").on("click", "button", function () {
 
             if (data.msg != null) {
                 alert(data.msg);
-                callPaymentTypeListOnFormLoad('/PaymentType/GetAjaxPaymentTypeList');
+                callPaymentTypeListOnFormLoad(paymenturlpath);
 
             }
         }
@@ -438,8 +443,9 @@ $("#PaymentTypeTableList").on("click", "button", function () {
 })
 
 function callPaymentTypeListOnFormLoad(url) {
+    paymenturlpath = url
     $.ajax({
-        url: url,
+        url: paymenturlpath,
         method: "GET",
         dataType: "Json",
         success: function (data) {

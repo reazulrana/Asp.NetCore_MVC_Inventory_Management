@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace InevntoryManagement.ViewModels.Purchase
 {
-    public class PurchaseProductInfo
+    public class ProductInfo
     {
         public int purchaseid { get; set; }
         public int ProdId { get; set; }
@@ -18,6 +18,5 @@ namespace InevntoryManagement.ViewModels.Purchase
         public string photopath { get; set; }
         public int qty { get; set; }
         public int price { get; set; }
-
     }
 }
