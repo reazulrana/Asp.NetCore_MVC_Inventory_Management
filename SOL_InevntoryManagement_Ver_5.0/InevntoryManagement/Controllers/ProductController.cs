@@ -37,8 +37,8 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpGet]
-        [ResponseCache(Duration =10)]
-        public IActionResult ProductBalance()
+        [ResponseCache(Duration =30)]
+        public IActionResult GetProductBalance()
         {
             List<ProductBalance> output = dapperService.GetProductBalance;
 

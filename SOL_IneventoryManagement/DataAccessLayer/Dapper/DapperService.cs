@@ -61,7 +61,7 @@ namespace DataAccessLayer.Dapper
             {
 
 
-                string strquery = "select p.id, p.code,p.description,c.ctype,m.ModelName,p.size, sum(ms.qty) pqty into  #tpurchase from Purchases pr";
+                string strquery = "select p.id, p.code,p.description,c.ctype,m.ModelName,p.size, sum(ms.qty) pqty,p.OpeningQty into  #tpurchase from Purchases pr";
                 strquery = strquery + " inner join Amounts a on pr.PurchaseID = a.TrID";
                 strquery = strquery + " inner join MasterDetail ms on a.id = ms.AmountId";
                 strquery = strquery + " inner join Products p on ms.ProductId = p.Id";
@@ -69,10 +69,10 @@ namespace DataAccessLayer.Dapper
                 strquery = strquery + " inner join Brands br on m.BrandId = br.Id";
                 strquery = strquery + " inner join Categories c on br.CategoryId = c.Id";
                 strquery = strquery + " where a.TrType = 1";
-                strquery = strquery + " group by p.id, p.code,p.description,c.ctype,m.ModelName,p.size";
+                strquery = strquery + " group by p.id, p.code,p.description,c.ctype,m.ModelName,p.size,p.OpeningQty";
 
 
-                strquery = strquery + " select p.id, p.code,p.description,c.ctype,m.ModelName,p.size, sum(ms.qty) as sqty into  #tsale from Sales s";
+                strquery = strquery + " select p.id, p.code,p.description,c.ctype,m.ModelName,p.size, sum(ms.qty) as sqty,p.OpeningQty into  #tsale from Sales s";
                 strquery = strquery + " inner join Amounts a on s.SaleID = a.TrID";
                 strquery = strquery + " inner join MasterDetail ms on a.id = ms.AmountId";
                 strquery = strquery + " inner join Products p on ms.ProductId = p.Id";
@@ -80,10 +80,10 @@ namespace DataAccessLayer.Dapper
                 strquery = strquery + " inner join Brands br on m.BrandId = br.Id";
                 strquery = strquery + " inner join Categories c on br.CategoryId = c.Id";
                 strquery = strquery + " where a.TrType = 2";
-                strquery = strquery + " group by p.id, p.code,p.description,c.ctype,m.ModelName,p.size";
+                strquery = strquery + " group by p.id, p.code,p.description,c.ctype,m.ModelName,p.size,p.OpeningQty";
 
                 strquery = strquery + " select tp.Id, tp.Code,tp.Description,tp.CType,tp.ModelName,tp.Size, ";
-                strquery = strquery + " coalesce(tp.pQty, 0) as purqty, coalesce(ts.sQty, 0) saleQty , (coalesce(tp.pQty, 0) - coalesce(ts.sQty, 0)) as Balance  from #tpurchase tp";
+                strquery = strquery + " coalesce(tp.pQty, 0) as purqty, coalesce(ts.sQty, 0) saleQty , ((coalesce(tp.pQty, 0)+tp.OpeningQty) - coalesce(ts.sQty, 0)) as Balance, tp.OpeningQty  from #tpurchase tp";
                 strquery = strquery + " left join #tsale ts on tp.id=ts.Id";
 
 

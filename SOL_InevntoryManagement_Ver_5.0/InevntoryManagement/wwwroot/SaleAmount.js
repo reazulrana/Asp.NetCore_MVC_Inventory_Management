@@ -53,7 +53,7 @@ function amountclass() {
 
 
 //calculate total product purchage price amount
-function calculatePurchageProduct() {
+function calculateSaleProduct() {
     let tr = $("#productlist tr")
     
     $("#Dues").val("0");

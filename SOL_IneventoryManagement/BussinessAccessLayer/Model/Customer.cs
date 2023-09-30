@@ -20,11 +20,14 @@ namespace BussinessAccessLayer.Model
        // public int MemberId { get; set; }
         [MaxLength(70, ErrorMessage = "Max Legth is 70 That You Have Excced")]
         [Required]
+        [Display(Name ="Customer Name")]
         public string CustName { get; set; }
         
         [MaxLength(100, ErrorMessage = "Max Legth is 100 That You Have Excced")]
         public string Address { get; set; }
         
+
+        [Required]
         [MaxLength(40, ErrorMessage = "Max Legth is 40 That You Have Excced")]
         public string Contact { get; set; }
         //public virtual Member Member { get; set; }

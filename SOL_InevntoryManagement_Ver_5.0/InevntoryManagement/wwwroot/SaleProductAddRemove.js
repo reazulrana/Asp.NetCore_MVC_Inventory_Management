@@ -86,7 +86,9 @@ $("#btnAddProduct").click(function () {
             let _tableproductid = $(this).children("td").eq(0).find("input").val();
             if (_product.ProductId == _tableproductid)
             {
-                alert("Duplicate Product Already Exist in Table Serial No " + (index+1));
+                sweetalert("Your Selling Qty (" + qty + ") is larger Balance Qty (" + balanceqty + ") Exceed Qty (" + (qty - balanceqty) + ")")
+
+                alert();
                 blnDuplicateRowCheck = true;
                 return
             }
@@ -197,13 +199,19 @@ function product() {
 //tr Remove from product table By Delete Button click
 $("#productlist").on("click", "button", function () {
 
+
+    //if Cashonpayment is larger Then Total Amout Of Product you will fail 
+    //to remove product from Table
+    //check the product you want to delete the Totalamount of 
+    //the product is lower than cashonpayment amount 
         let amount = amountclass();
         let totalpartsamount = parseInt($(this).closest("tr").find("td:last").prev().text())
 
         let substractamount = (parseInt(amount.TotalAmount) - parseInt(totalpartsamount))
         let paymentoncash = parseInt(amount.PaymentOnCash);
         let result = (substractamount >= paymentoncash) ? true : false;
-    if (result) {
+    if (result)
+        {
         if (confirm("Do You Want to Remove Row")) {
 
             $(this).closest("tr").remove();
@@ -212,9 +220,16 @@ $("#productlist").on("click", "button", function () {
         }
         else
         {
-            alert("Row Can Not Remove Because PaymentOnCase Is Higer Than ProductCost (  Product Cost Is " + substractamount + " and CashOnPayment Is " + paymentoncash + ")")
-        }
-        calculatePurchageProduct();
+        //if (confirm("Row Can Not Remove Because PaymentOnCase Is Higer Than ProductCost (  Product Cost Is " + substractamount + " and CashOnPayment Is " + paymentoncash + "). Do You Wanto Delete Product By Force")) {
+
+        //    $(this).closest("tr").remove();
+        //}
+        alert("Row Can Not Remove Because PaymentOnCase Is Higer Than ProductCost (  Product Cost Is " + substractamount + " and CashOnPayment Is " + paymentoncash + "). Do You Wanto Delete Product By Force")
+            
+    }
+    //after remove row It will re calculate the products Total Amount
+   //the function is Exist in saleAmount.js file
+    calculateSaleProduct();
 })
 
 function append_New_Row() {
@@ -224,8 +239,8 @@ function append_New_Row() {
     let _photopath = (p.Image == "" || p.Image == null) ? "/Projects/Images/DefaultImage/No_Image_Available.jpg" : "/Projects/Images/Product/" + p.Image
 
 
-    //let sl = '<td><input hidden name="ProductIds" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
-    let sl = '<td><input name="ProductIds" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
+    
+    let sl = '<td><input hidden name="ProductIds" type="text" value="' + p.ProductId + '"/>' + LastSl + '</td>';
     let Image = '<td> <input hidden name="Images" value="' + p.Image + '" />  <img src = "' + _photopath + '" height = 90 width = 90 /> </td > ';
     let Code = '<td> <input hidden name="Codes" value="' + p.Code + '" />' + p.Code + '</td>';
     let Description = '<td><input hidden name="Descriptions" value="' + p.Description + '" />' + p.Description + '</td>';
@@ -242,7 +257,7 @@ function append_New_Row() {
     var tr = '<tr id="' + sl + '">' + sl + Image + Code + Description + Model + Size + Color + Qty + PurchasePrice + TotalAmount + action + '</tr>'
 
     $('#productlist').append(tr);
-    calculatePurchageProduct();
+    calculateSaleProduct();
     ClearField()
 
 

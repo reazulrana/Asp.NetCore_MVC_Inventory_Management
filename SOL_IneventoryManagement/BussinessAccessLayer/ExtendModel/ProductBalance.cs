@@ -23,9 +23,10 @@ namespace BussinessAccessLayer.ExtendModel
         public int purqty { get; set; }
         public int saleQty { get; set; }
         public int Balance { get; set; }
-        public string photopath { get; set; }
-        public int Unitprice { get; set; }
         public int OpeningQty { get; set; } // Tobe Added With Stock Qty
+        public int Unitprice { get; set; }
+        public string photopath { get; set; }
+       
 
 
 

@@ -3,13 +3,30 @@
     ViewBag.Title = "Product Balance";
 }
 
+<style>
+    #tblBalance tr {
+        background-color: lightskyblue;
+        color: darkgreen;
+        text-align: center
+    }
+    #tblBalance tr:hover td {
+        background-color: green;
+        color: white;
+       
+    }
+        #tblBalance tr td:last-child
+        {
+            font-size:15px;
+
+        }
+</style>
 
 @*tp.Id, tp.Code,tp.Description,tp.CType,tp.ModelName,tp.Size, 
     coalesce(tp.pQty,0) as purqty, coalesce(ts.sQty,0) saleQty*@
-<h1>Welcome To Product Balance Page</h1>
+<h1 class="text-center py-3">Product Balance Report</h1>
 
-<table>
-    <thead>
+<table class="table table-bordered" border="1">
+    <thead class="thead-info">
         <tr>
             <th>Sl</th>
             <th>Code</th>
@@ -17,31 +34,37 @@
             <th>Category</th>
             <th>Model</th>
             <th>Size</th>
+            <th>Opening Qty</th>
             <th>Total Purchase Qty</th>
             <th>Total Sale Qty</th>
             <th>Balance</th>
 
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tblBalance">
         @if (Model.Count > 0)
         {
-            foreach(ProductBalance p in Model) 
+            int sl = 1;
+            foreach(ProductBalance p in Model)
             {
+                
         <tr>
 
-            <td></td>
+            <td>@sl</td>
             <td>@p.code</td>
             <td>@p.Description</td>
             <td>@p.CType</td>
             <td>@p.ModelName</td>
             <td>@p.Size</td>
+            <td>@p.OpeningQty</td>
+
             <td>@p.purqty</td>
             <td>@p.saleQty</td>
-            <td>@p.Balance</td>
+            <td class="bg-red text-white">@p.Balance</td>
 
 
         </tr>
+                sl = sl + 1;
             }
         }
         else

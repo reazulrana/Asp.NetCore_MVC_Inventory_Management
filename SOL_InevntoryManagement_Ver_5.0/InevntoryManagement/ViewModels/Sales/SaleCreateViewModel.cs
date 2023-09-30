@@ -28,12 +28,7 @@ namespace InevntoryManagement.ViewModels.Sales
         [Display(Name = "Sell Point")]
         public int SaleFrom { get; set; } // Online/Showroom
 
-        [Display(Name = "Customer Name")]
-        [Required]
-        public string CustName { get; set; }
-        public string Address { get; set; }
-        [Required]
-        public string Contact { get; set; }
+        public Customer customer { get; set; } = new Customer();
         public int UserID { get; set; }
        
         [MaxLength(200, ErrorMessage = "Max Legth is 200 That You Have Excced")]

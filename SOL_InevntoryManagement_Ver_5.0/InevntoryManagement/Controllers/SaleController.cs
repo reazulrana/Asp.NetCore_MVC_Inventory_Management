@@ -93,9 +93,9 @@ namespace InevntoryManagement.Controllers
                     //customer section
                     Customer customer = new Customer()
                     {
-                        CustName = model.CustName,
-                        Address = model.Address,
-                        Contact = model.Contact
+                        CustName = model.customer.CustName,
+                        Address = model.customer.Address,
+                        Contact = model.customer.Contact
                     };
                     unitOfWork.Customers.Insert(customer);
 
@@ -226,9 +226,11 @@ namespace InevntoryManagement.Controllers
                 model.SaleFrom = sale.SaleFrom;
                 model.PaymentTypeId = sale.PaymentTypeId;
                 model.Remarks = sale.Remarks;
-                model.CustName = customer.CustName;
-                model.Address = customer.Address;
-                model.Contact = customer.Contact;
+                model.customer.ID = customer.ID;
+
+                model.customer.CustName = customer.CustName;
+                model.customer.Address = customer.Address;
+                model.customer.Contact = customer.Contact;
                 model.TotalAmount = amount.TotalAmount;
                 model.PaymentOnCash = amount.PaymentOnCash;
                 model.Dues = amount.Dues;
@@ -238,11 +240,8 @@ namespace InevntoryManagement.Controllers
                 model.Discount = amount.Discount;
                 model.NetAmount = amount.NetAmount;
                 model.TotalAmount = amount.TotalAmount;
-
-
                 model.BranchList = BranchList(model);
                 model.SaleTypeList = SaleTypes(model);
-
                 model.SaleFromList = SaleFroms(model);
                 model.PaymentTypeList = PaymentTypeList(model);
                 model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
@@ -261,15 +260,140 @@ namespace InevntoryManagement.Controllers
         }
 
 
-        #endregion
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult Edit(SaleEditViewModel model, string btnSave)
+        {
+            model.BranchList = BranchList(model);
+            model.SaleTypeList = SaleTypes(model);
+
+            model.SaleFromList = SaleFroms(model);
+            model.PaymentTypeList = PaymentTypeList(model);
+            model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
+
+            if (ModelState.IsValid)
+            {
+                if (model.ProductIds == null || model.ProductIds.Count <= 0)
+                {
+
+                    Global_Functions.SetMessage("Prodcut List Is Empty", "danger");
+                    return View(model);
+                }
+
+                try
+                {
+                    unitOfWork.BeginTransaction();
 
 
-        #region Private Method and Properties
-        
+                    //sale sectioon
+                    Sale _sale = unitOfWork.Sales.GetByID(model.saleid);
 
 
-        //Get All Branch From Database
-        private List<SelectListItem> BranchList(SaleCreateViewModel model)
+
+
+                    //Invoice = model.Invoice,
+                    _sale.TrDate = model.TrDate;
+                    _sale.CustomerID = model.customer.ID;
+                    _sale.UserID = 1;
+                    _sale.Remarks = model.Remarks;
+                    _sale.BranchId = model.BranchId;
+                    //OrderNo=model.order
+                    _sale.PaymentTypeId = model.PaymentTypeId;
+                    _sale.SaleType = model.SaleType;
+                    _sale.SaleFrom = model.SaleFrom;
+                    //OrderNo=model.order
+
+
+
+                    unitOfWork.Sales.Update(_sale);
+
+
+                    //customer section
+
+                    Customer _customer = unitOfWork.Customers.GetByID(_sale.CustomerID);
+                    _customer.CustName = model.customer.CustName;
+                    _customer.Address = model.customer.Address;
+                    _customer.Contact = model.customer.Contact;
+                    
+                    unitOfWork.Customers.Update(_customer);
+
+
+
+
+                    Amount _amount = unitOfWork.Amounts.Get(a => a.TrID == _sale.SaleID && a.TrType == 2).FirstOrDefault();
+
+                    _amount.TrID = _sale.SaleID;
+                        _amount.Discount = model.Discount;
+                    _amount.Dues = model.Dues;
+                    _amount.GrossAmount = model.GrossAmount;
+                    _amount.NetAmount = model.NetAmount;
+                    _amount.Others = model.Others;
+                    _amount.PaymentOnCash = model.PaymentOnCash;
+                    _amount.PaymentTypeId = model.PaymentTypeId;
+                    _amount.TotalAmount = model.TotalAmount;
+                    _amount.Transport = model.Transport;
+                    _amount.TrType = 2;
+
+                    unitOfWork.Amounts.Update(_amount);
+                    //delete masterdetails according to amountid and then reinsert product list into masterdetails
+                    List<MasterDetail> _masterdetails = unitOfWork.MasterDetails.Get(ms => ms.AmountId == _amount.Id).ToList();
+                    unitOfWork.MasterDetails.Delete(_masterdetails);
+                    
+                    //add into list to insert in masterdetails table
+                    List<MasterDetail> masterDetailslist = new List<MasterDetail>();
+                    for (int i = 0; i <= model.ProductIds.Count - 1; i++)
+                    {
+                        MasterDetail masterDetail = new MasterDetail()
+                        {
+                            AmountId = _amount.Id,
+                            ProductId = model.ProductIds[i],
+                            Price = model.Prices[i],
+                            Qty = model.Qtys[i],
+                        };
+                        masterDetailslist.Add(masterDetail);
+
+                    }
+                    unitOfWork.MasterDetails.Insert(masterDetailslist);
+                    model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
+
+                    unitOfWork.CommitTransaction();
+                    Global_Functions.SetMessage("Sale Invoice Update Successfully", "success");
+
+                    if (btnSave.ToLower() == "saveprint")
+                    {
+                        return RedirectToAction("PrintSaleInvoice", "Report", new { saleid = _sale.SaleID });
+                    }
+                    return RedirectToAction("edit",new {id=_sale.SaleID });
+
+
+
+                }
+                catch(Exception ex)
+                {
+                    model.customer = unitOfWork.Customers.GetByID(model.customer.ID);
+                    Global_Functions.SetMessage(ex.Message, "danger");
+                    unitOfWork.RollbackTransaction();
+                  
+                }
+
+            }
+
+
+            return View(model);
+        }
+
+
+
+
+            #endregion
+
+
+            #region Private Method and Properties
+
+
+
+            //Get All Branch From Database
+            private List<SelectListItem> BranchList(SaleCreateViewModel model)
         {
             List<SelectListItem> output = new List<SelectListItem>();
             List<Branch> brancs = unitOfWork.Branchs.Get().ToList();

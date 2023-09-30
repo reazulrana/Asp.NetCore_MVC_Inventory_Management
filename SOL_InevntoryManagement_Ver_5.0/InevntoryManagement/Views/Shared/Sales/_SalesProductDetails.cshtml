@@ -119,10 +119,10 @@
 
 
                         <div class="@colinput">
-                            <label>Qty</label>
+                            @*<label>Qty</label>*@
 
-                            <input  class="form-control" id="txtTotalSell" />
-                            <input class="form-control" id="txtTotalBalance" />
+                            <input type="hidden"  class="form-control" id="txtTotalSell" />
+                            <input type="hidden" class="form-control" id="txtTotalBalance" />
                         </div>
 
                         @*Qty*@
@@ -208,10 +208,10 @@
 
 
 <div class="row mt-2">
-    <div class="col-md-12 mt-3">
-        <table class="table  table-bordered table-responsive text-center">
-            <thead class="bg-secondary">
-                <tr class="text-white">
+    <div class="table-responsive  mt-3">
+        <table class="table table-bordered text-center">
+            <thead class="thead-info">
+                <tr>
                     <th>SL</th>
                     <th>Image</th>
                     <th>Code</th>

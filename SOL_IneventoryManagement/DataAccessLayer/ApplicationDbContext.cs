@@ -78,7 +78,9 @@ namespace DataAccessLayer
             modelBuilder.Entity<Branch>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<Color>().HasIndex(x => x.ColorName).IsUnique();
             modelBuilder.Entity<PaymentType>().HasIndex(x => x.Payments).IsUnique();
-            
+            modelBuilder.Entity<Customer>().HasIndex(x => x.Contact).IsUnique();
+
+
         }
     }
 }
