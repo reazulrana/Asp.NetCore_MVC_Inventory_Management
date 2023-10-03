@@ -103,20 +103,26 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpGet]
-        public IActionResult CategoryList()
+        public IActionResult CategoryList(int? pageno,int?pagesize)
         {
 
-            var categories = (from cat in unitOfWork.Categories.Get()
+            CategoryListViewModel categoryListViewModel = new CategoryListViewModel();
+            categoryListViewModel.categories = (from cat in unitOfWork.Categories.Get()
                               orderby cat.CType
                               select new Category()
                               {
                                    Id=cat.Id,
                                    CType=cat.CType
                               }
-                              ).ToList();
+                              ).OrderByDescending(x=>x.CType).ToList();
 
+            categoryListViewModel.TotalRow = categoryListViewModel.categories.Count();
+            categoryListViewModel.PageSize = categoryListViewModel.DefaultPageSize(pagesize);
+            categoryListViewModel.PageIndex = categoryListViewModel.DefaultPageIndex(pageno);
 
-            return View(categories);
+            categoryListViewModel.categories = categoryListViewModel.categories.Skip(categoryListViewModel.SkipRow).Take(categoryListViewModel.PageSize).OrderBy(x => x.CType).ToList();
+
+            return View(categoryListViewModel);
         }
 
 

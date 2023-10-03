@@ -63,5 +63,8 @@ namespace InevntoryManagement.GlobalFuntion
 
             return output;
         }
+
+
+
     }
 }

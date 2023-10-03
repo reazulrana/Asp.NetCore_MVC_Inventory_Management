@@ -8,12 +8,15 @@ using DataAccessLayer.Services.Repository;
 using InevntoryManagement.ViewModels;
 using BussinessAccessLayer.Model;
 using InevntoryManagement.GlobalFuntion;
+using InevntoryManagement.ViewModels.Manufactures;
 
 namespace InevntoryManagement.Controllers
 {
     public class ManufactureController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
+
+        public object ManufactureListViewModel { get; private set; }
 
         public ManufactureController(IUnitOfWork unitOfWork)
         {
@@ -22,11 +25,22 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpGet]
-        public IActionResult ListManufactures()
+        public IActionResult ListManufactures(int? pageno, int?pagesize)
         {
-            var list = unitOfWork.Manufactures.Get();
 
-            return View(list);
+            ManufactureListViewModel output = new ManufactureListViewModel();
+            output.manufactures = unitOfWork.Manufactures.Get().OrderByDescending(x=>x.ManufactureName).ToList();
+          
+            output.TotalRow = output.manufactures.Count;
+            output.PageSize = output.DefaultPageSize(pagesize);
+            output.PageIndex = output.DefaultPageIndex(pageno);
+            output.manufactures = output.manufactures.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.ManufactureName).ToList();
+
+
+
+
+
+            return View(output);
         }
 
 

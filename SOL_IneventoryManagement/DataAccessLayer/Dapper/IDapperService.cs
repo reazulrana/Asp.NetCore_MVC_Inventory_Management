@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
+using System.Data;
 
 namespace DataAccessLayer.Dapper
 {
@@ -13,7 +15,7 @@ namespace DataAccessLayer.Dapper
         #region Sales Section
         SaleInvoiceInfo GetSaleInvoiceById(int id);
         List<SaleInvoiceInfo> GetAllInvoiceList { get; }
-        List<SaleDetails> GetSaletList { get; }
+        List<SaleDetails> GetSaletList(string query);
 
 
 
@@ -30,7 +32,7 @@ namespace DataAccessLayer.Dapper
         ProductBalance GetProductBalanceById(int id);
 
         List<ProductBalance> GetProductBalanceSatrtwith(string term, string searchfield);
-
+        List<T> GetDynamicTableList<T>(string strquery, DynamicParameters param, CommandType commandtype);
 
         #endregion
 

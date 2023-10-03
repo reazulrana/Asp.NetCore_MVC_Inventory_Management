@@ -189,7 +189,7 @@ namespace InevntoryManagement.Controllers
         public IActionResult PurchaseList()
         {
 
-            List<PurchaseListViewModel> model = (from p in unitOfWork.Purchases.Get()
+            List<PurchaseDetailsModel> model = (from p in unitOfWork.Purchases.Get()
                                                  join b in unitOfWork.Branchs.Get()
                                                  on p.BranchId equals b.Id
                                                  join a in unitOfWork.Amounts.Get()
@@ -200,7 +200,7 @@ namespace InevntoryManagement.Controllers
                                                  on p.SourceId equals s.Id
                                                  join pa in unitOfWork.PaymentTypes.Get()
                                                  on a.PaymentTypeId equals pa.Id
-                                                 select new PurchaseListViewModel()
+                                                 select new PurchaseDetailsModel()
                                                  {
                                                      Branch = b.Name,
                                                      Discount = a.Discount,
@@ -235,11 +235,11 @@ namespace InevntoryManagement.Controllers
         //edit section
 
         [HttpGet]
-        public IActionResult EditPurchaseList()
+        public IActionResult EditPurchaseList(int? pageno,int? pagesize)
         {
 
-
-            List<PurchaseListViewModel> model = (from p in unitOfWork.Purchases.Get()
+            PurchaseListViewModel model = new PurchaseListViewModel();
+             model.purchaseDetailsModel = (from p in unitOfWork.Purchases.Get()
                                                  join b in unitOfWork.Branchs.Get()
                                                  on p.BranchId equals b.Id
                                                  join a in unitOfWork.Amounts.Get()
@@ -250,7 +250,7 @@ namespace InevntoryManagement.Controllers
                                                  on p.SourceId equals s.Id
                                                  join pa in unitOfWork.PaymentTypes.Get()
                                                  on a.PaymentTypeId equals pa.Id
-                                                 select new PurchaseListViewModel()
+                                                 select new PurchaseDetailsModel()
                                                  {
                                                      Branch = b.Name,
                                                      Discount = a.Discount,
@@ -273,7 +273,21 @@ namespace InevntoryManagement.Controllers
 
 
 
-                                                 }).ToList();
+                                                 }).OrderByDescending(x => x.PurchaseNo).ToList();
+
+
+
+
+
+            model.PageSize = pagesize != null ? (int)pagesize : 3;
+            model.TotalRow = model.purchaseDetailsModel.Count();
+
+            model.PageIndex = pageno != null ? (int)pageno : 1;
+            //model.PrevousPage = (model.PageIndex - 1)<=0?model.FirstPage:model.PageIndex - 1;
+            //model.NextPage = (model.PageIndex + 1)>= model.TotalPage?model.LastPage: model.PageIndex + 1;
+
+            model.purchaseDetailsModel = model.purchaseDetailsModel.SkipLast(model.SkipRow).TakeLast(model.PageSize).OrderBy(x => x.PurchaseNo).ToList();
+
 
 
             //model=  LoadMultySelectList(model) as PurchaseEditViewModel;

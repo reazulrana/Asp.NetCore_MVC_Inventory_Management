@@ -146,13 +146,34 @@ using InevntoryManagement.ViewModels.Purchase;
 #nullable disable
 #nullable restore
 #line 20 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Sales;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 21 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Settings;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 22 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
 using System.Collections.Generic;
 
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 23 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using BussinessAccessLayer.ExtendModel;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"96178a10e2a8ca5679178d0ab8b31870b04c9a7c", @"/Views/Home/admin_profile.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"690000e0c2bf0b582bb5a7a8ef47e4fbeb661085", @"/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1b9aba351aa2b9ae5f03984feb2138cf7d05494b", @"/_ViewImports.cshtml")]
     public class Views_Home_admin_profile : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

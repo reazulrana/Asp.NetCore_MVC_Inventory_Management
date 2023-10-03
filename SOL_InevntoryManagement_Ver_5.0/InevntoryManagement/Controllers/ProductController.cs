@@ -26,7 +26,7 @@ namespace InevntoryManagement.Controllers
         private readonly IWebHostEnvironment _iWebHostEnvironment;
         private readonly IDapperService dapperService;
 
-        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment _hostingEnvironment,IDapperService dapperService)
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment _hostingEnvironment, IDapperService dapperService)
         {
 
             this.unitOfWork = unitOfWork;
@@ -37,10 +37,18 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpGet]
-        [ResponseCache(Duration =30)]
-        public IActionResult GetProductBalance()
+        [ResponseCache(Duration = 30)]
+        public IActionResult GetProductBalance(int? pageno, int? pagesize)
         {
-            List<ProductBalance> output = dapperService.GetProductBalance;
+
+            ProductBalanceViewModel output = new ProductBalanceViewModel();
+            output.productBalances = dapperService.GetProductBalance.OrderByDescending(x => x.CType).ToList();
+            output.TotalRow = output.productBalances.Count;
+            output.PageSize = output.DefaultPageSize(pagesize);
+            output.PageIndex = output.DefaultPageIndex(pageno);
+
+            output.productBalances = output.productBalances.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.CType).ToList();
+
 
             return View(output);
 
@@ -180,7 +188,7 @@ namespace InevntoryManagement.Controllers
             //                          Value = obj.Id.ToString()
             //                      }).ToList();
 
-            model.Sizes = (from obj in unitOfWork.Sizes.Get().Where(x=> x.SizeType.ToString()==model.SizeType)
+            model.Sizes = (from obj in unitOfWork.Sizes.Get().Where(x => x.SizeType.ToString() == model.SizeType)
                            orderby obj.ProductSize
                            select new SelectListItem
                            {
@@ -188,26 +196,26 @@ namespace InevntoryManagement.Controllers
                                Value = obj.ProductSize,
                                Selected = model.Size != null ? (model.Size[0].ToUpper() == obj.ProductSize.ToUpper() && model.SizeType == obj.SizeType.ToString()) : obj.IsSelected
                            }).ToList();
-            
+
             model.Measurements = (from obj in unitOfWork.Measures.Get()
-                           orderby obj.Measurements
-                           select new SelectListItem
-                           {
-                               Text = obj.Measurements,
-                               Value = obj.Measurements,
-                               Selected = model.Measurement != null ? model.Measurement.ToUpper() == obj.Measurements.ToUpper() : obj.IsSelected
-
-                           }).ToList();
-
-            model.Sources = (from obj in unitOfWork.Sources.Get()
-                                  orderby obj.SourceName
+                                  orderby obj.Measurements
                                   select new SelectListItem
                                   {
-                                      Text = obj.SourceName,
-                                      Value = obj.SourceName,
-                                      Selected = model.Source != null ? model.Source.ToUpper() == obj.SourceName.ToUpper() : obj.IsSelected
+                                      Text = obj.Measurements,
+                                      Value = obj.Measurements,
+                                      Selected = model.Measurement != null ? model.Measurement.ToUpper() == obj.Measurements.ToUpper() : obj.IsSelected
 
                                   }).ToList();
+
+            model.Sources = (from obj in unitOfWork.Sources.Get()
+                             orderby obj.SourceName
+                             select new SelectListItem
+                             {
+                                 Text = obj.SourceName,
+                                 Value = obj.SourceName,
+                                 Selected = model.Source != null ? model.Source.ToUpper() == obj.SourceName.ToUpper() : obj.IsSelected
+
+                             }).ToList();
 
             return model;
         }
@@ -227,30 +235,30 @@ namespace InevntoryManagement.Controllers
 
 
 
-              
-                        bool chkDuplicate = false;
-                string errsize = ""; // store the model size if find duplicate into the database
-                    foreach (string _size in model.Size)
-                    {
-                        // checked into data base that Duplicate Found or Not
-                        var prod = unitOfWork.Products.Get().Where(x=>x.Code.ToLower()==model.Code.ToLower() && x.Size.ToLower()==_size.ToLower()).FirstOrDefault();
-                        if (prod != null)
-                        {
-                            ModelState.AddModelError("", $"{_size } is Duplicate");
-                            chkDuplicate = true;
-                        errsize = errsize=="" ? _size : errsize + "; " + _size;
-                        }
-                        
-                      
 
-                    }
-                    if (chkDuplicate)
+                bool chkDuplicate = false;
+                string errsize = ""; // store the model size if find duplicate into the database
+                foreach (string _size in model.Size)
+                {
+                    // checked into data base that Duplicate Found or Not
+                    var prod = unitOfWork.Products.Get().Where(x => x.Code.ToLower() == model.Code.ToLower() && x.Size.ToLower() == _size.ToLower()).FirstOrDefault();
+                    if (prod != null)
                     {
-                        Global_Functions.SetMessage($"Prodcut Can Not Insert For The Model { errsize } because you have already insert this model with smae size Pleas Check The Model Is Duplicate Or Not","danger");
-                        return View(model);
+                        ModelState.AddModelError("", $"{_size } is Duplicate");
+                        chkDuplicate = true;
+                        errsize = errsize == "" ? _size : errsize + "; " + _size;
                     }
-                
-                
+
+
+
+                }
+                if (chkDuplicate)
+                {
+                    Global_Functions.SetMessage($"Prodcut Can Not Insert For The Model { errsize } because you have already insert this model with smae size Pleas Check The Model Is Duplicate Or Not", "danger");
+                    return View(model);
+                }
+
+
 
 
 
@@ -300,31 +308,31 @@ namespace InevntoryManagement.Controllers
                 string uniquefilename = Upload_Get_UniqueFileName(model);
 
                 List<Product> productList = new List<Product>();
-            foreach(string _size in model.Size)
+                foreach (string _size in model.Size)
                 {
-                var product = new Product()
-                {
-                    Code = model.Code,
-                    Description = model.Description,
-                    ModelId = model.ModelId,
-                    Color = model.Color,
-                    Size = _size,
-                    SizeType = model.SizeType,
-                    Unitprice = model.Unitprice,
-                    OpeningBalance = model.OpeningBalance,
-                    OpeningQty = model.OpeningQty,
-                    CreatedDate = DateTime.Now.Date,
-                    Vendor = model.Vendor,
-                    Manufacture = model.Manufacture,
-                    Bin = model.Bin,
-                    PhotoPath = uniquefilename,
-                    Remarks = model.Remarks,
-                    DiscountPrice = model.DiscountPrice,
-                     Measurement= model.Measurement!=null ? model.Measurement.ToUpper() : "PCS",
-                      Source=model.Source!=null ? model.Source.ToUpper() : "Local Market".ToLower(),
-                       Pipeline=model.Pipeline
-                     
-                };
+                    var product = new Product()
+                    {
+                        Code = model.Code,
+                        Description = model.Description,
+                        ModelId = model.ModelId,
+                        Color = model.Color,
+                        Size = _size,
+                        SizeType = model.SizeType,
+                        Unitprice = model.Unitprice,
+                        OpeningBalance = model.OpeningBalance,
+                        OpeningQty = model.OpeningQty,
+                        CreatedDate = DateTime.Now.Date,
+                        Vendor = model.Vendor,
+                        Manufacture = model.Manufacture,
+                        Bin = model.Bin,
+                        PhotoPath = uniquefilename,
+                        Remarks = model.Remarks,
+                        DiscountPrice = model.DiscountPrice,
+                        Measurement = model.Measurement != null ? model.Measurement.ToUpper() : "PCS",
+                        Source = model.Source != null ? model.Source.ToUpper() : "Local Market".ToLower(),
+                        Pipeline = model.Pipeline
+
+                    };
 
                     productList.Add(product);
                 }
@@ -362,30 +370,23 @@ namespace InevntoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductList(int? pagenumber, int? PageSize, string SearchText = null)
+        public IActionResult ProductList(int? pageno, int? pagesize, string SearchText = null)
         {
+            ProductListViewModel output = new ProductListViewModel();
+            output.productList = GetProductListViewLoadedFromDatabas();
 
-            List<ProductListViewModel> productlist = GetProductListViewLoadedFromDatabas();
+            output.TotalRow = output.productList.Count;
+            output.PageSize = output.DefaultPageSize(pagesize);
+            output.PageIndex = output.DefaultPageIndex(pageno);
+            output.productList = output.productList.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.Category).ToList();
 
-            int pagesize = PageSize ?? 4 ;
-            
-            
-            if (SearchText != null)
-            {
-                pagenumber = 1;
-                productlist = GetProductListViewLoadedFromDatabas().Where(x => x.Code.ToUpper().Contains(SearchText.ToUpper()) || x.Description.ToUpper().Contains(SearchText.ToUpper()) || x.Category.ToUpper().Contains(SearchText.ToUpper())).ToList();
 
-            };
 
-            var product = PaginatedList<ProductListViewModel>.Create(productlist.ToList(), pagenumber ?? 1 , pagesize);
-            product = IsImageFileExist(product);
-            product.SearchText = SearchText;
-                        
             List<SelectListItem> rowsize = new List<SelectListItem>()
             { new SelectListItem(){
                  Value="3",
                   Text="3",
-                  Selected=pagesize==3 ? true :false 
+                  Selected=pagesize==3 ? true :false
             },
 
                   new SelectListItem(){
@@ -413,21 +414,22 @@ namespace InevntoryManagement.Controllers
 
             };
 
-            ViewBag.rowSize = rowsize;
 
 
-            return View(product);
+
+
+            return View(output);
         }
 
-        public PaginatedList<ProductListViewModel> IsImageFileExist(PaginatedList<ProductListViewModel> porduct)
+        public List<ProductList> IsImageFileExist(List<ProductList>porduct)
         {
-            
-            foreach(var p in porduct)
+
+            foreach (var p in porduct)
             {
                 string absolutePath = _iWebHostEnvironment.WebRootPath;
                 string filename = ImagePath.GetProductImagePath(p.PhotoPath);
 
-                p.PhotoPath = ((p.PhotoPath!=null || p.PhotoPath != "") &&  Global_Functions.IsFileExist(absolutePath,filename) == true) ? p.PhotoPath : null;
+                p.PhotoPath = ((p.PhotoPath != null || p.PhotoPath != "") && Global_Functions.IsFileExist(absolutePath, filename) == true) ? p.PhotoPath : null;
 
 
             }
@@ -470,14 +472,14 @@ namespace InevntoryManagement.Controllers
                 SizeType = result.SizeType,
                 Unitprice = result.Unitprice,
                 Vendor = result.Vendor,
-                 Source=result.Source,
-                  Measurement=result.Measurement,
-                   Pipeline=result.Pipeline //Order Pipeline
+                Source = result.Source,
+                Measurement = result.Measurement,
+                Pipeline = result.Pipeline //Order Pipeline
             };
             string fullpath = Path.Combine(_iWebHostEnvironment.WebRootPath, ImagePath.GetProductImagePath(result.PhotoPath));
             bool isExist = System.IO.File.Exists(fullpath);
             product.ExistingPhotoPath = isExist == true ? result.PhotoPath : null;
-            
+
             product = Retirved_CategoryId_and_BrandId(product);
             product = MultiSelecListItemLoad(product) as ProductEditViewModel;
 
@@ -498,76 +500,76 @@ namespace InevntoryManagement.Controllers
 
             if (ModelState.IsValid)
             {
-                                         
-            var result = unitOfWork.Products.GetByID(model.Id);
 
-            if (result == null)
-            {
-                ViewBag.ErrorTitle = "Product Edit Page Not Found";
-                ViewBag.ErrorMessage = $"The Product Id { model.Id } You Are Looking for Not Found";
-                return View();
-            }
-            else
-            {
+                var result = unitOfWork.Products.GetByID(model.Id);
 
-
-                //
-                Product HasProduct = unitOfWork.Products.Get().Where(x => x.Code.ToUpper() == model.Code.ToUpper() && x.Size == model.Size).FirstOrDefault();
-
-
-                if (HasProduct == null ||  (HasProduct!=null && result.Id == HasProduct.Id))
+                if (result == null)
                 {
-
-                    result.Bin = model.Bin;
-                    result.Code = model.Code;
-                    result.Color = model.Color;
-                    result.Description = model.Description;
-                    result.DiscountPrice = model.DiscountPrice;
-                    result.Manufacture = model.Manufacture;
-                    result.ModelId = model.ModelId;
-                    result.OpeningBalance = model.OpeningBalance;
-                    result.OpeningQty = model.OpeningQty;
-                    result.Remarks = model.Remarks;
-                    result.Size = model.Size;
-                    result.SizeType = model.SizeType;
-                    result.Unitprice = model.Unitprice;
-                    result.Vendor = model.Vendor;
-                    result.Measurement = model.Measurement != null ? model.Measurement.ToUpper() : "PCS";
-                    result.Source = model.Source != null ? model.Source.ToUpper() : "Local Market".ToUpper();
-                    result.Pipeline = model.Pipeline;
-
-                    if (model.Photo != null)
-                    {
-                        if (model.ExistingPhotoPath != null && model.ExistingPhotoPath != "")
-                        {
-                            string fullpath = Path.Combine(_iWebHostEnvironment.WebRootPath, ImagePath.GetProductImagePath(model.ExistingPhotoPath));
-                            System.IO.File.Delete(fullpath);
-
-                        }
-
-                        string upload_photo_path = Upload_Get_UniqueFileName(model);
-                        result.PhotoPath = upload_photo_path;
-                        model.ExistingPhotoPath = upload_photo_path;
-
-                    }
-
-                    try
-                    {
-                        unitOfWork.Products.Update(result);
-                        Global_Functions.SetMessage("Product Update Successfully", "success");
-                    }
-                    catch (Exception ex)
-                    {
-                        ViewBag.ErrorTitle = "Product Update Error";
-                        ViewBag.ErrorMessage = ex.Message;
-                        return View("NotFound");
-                    }
+                    ViewBag.ErrorTitle = "Product Edit Page Not Found";
+                    ViewBag.ErrorMessage = $"The Product Id { model.Id } You Are Looking for Not Found";
+                    return View();
                 }
                 else
                 {
-                    Global_Functions.SetMessage($" {Global_Functions.DuplicateErrorMessage("Product")}. The Product Is Found Into Database with Same Code '{ model.Code }' And Same Size '{model.Size}' ", "danger");
-                    return View(model);
-                }
+
+
+                    //
+                    Product HasProduct = unitOfWork.Products.Get().Where(x => x.Code.ToUpper() == model.Code.ToUpper() && x.Size == model.Size).FirstOrDefault();
+
+
+                    if (HasProduct == null || (HasProduct != null && result.Id == HasProduct.Id))
+                    {
+
+                        result.Bin = model.Bin;
+                        result.Code = model.Code;
+                        result.Color = model.Color;
+                        result.Description = model.Description;
+                        result.DiscountPrice = model.DiscountPrice;
+                        result.Manufacture = model.Manufacture;
+                        result.ModelId = model.ModelId;
+                        result.OpeningBalance = model.OpeningBalance;
+                        result.OpeningQty = model.OpeningQty;
+                        result.Remarks = model.Remarks;
+                        result.Size = model.Size;
+                        result.SizeType = model.SizeType;
+                        result.Unitprice = model.Unitprice;
+                        result.Vendor = model.Vendor;
+                        result.Measurement = model.Measurement != null ? model.Measurement.ToUpper() : "PCS";
+                        result.Source = model.Source != null ? model.Source.ToUpper() : "Local Market".ToUpper();
+                        result.Pipeline = model.Pipeline;
+
+                        if (model.Photo != null)
+                        {
+                            if (model.ExistingPhotoPath != null && model.ExistingPhotoPath != "")
+                            {
+                                string fullpath = Path.Combine(_iWebHostEnvironment.WebRootPath, ImagePath.GetProductImagePath(model.ExistingPhotoPath));
+                                System.IO.File.Delete(fullpath);
+
+                            }
+
+                            string upload_photo_path = Upload_Get_UniqueFileName(model);
+                            result.PhotoPath = upload_photo_path;
+                            model.ExistingPhotoPath = upload_photo_path;
+
+                        }
+
+                        try
+                        {
+                            unitOfWork.Products.Update(result);
+                            Global_Functions.SetMessage("Product Update Successfully", "success");
+                        }
+                        catch (Exception ex)
+                        {
+                            ViewBag.ErrorTitle = "Product Update Error";
+                            ViewBag.ErrorMessage = ex.Message;
+                            return View("NotFound");
+                        }
+                    }
+                    else
+                    {
+                        Global_Functions.SetMessage($" {Global_Functions.DuplicateErrorMessage("Product")}. The Product Is Found Into Database with Same Code '{ model.Code }' And Same Size '{model.Size}' ", "danger");
+                        return View(model);
+                    }
 
 
 
@@ -586,7 +588,7 @@ namespace InevntoryManagement.Controllers
         [HttpGet]
         public JsonResult LoadDataTable()
         {
-            List<ProductListViewModel> output = GetProductListViewLoadedFromDatabas();
+            List<ProductList> output = GetProductListViewLoadedFromDatabas();
 
             string o = JsonConvert.SerializeObject(output);
 
@@ -597,7 +599,7 @@ namespace InevntoryManagement.Controllers
         }
 
         //ProductListData Retirved from Database
-        List<ProductListViewModel> GetProductListViewLoadedFromDatabas()
+        List<ProductList> GetProductListViewLoadedFromDatabas()
         {
 
             string absoluteFolder = _iWebHostEnvironment.WebRootPath;
@@ -612,7 +614,7 @@ namespace InevntoryManagement.Controllers
                     on models.Id equals products.ModelId into egroups
                     from products in egroups
                     orderby products.Description
-                    select new ProductListViewModel()
+                    select new ProductList()
                     {
                         Id = products.Id,
                         BrandName = brands.BrandName,
@@ -633,7 +635,7 @@ namespace InevntoryManagement.Controllers
                         SizeType = products.SizeType,
                         Unitprice = products.Unitprice,
                         VendorName = products.Vendor,
-                         Measurement=products.Measurement,
+                        Measurement = products.Measurement,
                         Source = products.Source,
                         Pipeline = products.Pipeline,
                     }).ToList();
@@ -659,7 +661,7 @@ namespace InevntoryManagement.Controllers
         [HttpGet]
         public JsonResult FindModelByBrandID(int brandid)
         {
-            var output = unitOfWork.Models.Get().Where(x => x.BrandId == brandid).ToList().OrderBy(x=>x.ModelName);
+            var output = unitOfWork.Models.Get().Where(x => x.BrandId == brandid).ToList().OrderBy(x => x.ModelName);
             bool success = false;
             if (output != null)
             {
@@ -692,47 +694,47 @@ namespace InevntoryManagement.Controllers
             string absoluteFolder = _iWebHostEnvironment.WebRootPath;
 
 
-            if (term!=null && term != "")
+            if (term != null && term != "")
             {
-                output=(from cats in unitOfWork.Categories.Get()
-                 join brands in unitOfWork.Brands.Get()
-                 on cats.Id equals brands.CategoryId
-                 join models in unitOfWork.Models.Get()
-                 on brands.Id equals models.BrandId
-                 join products in unitOfWork.Products.Get()
-                 
-                 on models.Id equals products.ModelId into egroups
-                 from products in egroups
-                 orderby products.Description
-                 select new Autocomplete()
-                 {
-                     code = products.Code,
-                     value = products.Id.ToString(),
-                     description = products.Description,
-                     color = products.Color,
-                     model = models.ModelName,
-                     id = products.Id.ToString(),
-                     size = products.Size,
-                      category=cats.CType,
-                     photopath = ((products.PhotoPath != null && products.PhotoPath != "") && Global_Functions.IsFileExist(absoluteFolder, products.PhotoPath) == true) ? products.PhotoPath : null,
+                output = (from cats in unitOfWork.Categories.Get()
+                          join brands in unitOfWork.Brands.Get()
+                          on cats.Id equals brands.CategoryId
+                          join models in unitOfWork.Models.Get()
+                          on brands.Id equals models.BrandId
+                          join products in unitOfWork.Products.Get()
 
-                 }).Where(x => searchField=="code"? x.code.ToLower().Contains(term.ToLower()): searchField=="model"? x.model.ToLower().Contains(term.ToLower()): x.description.ToLower().Contains(term.ToLower())).ToList();
+                          on models.Id equals products.ModelId into egroups
+                          from products in egroups
+                          orderby products.Description
+                          select new Autocomplete()
+                          {
+                              code = products.Code,
+                              value = products.Id.ToString(),
+                              description = products.Description,
+                              color = products.Color,
+                              model = models.ModelName,
+                              id = products.Id.ToString(),
+                              size = products.Size,
+                              category = cats.CType,
+                              photopath = ((products.PhotoPath != null && products.PhotoPath != "") && Global_Functions.IsFileExist(absoluteFolder, products.PhotoPath) == true) ? products.PhotoPath : null,
+
+                          }).Where(x => searchField == "code" ? x.code.ToLower().Contains(term.ToLower()) : searchField == "model" ? x.model.ToLower().Contains(term.ToLower()) : x.description.ToLower().Contains(term.ToLower())).ToList();
 
 
-                       
-                        
+
+
             }
 
             return new JsonResult(new { output });
         }
 
-       [HttpGet]
+        [HttpGet]
         public JsonResult FindProductwithbalance(string term, string searchField)
         {
             List<ProductBalance> output = new List<ProductBalance>();
-            
-                 output= dapperService.GetProductBalanceSatrtwith(term,searchField);
-            
+
+            output = dapperService.GetProductBalanceSatrtwith(term, searchField);
+
 
             return new JsonResult(new { output });
         }

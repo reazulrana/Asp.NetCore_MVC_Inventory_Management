@@ -146,13 +146,34 @@ using InevntoryManagement.ViewModels.Purchase;
 #nullable disable
 #nullable restore
 #line 20 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Sales;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 21 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Settings;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 22 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
 using System.Collections.Generic;
 
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 23 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using BussinessAccessLayer.ExtendModel;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4df2a9b28947b5a43d62fe95727fb39292d90e2c", @"/Views/Shared/Purchase/_PurchaseEditProductDetails.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"690000e0c2bf0b582bb5a7a8ef47e4fbeb661085", @"/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1b9aba351aa2b9ae5f03984feb2138cf7d05494b", @"/_ViewImports.cshtml")]
     public class Views_Shared_Purchase__PurchaseEditProductDetails : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<PurchaseEditViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("img-fluid pimage"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -311,7 +332,7 @@ WriteAttributeValue("", 3943, colinput, 3943, 9, false);
             WriteLiteral("\r\n                </div>");
             WriteLiteral("            </div>\r\n        </div>\r\n\r\n");
             WriteLiteral("\r\n        <div class=\"col-md-4\">\r\n            <div class=\"form-row\">\r\n                <div class=\"col-md-12\">\r\n                    <label>Image</label>\r\n                    <div class=\"card-img-top\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "4df2a9b28947b5a43d62fe95727fb39292d90e2c17115", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "4df2a9b28947b5a43d62fe95727fb39292d90e2c17780", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -408,7 +429,7 @@ WriteAttributeValue("", 6721, p.photopath, 6721, 12, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(" />  ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "4df2a9b28947b5a43d62fe95727fb39292d90e2c21619", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "4df2a9b28947b5a43d62fe95727fb39292d90e2c22284", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_ImageTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ImageTagHelper>();

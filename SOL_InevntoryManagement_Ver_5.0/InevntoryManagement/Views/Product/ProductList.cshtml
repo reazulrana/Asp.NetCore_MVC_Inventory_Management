@@ -1,5 +1,5 @@
 ﻿@*@model List<ProductListViewModel>*@
-@model PaginatedList<ProductListViewModel>
+@model ProductListViewModel
 @{
     ViewBag.Title = "Product List";
     //HttpContext httpContext = new HttpContext();
@@ -27,11 +27,11 @@
                 </div>
 
                 <div class="col-md-6 float-md-right">
-                        <div class="input-group">
-                            <select class="float-md-right form-control col-md-9" name="PageSize" asp-items="@ViewBag.rowSize as List<SelectListItem>">
-                                <option selected="selected">Select Row</option>
-                            </select>
-                            <span class="float-md-right input-group-append"><button class="btn btn-facebook btn-xs"><i class="la la-2x la-refresh"></i></button></span>
+                    <div class="input-group">
+                        <select class="float-md-right form-control col-md-9" name="PageSize" asp-items="@ViewBag.rowSize as List<SelectListItem>">
+                            <option selected="selected">Select Row</option>
+                        </select>
+                        <span class="float-md-right input-group-append"><button class="btn btn-facebook btn-xs"><i class="la la-2x la-refresh"></i></button></span>
                     </div>
 
 
@@ -60,22 +60,22 @@
 
 
                             @*<th>SizeName</th>
-                                <th>SizeType</th>
-                                <th>Unitprice</th>
-                                <th>OpeningBalance</th>*@
+                            <th>SizeType</th>
+                            <th>Unitprice</th>
+                            <th>OpeningBalance</th>*@
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
-                    @if (Model != null && Model.Count > 0)
+                    @if (Model.productList != null && Model.productList.Count > 0)
                     {
                         int sl = ((Model.PageIndex - 1) * Model.PageSize) == 0 ? 1 : ((Model.PageIndex - 1) * Model.PageSize) + 1;
 
-                        foreach (var _model in Model)
+                        foreach (var _model in Model.productList)
                         {
                             string photopath = @_model.PhotoPath != null ? "~/" + ImagePath.GetProductImagePath(_model.PhotoPath) : ImagePath.GetBlankImageFromRootFolder();
                             // string url = @_model.PhotoPath != null ? ImagePath.GetProductImagePath(_model.PhotoPath) : ImagePath.GetBlankImageFromRootFolder();
-                            
+
                             <tr>
                                 <td>@sl</td>
                                 <td>
@@ -91,14 +91,14 @@
                                 <td>@_model.Unitprice</td>
                                 <td>
                                     <a asp-action="Edit" asp-controller="Product" asp-route-id="@_model.Id" class="btn btn-outline-secondary btn-xs" title="Edit"><span><i class="mdi mdi-pencil"></i></span></a>
-                                    
+
                                     <a asp-route-id="@_model.Id" class="btn btn-outline-info btn-xs" title="Product Information" data-toggle="modal" data-target="#Modal_Product_Details_@_model.Id"><span><i class="mdi mdi-information-outline"></i></span></a>
                                     @Html.Partial("~/Views/Shared/Product/_productDetails.cshtml", _model)
-                                    
+
                                     <button class="btn btn-outline-danger btn-xs" title="Delete"><span><i class="mdi mdi-delete"></i></span></button>
 
                                 </td>
-                               
+
 
                             </tr>
                             sl = sl + 1;
@@ -116,68 +116,25 @@
 
 
 
-        @{
-            int PreviousPage = (Model.PageIndex - 1) <= 0 ? 1 : Model.PageIndex - 1;
-            int NextPage = (Model.PageIndex + 1) >= Model.TotalPage ? Model.TotalPage : Model.PageIndex + 1;
-
-            int pagestart = 1;
-            int pageEnd = Model.TotalPage;
-            bool isFirstPageActive = !Model.HasPreviousPage;
-            bool isLastPageActive = !Model.HasNextPage;
-
-
-        }
-        <div class="btn-toolbar">
-            <div class="btn-group">
-
-
-                <form method="get" asp-controller="Product" asp-action="ProductList">
-
-                    <button disabled="@isFirstPageActive" class="@(isFirstPageActive ? "btn btn-xs btn-outline-dark" : "btn btn-xs btn-outline-danger")" title="@(isFirstPageActive ? "disabled" : "Active" )"><span><i class="la la-angle-double-left"></i></span> </button>
-                    <input hidden name="pagenumber" value="@pagestart" />
-                    <input hidden asp-for="@Model.SearchText" />
-                    <input hidden asp-for="@Model.PageSize" />
-                </form>
+        <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
 
 
 
-                <form method="get" asp-controller="Product" asp-action="ProductList">
-
-                    <button disabled="@isFirstPageActive" class="@(isFirstPageActive ? "btn btn-xs btn-outline-dark" : "btn btn-xs btn-outline-danger")" title="@(isFirstPageActive ? "disabled" : "Active" )"><span><i class="la la-angle-left"></i></span> </button>
-                    <input hidden name="pagenumber" value="@PreviousPage" />
-                    <input hidden asp-for="@Model.SearchText" />
-                    <input hidden asp-for="@Model.PageSize" />
-                </form>
-                @for (int i = 1; i <= Model.TotalPage; i++)
-                {
 
 
-                    <form method="get" asp-controller="Product" asp-action="ProductList" asp-route-pagenumber="@i">
-                        <button class="btn_paginate @(i==Model.PageIndex ? "active" : "" ) btn btn-xs btn-outline-danger">@i</button>
-                        <input hidden name="pagenumber" value="@i" />
-                        <input hidden asp-for="@Model.SearchText" />
-                        <input hidden asp-for="@Model.PageSize" />
-                    </form>
 
-                }
 
-                <form method="get" asp-controller="Product" asp-action="ProductList">
-                    <div class="page-item">
-                        <button disabled="@isLastPageActive" class="@(isLastPageActive ? "btn btn-xs btn-outline-dark" : "btn btn-xs btn-outline-danger")" title="@(isLastPageActive ? "disabled" : "Active" )"><span><i class="la la-angle-right"></i></span> </button>
-                        <input hidden name="pagenumber" value="@NextPage" />
-                        <input hidden asp-for="@Model.SearchText" />
-                        <input hidden asp-for="@Model.PageSize" />
-                    </div>
-                </form>
-                <form method="get" asp-controller="Product" asp-action="ProductList">
-                    <button disabled="@isLastPageActive" class="@(isLastPageActive ? "btn btn-xs btn-outline-dark" : "btn btn-xs btn-outline-danger")"><span><i class="la la-angle-double-right" title="@(isLastPageActive ? "disabled" : "Active" )"></i></span> </button>
-                    <input hidden name="pagenumber" value="@pageEnd" />
-                    <input hidden asp-for="@Model.SearchText" />
-                    <input hidden asp-for="@Model.PageSize" />
-                </form>
 
-            </div>
-        </div>
+
+
+
+
+
+
+
+
+
+
 
 
     </div>

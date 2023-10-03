@@ -172,8 +172,15 @@ using BussinessAccessLayer.ExtendModel;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 24 "E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\_ViewImports.cshtml"
+using InevntoryManagement.ViewModels.Manufactures;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ef1d381a5c54bf87d53fa093b8f688f4130cb73c", @"/Views/Shared/Sales/_SaleDetails.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1b9aba351aa2b9ae5f03984feb2138cf7d05494b", @"/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"38317fe4f735627c15271726327f1d5a2ee9cabd", @"/_ViewImports.cshtml")]
     public class Views_Shared_Sales__SaleDetails : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<SaleCreateViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("form-control"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -257,7 +264,7 @@ WriteAttributeValue("", 426, collabel, 426, 9, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c13136", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c13365", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper>();
@@ -288,7 +295,7 @@ WriteAttributeValue("", 536, colinput, 536, 9, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n                \r\n                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c15087", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c15316", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();
@@ -312,7 +319,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvid
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c16822", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c17051", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();
@@ -365,7 +372,7 @@ WriteAttributeValue(" ", 910, margin, 911, 7, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c19919", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c20148", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper>();
@@ -396,7 +403,7 @@ WriteAttributeValue("", 1016, colinput, 1016, 9, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c21845", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c22074", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();
@@ -446,7 +453,7 @@ WriteAttributeValue(" ", 1220, margin, 1221, 7, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c24601", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c24830", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper>();
@@ -477,9 +484,9 @@ WriteAttributeValue("", 1328, colinput, 1328, 9, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n                <div class=\"input-group\">\r\n                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c26580", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c26809", async() => {
                 WriteLiteral("\r\n                        ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c26865", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c27094", async() => {
                     WriteLiteral("Select Branch");
                 }
                 );
@@ -528,7 +535,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = Model.BranchList;
                     </div>
                 </div>
                 ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("span", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c30135", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("span", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c30364", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ValidationMessageTagHelper>();
@@ -580,7 +587,7 @@ WriteAttributeValue("", 2195, collabel, 2195, 9, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c33134", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c33363", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper>();
@@ -611,9 +618,9 @@ WriteAttributeValue("", 2294, colinput, 2294, 9, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n            <div class=\"input-group\">\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c35101", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c35330", async() => {
                 WriteLiteral("\r\n                    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c35382", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c35611", async() => {
                     WriteLiteral("Select Platform");
                 }
                 );
@@ -689,7 +696,7 @@ WriteAttributeValue("", 3002, collabel, 3002, 9, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c39860", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c40089", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper>();
@@ -720,9 +727,9 @@ WriteAttributeValue("", 3101, colinput, 3101, 9, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\r\n            <div class=\"input-group\">\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c41827", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c42056", async() => {
                 WriteLiteral("\r\n                    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c42108", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef1d381a5c54bf87d53fa093b8f688f4130cb73c42337", async() => {
                     WriteLiteral("Select Sale Type");
                 }
                 );

@@ -36,6 +36,10 @@ namespace InevntoryManagement
 
 
 
+
+            services.AddResponseCaching();
+
+
             services.AddDbContext<ApplicationDbContext>
             (options => options.UseSqlServer(_config.GetConnectionString("DatabasDbConnection")));
 
@@ -91,6 +95,27 @@ namespace InevntoryManagement
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            //start for cachein
+            app.UseResponseCaching();
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.GetTypedHeaders().CacheControl =
+                    new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+                    {
+                        Public = true,
+                        MaxAge = TimeSpan.FromSeconds(10)
+                    };
+                context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+                    new string[] { "Accept-Encoding" };
+
+                await next();
+            });
+            //End for cachein
+
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

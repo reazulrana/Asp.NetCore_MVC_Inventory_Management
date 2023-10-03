@@ -1,4 +1,4 @@
-﻿@model List<VendorListViewModel>
+﻿@model VendorListViewModel
 
 
 @{
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        @if (Model != null && Model.Count > 0)
+        @if (Model.vendorListModels != null && Model.vendorListModels.Count > 0)
         {
             <div class="row border text-md-center py-3 bg-secondary">
                 <div class="col-md-1">
@@ -39,8 +39,8 @@
                 </div>
             </div>
 
-            int sl = 1;
-            foreach (var _model in Model)
+            int sl = Model.RowIndex;
+            foreach (var _model in Model.vendorListModels)
             {
 
 
@@ -101,6 +101,10 @@
         {
             <h4>No Vendor Aailable</h4>
         }
+
+
+        <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
+
 
 
     </div>

@@ -21,18 +21,26 @@ namespace InevntoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult SizeList()
+        public IActionResult SizeList(int? pageno,int? pagesize)
         {
-            var model = (from obj in unitOfWork.Sizes.Get()
-                         select new SizeListViewModel()
+            SizeListViewModel output = new SizeListViewModel();
+
+            output.sizeListModels= (from obj in unitOfWork.Sizes.Get()
+                         select new SizeListModel()
                          {
                              SizeId = obj.Id,
                              SizeName = obj.ProductSize,
                              sizeType = obj.SizeType == 1 ? "Size" : "Dimension"
-                         }).ToList(); ;
+                         }).OrderByDescending(x=>x.SizeName).ToList(); ;
+            output.TotalRow = output.sizeListModels.Count();
+            output.PageSize = output.DefaultPageSize(pagesize);
+            output.PageIndex = output.DefaultPageIndex(pageno);
 
 
-            return View(model);
+            output.sizeListModels = output.sizeListModels.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.sizeType).OrderBy(x=>x.SizeName).ToList();
+
+
+            return View(output);
         }
 
 

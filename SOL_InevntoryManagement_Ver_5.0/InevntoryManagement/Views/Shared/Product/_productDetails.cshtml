@@ -1,4 +1,4 @@
-﻿@model ProductListViewModel
+﻿@model ProductList
 @{
     string photopath = (Model.PhotoPath != null && Model.PhotoPath != "") ? "~/" + ImagePath.GetProductImagePath(Model.PhotoPath) : "~/" + ImagePath.GetDefaultImagePath("No_Image_Available.jpg");
     //string price = Model.DiscountPrice > 0 ? "<del>" + Model.Unitprice.ToString() + "</del>" + Model.DiscountPrice.ToString() : Model.Unitprice.ToString();

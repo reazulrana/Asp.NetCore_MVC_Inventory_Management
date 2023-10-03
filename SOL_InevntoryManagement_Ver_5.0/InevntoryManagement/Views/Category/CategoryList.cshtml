@@ -1,33 +1,48 @@
-﻿@model List<Category>
+﻿@model CategoryListViewModel
 @{
     ViewBag.Title = "Category List";
     CategoryEditViewModel categoryEditViewModel = new CategoryEditViewModel();
-    CategoryDeleteViewModel categoryDeleteViewModel = new CategoryDeleteViewModel();
+    //CategoryDeleteViewModel categoryDeleteViewModel = new CategoryDeleteViewModel();
+    string actionname = "categoryList";
+    string controllername = "category";
+
+    int previouspage = Model.PrevousPage;
+    int nextpage = Model.NextPage;
+    int pagesize = Model.PageSize;
+
+    ViewData["controllername"] = controllername;
+    ViewData["actionname"] = actionname;
+    //ViewData["previouspage"] = previouspage;
+    //ViewData["nextpage"] = nextpage;
+    //ViewData["pagesize"] = pagesize;
+
+
+
 
 }
 
 
 
 
-    <div class="card">
-        <div class="card-header bg-secondary">
-            <h1 class="card-title text-white">Category List</h1>
+<div class="card">
+    <div class="card-header bg-secondary">
+        <h1 class="card-title text-white">Category List</h1>
 
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_Messages" />
+            </div>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <partial name="_Messages" />
-                </div>
+        <div class="row py-1">
+            <div class="col-md-12">
+                <a asp-controller="Category" asp-action="Create" class="btn pull-right btn-secondary btn-sm"><span> Create Brand <i aria-hidden="true" class="mdi mdi-plus"></i> </span> </a>
             </div>
-            <div class="row py-1">
-                <div class="col-md-12">
-                    <a asp-controller="Category" asp-action="Create" class="btn pull-right btn-secondary btn-sm"><span> Create Brand <i aria-hidden="true" class="mdi mdi-plus"></i> </span> </a>
-                </div>
-            </div>
+        </div>
 
-            @if(Model.Count>0)
-            {
+        @if (Model.categories.Count > 0)
+        {
 
             <div class="row py-1 border-secondary bg-info">
                 <div class="col-md-4">
@@ -41,14 +56,14 @@
                 </div>
             </div>
 
-                int sl = 1;
+            int sl = Model.RowIndex;
 
-            @foreach (Category cat in Model)
+            @foreach (Category cat in Model.categories)
             {
                 <div class="row border-bottom py-2">
 
                     <div class="col-md-4">
-                         @sl
+                        @sl
                     </div>
                     <div class="col-md-4">
                         <strong>@cat.CType</strong>
@@ -60,74 +75,47 @@
                             </div>
                             <div class="col-md-6">
                                 <button id="deleteCategoryButton_@cat.Id" onclick="showButton(@cat.Id)" class="btn btn-outline-danger btn-xs show_delete_category">Delete <span class="btn-icon-right"><i class="mdi mdi-delete"></i></span></button>
-
-
-
-
                             </div>
                         </div>
-
-
-
 
                         @*Yes No div Section Bind with javascript*@
                         <div class="row mt-3" id="showDeleteCategoryDiv_@cat.Id" style="display:none">
                             <div class="col-md-12">
                                 <p>Do You Want To Delete <strong>'@cat.CType'</strong></p>
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <form method="post" asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id">
                                             <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
                                         </form>
                                     </div>
-
                                     <div class="col-md-6">
-
                                         <button type="button" id="cancelDeleteBrand_@cat.Id" onclick="CancelDelete(@cat.Id)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
-
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-
-
-
                 </div>
                 sl = sl + 1;
             }
-            }  
-            else
-            {            
+        }
+        else
+        {
             <h3 class="card-title">No Category Available</h3>
-            }
-        </div>
-        <div class="card-footer">
+        }
 
-        </div>
+
+
+
+
     </div>
+    <div class="card-footer">
 
-
-@*else
-{
-    <div class="card">
-        <div class="card-header bg-secondary">
-            <h1 class="card-title text-white">Category List</h1>
-        </div>
-        <div class="card-body">
-            <h1 class="card-title">No Category Available</h1>
-        </div>
-        <div class="card-footer">
-            <a asp-controller="Category" asp-action="Create" class="btn btn-info light btn-sm">Create</a>
-        </div>
     </div>
+</div>
 
-}*@
-
+@*@Html.Partial("~/Views/Shared/Pagination/_PaginagionHeader.cshtml",Model, "ViewData")*@
+<partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" view-data="ViewData" />
 
 <form method="post" asp-action="Edit" asp-controller="Category">
     <partial name="~/Views\Shared\Category\_EditCategory.cshtml" model="categoryEditViewModel" />
@@ -135,9 +123,11 @@
 
 
 
+
+
 @*<form method="post" asp-action="Delete" asp-controller="Category">
-    <partial name="~/Views\Shared\Category\_DeleteCategory.cshtml" model="categoryDeleteViewModel" />
-</form>*@
+        <partial name="~/Views\Shared\Category\_DeleteCategory.cshtml" model="categoryDeleteViewModel" />
+    </form>*@
 
 
 
@@ -163,16 +153,15 @@
 
         $(document).ready(function () {
 
-            //if Delete Brand checkbox click 
+            //if Delete Brand checkbox click
             $(".delete_category_check").change(function () {
 
                 var blnflag = $(this).is(":checked");
-                                
+
                 if (blnflag == true) {
 
                     $("#show_hide_message").show();
-                } else
-                {
+                } else {
                     $("#show_hide_message").hide();
 
                 }

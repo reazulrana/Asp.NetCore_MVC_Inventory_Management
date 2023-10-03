@@ -1,4 +1,4 @@
-﻿@model List<SaleDetails>
+﻿@model SaleDetailsViewModel
 
 @{ 
     ViewBag.Title = "Sale Edit List";
@@ -8,9 +8,9 @@
 <div class="card">
     <div class="card-body">
         <div class="row mt-2">
-            <div class="col-md-12 mt-3">
-                <table class="table  table-bordered table-responsive text-center">
-                    <thead class="bg-secondary">
+            <div class="table-responsive  mt-3">
+                <table class="table text-center" border="1">
+                    <thead class="table-dark">
                         <tr class="text-white">
                             <th><small>SL</small></th>
                             <th><small>Invoice No# </small> </th>
@@ -24,52 +24,90 @@
                             <th><small>Others</small> </th>
                             <th><small>Discount</small> </th>
                             <th><small>Net Amount</small> </th>
-                            <th colspan="2">Edit/Delete</small> </th>
+                            <th colspan="2"><small>Edit/Delete</small> </th>
 
                         </tr>
                     </thead>
                     <tbody id="productlist">
 
-                        @if (Model.Count > 0)
+                        @if (Model.saleDetailsViewModels.Count > 0)
                         {
-                            int sl = 1;
-                            foreach (var p in Model)
+                            int sl = Model.PageIndex * Model.PageSize <= 0 ? 1 : ((Model.PageIndex * Model.PageSize) - Model.PageSize) + 1;
+                            foreach (var p in Model.saleDetailsViewModels)
                             {
                                 //string _photopath = (p.photopath == null || p.photopath == "") ? "~/" + ImagePath.GetDefaultImagePath("No_Image_Avaiable.jpg") : "~/" + ImagePath.GetProductImagePath(p.photopath);
                                 //int totalamount = p.qty * p.price;
-                        <tr>
-                            <td>@sl </td>
-                            <td>@p.Invoice</td>
-                            <td>@p.TrDate</td>
-                            <td>@p.Branch </td>
-                            <td>@p.PaymentType</td>
-                            <td>@p.TotalAmount</td>
-                            <td>@p.PaymentOnCash</td>
-                            <td>@p.Dues</td>
-                            <td>@p.Transport</td>
-                            <td>@p.Others</td>
-                            <td>@p.Discount</td>
-                            <td>@p.NetAmount</td>
-                            <td>
-                                <a asp-controller="Report" asp-action="PrintSaleInvoice" asp-route-saleid="@p.SaleID" class="btn btn-outline-info btn-xs" title="Print Invoice"><span class="ml-1"><i class="mdi mdi-view-list"></i></span></a>
-                                <a asp-controller="Sale" asp-action="Edit" asp-route-id="@p.SaleID" class="btn btn-outline-info btn-xs" title="Details"><span class="ml-1"><i class="mdi mdi-eye"></i></span></a>
+                                <tr>
+                                    <td>@sl </td>
+                                    <td>@p.Invoice</td>
+                                    <td>@p.TrDate</td>
+                                    <td>@p.Branch </td>
+                                    <td>@p.PaymentType</td>
+                                    <td>@p.TotalAmount</td>
+                                    <td>@p.PaymentOnCash</td>
+                                    <td>@p.Dues</td>
+                                    <td>@p.Transport</td>
+                                    <td>@p.Others</td>
+                                    <td>@p.Discount</td>
+                                    <td>@p.NetAmount</td>
+                                    <td>
+                                            <form class="input-group" method="post" asp-controller="Sale" asp-action="Delete" asp-route-id="@p.SaleID">
+                                                <a asp-controller="Report" asp-action="PrintSaleInvoice" asp-route-saleid="@p.SaleID" class="btn btn-outline-primary btn-xs" title="Print Invoice"><span class="ml-1"><i class="mdi mdi-view-list"></i></span></a>
+                                                <a asp-controller="Sale" asp-action="Edit" asp-route-id="@p.SaleID" class="btn btn-outline-success btn-xs" title="Details"><span class="ml-1"><i class="mdi mdi-eye"></i></span></a>
+                                                <a asp-controller="Sale" asp-action="Edit" asp-route-id="@p.SaleID" class="btn btn-outline-info btn-xs" title="Edit"><span class="ml-1"><i class="mdi mdi-pencil"></i></span></a>
+                                                <button type="submit" class="btn btn-outline-danger btn-xs" title="Delete"><span class="ml-1"><i class="mdi mdi-delete"></i></span></button>
+                                            </form>
+                                    </td>
 
-                                <a asp-controller="Sale" asp-action="Edit" asp-route-id="@p.SaleID" class="btn btn-outline-info btn-xs" title="Edit"><span class="ml-1"><i class="mdi mdi-pencil"></i></span></a>
-                                <a asp-controller="Sale" asp-action="Delete" asp-route-id="@p.SaleID" class="btn btn-outline-danger btn-xs" title="Delete"><span class="ml-1"><i class="mdi mdi-delete"></i></span></a>
-                            </td>
-                           
 
 
-                        </tr>
+                                </tr>
                                 sl = sl + 1;
                             }
                         }
                     </tbody>
 
                 </table>
+
+
             </div>
 
         </div>
+
+        <div class="text-right">
+            
+            <nav class="text-right">
+                <ul class="pagination">
+                @*<ul class="pagination pagination-gutter pagination-primary">*@
+                @*<ul class="pagination pagination-circle">*@
+                <li class="page-item page-indicator">
+                    <a class="page-link" asp-controller="sale" asp-action="GetSaleEditList" asp-route-pageno="@Model.PrevousPage" asp-route-pagesize="@Model.PageSize" title="Previous">
+                        <i class="la la-angle-left"></i>
+                    </a>
+                </li>
+                @{ for (int sl = 1; sl <= Model.TotalPage; sl++)
+                    {
+                        <li class="page-item @(sl==@Model.PageIndex ? "active":"")">
+                            <a class="page-link" asp-controller="sale" asp-action="GetSaleEditList" asp-route-pageno="@sl" asp-route-pagesize="@Model.PageSize" title="@sl">@sl</a>
+                        </li>
+                    }}
+
+                <li class="page-item page-indicator">
+                    <a class="page-link" asp-controller="sale" asp-action="GetSaleEditList" asp-route-pageno="@Model.NextPage" asp-route-pagesize="@Model.PageSize" title="Next">
+                        <i class="la la-angle-right"></i>
+                    </a>
+                </li>
+                </ul>
+
+            </nav>
+
+
+
+        </div>
+
+
+
+
     </div>
 </div>
 

@@ -1,4 +1,4 @@
-﻿@model List<BrandListViewModel>
+﻿@model BrandListViewModel
 
 @{
     ViewBag.Title = "Brand List";
@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                @if (Model != null && Model.Count > 0)
+                @if (Model != null && Model.brandLists.Count > 0)
                 {
                     <div class="row bg-blue-dark border divHeaderPart">
                         <div class="col-md-2 text-center">
@@ -52,8 +52,8 @@
                         </div>
                     </div>
 
-                    int sl = 1;
-                    foreach (var brand in Model)
+                    int sl = Model.RowIndex;
+                    foreach (var brand in Model.brandLists)
                     {
                         <div class="row py-2 border border-bottom divBodyParent">
                             <div class="col-md-2 text-center">
@@ -108,6 +108,15 @@
                         sl = sl + 1;
                     }
                 }
+            else
+            {
+                <h3>No Brand Available</h3>
+            }
+            
+                <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
+
+
+
 
             </div>
             <div class="card-footer bg-secondary">

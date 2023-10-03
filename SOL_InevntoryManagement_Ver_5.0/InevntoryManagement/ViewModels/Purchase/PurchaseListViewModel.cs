@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InevntoryManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,12 +7,21 @@ using System.Threading.Tasks;
 
 namespace InevntoryManagement.ViewModels.Purchase
 {
-    public class PurchaseListViewModel
+    public class PurchaseListViewModel:BasePaginate
     {
+        public List<PurchaseDetailsModel> purchaseDetailsModel { get;set;}
 
+      
+    }
+
+
+
+
+    public class PurchaseDetailsModel
+    {
         #region Purchase Information
         public int id { get; set; }
-        
+
         public string PurchaseNo { get; set; }
 
         [DataType(dataType: DataType.Date)]

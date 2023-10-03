@@ -32,16 +32,10 @@ namespace DataAccessLayer.Dapper
             }
         }
 
-        public List<SaleDetails> GetSaletList
+        public List<SaleDetails> GetSaletList(string query)
         { 
-            get
-            {
+         
                 List<SaleDetails> output = new List<SaleDetails>();
-
-                string query = "select s.SaleID, s.Invoice,s.TrDate, b.name as Branch,p.Payments as PaymentType,a.TotalAmount,a.PaymentOnCash,a.Dues,a.Transport,a.Others,a.Discount,a.NetAmount from sales s";
-                query = query + " inner join Branchs b on s.BranchId = b.Id";
-                query = query + " inner join PaymentTypes p on s.PaymentTypeId = p.Id";
-                query = query + " inner join amounts a on s.SaleID = a.TrID where a.TrType = 2";
 
                 using (IDbConnection con=new SqlConnection(connectionstring))
                 {
@@ -52,7 +46,7 @@ namespace DataAccessLayer.Dapper
 
 
                 return output;
-            } 
+            
         }
 
         public List<ProductBalance> GetProductBalance
@@ -274,6 +268,28 @@ namespace DataAccessLayer.Dapper
             return output;
         }
 
-      
+        public List<T> GetDynamicTableList<T>(string strquery,  DynamicParameters param, CommandType commandtype)
+        {
+            List<T> output = new List<T>();
+            //string q = "Select * from quotename(@table);";
+            //string sql = "declare @sql nvarchar(300);";
+            // //sql = sql + " declare @table nvarchar(50);";
+            ////sql = sql + " set @table = 'sales';";
+
+            //sql = sql + " set @sql = 'Select * from ' + QUOTENAME(@table);";
+            //sql = sql + " execute sp_executesql @sql;";
+
+            //param.Add("@table", strquery, dbType: DbType.String);
+          //  param.Add("@invoice", "07/09/23-2");
+
+            using (IDbConnection con=new SqlConnection(connectionstring))
+            {
+                output = con.Query<T>(strquery, param, commandType: commandtype).ToList();
+            }
+
+
+            return output;
+        }
+
     }
 }

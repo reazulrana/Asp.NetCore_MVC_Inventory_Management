@@ -106,16 +106,16 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpGet]
-        public IActionResult GetBrandList()
+        public IActionResult GetBrandList(int?pageno,int?pagesize)
         {
-
-            var output = (from obj in unitOfWork.Categories.Get()
+            BrandListViewModel output = new BrandListViewModel();
+            output.brandLists = (from obj in unitOfWork.Categories.Get()
                           join obj2 in unitOfWork.Brands.Get()
                           on obj.Id equals obj2.CategoryId //into egroups
                          //from obj2 in egroups
                           orderby obj2.BrandName
                           //orderby obj.CType
-                          select new BrandListViewModel
+                          select new BrandList
                           {
 
                               brandId = obj2.Id,
@@ -123,11 +123,17 @@ namespace InevntoryManagement.Controllers
                               Ctype = obj.CType,
                               CategoryId = obj.Id
 
-                          }).ToList();
+                          }).OrderByDescending(x=>x.brandName).OrderByDescending(x=>x.Ctype).ToList();
 
 
+            output.TotalRow = output.brandLists.Count;
+            output.PageSize = output.DefaultPageSize(pagesize);
+            output.PageIndex = output.DefaultPageIndex(pageno);
 
-            return View(output as List<BrandListViewModel>);
+            output.brandLists = output.brandLists.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.brandName).OrderBy(x=>x.Ctype).ToList();
+
+
+            return View(output);
         }
 
 

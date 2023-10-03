@@ -1,4 +1,4 @@
-﻿@model List<SourceListViewModel>
+﻿@model SourceListViewModel
 
 @{
     ViewBag.Title = "Create Source";
@@ -16,58 +16,58 @@
                 <a asp-controller="Source" asp-action="Create" class="col-sm-3 col-md-2 btn pull-right btn-outline-info btn-sm"><span>Create <i class="mdi mdi-plus"></i></span></a>
             </div>
         </div>
-        @if (Model != null && Model.Count > 0)
-            {
-                int sl = 1;
+        @if (Model.sourceListModels != null && Model.sourceListModels.Count > 0)
+        {
+            int sl = Model.RowIndex;
             <div class="row font-weight-bolder border py-2 bg-success">
                 <div class="col-sm-3"><h4>SL No</h4></div>
                 <div class="col-sm-4"><h4>Source Name</h4></div>
                 <div class="col-sm-5"><h4>Action</h4></div>
             </div>
-            foreach (var _model in Model)
-        {
+            foreach (var _model in Model.sourceListModels)
+            {
                 <div class="row border py-2 border-bottom">
                     <div class="col-sm-3">@sl</div>
                     <div class="col-sm-4">@_model.SourceName</div>
                     <div class="col-sm-5">
-                       
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <a asp-controller="Source" asp-action="Edit" asp-route-id="@_model.SourceId" class="btn btn-block btn-xs btn-outline-secondary"><span>Edit <i class="mdi mdi-account-edit"></i></span></a>
-                                </div>
-                                <div class="col-md-6">
 
-                                    <button type="button" id="deleteSourceButton@_model.SourceId" onclick="NotifyDiv(@_model.SourceId)" class="btn btn-block btn-xs btn-outline-danger"><span>Delete <i class="mdi mdi-delete"></i></span></button>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a asp-controller="Source" asp-action="Edit" asp-route-id="@_model.SourceId" class="btn btn-block btn-xs btn-outline-secondary"><span>Edit <i class="mdi mdi-account-edit"></i></span></a>
+                            </div>
+                            <div class="col-md-6">
 
+                                <button type="button" id="deleteSourceButton@_model.SourceId" onclick="NotifyDiv(@_model.SourceId)" class="btn btn-block btn-xs btn-outline-danger"><span>Delete <i class="mdi mdi-delete"></i></span></button>
                             </div>
 
-                        @*Yes No div Section Bind with javascript*@
-                            <div class="row mt-3" id="showDeleteSourceDiv@_model.SourceId" style="display:none" >
-                                <div class="col-md-12">
-                                    <h4>Do You Want To Delete <strong>'@_model.SourceName'</strong></h4>
-                               
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <form method="post" asp-controller="Source" asp-action="Delete" asp-route-id="@_model.SourceId">
-                                                <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
-                                            </form>
-                                            </div>
-                       
-                                        <div class="col-md-6">
-                                            
-                                                <button  type="button" id="cancelDeleteSource@_model.SourceId" onclick="CancelDelete(@_model.SourceId)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
-                                            
+                        </div>
 
-                                        </div>
+                        @*Yes No div Section Bind with javascript*@
+                        <div class="row mt-3" id="showDeleteSourceDiv@_model.SourceId" style="display:none">
+                            <div class="col-md-12">
+                                <h4>Do You Want To Delete <strong>'@_model.SourceName'</strong></h4>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <form method="post" asp-controller="Source" asp-action="Delete" asp-route-id="@_model.SourceId">
+                                            <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <button type="button" id="cancelDeleteSource@_model.SourceId" onclick="CancelDelete(@_model.SourceId)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
+
+
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
 
 
-                        
-                         </div>
+
+                    </div>
                 </div>
                 sl = sl + 1;
             }
@@ -81,6 +81,10 @@
                 </div>
             </div>
         }
+
+
+        <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
+
 
     </div>
     <div class="card-footer">

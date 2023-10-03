@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using InevntoryManagement.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +7,20 @@ using System.Threading.Tasks;
 
 namespace InevntoryManagement.ViewModels.Products
 {
-    public class ProductListViewModel
+    public class ProductListViewModel : BasePaginate
     {
 
-   
+        public List<ProductList> productList { get; set; } = new List<ProductList>();
+        public override string ControllerName { get; set; } = "Product";
+        public override string ActionName { get; set; } = "ProductList";
+
+    }
+
+
+
+    public class ProductList
+    {
+
         public int Id { get; set; }
         public string Code { get; set; }
         public string Description { get; set; }

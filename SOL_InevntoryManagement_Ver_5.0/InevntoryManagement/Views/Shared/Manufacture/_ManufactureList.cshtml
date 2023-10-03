@@ -1,7 +1,7 @@
-﻿@model List<Manufacture>
+﻿@model ManufactureListViewModel
 
 @{
-    int sl = 1;
+    int sl = Model.RowIndex;
     bool showbutton = (bool)ViewData["ShowButton"];
 }
 
@@ -10,46 +10,45 @@
 
 
 
+        <div class="table-responsive">
+            <table class="table table-responsive-md table-striped">
+                <thead class="bg-danger text-white">
+                    <tr>
+                        <th style="width:80px;"><strong>SL</strong></th>
+                        <th><strong>Name</strong></th>
+                        @if (showbutton)
+                        {
+                            <th colspan="2"><strong>Action</strong></th>
+                        }
 
-<div class="table-responsive">
-    <table class="table table-responsive-md table-striped">
-        <thead class="bg-danger text-white">
-            <tr>
-                <th style="width:80px;"><strong>SL</strong></th>
-                <th><strong>Name</strong></th>
-                @if (showbutton) 
-                {
-                <th colspan="2"><strong>Action</strong></th>
-                }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var manu in Model.manufactures)
+                    {
+                        <tr>
+                            <td>@sl</td>
+                            <td>@manu.ManufactureName</td>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var manu in Model)
-            {
-                <tr>
-                    <td>@sl</td>
-                    <td>@manu.ManufactureName</td>
-                    
-                    @if (showbutton) 
-                    { 
-                    <td><button class="btn btn-block btn-xs btn-outline-secondary edit_manufacture" data-id="@manu.Id" data-Manufacture="@manu.ManufactureName" data-toggle="modal" data-target="#edit_manufacture" >Edit</button></td>
-                    <td><button class="btn btn-block btn-xs btn-outline-danger delete_manufacture" data-id="@manu.Id" data-Manufacture="@manu.ManufactureName" data-toggle="modal" data-target="#delete_manufacture">Delete</button>
-                        @*<span id="manshow @manu.Manuid">
-                            <span>Do You Wanto Delete</span>
-                            <button type="submit" class="btn btn-danger btn-sm">Yes</button>
-                            <a asp-action="ListManufactures" asp-controller="Manufacture" class="btn btn-primary btn-sm">Cancel</a>
-                            </span>*@
-                    </td>
+                            @if (showbutton)
+                            {
+                                <td><button class="btn btn-block btn-xs btn-outline-secondary edit_manufacture" data-id="@manu.Id" data-Manufacture="@manu.ManufactureName" data-toggle="modal" data-target="#edit_manufacture">Edit</button></td>
+                                <td>
+                                    <button class="btn btn-block btn-xs btn-outline-danger delete_manufacture" data-id="@manu.Id" data-Manufacture="@manu.ManufactureName" data-toggle="modal" data-target="#delete_manufacture">Delete</button>
+                                    @*<span id="manshow @manu.Manuid">
+                                    <span>Do You Wanto Delete</span>
+                                    <button type="submit" class="btn btn-danger btn-sm">Yes</button>
+                                    <a asp-action="ListManufactures" asp-controller="Manufacture" class="btn btn-primary btn-sm">Cancel</a>
+                                    </span>*@
+                                </td>
+                            }
+                        </tr>
+                        sl = sl + 1;
                     }
-                </tr>
-                sl = sl + 1;
-            }
 
-        </tbody>
-    </table>
-</div>
+                </tbody>
+            </table>
+        </div>
 
-
-
+        <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
 

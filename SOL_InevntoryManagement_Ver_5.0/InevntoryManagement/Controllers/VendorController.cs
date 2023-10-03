@@ -26,18 +26,25 @@ namespace InevntoryManagement.Controllers
 
             return View();
         }
-        public IActionResult VendorList()
+        public IActionResult VendorList(int?pageno,int?pagesize)
         {
-            List<VendorListViewModel> _VendorListViewModel = (from obj in unitOfWork.Vendors.Get()
-                                                              select new VendorListViewModel()
+            VendorListViewModel output = new VendorListViewModel();
+            output.vendorListModels = (from obj in unitOfWork.Vendors.Get()
+                                                              select new VendorListModel()
                                                               {
                                                                   VendorId = obj.Id,
                                                                   VendorName = obj.VendorName,
                                                                   Address = obj.Address == null ? "No Address Available" : obj.Address,
                                                                   Contact = obj.Contact == null ? "No Contact Available" : obj.Contact
-                                                              }).ToList();
+                                                              }).OrderByDescending(x=>x.VendorName).ToList();
+            output.TotalRow = output.vendorListModels.Count();
+            output.PageSize = output.DefaultPageSize(pagesize);
+            output.PageIndex = output.DefaultPageIndex(pageno);
 
-            return View(_VendorListViewModel);
+
+            output.vendorListModels = output.vendorListModels.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.VendorName).ToList();
+
+            return View(output);
         }
 
 

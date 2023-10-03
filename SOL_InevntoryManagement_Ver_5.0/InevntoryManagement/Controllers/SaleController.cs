@@ -13,6 +13,9 @@ using InevntoryManagement.GlobalFuntion;
 using System.Data.SqlClient;
 using DataAccessLayer.Dapper;
 using BussinessAccessLayer.ExtendModel;
+using Dapper;
+using System.Data;
+using InevntoryManagement.Models;
 
 namespace InevntoryManagement.Controllers
 {
@@ -20,14 +23,16 @@ namespace InevntoryManagement.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IDapperService dapperService;
+        private readonly IRawQueryService rawQueryService;
 
-        public SaleController(IUnitOfWork unitOfWork,IDapperService dapperService)
+        public SaleController(IUnitOfWork unitOfWork, IDapperService dapperService)
         {
             this.unitOfWork = unitOfWork;
             this.dapperService = dapperService;
+            this.rawQueryService = new RawQueryService();
             //SqlConnection
         }
-        
+
         public IActionResult Index()
         {
 
@@ -156,11 +161,11 @@ namespace InevntoryManagement.Controllers
 
                     if (btnSave.ToLower() == "saveprint")
                     {
-                        return RedirectToAction("PrintSaleInvoice", "Report",new { saleid= sale.SaleID });
+                        return RedirectToAction("PrintSaleInvoice", "Report", new { saleid = sale.SaleID });
                     }
                     return View(model);
 
-               
+
 
                 }
                 catch
@@ -176,7 +181,7 @@ namespace InevntoryManagement.Controllers
         #endregion
 
 
-   
+
 
 
 
@@ -189,12 +194,23 @@ namespace InevntoryManagement.Controllers
 
         #region Edit Section
         [HttpGet]
-        public IActionResult GetSaleEditList()
+        public IActionResult GetSaleEditList(int? pageno,int? pagesize)
         {
 
-            List<SaleDetails> salelist = dapperService.GetSaletList;
+            SaleDetailsViewModel saleDetailsViewModel = new SaleDetailsViewModel();
+            saleDetailsViewModel.saleDetailsViewModels = dapperService.GetDynamicTableList<SaleDetailsViewModels>(rawQueryService.GetSaletListQuery,null,CommandType.Text).OrderByDescending(x => x.Invoice).ToList();
 
-            return View(salelist);
+
+            saleDetailsViewModel.PageSize = pagesize != null ? (int)pagesize : 10;
+            saleDetailsViewModel.TotalRow = saleDetailsViewModel.saleDetailsViewModels.Count();
+            
+            saleDetailsViewModel.PageIndex = pageno != null?(int)pageno: 1;
+
+            saleDetailsViewModel.saleDetailsViewModels = saleDetailsViewModel.saleDetailsViewModels.SkipLast(saleDetailsViewModel.SkipRow).TakeLast(saleDetailsViewModel.PageSize).OrderBy(x=>x.Invoice).ToList();
+
+
+
+            return View(saleDetailsViewModel);
 
         }
 
@@ -205,7 +221,7 @@ namespace InevntoryManagement.Controllers
 
 
             Sale sale = unitOfWork.Sales.GetByID(id);
-            if(sale==null)
+            if (sale == null)
             {
                 ViewBag.ErrorTitle = "Sale Data Not Found";
                 ViewBag.ErrorMessage = $"The Id {id} You are Finding is not exist in database";
@@ -245,18 +261,18 @@ namespace InevntoryManagement.Controllers
                 model.SaleFromList = SaleFroms(model);
                 model.PaymentTypeList = PaymentTypeList(model);
                 model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
-                 
+
                 return View(model);
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorTitle = "Sale Data Not Found";
                 ViewBag.ErrorMessage = ex.Message;
                 return View("NotFound");
             }
 
-            
+
         }
 
 
@@ -314,7 +330,7 @@ namespace InevntoryManagement.Controllers
                     _customer.CustName = model.customer.CustName;
                     _customer.Address = model.customer.Address;
                     _customer.Contact = model.customer.Contact;
-                    
+
                     unitOfWork.Customers.Update(_customer);
 
 
@@ -323,7 +339,7 @@ namespace InevntoryManagement.Controllers
                     Amount _amount = unitOfWork.Amounts.Get(a => a.TrID == _sale.SaleID && a.TrType == 2).FirstOrDefault();
 
                     _amount.TrID = _sale.SaleID;
-                        _amount.Discount = model.Discount;
+                    _amount.Discount = model.Discount;
                     _amount.Dues = model.Dues;
                     _amount.GrossAmount = model.GrossAmount;
                     _amount.NetAmount = model.NetAmount;
@@ -338,7 +354,7 @@ namespace InevntoryManagement.Controllers
                     //delete masterdetails according to amountid and then reinsert product list into masterdetails
                     List<MasterDetail> _masterdetails = unitOfWork.MasterDetails.Get(ms => ms.AmountId == _amount.Id).ToList();
                     unitOfWork.MasterDetails.Delete(_masterdetails);
-                    
+
                     //add into list to insert in masterdetails table
                     List<MasterDetail> masterDetailslist = new List<MasterDetail>();
                     for (int i = 0; i <= model.ProductIds.Count - 1; i++)
@@ -363,17 +379,17 @@ namespace InevntoryManagement.Controllers
                     {
                         return RedirectToAction("PrintSaleInvoice", "Report", new { saleid = _sale.SaleID });
                     }
-                    return RedirectToAction("edit",new {id=_sale.SaleID });
+                    return RedirectToAction("edit", new { id = _sale.SaleID });
 
 
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     model.customer = unitOfWork.Customers.GetByID(model.customer.ID);
                     Global_Functions.SetMessage(ex.Message, "danger");
                     unitOfWork.RollbackTransaction();
-                  
+
                 }
 
             }
@@ -385,21 +401,72 @@ namespace InevntoryManagement.Controllers
 
 
 
-            #endregion
-
-
-            #region Private Method and Properties
+        #endregion
 
 
 
-            //Get All Branch From Database
-            private List<SelectListItem> BranchList(SaleCreateViewModel model)
+        #region Delete Section
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+
+
+            try {
+                
+                unitOfWork.BeginTransaction();
+
+
+            Sale sale = unitOfWork.Sales.GetByID(id);
+
+                if (sale == null)
+                {
+                    ViewBag.ErrorTitle = "Sale Data Not Found";
+                    ViewBag.ErrorMessage = $"The Id {id} You are Finding is not exist in database";
+                    return View("NotFound");
+                }
+                        Amount amount = unitOfWork.Amounts.Get(a => a.TrID == id && a.TrType == 2).FirstOrDefault();
+
+                        List<MasterDetail> masterDetails = unitOfWork.MasterDetails.Get(ms => ms.AmountId == amount.Id).ToList();
+            unitOfWork.MasterDetails.Delete(masterDetails);
+            unitOfWork.Amounts.Delete(amount);
+            unitOfWork.Sales.Delete(sale);
+          
+            unitOfWork.CommitTransaction();
+                Global_Functions.SetMessage($"Invoice No { sale.Invoice } id Deleted Successfully", "success");
+
+            return RedirectToAction("GetSaleEditList");
+            }
+            catch(Exception ex)
+            {
+                unitOfWork.RollbackTransaction();
+                ViewBag.ErrorTitle = ex.Message;
+                ViewBag.ErrorMessage = ex.StackTrace;
+                return View("NotFound");
+
+            }
+
+
+        }
+
+        #endregion
+
+
+
+
+
+
+        #region Private Method and Properties
+
+
+
+        //Get All Branch From Database
+        private List<SelectListItem> BranchList(SaleCreateViewModel model)
         {
             List<SelectListItem> output = new List<SelectListItem>();
             List<Branch> brancs = unitOfWork.Branchs.Get().ToList();
-            foreach(Branch b in brancs)
+            foreach (Branch b in brancs)
             {
-                SelectListItem _output= new SelectListItem
+                SelectListItem _output = new SelectListItem
                 {
                     Text = b.Name,
                     Value = b.Id.ToString(),
@@ -430,7 +497,7 @@ namespace InevntoryManagement.Controllers
                 {
                     ProductInfo pi = new ProductInfo()
                     {
-                        
+
                         ProdId = model.ProductIds[i],
                         code = model.Codes[i],
                         color = model.Colors[i],
@@ -463,9 +530,9 @@ namespace InevntoryManagement.Controllers
             output = (from obj in unitOfWork.SellingTypes.Get()
                       select new SelectListItem()
                       {
-                          Text = obj.Types!=null? obj.Types:null,
-                          Value = obj.Id!=0? obj.Id.ToString():null,
-                          Selected = model.SaleType!=0 ? obj.Id == model.SaleType :  obj.IsSelected
+                          Text = obj.Types != null ? obj.Types : null,
+                          Value = obj.Id != 0 ? obj.Id.ToString() : null,
+                          Selected = model.SaleType != 0 ? obj.Id == model.SaleType : obj.IsSelected
                       }).ToList();
 
             return output;
@@ -483,7 +550,7 @@ namespace InevntoryManagement.Controllers
                       {
                           Text = obj.SaleFrom != null ? obj.SaleFrom : null,
                           Value = obj.Id != 0 ? obj.Id.ToString() : null,
-                          Selected = model.SaleFrom != 0 ? obj.Id == model.SaleFrom :  obj.IsSelected
+                          Selected = model.SaleFrom != 0 ? obj.Id == model.SaleFrom : obj.IsSelected
                       }).ToList();
 
             return output;
@@ -542,7 +609,7 @@ namespace InevntoryManagement.Controllers
         // Call from Sale form with ajax btnSaveSaleFrom
 
         [HttpPost]
-        public JsonResult Create_SaleFrom_With_Ajax(string SaleFrom,bool isselected)
+        public JsonResult Create_SaleFrom_With_Ajax(string SaleFrom, bool isselected)
         {
             string msg = "";
 
@@ -553,7 +620,7 @@ namespace InevntoryManagement.Controllers
 
                 var _salefrom = unitOfWork.SellFroms.Get().Where(x => x.SaleFrom.ToLower() == SaleFrom.ToLower()).FirstOrDefault();
 
-                if(isselected)
+                if (isselected)
                 {
                     //Clear All IsSelected Field in Branch Table From Database
                     clear_IsSelected_SaleFrom();
@@ -590,7 +657,7 @@ namespace InevntoryManagement.Controllers
         // Call from Sale form with ajax btnSaveSaleFrom
 
         [HttpPost]
-        public JsonResult Create_SaleType_With_Ajax(string SaleType,bool isselected)
+        public JsonResult Create_SaleType_With_Ajax(string SaleType, bool isselected)
         {
             string msg = "";
 
@@ -642,7 +709,7 @@ namespace InevntoryManagement.Controllers
             int prdBalance = 0; //ProductBalance
 
             ProductBalance pb = dapperService.GetProductBalanceById(productid);
-            if(pb!=null)
+            if (pb != null)
             {
                 success = true;
                 prdBalance = pb.Balance;
@@ -651,8 +718,8 @@ namespace InevntoryManagement.Controllers
 
 
 
-           
-            return new JsonResult(new {success, prdBalance });
+
+            return new JsonResult(new { success, prdBalance });
         }
 
 

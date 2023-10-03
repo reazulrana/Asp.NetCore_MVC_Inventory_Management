@@ -1,9 +1,12 @@
-﻿@using System.Collections.Generic;
-
-@*@model PaginatedList<T>*@
-@{
+﻿@*@model ViewDataDictionary*@
+@{ 
+   
+    var controllerName = (string) ViewData["controllername"];
 
 }
+
+
+<h1> Welcome Paginate Partial View @controllerName</h1>
 
 
 

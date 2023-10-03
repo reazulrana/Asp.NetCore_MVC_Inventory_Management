@@ -25,10 +25,13 @@ namespace InevntoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetModelList()
+        //[ResponseCache(Duration =30,Location =ResponseCacheLocation.Any,NoStore =false)]
+        //[ResponseCache(Duration = 300, VaryByQueryKeys = new string[] { "pageno", "pagesize" })]
+        public IActionResult GetModelList(int? pageno, int? pagesize)
         {
 
-            var output = (from obj in unitOfWork.Categories.Get()
+            ModelListViewModel output = new ModelListViewModel();
+            output.modelLists = (from obj in unitOfWork.Categories.Get()
                           join obj2 in unitOfWork.Brands.Get()
 
                           on obj.Id equals obj2.CategoryId
@@ -42,15 +45,23 @@ namespace InevntoryManagement.Controllers
                           orderby obj2.BrandName ascending
                           
 
-                          select new ModelListViewModel
+                          select new ModelList
                           {
                               ModelId = obj3.Id,
                               CategoryName = obj.CType,
                               BrandName = obj2.BrandName,
                               ModelName =obj3.ModelName 
-                          }).ToList();
+                          }).OrderByDescending(x=>x.ModelName).ToList();
             //ViewBag.message = TempData["message"];
             //ViewBag.msgcolor = TempData["msgcolor"];
+
+            output.TotalRow = output.modelLists.Count;
+            output.PageSize = output.DefaultPageSize(pagesize);
+            output.PageIndex = output.DefaultPageIndex(pageno);
+
+
+            output.modelLists = output.modelLists.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.ModelName).ToList();
+
 
 
 

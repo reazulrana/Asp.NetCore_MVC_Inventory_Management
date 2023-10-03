@@ -20,20 +20,29 @@ namespace InevntoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetSourceList()
+        public IActionResult GetSourceList(int? pageno,int?pagesize)
         {
-            var sorces = (from obj in unitOfWork.Sources.Get()
-                          select new SourceListViewModel()
+
+            SourceListViewModel output = new SourceListViewModel();
+
+            output.sourceListModels = (from obj in unitOfWork.Sources.Get()
+                          select new SourceListModel()
                           {
                               SourceId = obj.Id,
                               SourceName = obj.SourceName,
                                IsSelected=obj.IsSelected
 
                           }
-                          ).ToList();
-                         
+                          ).OrderByDescending(x=>x.SourceName).ToList();
 
-            return View(sorces);
+            output.TotalRow = output.sourceListModels.Count;
+            output.PageSize = output.DefaultPageSize(pagesize);
+            output.PageIndex = output.DefaultPageIndex(pageno);
+
+            output.sourceListModels = output.sourceListModels.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.SourceName).ToList();
+
+
+            return View(output);
         }
 
         [HttpGet]

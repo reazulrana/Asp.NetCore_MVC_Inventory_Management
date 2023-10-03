@@ -1,4 +1,4 @@
-﻿@model List<PurchaseListViewModel>
+﻿@model PurchaseListViewModel
 
 @{
     ViewBag.Title = "Purchase Invoice List";
@@ -52,7 +52,7 @@
                             </tr>
                         </thead>
                         <tbody id="productlist">
-                            @if (Model == null || Model.Count == 0)
+                            @if (Model.purchaseDetailsModel == null || Model.purchaseDetailsModel.Count == 0)
                             {
                                 <tr>
                                     <td colspan="15">Purchase Invoice Not Avaulable</td>
@@ -61,7 +61,7 @@
                             else
                             {
                                 int sl = 1;
-                                @foreach (var m in Model)
+                                @foreach (var m in Model.purchaseDetailsModel)
                                 {
                                     <tr data-id="@m.id">
                                         <td>@sl</td>
