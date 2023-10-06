@@ -29,65 +29,65 @@
         </div>
 
         @*<div class="purchaselist">*@
-            <div class="row mt-2">
-                <div class="col-md-12 mt-3">
-                    <table class="table table-bordered  table-danger table-responsive text-center">
-                        <thead class="bg-info">
-                            <tr class="text-white">
-                                <th>SL</th>
-                                <th title="Purchase No"><small>#P. No</small></th>
-                                <th title="Purchase Date"><small>P. Date</small></th>
-                                <th title="Branch"><small>Branch</small></th>
-                                <th title="Vendor"><small>Vendor</small></th>
-                                <th title="Source"><small>Source</small></th>
-                                <th title="Product Cost"><small>Product Cost</small></th>
-                                <th title="Cash Payment"><small>Cash Payment</small></th>
-                                <th title="Dues"><small>Dues</small></th>
-                                <th title="Transport"><small>Transport</small></th>
-                                <th title="Others"><small>Others</small></th>
-                                <th title="Gross Amount"><small>Gross Bill Amount</small></th>
-                                <th title="Discount"><small>Discount</small></th>
-                                <th title="Net Amount"><small>Net Bill Amount</small></th>
+    <div class="row mt-2">
+        <div class="table-responsive  mt-3">
+            <table class="table table-bordered  text-center">
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th>SL</th>
+                        <th title="Purchase No"><small>#P. No</small></th>
+                        <th title="Purchase Date"><small>P. Date</small></th>
+                        <th title="Branch"><small>Branch</small></th>
+                        <th title="Vendor"><small>Vendor</small></th>
+                        <th title="Source"><small>Source</small></th>
+                        <th title="Product Cost"><small>Product Cost</small></th>
+                        <th title="Cash Payment"><small>Cash Payment</small></th>
+                        <th title="Dues"><small>Dues</small></th>
+                        <th title="Transport"><small>Transport</small></th>
+                        <th title="Others"><small>Others</small></th>
+                        <th title="Gross Amount"><small>Gross Bill Amount</small></th>
+                        <th title="Discount"><small>Discount</small></th>
+                        <th title="Net Amount"><small>Net Bill Amount</small></th>
 
+                    </tr>
+                </thead>
+                <tbody id="productlist">
+                    @if (Model.purchaseDetailsModel == null || Model.purchaseDetailsModel.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="15">Purchase Invoice Not Avaulable</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        int sl = 1;
+                        @foreach (var m in Model.purchaseDetailsModel)
+                        {
+                            <tr data-id="@m.id">
+                                <td>@sl</td>
+                                <td><a href="#" data-id="@m.id" id="showModalProductDetails" data-toggle="modal" data-target="#Modal_Purchase_Details"><h6> @m.PurchaseNo</h6> <small>show purchase details</small> </a></td>
+                                <td>@m.TrDate.ToShortDateString()</td>
+                                <td>@m.Branch</td>
+                                <td>@m.Vendor</td>
+                                <td>@m.Source</td>
+                                <td>@m.TotalAmount</td>
+                                <td>@m.PaymentOnCash</td>
+                                <td>@m.Dues</td>
+                                <td>@m.Transport</td>
+                                <td>@m.Others</td>
+                                <td>@m.GrossAmount</td>
+                                <td>@m.Discount</td>
+                                <td>@m.NetAmount</td>
                             </tr>
-                        </thead>
-                        <tbody id="productlist">
-                            @if (Model.purchaseDetailsModel == null || Model.purchaseDetailsModel.Count == 0)
-                            {
-                                <tr>
-                                    <td colspan="15">Purchase Invoice Not Avaulable</td>
-                                </tr>
-                            }
-                            else
-                            {
-                                int sl = 1;
-                                @foreach (var m in Model.purchaseDetailsModel)
-                                {
-                                    <tr data-id="@m.id">
-                                        <td>@sl</td>
-                                        <td><a href="#" data-id="@m.id" id="showModalProductDetails" data-toggle="modal" data-target="#Modal_Purchase_Details"><h6> @m.PurchaseNo</h6></a></td>
-                                        <td>@m.TrDate.ToShortDateString()</td>
-                                        <td>@m.Branch</td>
-                                        <td>@m.Vendor</td>
-                                        <td>@m.Source</td>
-                                        <td>@m.TotalAmount</td>
-                                        <td>@m.PaymentOnCash</td>
-                                        <td>@m.Dues</td>
-                                        <td>@m.Transport</td>
-                                        <td>@m.Others</td>
-                                        <td>@m.GrossAmount</td>
-                                        <td>@m.Discount</td>
-                                        <td>@m.NetAmount</td>
-                                    </tr>
-                                    sl = sl + 1;
-                                }
-                            }
-                        </tbody>
+                            sl = sl + 1;
+                        }
+                    }
+                </tbody>
 
-                    </table>
-                </div>
-
-            </div>
+            </table>
+        </div>
+        <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
+    </div>
         @*</div>*@
     </div>
     <div class="card-footer">

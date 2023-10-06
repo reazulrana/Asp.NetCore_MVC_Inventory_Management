@@ -78,74 +78,25 @@ input, select {
     max-width:992px;
     overflow-x:scroll;
 }
-/*
-.purchaselist table thead tr th
+
+
+
+
+/*right side tooltip waterdrop hidden*/
+.dz-demo-panel .dz-demo-trigger {
+    display: none
+}
+/*right side tooltip waver hidden*/
+.dz-demo-panel.show .sidebar-right-trigger 
 {
-    width:500px;
+    display: none
 }
-.purchaselist table tbody tr td {
-        width: 500px;
-    }*/
-    /*
-.input-group > .select2-container--bootstrap {
-    width: auto !important;
-    flex: 1 1 auto;
-    background-color: white;
+/*.dz-demo-panel .dz-demo-trigger .dz-demo-panel.show .sidebar-right-trigger
+show in right aside command uses input customise settings*/
+
+table {
+    width: 100%
 }
-
-    .input-group> .select2-container--bootstrap .select2-selection--single {
-        height: 40px;
-        line-height: inherit;
-        padding: 0.5rem 1rem;
-        background-color:white;
-    }
-
-    .input-group > .select2-container--bootstrap .select2-selection--multiple {
-        height: 40px;
-        line-height: inherit;
-        padding: 0.5rem 1rem;
-        background-color: white;
-    }*/
-    /*
-
-.input-group > .select2-container--bootstrap, .input-group > .select2-container--default {
-    width: auto!important;
-    flex: 1 1 auto;
-}
-
-    .input-group > .select2-container--bootstrap .select2-selection--single,
-    .input-group > .select2-container--default .select2-selection--single,
-    .input-group > .select2-container--bootstrap .select2-selection--multiple,
-    .input-group > .select2-container--default .select2-selection--multiple {
-        height: 100%;
-        line-height: inherit;
-        border-radius: 4px 0 0 4px;
-    }
-
-        .input-group > .select2-container--bootstrap .select2-selection--single .select2-selection__rendered,
-        .input-group > .select2-container--default .select2-selection--single .select2-selection__rendered,
-        .input-group > .select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered,
-        .input-group > .select2-container--default .select2-selection--multiple .select2-selection__rendered {
-            height: inherit;
-            display: -webkit-box !important;
-            display: -ms-flexbox !important;
-            display: flex !important;
-            -webkit-box-align: center !important;
-            -ms-flex-align: center !important;
-            align-items: center !important;
-        }
-
-        .input-group > .select2-container--bootstrap .select2-selection--single .select2-selection__arrow,
-        .input-group > .select2-container--default .select2-selection--single .select2-selection__arrow,
-        .input-group > .select2-container--bootstrap .select2-selection--multiple .select2-selection__arrow,
-        .input-group > .select2-container--default .select2-selection--multiple .select2-selection__arrow {
-            height: inherit;
-        }
-*/
-
-    table {
-        width:100%
-    }
 
     @media (max-width: 768px) {
         .custom-tab-1 > ul{

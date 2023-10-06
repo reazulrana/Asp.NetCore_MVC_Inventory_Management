@@ -1,7 +1,7 @@
 ﻿@model BasePaginate
 
 
-@{ 
+@{
     var controllername = ViewData["controllername"];
     var actionname = ViewData["actionname"];
     //var previouspage = ViewData["previouspage"];
@@ -16,9 +16,9 @@
 }
 
 
-
+@if (Model.TotalPage > 1) {
 <nav class="mt-3">
-    <ul class="pagination @( Model.TotalPage>3? "pagination-sm":"") pagination-gutter pagination-circle">
+    <ul class="pagination  @( Model.TotalPage>3? "pagination-sm":"")  pagination-danger">
         @*<ul class="pagination pagination-circle">*@
         <li class="page-item page-indicator">
             <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-pageno="@Model.FirstPage" asp-route-pagesize="@Model.PageSize" title="First Page">
@@ -30,7 +30,7 @@
                 <i class="la la-angle-left"></i>
             </a>
         </li>
-        @{ for (int sl = 1; sl <= Model.TotalPage; sl++)
+        @{ for (int sl = Model.StartPageNo; sl <= Model.EndPageNo; sl++)
             {
                 <li class="page-item @(sl==@Model.PageIndex ? "active":"")">
                     <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-pageno="@sl" asp-route-pagesize="@Model.PageSize" title="@sl">@sl</a>
@@ -51,3 +51,4 @@
     </ul>
 
 </nav>
+}

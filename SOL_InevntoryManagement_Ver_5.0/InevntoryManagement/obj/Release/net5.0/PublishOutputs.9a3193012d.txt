@@ -324,12 +324,6 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Autocomplete\jquery-ui-1.13.2.custom\jquery-ui-1.13.2.custom\LICENSE.txt
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\Autocomplete\jquery-ui-1.13.2.custom\jquery-ui-1.13.2.custom\package.json
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\DuplicateModelShow.js
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\html2pdf.js\html2pdf.bundle.js
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\html2pdf.js\html2pdf.bundle.min.js
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\html2pdf.js\html2pdf.bundle.min.js.map
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\html2pdf.js\html2pdf.js
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\html2pdf.js\html2pdf.min.js
-E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\html2pdf.js\html2pdf.min.js.map
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\jquery-validate\jquery.validate.min.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\PubTmp\Out\wwwroot\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js

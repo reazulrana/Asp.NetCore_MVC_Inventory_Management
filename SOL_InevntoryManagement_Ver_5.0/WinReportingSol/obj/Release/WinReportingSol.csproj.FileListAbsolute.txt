@@ -14,3 +14,4 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Rele
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Release\WinReportingSol.csproj.CopyComplete
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Release\WinReportingSol.exe
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Release\WinReportingSol.pdb
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Release\WinReportingSol.Form1.resources

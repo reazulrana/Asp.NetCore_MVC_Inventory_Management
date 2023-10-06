@@ -9,9 +9,20 @@ namespace InevntoryManagement.ViewModels.Purchase
 {
     public class PurchaseListViewModel:BasePaginate
     {
-        public List<PurchaseDetailsModel> purchaseDetailsModel { get;set;}
+        public List<PurchaseDetailsModel> purchaseDetailsModel { get; set; } = new List<PurchaseDetailsModel>();
 
-      
+
+        public override string ControllerName { get ; set; } ="Purchase" ;
+        public override string ActionName { get; set; } = "EditPurchaseList";
+
+        public override void ChangeActionName(string actionname = null)
+        {
+            if(actionname!=null)
+            {
+                ActionName = actionname;
+            }
+        }
+
     }
 
 

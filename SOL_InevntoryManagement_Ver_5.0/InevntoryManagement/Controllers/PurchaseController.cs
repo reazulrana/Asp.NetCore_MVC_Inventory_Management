@@ -186,10 +186,10 @@ namespace InevntoryManagement.Controllers
 
 
 
-        public IActionResult PurchaseList()
+        public IActionResult PurchaseList(int? pageno, int? pagesize)
         {
-
-            List<PurchaseDetailsModel> model = (from p in unitOfWork.Purchases.Get()
+            PurchaseListViewModel output = new PurchaseListViewModel();
+            output.purchaseDetailsModel= (from p in unitOfWork.Purchases.Get()
                                                  join b in unitOfWork.Branchs.Get()
                                                  on p.BranchId equals b.Id
                                                  join a in unitOfWork.Amounts.Get()
@@ -223,12 +223,16 @@ namespace InevntoryManagement.Controllers
 
 
 
-                                                 }).ToList();
+                                                 }).OrderByDescending(x=>x.PurchaseNo).ToList();
 
-
+            output.TotalRow = output.purchaseDetailsModel.Count();
+            output.PageIndex = output.DefaultPageIndex(pageno);
+            output.PageSize = output.DefaultPageSize(pagesize);
+            output.purchaseDetailsModel = output.purchaseDetailsModel.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.PurchaseNo).ToList();
+            output.ChangeActionName("PurchaseList");
             //model=  LoadMultySelectList(model) as PurchaseEditViewModel;
 
-            return View(model);
+            return View(output);
         }
 
 
@@ -279,12 +283,10 @@ namespace InevntoryManagement.Controllers
 
 
 
-            model.PageSize = pagesize != null ? (int)pagesize : 3;
             model.TotalRow = model.purchaseDetailsModel.Count();
+            model.PageSize = model.DefaultPageSize(pagesize);
 
-            model.PageIndex = pageno != null ? (int)pageno : 1;
-            //model.PrevousPage = (model.PageIndex - 1)<=0?model.FirstPage:model.PageIndex - 1;
-            //model.NextPage = (model.PageIndex + 1)>= model.TotalPage?model.LastPage: model.PageIndex + 1;
+            model.PageIndex = model.DefaultPageIndex(pageno);
 
             model.purchaseDetailsModel = model.purchaseDetailsModel.SkipLast(model.SkipRow).TakeLast(model.PageSize).OrderBy(x => x.PurchaseNo).ToList();
 

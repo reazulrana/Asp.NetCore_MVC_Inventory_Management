@@ -114,32 +114,8 @@
                 @*<a asp-controller="purchase" asp-action="EditPurchaseList" asp-route-pageno="@Model.PrevousPage" asp-route-pagesize="@Model.PageSize" class="btn btn-xs btn-outline-secondary" title="Previous"><span><i class="mdi mdi-18px mdi-arrow-left-bold-box-outline"></i> Prev</span></a>
 
         <a asp-controller="purchase" asp-action="EditPurchaseList" asp-route-pageno="@Model.NextPage" asp-route-pagesize="@Model.PageSize" class="btn btn-xs btn-outline-secondary" title="Next"><span>Next <i class="mdi mdi-18px mdi-arrow-right-bold-box-outline"></i></span></a>*@
-
-                <nav>
-                <ul class="pagination pagination-gutter pagination-info">
-                    @*<ul class="pagination pagination-circle">*@
-                        <li class="page-item page-indicator">
-                            <a class="page-link" asp-controller="purchase" asp-action="EditPurchaseList" asp-route-pageno="@Model.PrevousPage" asp-route-pagesize="@Model.PageSize" title="Previous">
-                                <i class="la la-angle-left"></i>
-                            </a>
-                        </li>
-                        @{ for (int sl = 1; sl <= Model.TotalPage; sl++)
-                            {
-                                <li class="page-item @(sl==@Model.PageIndex ? "active":"")">
-                                    <a class="page-link" asp-controller="purchase" asp-action="EditPurchaseList" asp-route-pageno="@sl" asp-route-pagesize="@Model.PageSize" title="@sl">@sl</a>
-                                </li>
-                            }}
-                       
-                        <li class="page-item page-indicator">
-                            <a class="page-link" asp-controller="purchase" asp-action="EditPurchaseList" asp-route-pageno="@Model.NextPage" asp-route-pagesize="@Model.PageSize" title="Next">
-                                <i class="la la-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-
-                    </nav>
-</div>
-        </div>
+                <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
+            </div>
         @*</div>*@
     </div>
     <div class="card-footer">

@@ -259,3 +259,4 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\Razor\Views\Shared\Sales\_SaleInformation.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\Razor\Views\Shared\Sales\_SalesPriceDetails.cshtml.g.cs
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\Razor\Views\Shared\Sales\_SalesProductDetails.cshtml.g.cs
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\InevntoryManagement\obj\Release\net5.0\Razor\Views\Shared\Pagination\_PaginationPage.cshtml.g.cs

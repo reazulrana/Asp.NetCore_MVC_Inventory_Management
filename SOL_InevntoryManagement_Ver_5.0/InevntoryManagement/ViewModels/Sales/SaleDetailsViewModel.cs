@@ -11,9 +11,16 @@ namespace InevntoryManagement.ViewModels.Sales
     {
 
         public List<SaleDetailsViewModels> saleDetailsViewModels { get; set; } = new List<SaleDetailsViewModels>();
-        
 
-        
+        public override string ControllerName { get; set; } = "Sale";
+        public override string ActionName { get; set; } = "GetSaleEditList";
+        public override void ChangeActionName(string actionname = null)
+        {
+            ActionName = actionname;
+            
+        }
+
+
     }
 
     public class SaleDetailsViewModels

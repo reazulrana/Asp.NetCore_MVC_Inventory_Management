@@ -196,22 +196,28 @@ namespace InevntoryManagement.Controllers
         [HttpGet]
         public IActionResult GetSaleEditList(int? pageno,int? pagesize)
         {
-
+            try { 
             SaleDetailsViewModel saleDetailsViewModel = new SaleDetailsViewModel();
             saleDetailsViewModel.saleDetailsViewModels = dapperService.GetDynamicTableList<SaleDetailsViewModels>(rawQueryService.GetSaletListQuery,null,CommandType.Text).OrderByDescending(x => x.Invoice).ToList();
 
 
-            saleDetailsViewModel.PageSize = pagesize != null ? (int)pagesize : 10;
+            saleDetailsViewModel.PageSize = saleDetailsViewModel.DefaultPageSize(pagesize);
             saleDetailsViewModel.TotalRow = saleDetailsViewModel.saleDetailsViewModels.Count();
             
-            saleDetailsViewModel.PageIndex = pageno != null?(int)pageno: 1;
+            saleDetailsViewModel.PageIndex = saleDetailsViewModel.DefaultPageIndex(pageno);
 
             saleDetailsViewModel.saleDetailsViewModels = saleDetailsViewModel.saleDetailsViewModels.SkipLast(saleDetailsViewModel.SkipRow).TakeLast(saleDetailsViewModel.PageSize).OrderBy(x=>x.Invoice).ToList();
 
 
 
             return View(saleDetailsViewModel);
-
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorTitle = "Page NotFound";
+                ViewBag.ErrorMessage = "Check Is Your Internet Connection Is Ok.";
+                return View("NotFound");
+            }
         }
 
 
@@ -728,8 +734,13 @@ namespace InevntoryManagement.Controllers
 
 
 
+        [HttpGet]
+public JsonResult GetInvoiceDetails_Ajax(int id)
+        {
 
 
+            return new JsonResult(new { });
+        }
 
     }
 }
