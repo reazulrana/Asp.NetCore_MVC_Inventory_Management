@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace InevntoryManagement.Models
 {
-    public abstract class BasePaginate
+    public class BasePaginate
     {
 
         public BasePaginate()
@@ -14,10 +14,10 @@ namespace InevntoryManagement.Models
             TotalRow = 10;
         }
 
-        private int _PrevousPage;
-        private int _nextPage;
-        private int _FirstPage;
-        private int _LastPage;
+
+  
+
+
         public int TotalPage { get
             {
                 int output = (int)Math.Ceiling((decimal)TotalRow / (decimal)PageSize);
@@ -34,6 +34,8 @@ namespace InevntoryManagement.Models
         public int FirstPage { get => 1; }
         public int LastPage { get => TotalPage; }
         public string SearchText { get; set; }
+        public DateTime? fromdate { get; set; }
+        public DateTime? todate { get; set; }
         public virtual string ActionName { get; set; }
         public virtual string ControllerName { get; set; }
         public bool isShow { get => TotalRow==0?false:true; } // it is used for hide component
@@ -114,12 +116,12 @@ namespace InevntoryManagement.Models
             }
         }
 
-
+        public fileextensions Extension { get; set; }
         public virtual void ChangeActionName(string actionname=null)
         {
-
             
-            throw new Exception("Thorw Exception");
+            
+          
         }
 
     }

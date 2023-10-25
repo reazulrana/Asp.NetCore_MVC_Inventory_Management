@@ -1,0 +1,24 @@
+﻿@model BasePaginate
+@{
+
+}
+
+
+
+        <div class="btn-toolbar  justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+
+            <div class="btn-group me-2" role="group" aria-label="First group">
+
+                <span class="px-3">Export Data</span>
+
+                <a asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-PageSize="@Model.PageSize" asp-route-SearchText="@Model.SearchText" asp-route-Extension="@fileextensions.xlsx" class="btn btn-success btn-xs btn-width-md" aria-current="xlsx">xlsx</a>
+                <a asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-PageSize="@Model.PageSize" asp-route-SearchText="@Model.SearchText" asp-route-Extension="@fileextensions.csv" class="btn btn-danger btn-xs btn-width-md">csv</a>
+                <a asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-PageSize="@Model.PageSize" asp-route-SearchText="@Model.SearchText" asp-route-Extension="@fileextensions.pdf" class="btn btn-secondary btn-xs btn-width-md">pdf</a>
+
+
+            </div>
+
+
+
+        </div>
+    

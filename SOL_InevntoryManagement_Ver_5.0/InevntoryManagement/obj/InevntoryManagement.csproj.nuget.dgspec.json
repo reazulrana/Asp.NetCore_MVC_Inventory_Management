@@ -223,6 +223,18 @@
               "target": "Package",
               "version": "[2.1.0, )"
             },
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.102.1, )"
+            },
+            "GemBox.Spreadsheet": {
+              "target": "Package",
+              "version": "[49.0.1509, )"
+            },
+            "Google.Apis.Drive.v3": {
+              "target": "Package",
+              "version": "[1.62.0.3155, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.17, )"

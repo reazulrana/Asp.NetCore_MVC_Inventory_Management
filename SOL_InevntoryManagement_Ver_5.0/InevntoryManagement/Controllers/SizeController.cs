@@ -287,7 +287,7 @@ namespace InevntoryManagement.Controllers
                     result.IsSelected = model.IsSelected;
                     unitOfWork.Sizes.Update(result);
                     Global_Functions.SetMessage($"Size Update Successfully from { strsize } To {model.Size }", "success");
-                    return RedirectToAction("SizeList", "Size");
+                    //return RedirectToAction("SizeList", "Size");
 
 
                     model.Types = new List<SelectListItem>()

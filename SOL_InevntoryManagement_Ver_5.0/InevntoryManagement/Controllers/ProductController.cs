@@ -17,6 +17,8 @@ using System.Text;
 using InevntoryManagement.ViewModels.Purchase;
 using DataAccessLayer.Dapper;
 using BussinessAccessLayer.ExtendModel;
+using InevntoryManagement.Models;
+using Dapper;
 
 namespace InevntoryManagement.Controllers
 {
@@ -370,14 +372,47 @@ namespace InevntoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductList(int? pageno, int? pagesize, string SearchText = null)
+        public IActionResult ProductList(int? pageno, int? pagesize, string SearchText, fileextensions? Extension)
         {
             ProductListViewModel output = new ProductListViewModel();
-            output.productList = GetProductListViewLoadedFromDatabas();
+
+            //string strqry = "";
+            //DynamicParameters p = new DynamicParameters();
+            //if (SearchText != null)
+            //{
+
+            //    strqry = " and ( s.Invoice like @invoice or b.Name like @name or p.Payments like @paymenttype) "; //" and s.TrDate between @fromdate and @todate"; //" and ( s.Invoice like @invoice or b.Name like @name or p.Payments like @paymenttype) and s.TrDate between @fromdate and @todate";
+            //    p.Add("@invoice", "%" + SearchText + "%", dbType: DbType.String);
+            //    p.Add("@name", "%" + SearchText + "%", dbType: DbType.String);
+            //    p.Add("@paymenttype", "%" + SearchText + "%", dbType: DbType.String);
+            //    output.SearchText = SearchText;
+
+            //}
+
+
+
+            //if (strqry == "")
+            //{
+            //    p = null;
+            //}
+
+
+
+            output.productList = GetProductListViewLoadedFromDatabas(SearchText);
+
+
+            if (Extension != null)
+            {
+                string exportfilename = "ExportProductList";
+                ExportData ed = new ExportData(exportfilename, Extension);
+                ed.exportData<ProductList>(output.productList);
+                Global_Functions.SetMessage(@"User\" + Environment.UserName + @"\Downloads\" + exportfilename + "." + Extension, "success");
+            }
 
             output.TotalRow = output.productList.Count;
             output.PageSize = output.DefaultPageSize(pagesize);
             output.PageIndex = output.DefaultPageIndex(pageno);
+            output.SearchText = SearchText;
             output.productList = output.productList.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.Category).ToList();
 
 
@@ -599,46 +634,58 @@ namespace InevntoryManagement.Controllers
         }
 
         //ProductListData Retirved from Database
-        List<ProductList> GetProductListViewLoadedFromDatabas()
+        List<ProductList> GetProductListViewLoadedFromDatabas(string searchData=null)
         {
 
             string absoluteFolder = _iWebHostEnvironment.WebRootPath;
+            List<ProductList> output = (from cats in unitOfWork.Categories.Get()
+                                       join brands in unitOfWork.Brands.Get()
+                                       on cats.Id equals brands.CategoryId
+                                       join models in unitOfWork.Models.Get()
+                                       on brands.Id equals models.BrandId
+                                       join products in unitOfWork.Products.Get()
+                                       on models.Id equals products.ModelId into egroups
+                                       from products in egroups
+                                       orderby products.Description
+                                       select new ProductList()
+                                       {
+                                           Id = products.Id,
+                                           BrandName = brands.BrandName,
+                                           Category = cats.CType,
+                                           BinNo = products.Bin,
+                                           Code = products.Code,
+                                           Color = products.Color,
+                                           CreatedDate = products.CreatedDate,
+                                           Description = products.Description,
+                                           DiscountPrice = products.DiscountPrice,
+                                           ManufactureName = products.Manufacture,
+                                           ModelName = models.ModelName,
+                                           OpeningBalance = products.OpeningBalance,
+                                           OpeningQty = products.OpeningQty,
+                                           PhotoPath = products.PhotoPath, // ((products.PhotoPath!=null || products.PhotoPath!="") && Global_Functions.IsFileExist(absoluteFolder,products.PhotoPath)==true)?products.PhotoPath:null,
+                                           Remarks = products.Remarks,
+                                           SizeName = products.Size,
+                                           SizeType = products.SizeType,
+                                           Unitprice = products.Unitprice,
+                                           VendorName = products.Vendor,
+                                           Measurement = products.Measurement,
+                                           Source = products.Source,
+                                           Pipeline = products.Pipeline,
+                                       }).ToList();
 
 
-            return (from cats in unitOfWork.Categories.Get()
-                    join brands in unitOfWork.Brands.Get()
-                    on cats.Id equals brands.CategoryId
-                    join models in unitOfWork.Models.Get()
-                    on brands.Id equals models.BrandId
-                    join products in unitOfWork.Products.Get()
-                    on models.Id equals products.ModelId into egroups
-                    from products in egroups
-                    orderby products.Description
-                    select new ProductList()
-                    {
-                        Id = products.Id,
-                        BrandName = brands.BrandName,
-                        Category = cats.CType,
-                        BinNo = products.Bin,
-                        Code = products.Code,
-                        Color = products.Color,
-                        CreatedDate = products.CreatedDate,
-                        Description = products.Description,
-                        DiscountPrice = products.DiscountPrice,
-                        ManufactureName = products.Manufacture,
-                        ModelName = models.ModelName,
-                        OpeningBalance = products.OpeningBalance,
-                        OpeningQty = products.OpeningQty,
-                        PhotoPath = products.PhotoPath, // ((products.PhotoPath!=null || products.PhotoPath!="") && Global_Functions.IsFileExist(absoluteFolder,products.PhotoPath)==true)?products.PhotoPath:null,
-                        Remarks = products.Remarks,
-                        SizeName = products.Size,
-                        SizeType = products.SizeType,
-                        Unitprice = products.Unitprice,
-                        VendorName = products.Vendor,
-                        Measurement = products.Measurement,
-                        Source = products.Source,
-                        Pipeline = products.Pipeline,
-                    }).ToList();
+            if (searchData != null)
+            {
+                string para = searchData.ToLower();
+                output = output.Where(x => x.BrandName.ToLower().StartsWith(para) || x.BrandName.ToLower().StartsWith(para)
+                || x.Code.ToLower().StartsWith(para)
+                
+                ).ToList();
+            }
+            return output;
+
+
+
         }
 
 

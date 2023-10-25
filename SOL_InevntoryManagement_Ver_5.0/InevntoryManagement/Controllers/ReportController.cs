@@ -11,6 +11,10 @@ using DataAccessLayer.Services.Interface;
 using BussinessAccessLayer.Model;
 using DataAccessLayer.Dapper;
 using BussinessAccessLayer.ExtendModel;
+using System.Data;
+using System.Reflection;
+using System.Text;
+using InevntoryManagement.Models;
 
 namespace InevntoryManagement.Controllers
 {
@@ -110,6 +114,56 @@ namespace InevntoryManagement.Controllers
             var result = localReport.Execute(RenderType.Pdf, extension, param, mimtype);
                        
             return File(result.MainStream,"application/pdf");
+        }
+
+
+
+
+
+        public IActionResult saveCSV<T>(List<T> EData)
+        {
+            StringBuilder str = new StringBuilder();
+
+            //var tmptype = EData.FirstOrDefault();
+
+            PropertyInfo[] lst = typeof(T).GetProperties();
+            List<PropertyInfo> lst1 = lst.ToList();
+
+            DataTable dt = ListtoDatatableConverter.ToDataTable<T>(EData);
+
+            string colname = "";
+
+
+            for (int i = 0; i < lst.Count(); i++)
+            {
+                colname = colname + lst[i].Name + ",";
+            }
+
+
+
+            str.AppendLine(colname);
+
+
+
+
+
+            for (int sl = 0; sl < dt.Rows.Count; sl++)
+            {
+
+                DataRow d = dt.Rows[sl];
+                string strdata = "";
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    strdata = strdata + d[i].ToString() + ",";
+                }
+
+
+                str.AppendLine(strdata);
+            }
+
+
+            return File(Encoding.UTF8.GetBytes(str.ToString()), "text/csv");
+
         }
     }
 }

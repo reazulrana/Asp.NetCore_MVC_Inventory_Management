@@ -1,0 +1,30 @@
+﻿@model BasePaginate
+@{
+
+}
+
+
+
+<form method="get" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName">
+    <div class="row">
+        <div class="col-md-12">
+
+            <input asp-for="SearchText" class="col-md-2 form-control-sm" placeholder="Search" />
+
+
+
+            <select asp-for="PageSize" class="col-md-2 form-control pull-right">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="col-md-2 btn btn-outline-info btn-xs" style="height:24px;line-height:12px">Search</button>
+        </div>
+    </div>
+
+</form>

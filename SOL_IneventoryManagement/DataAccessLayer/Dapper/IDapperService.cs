@@ -33,6 +33,7 @@ namespace DataAccessLayer.Dapper
 
         List<ProductBalance> GetProductBalanceSatrtwith(string term, string searchfield);
         List<T> GetDynamicTableList<T>(string strquery, DynamicParameters param, CommandType commandtype);
+       
 
         #endregion
 

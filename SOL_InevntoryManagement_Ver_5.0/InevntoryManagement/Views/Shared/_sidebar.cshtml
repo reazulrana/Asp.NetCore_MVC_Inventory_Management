@@ -24,7 +24,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Category" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Category" asp-action="CategoryList">Category List</a></li>
+                    <li><a asp-controller="Category" asp-action="CategoryList">List</a></li>
                 </ul>
 
             </li>
@@ -39,7 +39,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Brand" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Brand" asp-action="GetBrandList">Brand List</a></li>
+                    <li><a asp-controller="Brand" asp-action="GetBrandList">List</a></li>
                 </ul>
 
             </li>
@@ -53,7 +53,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Model" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Model" asp-action="GetModelList">Model List</a></li>
+                    <li><a asp-controller="Model" asp-action="GetModelList">List</a></li>
                 </ul>
 
             </li>
@@ -68,7 +68,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Manufacture" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Manufacture" asp-action="ListManufactures">Manufacture List</a></li>
+                    <li><a asp-controller="Manufacture" asp-action="ListManufactures">List</a></li>
                 </ul>
 
             </li>
@@ -83,7 +83,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Source" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Source" asp-action="GetSourceList">Source List</a></li>
+                    <li><a asp-controller="Source" asp-action="GetSourceList">List</a></li>
                 </ul>
 
             </li>
@@ -98,7 +98,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Vendor" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Vendor" asp-action="VendorList">Vendor List</a></li>
+                    <li><a asp-controller="Vendor" asp-action="VendorList">List</a></li>
                 </ul>
 
             </li>
@@ -115,7 +115,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Size" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Size" asp-action="SizeList">Size List</a></li>
+                    <li><a asp-controller="Size" asp-action="SizeList">List</a></li>
                 </ul>
 
             </li>
@@ -133,7 +133,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Measure" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Measure" asp-action="MeasureList">Size List</a></li>
+                    <li><a asp-controller="Measure" asp-action="MeasureList">List</a></li>
                 </ul>
 
             </li>
@@ -149,7 +149,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a asp-controller="Product" asp-action="Create">Create</a></li>
-                    <li><a asp-controller="Product" asp-action="ProductList">Product List</a></li>
+                    <li><a asp-controller="Product" asp-action="ProductList">List</a></li>
                 </ul>
 
             </li>
@@ -166,7 +166,7 @@
                 <ul aria-expanded="false">
                     <li><a asp-controller="Purchase" asp-action="Create">Create</a></li>
                     <li><a asp-controller="Purchase" asp-action="EditPurchaseList">Edit</a></li>
-                    <li><a asp-controller="Purchase" asp-action="PurchaseList">Purchase List</a></li>
+                    <li><a asp-controller="Purchase" asp-action="PurchaseList">List</a></li>
                 </ul>
 
             </li>
@@ -182,7 +182,7 @@
                 <ul aria-expanded="false">
                     <li><a asp-controller="Sale" asp-action="Create">Create</a></li>
                     <li><a asp-controller="Sale" asp-action="GetSaleEditList">Edit</a></li>
-                    <li><a asp-controller="Sale" asp-action="SaleList">Purchase List</a></li>
+                    <li><a asp-controller="Sale" asp-action="GetSaleList">List</a></li>
                 </ul>
 
             </li>
@@ -200,6 +200,7 @@
                     <li><a asp-controller="Settings" asp-action="DefaultSettings">Default Settings</a></li>
                     <li><a asp-controller="Report" asp-action="Print" asp-route-saleid="@int.Parse("2")">Test Print</a></li>
                     <li><a asp-controller="Product" asp-action="GetProductBalance" asp-route-saleid="@int.Parse("2")">Test Print</a></li>
+                    <li><a asp-controller="Home" asp-action="admin_profile" >Save CSV</a></li>
 
                 </ul>
 

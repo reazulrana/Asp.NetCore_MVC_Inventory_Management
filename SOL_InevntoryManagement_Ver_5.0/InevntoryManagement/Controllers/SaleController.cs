@@ -42,6 +42,21 @@ namespace InevntoryManagement.Controllers
 
         #region create part
 
+        //get customer list
+
+        List<SelectListItem> GetCustomerList(List<SelectListItem> customerlist)
+        {
+            customerlist=(from customer in unitOfWork.Customers.Get()
+             select new SelectListItem()
+             {
+                 Text =  customer.Contact!=null? "Name: " +  customer.CustName + " ; Contact " + customer.Contact: "Name: " + customer.CustName + " ; Contact " + "Contact Not Available",
+                 Value = customer.ID.ToString()
+             }).ToList();
+
+            return customerlist;
+        }
+
+
 
         [HttpGet]
         public IActionResult Create()
@@ -52,7 +67,7 @@ namespace InevntoryManagement.Controllers
 
             model.SaleFromList = SaleFroms(model);
             model.PaymentTypeList = PaymentTypeList(model);
-
+            model.CustomerList = GetCustomerList(model.CustomerList);
 
             //int maxno = unitOfWork.Purchases.Get().Select(X=>X.PurchaseNo).Max(x => int.Parse(x.PurchaseNo.Substring(x.PurchaseNo.Length-(x.PurchaseNo.IndexOf("-")-1))));
             List<int> s = unitOfWork.Sales.Get().Select(x => int.Parse(x.Invoice.Substring((x.Invoice.IndexOf("-") + 1)))).ToList();
@@ -83,6 +98,7 @@ namespace InevntoryManagement.Controllers
             model.SaleFromList = SaleFroms(model);
             model.PaymentTypeList = PaymentTypeList(model);
             model.ProductInfos = GetProductTableList(model);
+            model.CustomerList = GetCustomerList(model.CustomerList);
 
             if (ModelState.IsValid)
             {
@@ -95,14 +111,22 @@ namespace InevntoryManagement.Controllers
                 try
                 {
                     unitOfWork.BeginTransaction();
+
+                    Customer customer = null;
+                    if (model.customer.ID != 0)
+                    {
+                        customer = unitOfWork.Customers.GetByID(model.customer.ID);
+                    }else 
+                    { 
                     //customer section
-                    Customer customer = new Customer()
+                    customer = new Customer()
                     {
                         CustName = model.customer.CustName,
                         Address = model.customer.Address,
                         Contact = model.customer.Contact
                     };
                     unitOfWork.Customers.Insert(customer);
+                    }
 
 
                     //sale sectioon
@@ -194,27 +218,63 @@ namespace InevntoryManagement.Controllers
 
         #region Edit Section
         [HttpGet]
-        public IActionResult GetSaleEditList(int? pageno,int? pagesize)
+        //public IActionResult GetSaleEditList(int? pageno,int? pagesize, string SearchText, fileextensions? Extension)
+              public IActionResult GetSaleEditList(BasePaginate _model)
         {
-            try { 
-            SaleDetailsViewModel saleDetailsViewModel = new SaleDetailsViewModel();
-            saleDetailsViewModel.saleDetailsViewModels = dapperService.GetDynamicTableList<SaleDetailsViewModels>(rawQueryService.GetSaletListQuery,null,CommandType.Text).OrderByDescending(x => x.Invoice).ToList();
+            try {
+                SaleDetailsViewModel model = new SaleDetailsViewModel();
+
+                string strqry = "";
+                DynamicParameters p = new DynamicParameters();
+                if (_model.SearchText != null)
+                {
+
+                    strqry = " and ( s.Invoice like @invoice or b.Name like @name or p.Payments like @paymenttype) "; //" and s.TrDate between @fromdate and @todate"; //" and ( s.Invoice like @invoice or b.Name like @name or p.Payments like @paymenttype) and s.TrDate between @fromdate and @todate";
+                    p.Add("@invoice", "%" + _model.SearchText + "%", dbType: DbType.String);
+                    p.Add("@name", "%" + _model.SearchText + "%", dbType: DbType.String);
+                    p.Add("@paymenttype", "%" + _model.SearchText + "%", dbType: DbType.String);
+                    model.SearchText = _model.SearchText;
+
+                }
 
 
-            saleDetailsViewModel.PageSize = saleDetailsViewModel.DefaultPageSize(pagesize);
-            saleDetailsViewModel.TotalRow = saleDetailsViewModel.saleDetailsViewModels.Count();
-            
-            saleDetailsViewModel.PageIndex = saleDetailsViewModel.DefaultPageIndex(pageno);
 
-            saleDetailsViewModel.saleDetailsViewModels = saleDetailsViewModel.saleDetailsViewModels.SkipLast(saleDetailsViewModel.SkipRow).TakeLast(saleDetailsViewModel.PageSize).OrderBy(x=>x.Invoice).ToList();
-
+                if (strqry == "")
+                {
+                    p = null;
+                }
 
 
-            return View(saleDetailsViewModel);
+
+
+                model.saleDetailsViewModels = dapperService.GetDynamicTableList<SaleDetailsViewModels>(rawQueryService.GetSaletListQuery,null,CommandType.Text).OrderByDescending(x => x.Invoice).ToList();
+
+
+                model.PageSize = model.DefaultPageSize(_model.PageSize);
+                //model.PageSize = model.DefaultPageSize(pagesize);
+
+                model.TotalRow = model.saleDetailsViewModels.Count();
+
+                model.PageIndex = model.DefaultPageIndex(_model.PageIndex);
+                //model.PageIndex = model.DefaultPageSize(pageno);
+
+                if (_model.Extension != fileextensions.none) 
+                {
+                    string exportfilename = "ExportSaleDetailsInfo";
+                ExportData ed = new ExportData(exportfilename, _model.Extension);
+                    ed.exportData<SaleDetailsViewModels>(model.saleDetailsViewModels);
+                }
+
+
+                model.saleDetailsViewModels = model.saleDetailsViewModels.SkipLast(model.SkipRow).TakeLast(model.PageSize).OrderBy(x=>x.Invoice).ToList();
+
+
+
+            return View(model);
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorTitle = "Page NotFound";
+                ViewBag.ErrorTitle = "Resource NotFound";
                 ViewBag.ErrorMessage = "Check Is Your Internet Connection Is Ok.";
                 return View("NotFound");
             }
@@ -237,9 +297,11 @@ namespace InevntoryManagement.Controllers
 
             try
             {
+                
                 Customer customer = unitOfWork.Customers.GetByID(sale.CustomerID);
                 Amount amount = unitOfWork.Amounts.Get(a => a.TrID == sale.SaleID && a.TrType == 2).FirstOrDefault();
                 SaleEditViewModel model = new SaleEditViewModel();
+                //sales information
                 model.saleid = sale.SaleID;
                 model.Invoice = sale.Invoice;
                 model.TrDate = sale.TrDate;
@@ -248,11 +310,15 @@ namespace InevntoryManagement.Controllers
                 model.SaleFrom = sale.SaleFrom;
                 model.PaymentTypeId = sale.PaymentTypeId;
                 model.Remarks = sale.Remarks;
+                
+                //Customer information
                 model.customer.ID = customer.ID;
 
                 model.customer.CustName = customer.CustName;
                 model.customer.Address = customer.Address;
                 model.customer.Contact = customer.Contact;
+
+                //Amounts information
                 model.TotalAmount = amount.TotalAmount;
                 model.PaymentOnCash = amount.PaymentOnCash;
                 model.Dues = amount.Dues;
@@ -262,12 +328,14 @@ namespace InevntoryManagement.Controllers
                 model.Discount = amount.Discount;
                 model.NetAmount = amount.NetAmount;
                 model.TotalAmount = amount.TotalAmount;
+                
+                //lists Part
                 model.BranchList = BranchList(model);
                 model.SaleTypeList = SaleTypes(model);
                 model.SaleFromList = SaleFroms(model);
                 model.PaymentTypeList = PaymentTypeList(model);
                 model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
-
+                model.CustomerList = GetCustomerList(model.CustomerList);
                 return View(model);
             }
 
@@ -292,6 +360,7 @@ namespace InevntoryManagement.Controllers
             model.SaleFromList = SaleFroms(model);
             model.PaymentTypeList = PaymentTypeList(model);
             model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
+            model.CustomerList = GetCustomerList(model.CustomerList);
 
             if (ModelState.IsValid)
             {
@@ -659,6 +728,76 @@ namespace InevntoryManagement.Controllers
         }
 
 
+        //Sale List
+        [HttpGet]
+        public IActionResult GetSaleList(int? pageno, int? PageSize, string SearchText, fileextensions? Extension)
+        {
+            try
+            {
+
+                DynamicParameters p = new DynamicParameters();
+                SaleListViewModel model = new SaleListViewModel();
+                string strqry = "";
+                if (SearchText != null)
+                {
+                    
+                    strqry = " and ( s.Invoice like @invoice or b.Name like @name or p.Payments like @paymenttype) "; //" and s.TrDate between @fromdate and @todate"; //" and ( s.Invoice like @invoice or b.Name like @name or p.Payments like @paymenttype) and s.TrDate between @fromdate and @todate";
+                    p.Add("@invoice", "%" + SearchText + "%", dbType: DbType.String);
+                    p.Add("@name", "%" + SearchText + "%", dbType: DbType.String);
+                    p.Add("@paymenttype", "%" + SearchText + "%", dbType: DbType.String);
+                    model.SearchText = SearchText;
+
+                }
+
+
+            
+                if(strqry=="")
+                {
+                    p = null;
+                }
+
+
+
+                model.saleDetailsViewModels = dapperService.GetDynamicTableList<SaleDetailsViewModels>(rawQueryService.GetSaletListQuery + strqry, p, CommandType.Text).OrderByDescending(x => x.TrDate).OrderByDescending(x => x.Invoice).ToList();
+
+                //file name
+                if (Extension != null)
+                {
+
+                    string filename = "SaveSaleDetails";
+                ExportData ed = new ExportData(filename, Extension);
+
+                ed.exportData<SaleDetailsViewModels>(model.saleDetailsViewModels);
+
+                
+                    Global_Functions.SetMessage(ExportData.GetDefault_Download_FilePath() + filename + "." + Extension, "success");
+                
+                }
+
+
+
+                model.PageSize = model.DefaultPageSize(PageSize);
+                model.TotalRow = model.saleDetailsViewModels.Count();
+
+                model.PageIndex = model.DefaultPageIndex(pageno);
+
+                model.saleDetailsViewModels = model.saleDetailsViewModels.SkipLast(model.SkipRow).TakeLast(model.PageSize).OrderBy(x=>x.TrDate).OrderBy(x => x.Invoice).ToList();
+
+              
+                //ExportData.ExceltoPDF<SaleDetailsViewModels>(saleDetailsViewModel.saleDetailsViewModels, "SaleDetailsList");
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorTitle = "Resource Not Found Error";
+                ViewBag.ErrorMessage = ex.Message;
+                return View("NotFound");
+            }
+
+        }
+
+
 
         // Call from Sale form with ajax btnSaveSaleFrom
 
@@ -734,13 +873,81 @@ namespace InevntoryManagement.Controllers
 
 
 
+
+        //call from getSaleEditfrom form
         [HttpGet]
 public JsonResult GetInvoiceDetails_Ajax(int id)
         {
 
+            bool blnflag = false;
+            try { 
 
-            return new JsonResult(new { });
+
+
+                string query = " select sal.Invoice as invoiceno, convert(nvarchar(15), sal.TrDate,103) as InvoiceDate, Branchs.Name as Branch, ";
+                query = query + " pm.Payments as InvoiceType,sal.remarks, sf.SaleFrom as SellingFrom, salt.Types as SellingType, ";
+                query = query + " a.TotalAmount, a.Dues,a.Transport Transport, a.Others, a.GrossAmount, a.Discount, a.NetAmount,a.PaymentOnCash,";
+                query = query + " Customers.CustName,Customers.Address,Customers.Contact from sales as sal";
+                query = query + " inner join Branchs on sal.BranchId = Branchs.Id";
+                query = query + " inner join Amounts a on sal.SaleID = a.TrID";
+                query = query + " inner join PaymentTypes pm on sal.PaymentTypeId = pm.Id";
+                query = query + " inner join SellFroms sf on sal.SaleFrom = sf.Id";
+                query = query + " inner join SellingTypes salt on sal.SaleType = salt.Id";
+                query = query + " inner join Customers on sal.CustomerID = Customers.ID";
+                query = query + " where a.TrType = 2 and sal.SaleID = @saleid";
+
+
+            DynamicParameters param = new DynamicParameters();
+            param.Add("@saleid", id, dbType: DbType.Int32);
+            SaleInvoiceDetailsModel model = dapperService.GetDynamicTableList<SaleInvoiceDetailsModel>(query, param, CommandType.Text).FirstOrDefault();
+
+                string queryp = "Select sal.SaleID, p.Id as ProdId,p.Code,p.Description,cat.CType";
+                       queryp = queryp + " , m.ModelName,p.Size,p.Color,p.PhotoPath, ms.Qty,ms.Price,(ms.Qty * ms.Price) as TotalAmount  from Sales sal";
+                       queryp = queryp + " inner join Amounts a on sal.SaleID = a.TrID inner";
+                       queryp = queryp + " join MasterDetail ms on a.Id = ms.AmountId";
+                       queryp = queryp + " inner join Products p on ms.ProductId = p.Id";
+                       queryp = queryp + " inner join Models m on p.ModelId = m.Id";
+                       queryp = queryp + " inner join Brands br on m.BrandId = br.Id";
+                       queryp = queryp + " inner join Categories cat on br.CategoryId = cat.Id where a.TrType = 2 and sal.saleid=@saleid";
+
+            DynamicParameters p = new DynamicParameters();
+
+                p.Add("@saleid", id, dbType: DbType.Int32);
+
+                 model.saleInvoiceProductDetails = dapperService.GetDynamicTableList<SaleInvoiceProductDetails>(queryp, p, CommandType.Text);
+
+
+                blnflag = true;
+            return new JsonResult(new { model, blnflag });
+           
+            }
+            catch(Exception ex)
+            {
+            
+                return new JsonResult(new { ex.Message, blnflag });
+            
+            }
         }
+
+
+//call from sale create and edit form js file salesCustomerInformation.js
+
+        [HttpGet]
+        public JsonResult FindCustomer_Ajax(int id)
+        {
+
+            bool blnmessage=false;
+            Customer output = unitOfWork.Customers.GetByID(id);
+
+            blnmessage = output != null ? true : false;
+
+
+            return new JsonResult(new { blnmessage, output });
+        }
+
+
+
+
 
     }
 }

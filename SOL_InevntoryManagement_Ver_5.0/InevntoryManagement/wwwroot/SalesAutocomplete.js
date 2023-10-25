@@ -1,6 +1,7 @@
 ﻿
 
 let url = "";
+
 geturl();
 function geturl() {
     url = $("#txtsearchfield").data("url");
@@ -8,12 +9,15 @@ function geturl() {
 //Autocomplete Section
 $.ui.autocomplete.prototype._renderMenu = function (ul, items) {
     var self = this;
+    
     //table definitions
-
+    
+    
     ul.append("<div class='divAutocomplete' style='height:200px; overflow-y:scroll; z-index:10000'><table class='prodcutAutocomplete table table-border'><thead class='bg-secondary text-white'><tr> <th>Sl</th> <th>Code</th> <th>Description</th> <th>Category</th> <th>Model</th> <th>Size</th> <th>Color</th> <th>Rec.Qty</th> <th>Sell Qty</th> <th>Stock</th> </tr></thead><tbody></tbody></table></div>");
     $.each(items, function (index, item) {
         self._renderItemData(ul, ul.find("table tbody"), item);
     });
+
 };
 $.ui.autocomplete.prototype._renderItemData = function (ul, table, item) {
     return this._renderItem(table, item).data("ui-autocomplete-item", item);
@@ -51,7 +55,7 @@ $(".searchField").change(function () {
 })
 
 $("#txtsearchfield").autocomplete({
-    minLength: 1,
+    minLength: 3,
     focus: function (event, ui) {
         if (ui.item != undefined) {
             var photopath = "/Projects/Images/Product/";
@@ -123,3 +127,7 @@ $("#txtsearchfield").autocomplete({
 
 
 })
+
+
+
+

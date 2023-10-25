@@ -86,7 +86,8 @@ namespace InevntoryManagement.ViewModels.Sales
         public List<SelectListItem> PaymentTypeList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> SaleTypeList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> SaleFromList { get; set; } = new List<SelectListItem>();
-        
+        public List<SelectListItem> CustomerList { get; set; } = new List<SelectListItem>();
+
         public List<ProductInfo> ProductInfos { get; set; } = new List<ProductInfo>();
 
 
@@ -94,3 +95,4 @@ namespace InevntoryManagement.ViewModels.Sales
         #endregion
     }
 }
+

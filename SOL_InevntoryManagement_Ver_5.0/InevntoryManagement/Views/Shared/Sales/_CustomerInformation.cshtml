@@ -20,18 +20,26 @@
                         <label>Search Contact</label>
                     </div>
                     <div class="col-md-10">
-                        <input id="searchcontact" class="form-control" placeholder="Search Contact No" />
+                        
+                        <select data-customerfindurl="@Url.Action("FindCustomer_Ajax","Sale")" class="form-control single-select searchcustomer"  asp-items="@Model.CustomerList">
+                            <option>Select Customer</option>
+                        </select>
+                        
                     </div>
                 </div>
             </div>
 
             <div class="col-md-2">
+                <input hidden class="txtcustomerid" asp-for="@Model.customer.ID" />
+
                 <label asp-for="@Model.customer.CustName"></label>
             </div>
             <div class="col-md-5">
                 @*<label asp-for="CustName"></label>*@
+                
 
-                <input class="form-control" asp-for="@Model.customer.CustName"/>
+
+                <input class="form-control txtcustname" asp-for="@Model.customer.CustName" />
                 <span asp-validation-for="@Model.customer.CustName" class="text-danger"></span>
             </div>
 
@@ -42,9 +50,9 @@
             <div class="col-md-4">
                 @*<label asp-for="Contact"></label>*@
                 
-                <input hidden asp-for="@Model.customer.ID" />
+                
                                 
-                <input class="form-control" asp-for="@Model.customer.Contact"/>
+                <input class="form-control txtcontact" asp-for="@Model.customer.Contact"/>
                 <span asp-validation-for="@Model.customer.Contact" class="text-danger"></span>
 
             </div>
@@ -59,7 +67,7 @@
             <div class="col-md-10">
                 @*<label asp-for="Address"></label>*@
 
-                <input class="form-control" asp-for="@Model.customer.Address"/>
+                <input class="form-control txtaddress" asp-for="@Model.customer.Address"/>
             </div>
         </div>
 

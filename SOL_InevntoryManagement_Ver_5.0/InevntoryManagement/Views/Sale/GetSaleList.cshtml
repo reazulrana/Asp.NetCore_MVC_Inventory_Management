@@ -1,0 +1,313 @@
+﻿@model SaleListViewModel
+
+@{
+    ViewBag.Title = "Sale List";
+
+}
+
+<style>
+    table tr td {
+        font-family: 'Times New Roman';
+        font-size: 13x;
+    }
+
+    table tr th, table tr td {
+        white-space: nowrap;
+    }
+
+    table tr td {
+        min-width: 75px;
+    }
+
+    .btn.btn-width-md
+    {
+        width:60px;
+        height:30px;
+    }
+
+</style>
+
+<div class="card">
+    <div class="card-body">
+
+
+        @*show error update create delete export message*@
+        <div class="row" id="messagestatus">
+            <div class="col-md-12">
+                <partial name="_Messages" />
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_SearchBar" model="Model" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_ExportData" model="Model" />
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row mt-1">
+            <div class="table-responsive">
+                <table class="table text-center" border="1">
+                    <thead class="table-dark">
+                        <tr>
+                            <th><small>SL</small></th>
+                            <th><small title="Invoice No">Invoice </small> </th>
+                            <th><small title="Invoice Date">Date</small> </th>
+                            <th><small>Branch</small> </th>
+                            <th><small title="Payment Type">Type</small> </th>
+                            <th><small title="Product Selling Price">Sell Price</small> </th>
+                            <th><small title="Cash On Payment">Cash On Pay</small> </th>
+                            <th><small>Dues</small> </th>
+                            <th><small>Transport</small> </th>
+                            <th><small>Others</small> </th>
+                            <th><small>Discount</small> </th>
+                            <th><small>Net Amount</small> </th>
+                            <th colspan="2"><small>Action</small> </th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="saleproductlist">
+
+                        @if (Model.saleDetailsViewModels.Count > 0)
+                        {
+                            int sl = Model.PageIndex * Model.PageSize <= 0 ? 1 : ((Model.PageIndex * Model.PageSize) - Model.PageSize) + 1;
+                            foreach (var p in Model.saleDetailsViewModels)
+                            {
+
+                                string url = "/" + ImagePath.GetProductImagePath() + "/";
+                                decimal paymentPercent = Math.Round((Convert.ToDecimal(p.PaymentOnCash) / Convert.ToDecimal(p.NetAmount)) * 100, 2);
+                                //string _photopath = (p.photopath == null || p.photopath == "") ? "~/" + ImagePath.GetDefaultImagePath("No_Image_Avaiable.jpg") : "~/" + ImagePath.GetProductImagePath(p.photopath);
+                                //int totalamount = p.qty * p.price;
+                                <tr data-id="@p.SaleID" data-photourl="@url">
+                                    <td>@sl </td>
+                                    <td>@p.Invoice</td>
+                                    <td>@p.TrDate</td>
+                                    <td>@p.Branch </td>
+                                    <td><span class="badge @(p.PaymentType.ToLower()=="cash" ? "badge-secondary":p.PaymentType.ToLower()=="dues"?"badge-danger":"badge-primary")"> @p.PaymentType</span></td>
+                                    <td>@p.TotalAmount</td>
+                                    <td>
+                                        @p.PaymentOnCash
+                                        <div class="progress">
+                                            <div class="progress-bar  @(p.Dues<=0 ?"bg-success":"bg-danger"    ) progress-animated" style="width:@(paymentPercent)%;" role="progressbar" title="@((int) paymentPercent) %">
+                                                <span class="sr-only">@(paymentPercent)% Paid</span>
+                                            </div>
+                                        </div>
+                                        <p> @(paymentPercent)% Paid</p>
+
+                                    </td>
+                                    <td>@p.Dues</td>
+                                    <td>@p.Transport</td>
+                                    <td>@p.Others</td>
+                                    <td>@p.Discount</td>
+                                    <td>@p.NetAmount</td>
+                                    <td>
+                                        <div class="btn-group">
+
+                                            <form method="post" asp-controller="Sale" asp-action="Delete" asp-route-id="@p.SaleID">
+                                                <a asp-controller="Report" asp-action="PrintSaleInvoice" asp-route-saleid="@p.SaleID" class="btn btn-outline-primary btn-xs" title="Print Invoice"><span class="ml-1"><i class="mdi mdi-printer"></i></span></a>
+                                                <a href="#" data-id="@p.SaleID" class="btn btn-outline-success btn-xs btnshowdetails" title="Details" data-photourl="@url"><span class="ml-1"><i class="mdi mdi-eye"></i></span></a>
+
+                                            </form>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                                sl = sl + 1;
+                            }
+                        }
+                    </tbody>
+
+                </table>
+                <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
+            </div>
+        </div>
+        <partial name="~/Views/Shared/Sales\Modal/_SaleInvoiceDetails.cshtml" />
+    </div>
+</div>
+
+@section Scripts
+{
+    <script lang="ja">
+
+
+    $(document).ready(function () {
+
+
+        //_Message.cshtml Partial Razor Page Hide
+        setTimeout(function () {
+            $("#messagestatus").fadeOut(8000)
+        }, 1000)
+
+
+
+        $('.datepicker-default').pickadate({
+            currentText: "Now"
+        });
+
+
+
+        $(".btndelete_sale").click(function (e) {
+
+            let id = $(this).data("id");
+            if (confirm("Do You Want To Delete Record Permanently :" + id))
+            {
+
+            }
+            else
+            {
+                e.preventDefault();
+            }
+
+
+
+        })
+
+
+        $("#saleproductlist tr").dblclick(function () {
+
+
+
+            let id = $(this).data("id")
+            let photourl = $(this).data("photourl")
+            getInvoiceDetails(id, photourl);
+
+
+
+        })
+
+        $(".btnshowdetails").click(function () {
+
+            let id = $(this).data("id")
+           let photourl = $(this).data("photourl")
+            getInvoiceDetails(id, photourl);
+        })
+
+
+        function getInvoiceDetails(id, photourl)
+        {
+             $.ajax({
+                url: '@Url.Action("GetInvoiceDetails_Ajax","Sale")',
+                method: "Get",
+                data: { "id": id},
+                dataType: "JSON",
+                success: function (data)
+                {
+                    if (data.blnflag == true)
+                    {
+                        //console.log(data);
+                        $(".custname").html(data.model.custName);
+                        $(".address").html(data.model.address);
+                        $(".contact").html(data.model.contact);
+
+
+
+                        //invoice information
+                        $(".invoice").html(data.model.invoiceNo);
+                        $(".invoicedate").html(data.model.invoiceDate);
+                        $(".branch").html(data.model.branch);
+                        $(".invoicetype").html(data.model.invoiceType);
+                        $(".remarks").html(data.model.remarks)
+
+                        //invoice Amount Circle
+                        $(".circleNetcmount").html(data.model.netAmount );
+                        $(".paidamount").html(data.model.paymentOnCash );
+                        $(".dueamount").html(data.model.dues);
+
+                        //progress bar section
+
+                        let netamnt = parseFloat(data.model.netAmount)
+                        let paidamnt = parseFloat(data.model.paymentOnCash)
+
+                        let percentage = paidamnt>0?  (paidamnt / netamnt) * 100:0
+
+                        let result = Math.round(percentage, 0);
+                        $(".percentnumber").html(result +"%");
+                        $(".percentprogress").css('width', result +'%')
+                        $(".percentcaption").html(result + "%")
+
+
+
+
+                        //bill information
+
+                        $(".subtotal").html(data.model.totalAmount);
+                        $(".cashonpayment").html(data.model.paymentOnCash);
+                        $(".dues").html(data.model.dues);
+                        $(".transport").html(data.model.transport);
+                        $(".other").html(data.model.other);
+                        $(".totalamount").html(data.model.totalAmount);
+                        $(".discount").html(data.model.discount);
+                        $(".netamount").html(data.model.netAmount);
+
+                        //product info list
+                        let table = $("#modelsaleinvoicedetails");
+
+                        $(table).empty();
+                        let trsl = $(table).children("tr").length == 0 ? 1 : $(table).children("tr").length;
+
+                        $.each(data.model.saleInvoiceProductDetails, function (index, item)
+                        {
+
+
+                            let tphotourl = photourl + item.photopath;
+
+                            let sl = "<td>" + trsl +"</td>"
+
+                            let img = "<td><img height='90px' width='90px' src='" + tphotourl + "' /> </td>"
+                            let code = "<td>" + item.code + "</td>"
+                            let description = "<td>" + item.description + "</td>"
+                            let Model = "<td>" + item.model + "</td>"
+                            let Size = "<td>" + item.size + "</td>"
+                            let Color = "<td>" + item.color + "</td>"
+                            let Qty = "<td>" + item.qty + "</td>"
+                            let Price = "<td>" + item.price + "</td>"
+                            let totalamount = "<td>" + item.totalAmount + "</td>"
+
+                            let tr = "<tr>" + sl + img + code + description + Model + Size + Color + Qty + Price + totalamount + "</tr>"
+
+                            table.append(tr);
+                            trsl = trsl+1
+
+                        })
+
+
+
+                        setTimeout($('#Modal_Sale_Details').modal('show'), 3000);
+
+
+                    }
+                },
+                error: function (xhr)
+                {
+                    alert(xhr.responseText);
+                }
+
+
+            }) //end of ajax
+        }
+
+
+    })
+
+    </script>
+}

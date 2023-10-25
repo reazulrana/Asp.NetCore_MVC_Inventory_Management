@@ -72,11 +72,21 @@
 </form>
 
 
+@*<form method="post" asp-action="TestAction">
+    <input type="text" name="testtext" value="rana" />
+
+    <button type="submit" name="btntest"  value="save" class="btn btn-xs btn-facebook">Save<span><i class="mdi mdi-plus"></i></span></button>
+
+</form>*@
+
+
 @section Scripts{ 
     <script src="~/DuplicateModelShow.js"></script>
     <script src="~/SaleProductAddRemove.js"></script>
     <script src="~/SaleAmount.js"></script>
     <script src="~/SalesAutocomplete.js"></script>
+    <script src="~/SalesCustomerInformation.js"></script>
+
     <script>
     $(document).ready(function () {
 
@@ -84,24 +94,25 @@
        // getlist();
 
 
+
         function sweetalert(message) {
 
             sweetAlert("Oops...", "'" + message.toUpperCase() + "'", "error")
         }
 
-        $("#btnExport").click(function () {
-            let element = $("#parentdiv")
+        //$("#btnExport").click(function () {
+        //    let element = $("#parentdiv")
 
 
-            html2pdf().from(element).set({
-                margin: [10, 10, 10, 10],
-                pagebreak: {avoid:"tr"},
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait', compressPDF: true }
+        //    html2pdf().from(element).set({
+        //        margin: [10, 10, 10, 10],
+        //        pagebreak: {avoid:"tr"},
+        //        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait', compressPDF: true }
 
 
-            }).save();
+        //    }).save();
 
-        })
+        //})
 
         //$("#TrDate").datepicker();
         //$("#branchname").select2()

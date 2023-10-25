@@ -27,13 +27,34 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
             </div>
         </div>
-        <div class="row">
+
+
+        @*show error update create delete export message*@
+        <div class="row" id="messagestatus">
             <div class="col-md-12">
                 <partial name="_Messages" />
-            </div>
 
+            </div>
         </div>
-        
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_SearchBar" model="Model" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_ExportData" model="Model" />
+            </div>
+        </div>
+
+
+
+
 
 
         <div class="row">
@@ -79,30 +100,30 @@
 
                             @foreach (var m in Model.purchaseDetailsModel)
                             {
-                    <tr data-id="@m.id">
-                        <td>@sl</td>
-                        <td><a href="#" class="productids" data-id="@m.id" id="showModalProductDetails" data-toggle="modal" data-target="#Modal_Purchase_Details"><h6> @m.PurchaseNo</h6></a></td>
-                        <td>@m.TrDate.ToShortDateString()</td>
-                        <td>@m.Branch</td>
-                        <td>@m.Vendor</td>
-                        <td>@m.Source</td>
-                        <td>@m.TotalAmount</td>
-                        <td>@m.PaymentOnCash</td>
-                        <td>@m.Dues</td>
-                        <td>@m.Transport</td>
-                        <td>@m.Others</td>
-                        <td>@m.GrossAmount</td>
-                        <td>@m.Discount</td>
-                        <td>@m.NetAmount</td>
-                        <td><a asp-controller="Purchase" asp-action="Edit" asp-route-id="@m.id" class="btn btn-secondary light btn-xs">Edit<span><i class="ml-1 mdi mdi-pencil"></i></span></a></td>
-                        <td>
-                            <form method="post" asp-controller="Purchase" asp-action="Delete" asp-route-id="@m.id">
-                                <button class="btn btn-danger light btn-xs btndelete">Delete<span><i class="ml-1 mdi mdi-delete"></i></span></button>
+                                <tr data-id="@m.id">
+                                    <td>@sl</td>
+                                    <td><a href="#" class="productids" data-id="@m.id" id="showModalProductDetails" data-toggle="modal" data-target="#Modal_Purchase_Details"><h6> @m.PurchaseNo</h6></a></td>
+                                    <td>@m.TrDate.ToShortDateString()</td>
+                                    <td>@m.Branch</td>
+                                    <td>@m.Vendor</td>
+                                    <td>@m.Source</td>
+                                    <td>@m.TotalAmount</td>
+                                    <td>@m.PaymentOnCash</td>
+                                    <td>@m.Dues</td>
+                                    <td>@m.Transport</td>
+                                    <td>@m.Others</td>
+                                    <td>@m.GrossAmount</td>
+                                    <td>@m.Discount</td>
+                                    <td>@m.NetAmount</td>
+                                    <td><a asp-controller="Purchase" asp-action="Edit" asp-route-id="@m.id" class="btn btn-secondary light btn-xs">Edit<span><i class="ml-1 mdi mdi-pencil"></i></span></a></td>
+                                    <td>
+                                        <form method="post" asp-controller="Purchase" asp-action="Delete" asp-route-id="@m.id">
+                                            <button class="btn btn-danger light btn-xs btndelete">Delete<span><i class="ml-1 mdi mdi-delete"></i></span></button>
 
-                            </form>
-                        </td>
+                                        </form>
+                                    </td>
 
-                    </tr>
+                                </tr>
                                 sl = sl + 1;
                             }
                         }
@@ -113,19 +134,19 @@
             <div class="text-right">
                 @*<a asp-controller="purchase" asp-action="EditPurchaseList" asp-route-pageno="@Model.PrevousPage" asp-route-pagesize="@Model.PageSize" class="btn btn-xs btn-outline-secondary" title="Previous"><span><i class="mdi mdi-18px mdi-arrow-left-bold-box-outline"></i> Prev</span></a>
 
-        <a asp-controller="purchase" asp-action="EditPurchaseList" asp-route-pageno="@Model.NextPage" asp-route-pagesize="@Model.PageSize" class="btn btn-xs btn-outline-secondary" title="Next"><span>Next <i class="mdi mdi-18px mdi-arrow-right-bold-box-outline"></i></span></a>*@
+                <a asp-controller="purchase" asp-action="EditPurchaseList" asp-route-pageno="@Model.NextPage" asp-route-pagesize="@Model.PageSize" class="btn btn-xs btn-outline-secondary" title="Next"><span>Next <i class="mdi mdi-18px mdi-arrow-right-bold-box-outline"></i></span></a>*@
                 <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
             </div>
-        @*</div>*@
-    </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-md-12">
-                <a asp-action="PurchaseList" asp-controller="Purchase" class="float-md-right col-md-2 btn btn-xs btn-facebook">Purchase List<span class="btn-icon-right"><i class="ml-1 mdi mdi-view-list"></i></span></a>
+            @*</div>*@
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <a asp-action="PurchaseList" asp-controller="Purchase" class="float-md-right col-md-2 btn btn-xs btn-facebook">Purchase List<span class="btn-icon-right"><i class="ml-1 mdi mdi-view-list"></i></span></a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
@@ -150,7 +171,10 @@
     <script>
     $(document).ready(function ()
     {
-
+        //_Message.cshtml Partial Razor Page Hide
+        setTimeout(function () {
+            $("#messagestatus").fadeOut(8000)
+        }, 1000)
 
         //$(".btndelete").click(function () 
         //{

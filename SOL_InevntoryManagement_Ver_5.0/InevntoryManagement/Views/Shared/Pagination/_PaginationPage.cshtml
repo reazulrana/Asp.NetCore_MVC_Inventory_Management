@@ -16,39 +16,39 @@
 }
 
 
-@if (Model.TotalPage > 1) {
+@*@if (Model.TotalPage > 1) {*@
 <nav class="mt-3">
-    <ul class="pagination  @( Model.TotalPage>3? "pagination-sm":"")  pagination-danger">
+    <ul class="pagination pagination-sm  @( Model.TotalPage>10? "pagination-xs":"")  pagination-danger">
         @*<ul class="pagination pagination-circle">*@
-        <li class="page-item page-indicator">
-            <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-pageno="@Model.FirstPage" asp-route-pagesize="@Model.PageSize" title="First Page">
+        <li class="page-item page-indicator"> 
+            <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-PageIndex="@Model.FirstPage" asp-route-PageSize="@Model.PageSize" asp-route-SearchText="@Model.SearchText" asp-route-fromdate="@Model.fromdate" asp-route-todate="@Model.todate"  title="First Page">
                 <i class="la la-angle-double-left"></i>
             </a>
         </li>
         <li class="page-item page-indicator">
-            <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-pageno="@Model.PrevousPage" asp-route-pagesize="@Model.PageSize" title="Previous">
+            <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-PageIndex="@Model.PrevousPage" asp-route-PageSize="@Model.PageSize" asp-route-SearchText="@Model.SearchText" asp-route-fromdate="@Model.fromdate" asp-route-todate="@Model.todate"  title="Previous">
                 <i class="la la-angle-left"></i>
             </a>
         </li>
         @{ for (int sl = Model.StartPageNo; sl <= Model.EndPageNo; sl++)
             {
                 <li class="page-item @(sl==@Model.PageIndex ? "active":"")">
-                    <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-pageno="@sl" asp-route-pagesize="@Model.PageSize" title="@sl">@sl</a>
+                    <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-PageIndex="@sl" asp-route-PageSize="@Model.PageSize" asp-route-SearchText="@Model.SearchText" asp-route-fromdate="@Model.fromdate" asp-route-todate="@Model.todate"  title="@sl">@sl</a>
                 </li>
             }}
 
         <li class="page-item page-indicator">
-            <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-pageno="@Model.NextPage" asp-route-pagesize="@Model.PageSize" title="Next">
+            <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-PageIndex="@Model.NextPage" asp-route-PageSize="@Model.PageSize" asp-route-SearchText="@Model.SearchText" asp-route-fromdate="@Model.fromdate" asp-route-todate="@Model.todate"  title="Next">
                 <i class="la la-angle-right"></i>
             </a>
         </li>
 
         <li class="page-item page-indicator">
-            <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-pageno="@Model.LastPage" asp-route-pagesize="@Model.PageSize" title="Last Page">
+            <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-PageIndex="@Model.LastPage" asp-route-PageSize="@Model.PageSize"  title="Last Page">
                 <i class="la la-angle-double-right"></i>
             </a>
         </li>
     </ul>
 
 </nav>
-}
+@*}*@

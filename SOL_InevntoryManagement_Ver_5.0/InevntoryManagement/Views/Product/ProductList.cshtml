@@ -12,7 +12,44 @@
         <h3 class="card-title text-white">Product List</h3>
     </div>
     <div class="card-body">
-        <form method="get" asp-controller="Product" asp-action="ProductList">
+
+
+
+        @*show error update create delete export message*@
+        <div class="row" id="messagestatus">
+            <div class="col-md-12">
+                <partial name="_Messages" />
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_SearchBar" model="Model" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_ExportData" model="Model" />
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        @*<form method="get" asp-controller="Product" asp-action="ProductList">
 
             <div class="row pb-5">
 
@@ -39,7 +76,7 @@
                 </div>
 
             </div>
-        </form>
+        </form>*@
 
 
         <div class="row">
@@ -166,6 +203,15 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
+
+
+                //_Message.cshtml Partial Razor Page Hide
+
+            setTimeout(function () {
+                $("#messagestatus").fadeOut(8000)
+            },1000)
+
+
 
             $(".btn_paginate").click(function () {
                 var blnlast = $(this).find("span").find("i").hasClass("la")

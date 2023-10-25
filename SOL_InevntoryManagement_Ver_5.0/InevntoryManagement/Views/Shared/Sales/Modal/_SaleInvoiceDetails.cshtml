@@ -2,64 +2,253 @@
 
 
 
-<div class="modal fade bd-example-modal-lg" id="Modal_Purchase_Details" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-dark">
-                <h4 class="modal-title text-white">Purchase Invoice Details</h4>
-                <button type="button" class="close text-white" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body lefttext">
-                @*customer information*@
+    <div class="modal fade bd-example-modal-lg" id="Modal_Sale_Details" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark">
+                    <h4 class="modal-title text-white">Sale Invoice Details</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body lefttext">
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="im"></div>
+                    @*customer Information*@
+
+                    <div class="row border py-2">
+                        <div class="col-md-12 bg-secondary">
+                            <h4 class="text-white py-2">Customer Information</h4>
+                        </div>
+                        <div class="col-md-4 px-2 mt-2">
+
+                            <img class="img-fluid" src="~/Projects/Images/DefaultImage/No_Image_Available.jpg" />
+
+                        </div>
+                        <div class="col-md-8 px-2 mt-2">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <tbody id="saleinvoiceproductinfo">
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>:</td>
+                                            <td class="text-blue"><h4 class="text-blue custname">Md.Reazul Islam</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td>:</td>
+                                            <td class="text-blue"><strong class="address">124/3 Moneshwer Road Zigatola Dhaka</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact No</td>
+                                            <td>:</td>
+                                            <td class="text-blue"><h5 class="text-blue contact">01922531242,01910063524</h5></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Type</td>
+                                            <td>:</td>
+                                            <td class="text-blue type">Regular</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reference</td>
+                                            <td>:</td>
+                                            <td class="text-blue reference">None</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
 
-                </div>
 
-                @*Invoice details *@
 
-                <div class="row mt-2">
+                    @*Sales Details Information*@
 
-                </div>
+                    <div class="row border py-2 mt-2">
+                        <div class="col-md-12 bg-blue-dark mb-3">
+                            <h4 class="text-white py-2">Sales Information</h4>
+                        </div>
+                        <div class="col-md-6 px-2">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td>Invoice No#</td>
+                                            <td>:</td>
+                                            <td class="text-blue"><h4 class="invoice">Md.Reazul Islam</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Invoice Date</td>
+                                            <td>:</td>
+                                            <td class="text-blue"><strong class="invoicedate">124/3 Moneshwer Road Zigatola Dhaka</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Branch</td>
+                                            <td>:</td>
+                                            <td class="text-blue"><h5 class="branch">01922531242,01910063524</h5></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Invoice Type</td>
+                                            <td>:</td>
+                                            <td class="invoicetype">Regular</td>
+                                        </tr>
 
-                @*table section*@
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
-                <div class="row mt-2">
-                    <div class="table-responsive mt-3">
-                        <table class="table table-bordered text-center">
-                            <thead class="bg-blue">
-                                <tr class="text-white">
-                                    <th><small>SL</small></th>
-                                    <th><small>Image</small></th>
-                                    <th><small>Code</small></th>
-                                    <th><small>Description</small></th>
-                                    <th><small>Model</small></th>
-                                    <th><small>Size</small></th>
-                                    <th><small>Color</small></th>
-                                    <th><small>Qty</small></th>
-                                    <th><small>Price</small></th>
-                                    <th><small>Total Amount</small></th>
-                                    @*
-                                    <th><small>Action</small></th>*@
 
-                                </tr>
-                            </thead>
-                            <tbody class="table-danger light" id="modalsaleproductlist">
-                            </tbody>
+                        <div class="col-md-6 px-2">
+                            <div class="table-responsive">
+                                <table class="table border-no">
+                                    <tbody>
+                                        <tr class="border-bottom">
+                                            <td> <div style="position: relative; border: 1px solid blue; width: 100px; height: 100px; border-radius: 50%; background-color: darkblue; background-image: linear-gradient(to bottom right,blue,white)"><h4 style="position:absolute;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:25px;color:white" class="circleNetcmount">16500</h4></div>            </td>
+                                            <td> <div style="position: relative; border: 1px solid green; background-color: darkgreen; background-image: linear-gradient(to bottom right,darkgreen,white); width: 90px; height: 90px; border-radius: 50%"><h5 style="position: absolute; top: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white" class="paidamount"> 13500</h5></div></td>
+                                            <td> <div style="position: relative; border: 1px solid red; background-color: darkred; background-image: linear-gradient(to bottom right,darkred,white); width: 90px; height: 90px; border-radius: 50% "><h5 style="position: absolute; top: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white" class="dueamount"> 3000</h5></div></td>
 
-                        </table>
+
+
+
+                                        </tr>
+                                        <tr>
+                                            <td> <div style="position: relative; width: 100px; height: 100px;"><h4 style="position:absolute;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:15px;color:blue">Invoice Amount</h4></div>            </td>
+                                            <td> <div style="position: relative; width: 100px; height: 100px;"><h4 style="position:absolute;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:15px;color:green">Paid</h4></div></td>
+                                            <td> <div style="position: relative; width: 100px; height: 100px;"><h4 style="position:absolute;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:15px;color:red">Dues</h4></div></td>
+
+
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <h6>Paid Amount <span class="pull-right percentnumber">80%</span></h6>
+                                                <div class="progress" style="height:15px">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated percentprogress" max= ="100" style="width:80%">
+                                                        <span><small class="percentcaption">80%</small></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
                     </div>
 
-                </div>
 
-            </div>
+
+                    @*Remarks Information*@
+                    <div class="row">
+                        <div class="col-md-2">
+                            Remarks
+                        </div>
+
+                        <div class="col-md-10">
+                            <p class="remarks"></p>
+                        </div>
+                    </div>
+
+
+                    @*prdocut list Information*@
+                    <div class="row">
+                        <div class="table-responsive mt-3">
+                            <table class="table table-bordered text-center">
+                                <thead class="bg-blue">
+                                    <tr class="text-white">
+                                        <th><small>SL</small></th>
+                                        <th><small>Image</small></th>
+                                        <th><small>Code</small></th>
+                                        <th><small>Description</small></th>
+                                        <th><small>Model</small></th>
+                                        <th><small>Size</small></th>
+                                        <th><small>Color</small></th>
+                                        <th><small>Qty</small></th>
+                                        <th><small>Price</small></th>
+                                        <th><small>Total Amount</small></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="modelsaleinvoicedetails">
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    @*Bill Information*@
+                    <div class="row border py-2 mt-2">
+                        <div class="col-md-12 bg-blue-dark mb-3">
+                            <h4 class="text-white py-2">Bill Information</h4>
+                        </div>
+                        <div class="col-md-12 px-2 mt-2">
+                            <div class="col-md-5 table-responsive float-right">
+                                <table class="table table-sm border-no">
+                                    <tbody style="font-size:16px">
+                                        <tr class="border-bottom bg-blue font-weight-bolder text-white">
+                                            <td>Sell Total</td>
+                                            <td>:</td>
+                                            <td class="subtotal">15000</td>
+
+                                        </tr>
+
+
+
+                                        <tr class="border-bottom">
+                                            <td>Transport Cost</td>
+                                            <td>:</td>
+                                            <td class="text-blue transport">1500</td>
+                                        </tr>
+                                        <tr class="border-bottom">
+                                            <td>Other Charges</td>
+                                            <td>:</td>
+                                            <td class="other">500</td>
+                                        </tr>
+                                        <tr class="border-bottom">
+                                            <td>Total Amount</td>
+                                            <td>:</td>
+                                            <td class="totalamount">17000</td>
+                                        </tr>
+                                        <tr class="border-bottom font-weight-bolder text-red">
+                                            <td>Discount</td>
+                                            <td>:</td>
+                                            <td class="discount">500</td>
+                                        </tr>
+                                        <tr class="border-bottom  bg-blue font-weight-bolder text-white">
+                                            <td>Net Amount</td>
+                                            <td>:</td>
+                                            <td class="netamount">16500</td>
+                                        </tr>
+
+                                        <tr class="border-bottom bg-green font-weight-bolder text-white">
+                                            <td>Paid Amount</td>
+                                            <td>:</td>
+                                            <td class="cashonpayment">13500</td>
+                                        </tr>
+                                        <tr class="border-bottom bg-red font-weight-bolder text-white">
+                                            <td>Dues</td>
+                                            <td>:</td>
+                                            <td class="dues">1500</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    @*end of modal-body*@
+                </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-youtube btn-xs" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-youtube btn-xs col-md-3" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
