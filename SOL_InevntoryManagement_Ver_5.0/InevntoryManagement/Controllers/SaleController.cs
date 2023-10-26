@@ -237,6 +237,8 @@ namespace InevntoryManagement.Controllers
                     p.Add("@paymenttype", "%" + _model.SearchText + "%", dbType: DbType.String);
                     model.SearchText = _model.SearchText;
 
+                   
+
                 }
 
 
@@ -247,9 +249,9 @@ namespace InevntoryManagement.Controllers
                 }
 
 
+                
 
-
-                model.saleDetailsViewModels = dapperService.GetDynamicTableList<SaleDetailsViewModels>(rawQueryService.GetSaletListQuery, null, CommandType.Text).OrderByDescending(x => x.Invoice).ToList();
+                model.saleDetailsViewModels = unitOfWork.ExecuteRawQuery<SaleDetailsViewModels>(rawQueryService.GetSaletListQuery + strqry, p, CommandType.Text).OrderByDescending(x => x.Invoice).ToList();
 
 
                 model.PageSize = model.DefaultPageSize(_model.PageSize);
@@ -336,7 +338,12 @@ namespace InevntoryManagement.Controllers
                 model.SaleTypeList = SaleTypes(model);
                 model.SaleFromList = SaleFroms(model);
                 model.PaymentTypeList = PaymentTypeList(model);
-                model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
+                // parameter dapper
+                DynamicParameters p = new DynamicParameters();
+                p.Add("@SaleID", model.saleid, DbType.Int32);
+
+                model.ProductInfos = unitOfWork.ExecuteRawQuery<ProductInfo>(rawQueryService.GetSaleProductInfoByIdQuery, p, CommandType.Text);
+                //model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
                 model.CustomerList = GetCustomerList(model.CustomerList);
                 return View(model);
             }
@@ -361,7 +368,13 @@ namespace InevntoryManagement.Controllers
 
             model.SaleFromList = SaleFroms(model);
             model.PaymentTypeList = PaymentTypeList(model);
-            model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
+            
+            
+            // parameter dapper
+            DynamicParameters p = new DynamicParameters();
+            p.Add("@SaleID", model.saleid, DbType.Int32);
+
+            model.ProductInfos = unitOfWork.ExecuteRawQuery<ProductInfo>(rawQueryService.GetSaleProductInfoByIdQuery, p, CommandType.Text); 
             model.CustomerList = GetCustomerList(model.CustomerList);
 
             if (ModelState.IsValid)
@@ -447,7 +460,13 @@ namespace InevntoryManagement.Controllers
 
                     }
                     unitOfWork.MasterDetails.Insert(masterDetailslist);
-                    model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
+
+                    //model.ProductInfos = dapperService.GetSaleProductInfoById(model.saleid);
+                    // parameter dapper
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("@SaleID", model.saleid, DbType.Int32);
+
+                    model.ProductInfos = unitOfWork.ExecuteRawQuery<ProductInfo>(rawQueryService.GetSaleProductInfoByIdQuery, param, CommandType.Text);
 
                     unitOfWork.CommitTransaction();
                     Global_Functions.SetMessage("Sale Invoice Update Successfully", "success");
@@ -766,7 +785,7 @@ namespace InevntoryManagement.Controllers
 
 
 
-                model.saleDetailsViewModels = dapperService.GetDynamicTableList<SaleDetailsViewModels>(rawQueryService.GetSaletListQuery + strqry, p, CommandType.Text).OrderByDescending(x => x.TrDate).OrderByDescending(x => x.Invoice).ToList();
+                model.saleDetailsViewModels = unitOfWork.ExecuteRawQuery<SaleDetailsViewModels>(rawQueryService.GetSaletListQuery + strqry, p, CommandType.Text).OrderByDescending(x => x.TrDate).OrderByDescending(x => x.Invoice).ToList();
 
                 //file name
                 if (_model.Extension != fileextensions.none)
@@ -863,8 +882,10 @@ namespace InevntoryManagement.Controllers
 
             bool success = false;
             int prdBalance = 0; //ProductBalance
+            DynamicParameters p = new DynamicParameters();
+            p.Add("@productId", productid, dbType: DbType.Int32);
 
-            ProductBalance pb = dapperService.GetProductBalanceById(productid);
+            ProductBalance pb = unitOfWork.ExecuteSingleRawQuery<ProductBalance>(rawQueryService.Get_Single_Product_Balance_By_ID_Query, p, CommandType.Text); //dapperService.GetProductBalanceById(productid);
             if (pb != null)
             {
                 success = true;
@@ -896,37 +917,37 @@ namespace InevntoryManagement.Controllers
 
 
 
-                string query = " select sal.Invoice as invoiceno, convert(nvarchar(15), sal.TrDate,103) as InvoiceDate, Branchs.Name as Branch, ";
-                query = query + " pm.Payments as InvoiceType,sal.remarks, sf.SaleFrom as SellingFrom, salt.Types as SellingType, ";
-                query = query + " a.TotalAmount, a.Dues,a.Transport Transport, a.Others, a.GrossAmount, a.Discount, a.NetAmount,a.PaymentOnCash,";
-                query = query + " Customers.CustName,Customers.Address,Customers.Contact from sales as sal";
-                query = query + " inner join Branchs on sal.BranchId = Branchs.Id";
-                query = query + " inner join Amounts a on sal.SaleID = a.TrID";
-                query = query + " inner join PaymentTypes pm on sal.PaymentTypeId = pm.Id";
-                query = query + " inner join SellFroms sf on sal.SaleFrom = sf.Id";
-                query = query + " inner join SellingTypes salt on sal.SaleType = salt.Id";
-                query = query + " inner join Customers on sal.CustomerID = Customers.ID";
-                query = query + " where a.TrType = 2 and sal.SaleID = @saleid";
+                //string query = " select sal.Invoice as invoiceno, convert(nvarchar(15), sal.TrDate,103) as InvoiceDate, Branchs.Name as Branch, ";
+                //query = query + " pm.Payments as InvoiceType,sal.remarks, sf.SaleFrom as SellingFrom, salt.Types as SellingType, ";
+                //query = query + " a.TotalAmount, a.Dues,a.Transport Transport, a.Others, a.GrossAmount, a.Discount, a.NetAmount,a.PaymentOnCash,";
+                //query = query + " Customers.CustName,Customers.Address,Customers.Contact from sales as sal";
+                //query = query + " inner join Branchs on sal.BranchId = Branchs.Id";
+                //query = query + " inner join Amounts a on sal.SaleID = a.TrID";
+                //query = query + " inner join PaymentTypes pm on sal.PaymentTypeId = pm.Id";
+                //query = query + " inner join SellFroms sf on sal.SaleFrom = sf.Id";
+                //query = query + " inner join SellingTypes salt on sal.SaleType = salt.Id";
+                //query = query + " inner join Customers on sal.CustomerID = Customers.ID";
+                //query = query + " where a.TrType = 2 and sal.SaleID = @saleid";
 
 
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@saleid", id, dbType: DbType.Int32);
-                SaleInvoiceDetailsModel model = dapperService.GetDynamicTableList<SaleInvoiceDetailsModel>(query, param, CommandType.Text).FirstOrDefault();
+                SaleInvoiceDetailsModel model = unitOfWork.ExecuteSingleRawQuery<SaleInvoiceDetailsModel>(rawQueryService.Get_Sale_Invoice_Details_Query, param, CommandType.Text); //dapperService.GetDynamicTableList<SaleInvoiceDetailsModel>(query, param, CommandType.Text).FirstOrDefault();
 
-                string queryp = "Select sal.SaleID, p.Id as ProdId,p.Code,p.Description,cat.CType";
-                queryp = queryp + " , m.ModelName,p.Size,p.Color,p.PhotoPath, ms.Qty,ms.Price,(ms.Qty * ms.Price) as TotalAmount  from Sales sal";
-                queryp = queryp + " inner join Amounts a on sal.SaleID = a.TrID inner";
-                queryp = queryp + " join MasterDetail ms on a.Id = ms.AmountId";
-                queryp = queryp + " inner join Products p on ms.ProductId = p.Id";
-                queryp = queryp + " inner join Models m on p.ModelId = m.Id";
-                queryp = queryp + " inner join Brands br on m.BrandId = br.Id";
-                queryp = queryp + " inner join Categories cat on br.CategoryId = cat.Id where a.TrType = 2 and sal.saleid=@saleid";
+                //string queryp = "Select sal.SaleID, p.Id as ProdId,p.Code,p.Description,cat.CType";
+                //queryp = queryp + " , m.ModelName,p.Size,p.Color,p.PhotoPath, ms.Qty,ms.Price,(ms.Qty * ms.Price) as TotalAmount  from Sales sal";
+                //queryp = queryp + " inner join Amounts a on sal.SaleID = a.TrID inner";
+                //queryp = queryp + " join MasterDetail ms on a.Id = ms.AmountId";
+                //queryp = queryp + " inner join Products p on ms.ProductId = p.Id";
+                //queryp = queryp + " inner join Models m on p.ModelId = m.Id";
+                //queryp = queryp + " inner join Brands br on m.BrandId = br.Id";
+                //queryp = queryp + " inner join Categories cat on br.CategoryId = cat.Id where a.TrType = 2 and sal.saleid=@saleid";
 
                 DynamicParameters p = new DynamicParameters();
 
                 p.Add("@saleid", id, dbType: DbType.Int32);
 
-                model.saleInvoiceProductDetails = dapperService.GetDynamicTableList<SaleInvoiceProductDetails>(queryp, p, CommandType.Text);
+                model.saleInvoiceProductDetails = unitOfWork.ExecuteRawQuery<SaleInvoiceProductDetails>(rawQueryService.Get_Sale_Invoice_Product_Details_Query, p, CommandType.Text); //dapperService.GetDynamicTableList<SaleInvoiceProductDetails>(queryp, p, CommandType.Text);
 
 
                 blnflag = true;

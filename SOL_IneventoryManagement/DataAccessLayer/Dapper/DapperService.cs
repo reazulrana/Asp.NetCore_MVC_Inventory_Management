@@ -134,17 +134,7 @@ namespace DataAccessLayer.Dapper
         {
 
 
-        //   public int ProdId { get; set; }
-        //public string code { get; set; }
-        //public string description { get; set; }
-        //public string category { get; set; }
-        //public string model { get; set; }
-        //public string size { get; set; }
-        //public string color { get; set; }
-        //public string photopath { get; set; }
-        //public int qty { get; set; } = 0;
-        //public int price { get; set; } = 0;
-        //public int TotalPrice { get { return qty * price; } }
+    
 
         List<ProductInfo> output = new List<ProductInfo>();
             DynamicParameters param = new DynamicParameters();
@@ -271,17 +261,7 @@ namespace DataAccessLayer.Dapper
         public List<T> GetDynamicTableList<T>(string strquery,  DynamicParameters param, CommandType commandtype)
         {
             List<T> output = new List<T>();
-            //string q = "Select * from quotename(@table);";
-            //string sql = "declare @sql nvarchar(300);";
-            // //sql = sql + " declare @table nvarchar(50);";
-            ////sql = sql + " set @table = 'sales';";
-
-            //sql = sql + " set @sql = 'Select * from ' + QUOTENAME(@table);";
-            //sql = sql + " execute sp_executesql @sql;";
-
-            //param.Add("@table", strquery, dbType: DbType.String);
-          //  param.Add("@invoice", "07/09/23-2");
-
+          
             using (IDbConnection con=new SqlConnection(connectionstring))
             {
                 output = con.Query<T>(strquery, param, commandType: commandtype).ToList();

@@ -9,6 +9,7 @@ using DataAccessLayer.Services.Repository;
 using BussinessAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using InevntoryManagement.GlobalFuntion;
+using InevntoryManagement.Models;
 //using System.Web.WebPages.Html;
 //using System.Web.Mvc;
 
@@ -106,7 +107,9 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpGet]
-        public IActionResult GetBrandList(int?pageno,int?pagesize)
+        //public IActionResult GetBrandList(int? pageno, int? pagesize)
+
+        public IActionResult GetBrandList(BasePaginate _model)
         {
             BrandListViewModel output = new BrandListViewModel();
             output.brandLists = (from obj in unitOfWork.Categories.Get()
@@ -123,12 +126,31 @@ namespace InevntoryManagement.Controllers
                               Ctype = obj.CType,
                               CategoryId = obj.Id
 
-                          }).OrderByDescending(x=>x.brandName).OrderByDescending(x=>x.Ctype).ToList();
+                          }).ToList();
+
+            
+            // Search Data from database and filter data
+            if (_model.SearchText!=null)
+            {
+                string searchData = _model.SearchText.ToLower();
+                output.brandLists = output.brandLists.Where(x => x.Ctype.ToLower().StartsWith(searchData) || x.brandName.ToLower().StartsWith(searchData)).ToList();
+            }
+
+            output.brandLists = output.brandLists.OrderByDescending(x =>  x.brandName).OrderByDescending(x=> x.Ctype).ToList();
+
+            if (_model.Extension != fileextensions.none)
+            {
+                ExportData ed = new ExportData("BrandList", _model.Extension);
+                ed.exportData<BrandList>(output.brandLists);
+            }
 
 
             output.TotalRow = output.brandLists.Count;
-            output.PageSize = output.DefaultPageSize(pagesize);
-            output.PageIndex = output.DefaultPageIndex(pageno);
+            output.PageSize = output.DefaultPageSize(_model.PageSize);
+            output.PageIndex = output.DefaultPageIndex(_model.PageIndex);
+            output.SearchText = _model.SearchText;
+            //output.PageSize = output.DefaultPageSize(pagesize);
+            //output.PageIndex = output.DefaultPageIndex(pageno);
 
             output.brandLists = output.brandLists.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.brandName).OrderBy(x=>x.Ctype).ToList();
 

@@ -5,6 +5,7 @@ E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debu
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\EntityFramework.SqlServer.dll
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\EntityFramework.xml
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\bin\Debug\EntityFramework.SqlServer.xml
+E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.csproj.AssemblyReference.cache
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.Form1.resources
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.Properties.Resources.resources
 E:\Asp.Net Core Project\SOL_InevntoryManagement_Ver_5.0\WinReportingSol\obj\Debug\WinReportingSol.csproj.GenerateResource.cache

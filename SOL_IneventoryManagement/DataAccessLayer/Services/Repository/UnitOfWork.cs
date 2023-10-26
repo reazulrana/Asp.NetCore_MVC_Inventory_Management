@@ -1,8 +1,12 @@
 ﻿using BussinessAccessLayer.Model;
+using Dapper;
 using DataAccessLayer.Services.Interface;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,11 +63,61 @@ namespace DataAccessLayer.Services.Repository
 
 
 
-        public UnitOfWork(ApplicationDbContext dbContext)
+        private readonly IConfiguration _config;
+        private string connectionstring = "";
+  
+   
+        public UnitOfWork(ApplicationDbContext dbContext, IConfiguration config)
         {
            this._dbContext= dbContext;
-       
+            this._config = config;
+            connectionstring = _config.GetConnectionString("DatabasDbConnection");
+
         }
+
+
+        public List<T> ExecuteRawQuery<T>(string strquery, DynamicParameters param, CommandType commandtype)
+        {
+            List<T> output = new List<T>();
+
+            using (IDbConnection con = new SqlConnection(connectionstring))
+            {
+                output = con.Query<T>(strquery, param, commandType: commandtype).ToList();
+            }
+
+
+            return output;
+        }
+
+
+        public List<T> ExecuteRawQuery<T>(string strquery)
+        {
+            List<T> output = new List<T>();
+
+            using (IDbConnection con = new SqlConnection(connectionstring))
+            {
+                output = con.Query<T>(strquery, null,commandType: CommandType.Text).ToList();
+            }
+
+
+            return output;
+        }
+
+
+        public T ExecuteSingleRawQuery<T>(string strquery, DynamicParameters param, CommandType commandtype)
+        {
+            T output;
+
+            using (IDbConnection con = new SqlConnection(connectionstring))
+            {
+                output = con.Query<T>(strquery, param, commandType: commandtype).FirstOrDefault();
+            }
+
+
+            return output;
+        }
+
+     
 
         public void BeginTransaction()
         {
@@ -80,7 +134,7 @@ namespace DataAccessLayer.Services.Repository
             _dbContext.Database.RollbackTransaction();
         }
 
-
+  
         public IRepository<Amount> Amounts
         {
             get

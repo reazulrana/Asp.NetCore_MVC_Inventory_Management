@@ -1,6 +1,8 @@
 ﻿using BussinessAccessLayer.Model;
+using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +34,11 @@ namespace DataAccessLayer.Services.Interface
         IRepository<SellFrom> SellFroms { get; }
         IRepository<SellingType> SellingTypes { get; }
         IRepository<Customer> Customers { get; }
+
+        List<T> ExecuteRawQuery<T>(string strquery, DynamicParameters param, CommandType commandtype);
+        List<T> ExecuteRawQuery<T>(string strquery);
+        T ExecuteSingleRawQuery<T>(string strquery, DynamicParameters param, CommandType commandtype);
+
 
 
 

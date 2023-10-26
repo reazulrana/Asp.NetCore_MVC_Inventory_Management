@@ -162,11 +162,13 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpGet]
-        public IActionResult EditCategoryList(int? pageno, int? pagesize)
+        //public IActionResult EditCategoryList(int? pageno, int? pagesize)
+
+        public IActionResult EditCategoryList(BasePaginate _model)
         {
 
-            CategoryListViewModel categoryListViewModel = new CategoryListViewModel();
-            categoryListViewModel.categories = (from cat in unitOfWork.Categories.Get()
+            CategoryListViewModel model = new CategoryListViewModel();
+            model.categories = (from cat in unitOfWork.Categories.Get()
                                                 orderby cat.CType
                                                 select new CategoryListModel()
                                                 {
@@ -175,13 +177,36 @@ namespace InevntoryManagement.Controllers
                                                 }
                               ).OrderByDescending(x => x.CType).ToList();
 
-            categoryListViewModel.TotalRow = categoryListViewModel.categories.Count();
-            categoryListViewModel.PageSize = categoryListViewModel.DefaultPageSize(pagesize);
-            categoryListViewModel.PageIndex = categoryListViewModel.DefaultPageIndex(pageno);
+            //search data from databse to filter
 
-            categoryListViewModel.categories = categoryListViewModel.categories.Skip(categoryListViewModel.SkipRow).Take(categoryListViewModel.PageSize).OrderBy(x => x.CType).ToList();
+            //store searching data from search text  to search into database and filter from table
+            string searchdata = _model.SearchText;
+            if (searchdata != null)
+            {
+                model.categories = model.categories.Where(x => x.CType.ToLower().StartsWith(searchdata)).ToList();
+            }
 
-            return View(categoryListViewModel);
+            model.categories = model.categories.OrderByDescending(x => x.CType).ToList();
+
+            model.TotalRow = model.categories.Count();
+            model.PageSize = model.DefaultPageSize(_model.PageSize);
+            model.PageIndex = model.DefaultPageIndex(_model.EndPageNo);
+
+            //model.PageSize = model.DefaultPageSize(pagesize);
+            //model.PageIndex = model.DefaultPageIndex(pageno);
+
+
+            //export data
+            if (_model.Extension != fileextensions.none)
+            {
+                string filename = "CategoryList";
+                ExportData ed = new ExportData(filename, _model.Extension);
+                ed.exportData<CategoryListModel>(model.categories);
+            }
+
+            model.categories = model.categories.Skip(model.SkipRow).Take(model.PageSize).OrderBy(x => x.CType).ToList();
+
+            return View(model);
         }
 
 
