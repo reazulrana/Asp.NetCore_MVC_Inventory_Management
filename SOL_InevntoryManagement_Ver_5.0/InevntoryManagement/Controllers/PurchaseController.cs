@@ -8,6 +8,7 @@ using InevntoryManagement.ViewModels.Purchase;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using InevntoryManagement.GlobalFuntion;
 using BussinessAccessLayer.Model;
+using InevntoryManagement.Models;
 //using BussinessAccessLayer.ExtendModel;
 
 namespace InevntoryManagement.Controllers
@@ -239,7 +240,9 @@ namespace InevntoryManagement.Controllers
         //edit section
 
         [HttpGet]
-        public IActionResult EditPurchaseList(int? pageno,int? pagesize)
+
+        //public IActionResult EditPurchaseList(int? pageno, int? pagesize)
+        public IActionResult EditPurchaseList(BasePaginate _model)
         {
 
             PurchaseListViewModel model = new PurchaseListViewModel();
@@ -277,16 +280,44 @@ namespace InevntoryManagement.Controllers
 
 
 
-                                                 }).OrderByDescending(x => x.PurchaseNo).ToList();
+                                                 }).ToList();
 
 
 
-
+            
 
             model.TotalRow = model.purchaseDetailsModel.Count();
-            model.PageSize = model.DefaultPageSize(pagesize);
+            model.PageSize = model.DefaultPageSize(_model.PageSize);
 
-            model.PageIndex = model.DefaultPageIndex(pageno);
+            model.PageIndex = model.DefaultPageIndex(_model.PageIndex);
+            model.SearchText = model.SearchText;
+
+            //model.PageSize = model.DefaultPageSize(pagesize);
+            //model.PageIndex = model.DefaultPageIndex(pageno);
+
+
+                                 
+
+            if (_model.SearchText != null)
+            {
+                string searchData = _model.SearchText.ToLower();
+                model.purchaseDetailsModel = model.purchaseDetailsModel.Where(
+                    x => x.Branch.ToLower().StartsWith(searchData) ||
+                    x.PaymentType.ToLower().StartsWith(searchData) ||
+                    x.PurchaseNo.ToLower().StartsWith(searchData) ||
+                    x.Source.ToLower().StartsWith(searchData) ||
+                    x.Vendor.ToLower().StartsWith(searchData)).OrderByDescending(x => x.PurchaseNo).ToList();
+            }
+
+
+            if (_model.Extension != fileextensions.none)
+            {
+                string exportfilename = "ExportPurchaseDetailsinfo";
+                ExportData ed = new ExportData(exportfilename, _model.Extension);
+                ed.exportData<PurchaseDetailsModel>(model.purchaseDetailsModel);
+            }
+
+
 
             model.purchaseDetailsModel = model.purchaseDetailsModel.SkipLast(model.SkipRow).TakeLast(model.PageSize).OrderBy(x => x.PurchaseNo).ToList();
 

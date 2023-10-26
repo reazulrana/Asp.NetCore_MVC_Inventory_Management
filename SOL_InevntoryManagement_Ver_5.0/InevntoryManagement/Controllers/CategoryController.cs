@@ -9,6 +9,7 @@ using DataAccessLayer.Services.Interface;
 using DataAccessLayer.Services.Repository;
 using InevntoryManagement.ViewModels.Category;
 using InevntoryManagement.GlobalFuntion;
+using InevntoryManagement.Models;
 
 namespace InevntoryManagement.Controllers
 {
@@ -103,18 +104,76 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpGet]
-        public IActionResult CategoryList(int? pageno,int?pagesize)
+        //public IActionResult CategoryList(int? pageno, int? pagesize)
+
+        public IActionResult CategoryList(BasePaginate _model)
+        {
+
+
+          
+            CategoryListViewModel model = new CategoryListViewModel();
+            model.categories = (from cat in unitOfWork.Categories.Get()
+                              orderby cat.CType
+                                
+                                select new CategoryListModel()
+                              {
+                                    
+                                   Id=cat.Id,
+                                   CType=cat.CType
+                              }
+                              ).ToList();
+
+
+            //search data from databse to filter
+            
+            //store searching data from search text  to search into database and filter from table
+            string searchdata = _model.SearchText;
+            if (searchdata != null)
+            {
+                model.categories = model.categories.Where(x => x.CType.ToLower().StartsWith(searchdata)).ToList();
+            }
+            
+            model.categories = model.categories.OrderByDescending(x => x.CType).ToList();
+
+            model.TotalRow = model.categories.Count();
+            model.PageSize = model.DefaultPageSize(_model.PageSize);
+            model.PageIndex = model.DefaultPageIndex(_model.PageIndex);
+            model.SearchText = _model.SearchText;
+
+
+            //export data
+            if (_model.Extension != fileextensions.none)
+            {
+                string filename = "CategoryList";
+                ExportData ed = new ExportData(filename, _model.Extension);
+                ed.exportData<CategoryListModel>(model.categories);
+            }
+
+
+            //model.PageSize = model.DefaultPageSize(pagesize);
+            //model.PageIndex = model.DefaultPageIndex(pageno);
+
+            model.categories = model.categories.Skip(model.SkipRow).Take(model.PageSize).OrderBy(x => x.CType).ToList();
+
+            return View(model);
+        }
+
+
+
+
+        [HttpGet]
+        public IActionResult EditCategoryList(int? pageno, int? pagesize)
         {
 
             CategoryListViewModel categoryListViewModel = new CategoryListViewModel();
             categoryListViewModel.categories = (from cat in unitOfWork.Categories.Get()
-                              orderby cat.CType
-                              select new Category()
-                              {
-                                   Id=cat.Id,
-                                   CType=cat.CType
-                              }
-                              ).OrderByDescending(x=>x.CType).ToList();
+                                                orderby cat.CType
+                                                select new CategoryListModel()
+                                                {
+                                                    Id = cat.Id,
+                                                    CType = cat.CType
+                                                }
+                              ).OrderByDescending(x => x.CType).ToList();
 
             categoryListViewModel.TotalRow = categoryListViewModel.categories.Count();
             categoryListViewModel.PageSize = categoryListViewModel.DefaultPageSize(pagesize);

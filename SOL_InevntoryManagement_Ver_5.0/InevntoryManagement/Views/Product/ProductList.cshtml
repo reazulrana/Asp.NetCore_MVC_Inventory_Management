@@ -106,7 +106,7 @@
                     </tbody>
                     @if (Model.productList != null && Model.productList.Count > 0)
                     {
-                        int sl = ((Model.PageIndex - 1) * Model.PageSize) == 0 ? 1 : ((Model.PageIndex - 1) * Model.PageSize) + 1;
+                        int sl = ((Model.PageIndex - 1) * Model.PageSize) <= 0 ? 1 : ((Model.PageIndex - 1) * Model.PageSize) + 1;
 
                         foreach (var _model in Model.productList)
                         {

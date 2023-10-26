@@ -30,32 +30,11 @@
 
     </div>
     <div class="card-body">
-        @*show error update create delete export message*@
-        <div class="row" id="messagestatus">
+        <div class="row">
             <div class="col-md-12">
                 <partial name="_Messages" />
-
             </div>
         </div>
-
-
-
-        <div class="row">
-            <div class="col-md-12">
-                <partial name="_SearchBar" model="Model" />
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-12">
-                <partial name="_ExportData" model="Model" />
-            </div>
-        </div>
-
-
-
-
         <div class="row py-1">
             <div class="col-md-12">
                 <a asp-controller="Category" asp-action="Create" class="btn pull-right btn-secondary btn-sm"><span> Create Brand <i aria-hidden="true" class="mdi mdi-plus"></i> </span> </a>
@@ -65,16 +44,16 @@
         @if (Model.categories.Count > 0)
         {
 
-            <div class="row border-secondary bg-info">
-                <!--<div class="col-md-6">-->@*  *@
-                <h5 class="col-md-6 text-white py-2">SL No</h5>
-                @*</div>
-                <div class="col-md-6">*@
-                <h5 class="col-md-6 text-white  py-2">Name</h5>
-                @*</div>*@
-                @*<div class="col-md-4">
+            <div class="row py-1 border-secondary bg-info">
+                <div class="col-md-4">
+                    <h5 class="text-white">SL No</h5>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-white">Name</h5>
+                </div>
+                <div class="col-md-4">
                     <h5 class="text-white">Action</h5>
-                </div>*@
+                </div>
             </div>
 
             int sl = Model.RowIndex;
@@ -83,38 +62,39 @@
             {
                 <div class="row border-bottom py-2">
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         @sl
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <strong>@cat.CType</strong>
                     </div>
-                    <!--<div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button class="btn btn-outline-secondary btn-xs edit_category" data-id="@cat.Id" data-ctype="@cat.CType" data-toggle="modal" data-target="#edit_category">Edit <span class="btn-icon-right"> <i class="mdi mdi-pencil"></i></span></button>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-outline-secondary btn-xs edit_category" data-id="@cat.Id" data-ctype="@cat.CType" data-toggle="modal" data-target="#edit_category">Edit <span class="btn-icon-right"> <i class="mdi mdi-pencil"></i></span></button>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="deleteCategoryButton_@cat.Id" onclick="showButton(@cat.Id)" class="btn btn-outline-danger btn-xs show_delete_category">Delete <span class="btn-icon-right"><i class="mdi mdi-delete"></i></span></button>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <button id="deleteCategoryButton_@cat.Id" onclick="showButton(@cat.Id)" class="btn btn-outline-danger btn-xs show_delete_category">Delete <span class="btn-icon-right"><i class="mdi mdi-delete"></i></span></button>
-                        </div>
-                    </div>-->
-                    @*Yes No div Section Bind with javascript*@
-                    <!--<div class="row mt-3" id="showDeleteCategoryDiv_@cat.Id" style="display:none">
-                        <div class="col-md-12">
-                            <p>Do You Want To Delete <strong>'@cat.CType'</strong></p>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <form method="post" asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id">
-                                        <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
-                                    </form>
-                                </div>
-                                <div class="col-md-6">
-                                    <button type="button" id="cancelDeleteBrand_@cat.Id" onclick="CancelDelete(@cat.Id)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
+
+                        @*Yes No div Section Bind with javascript*@
+                        <div class="row mt-3" id="showDeleteCategoryDiv_@cat.Id" style="display:none">
+                            <div class="col-md-12">
+                                <p>Do You Want To Delete <strong>'@cat.CType'</strong></p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <form method="post" asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id">
+                                            <button type="submit" class="btn-block btn btn-sm btn-danger"><span>Yes <i class="mdi mdi-delete"></i></span></button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="button" id="cancelDeleteBrand_@cat.Id" onclick="CancelDelete(@cat.Id)" class="btn-block btn btn-sm btn-info"><span>No <i class="mdi mdi-arrow-left-bold"></i></span></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>-->
                 </div>
                 sl = sl + 1;
             }
@@ -158,7 +138,6 @@
 
     <script>
 
-        //javascript code
 
         function showButton(id) {
             $("#showDeleteCategoryDiv_" + id).css("display", "block");
@@ -172,14 +151,7 @@
         }
 
 
-        //Jquery code
         $(document).ready(function () {
-
-            //_Message.cshtml Partial Razor Page Hide
-            setTimeout(function () {
-                $("#messagestatus").fadeOut(8000)
-            }, 1000)
-
 
             //if Delete Brand checkbox click
             $(".delete_category_check").change(function () {

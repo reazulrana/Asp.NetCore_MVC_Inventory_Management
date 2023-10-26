@@ -9,22 +9,42 @@
         color: darkgreen;
         text-align: center
     }
-    #tblBalance tr:hover td {
-        background-color: green;
-        color: white;
-       
-    }
-        #tblBalance tr td:last-child
-        {
-            font-size:15px;
 
+        #tblBalance tr:hover td {
+            background-color: green;
+            color: white;
+        }
+
+        #tblBalance tr td:last-child {
+            font-size: 15px;
         }
 </style>
 
-@*tp.Id, tp.Code,tp.Description,tp.CType,tp.ModelName,tp.Size, 
+@*tp.Id, tp.Code,tp.Description,tp.CType,tp.ModelName,tp.Size,
     coalesce(tp.pQty,0) as purqty, coalesce(ts.sQty,0) saleQty*@
 <div class="row">
     <div class="col-md-12">
+
+        @*show error update create delete export message*@
+        <div class="row" id="messagestatus">
+            <div class="col-md-12">
+                <partial name="_Messages" />
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_SearchBar" model="Model" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <partial name="_ExportData" model="Model" />
+            </div>
+        </div>
+
         <h1 class="text-center py-3">Product Balance Report</h1>
 
         <table class="table table-bordered" border="1">
@@ -84,5 +104,25 @@
     </div>
     <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
 
-   
+
 </div>
+
+
+
+@section Scripts{
+
+
+
+
+    <script>
+        $(document).ready(function () {
+
+            //_Message.cshtml Partial Razor Page Hide
+            setTimeout(function () {
+                $("#messagestatus").fadeOut(8000)
+            }, 1000)
+
+        }) // end jquery dom
+    </script>
+
+    }

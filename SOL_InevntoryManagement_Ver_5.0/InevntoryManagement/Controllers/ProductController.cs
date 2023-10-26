@@ -40,16 +40,33 @@ namespace InevntoryManagement.Controllers
 
         [HttpGet]
         [ResponseCache(Duration = 30)]
-        public IActionResult GetProductBalance(int? pageno, int? pagesize)
+        //public IActionResult GetProductBalance(int? pageno, int? pagesize)
+        public IActionResult GetProductBalance(BasePaginate _model)
         {
 
             ProductBalanceViewModel output = new ProductBalanceViewModel();
-            output.productBalances = dapperService.GetProductBalance.OrderByDescending(x => x.CType).ToList();
-            output.TotalRow = output.productBalances.Count;
-            output.PageSize = output.DefaultPageSize(pagesize);
-            output.PageIndex = output.DefaultPageIndex(pageno);
+            output.productBalances = dapperService.GetProductBalance.ToList();
 
-            output.productBalances = output.productBalances.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.CType).ToList();
+            if (_model.SearchText != null)
+            {
+                string searchData = _model.SearchText.ToLower();
+                output.productBalances = output.productBalances.Where(x => x.code.ToLower().StartsWith(searchData)
+                || x.Description.ToLower().StartsWith(searchData) || x.CType.ToLower().StartsWith(searchData) ||
+                x.ModelName.ToLower().StartsWith(searchData) || x.Size.ToLower().StartsWith(searchData)).OrderByDescending(x=>x.Description).ToList();
+
+
+                //output.productBalances = output.productBalances.Where(x => (x.Color != null? x.Color:x.Color)> x.Color).ToList();
+
+            }
+
+            output.TotalRow = output.productBalances.Count;
+            output.PageSize = output.DefaultPageSize(_model.PageSize);
+            output.PageIndex = output.DefaultPageIndex(_model.PageIndex);
+            output.SearchText = _model.SearchText;
+            //output.PageSize = output.DefaultPageSize(pagesize);
+            //output.PageIndex = output.DefaultPageIndex(pageno);
+
+            output.productBalances = output.productBalances.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.Description).ToList();
 
 
             return View(output);
@@ -372,86 +389,34 @@ namespace InevntoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductList(int? pageno, int? pagesize, string SearchText, fileextensions? Extension)
+        //public IActionResult ProductList(int? pageno, int? pagesize, string SearchText, fileextensions? Extension)
+        public IActionResult ProductList(BasePaginate _model)
         {
             ProductListViewModel output = new ProductListViewModel();
 
-            //string strqry = "";
-            //DynamicParameters p = new DynamicParameters();
-            //if (SearchText != null)
-            //{
-
-            //    strqry = " and ( s.Invoice like @invoice or b.Name like @name or p.Payments like @paymenttype) "; //" and s.TrDate between @fromdate and @todate"; //" and ( s.Invoice like @invoice or b.Name like @name or p.Payments like @paymenttype) and s.TrDate between @fromdate and @todate";
-            //    p.Add("@invoice", "%" + SearchText + "%", dbType: DbType.String);
-            //    p.Add("@name", "%" + SearchText + "%", dbType: DbType.String);
-            //    p.Add("@paymenttype", "%" + SearchText + "%", dbType: DbType.String);
-            //    output.SearchText = SearchText;
-
-            //}
 
 
+            output.productList = GetProductListViewLoadedFromDatabas(_model.SearchText);
 
-            //if (strqry == "")
-            //{
-            //    p = null;
-            //}
-
-
-
-            output.productList = GetProductListViewLoadedFromDatabas(SearchText);
+            //output.PageSize = output.DefaultPageSize(pagesize);
+            //output.PageIndex = output.DefaultPageIndex(pageno);
+            output.TotalRow = output.productList.Count;
+            output.PageSize = output.DefaultPageSize(_model.PageSize);
+            output.PageIndex = output.DefaultPageIndex(_model.PageIndex);
 
 
-            if (Extension != null)
+            output.SearchText = _model.SearchText;
+
+
+            if (_model.Extension !=fileextensions.none)
             {
                 string exportfilename = "ExportProductList";
-                ExportData ed = new ExportData(exportfilename, Extension);
+                ExportData ed = new ExportData(exportfilename, _model.Extension);
                 ed.exportData<ProductList>(output.productList);
-                Global_Functions.SetMessage(@"User\" + Environment.UserName + @"\Downloads\" + exportfilename + "." + Extension, "success");
+                //Global_Functions.SetMessage(@"User\" + Environment.UserName + @"\Downloads\" + exportfilename + "." + _model.Extension, "success");
             }
-
-            output.TotalRow = output.productList.Count;
-            output.PageSize = output.DefaultPageSize(pagesize);
-            output.PageIndex = output.DefaultPageIndex(pageno);
-            output.SearchText = SearchText;
-            output.productList = output.productList.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.Category).ToList();
-
-
-
-            List<SelectListItem> rowsize = new List<SelectListItem>()
-            { new SelectListItem(){
-                 Value="3",
-                  Text="3",
-                  Selected=pagesize==3 ? true :false
-            },
-
-                  new SelectListItem(){
-                 Value="4",
-                  Text="4",
-                  Selected=pagesize==4 ? true :false
-            },
-                 new SelectListItem(){
-                 Value="5",
-                  Text="5",
-                  Selected=pagesize==5 ? true :false
-            },
-
-                 new SelectListItem(){
-                 Value="10",
-                  Text="10",
-                  Selected=pagesize==10 ? true :false
-            },
-
-                 new SelectListItem(){
-                 Value="25",
-                  Text="25",
-                  Selected=pagesize==25 ? true :false
-            },
-
-            };
-
-
-
-
+        
+            output.productList = output.productList.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.Description).ToList();
 
             return View(output);
         }
@@ -677,9 +642,10 @@ namespace InevntoryManagement.Controllers
             if (searchData != null)
             {
                 string para = searchData.ToLower();
-                output = output.Where(x => x.BrandName.ToLower().StartsWith(para) || x.BrandName.ToLower().StartsWith(para)
-                || x.Code.ToLower().StartsWith(para)
-                
+                output = output.Where(x => x.BrandName.ToLower().StartsWith(para) || x.Category.ToLower().StartsWith(para)
+                || x.Code.ToLower().StartsWith(para) || x.Description.ToLower().StartsWith(para) || x.ModelName.ToLower().StartsWith(para)||
+                x.ModelName.ToLower().StartsWith(para)
+
                 ).ToList();
             }
             return output;

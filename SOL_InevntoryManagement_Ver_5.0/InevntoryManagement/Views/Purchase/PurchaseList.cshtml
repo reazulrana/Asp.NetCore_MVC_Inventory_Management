@@ -94,7 +94,7 @@
                             {
                                 <tr data-id="@m.id">
                                     <td>@sl</td>
-                                    <td><a href="#" data-id="@m.id" id="showModalProductDetails" data-toggle="modal" data-target="#Modal_Purchase_Details"><h6> @m.PurchaseNo</h6> <small>show purchase details</small> </a></td>
+                                    <td><a href="#" class="showModalProductDetails" data-id="@m.id"  data-toggle="modal" data-target="#Modal_Purchase_Details"><h6> @m.PurchaseNo</h6> <small>show purchase details</small> </a></td>
                                     <td>@m.TrDate.ToShortDateString()</td>
                                     <td>@m.Branch</td>
                                     <td>@m.Vendor</td>
@@ -151,9 +151,12 @@
 @section Scripts{ 
 
     <script>
+
+       
     $(document).ready(function ()
     {
 
+       
 
                 //_Message.cshtml Partial Razor Page Hide
         setTimeout(function () {
@@ -209,15 +212,18 @@
                     //console.log(data.output);
 
                     //console.log(data.output.purchaseProductInfos);
-
+                   
                 }
             })//end of ajax call
 
+            setTimeout(function () {
 
-            $("#Modal_Purchase_Details").modal('toggle')
-
+                 $("#Modal_Purchase_Details").modal('show')
+            }, 300)
+            
+            
         }
-        $("#showModalProductDetails").click(function () {
+        $(".showModalProductDetails").click(function () {
             let id = $(this).data("id")
             //alert(id);
             ajaxcall(id)
