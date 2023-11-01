@@ -9,6 +9,7 @@ using InevntoryManagement.ViewModels;
 using BussinessAccessLayer.Model;
 using InevntoryManagement.GlobalFuntion;
 using InevntoryManagement.ViewModels.Manufactures;
+using InevntoryManagement.Models;
 
 namespace InevntoryManagement.Controllers
 {
@@ -25,15 +26,35 @@ namespace InevntoryManagement.Controllers
 
 
         [HttpGet]
-        public IActionResult ListManufactures(int? pageno, int?pagesize)
+//        public IActionResult ListManufactures(int? pageno, int? pagesize)
+        public IActionResult ListManufactures(BasePaginate _model)
+
         {
 
             ManufactureListViewModel output = new ManufactureListViewModel();
-            output.manufactures = unitOfWork.Manufactures.Get().OrderByDescending(x=>x.ManufactureName).ToList();
-          
+            if (_model.SearchText != null)
+            {
+                string searchData = _model.SearchText.ToLower();
+                output.manufactures = unitOfWork.Manufactures.Get().Where(x=>x.ManufactureName.ToLower()!=null && x.ManufactureName.ToLower().StartsWith(searchData)).OrderByDescending(x => x.ManufactureName).ToList();
+            }
+            else
+            {
+                output.manufactures = unitOfWork.Manufactures.Get().OrderByDescending(x => x.ManufactureName).ToList();
+
+            }
+
             output.TotalRow = output.manufactures.Count;
-            output.PageSize = output.DefaultPageSize(pagesize);
-            output.PageIndex = output.DefaultPageIndex(pageno);
+            output.PageSize = output.DefaultPageSize(_model.PageSize);
+            output.PageIndex = output.DefaultPageIndex(_model.PageIndex);
+            output.SearchText = _model.SearchText;
+
+            if (_model.Extension != fileextensions.none)
+            {
+                ExportData ed = new ExportData("ManufactureList", _model.Extension);
+                ed.exportData<Manufacture>(output.manufactures);
+            }
+
+
             output.manufactures = output.manufactures.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.ManufactureName).ToList();
 
 

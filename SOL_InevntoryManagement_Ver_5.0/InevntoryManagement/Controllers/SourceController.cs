@@ -8,6 +8,8 @@ using DataAccessLayer.Services.Interface;
 using DataAccessLayer.Services.Repository;
 using InevntoryManagement.ViewModels.Sources;
 using InevntoryManagement.GlobalFuntion;
+using InevntoryManagement.Models;
+
 namespace InevntoryManagement.Controllers
 {
     public class SourceController : Controller
@@ -20,7 +22,9 @@ namespace InevntoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetSourceList(int? pageno,int?pagesize)
+        //public IActionResult GetSourceList(int? pageno, int? pagesize)
+
+        public IActionResult GetSourceList(BasePaginate _model)
         {
 
             SourceListViewModel output = new SourceListViewModel();
@@ -33,11 +37,29 @@ namespace InevntoryManagement.Controllers
                                IsSelected=obj.IsSelected
 
                           }
-                          ).OrderByDescending(x=>x.SourceName).ToList();
+                          ).ToList();
 
             output.TotalRow = output.sourceListModels.Count;
-            output.PageSize = output.DefaultPageSize(pagesize);
-            output.PageIndex = output.DefaultPageIndex(pageno);
+            output.PageSize = output.DefaultPageSize(_model.PageSize);
+            output.PageIndex = output.DefaultPageIndex(_model.PageIndex);
+            output.SearchText = _model.SearchText;
+
+
+            //
+            if (_model.SearchText != null)
+                {
+                string searchData = output.SearchText.ToLower();
+                output.sourceListModels = output.sourceListModels.Where(x => x.SourceName != null && x.SourceName.ToLower().StartsWith(searchData)).ToList();
+                }
+            output.sourceListModels = output.sourceListModels.OrderByDescending(x => x.SourceName).ToList();
+
+            if (_model.Extension != fileextensions.none)
+            {
+                ExportData ed = new ExportData("SourceList", _model.Extension);
+                ed.exportData<SourceListModel>(output.sourceListModels);
+            }
+            //output.PageSize = output.DefaultPageSize(pagesize);
+            //output.PageIndex = output.DefaultPageIndex(pageno);
 
             output.sourceListModels = output.sourceListModels.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.SourceName).ToList();
 

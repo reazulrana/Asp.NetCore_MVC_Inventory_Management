@@ -10,6 +10,7 @@ using InevntoryManagement.ViewModels.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using InevntoryManagement.GlobalFuntion;
+using InevntoryManagement.Models;
 
 namespace InevntoryManagement.Controllers
 {
@@ -27,7 +28,9 @@ namespace InevntoryManagement.Controllers
         [HttpGet]
         //[ResponseCache(Duration =30,Location =ResponseCacheLocation.Any,NoStore =false)]
         //[ResponseCache(Duration = 300, VaryByQueryKeys = new string[] { "pageno", "pagesize" })]
-        public IActionResult GetModelList(int? pageno, int? pagesize)
+        //public IActionResult GetModelList(int? pageno, int? pagesize)
+
+        public IActionResult GetModelList(BasePaginate _model)
         {
 
             ModelListViewModel output = new ModelListViewModel();
@@ -51,22 +54,32 @@ namespace InevntoryManagement.Controllers
                               CategoryName = obj.CType,
                               BrandName = obj2.BrandName,
                               ModelName =obj3.ModelName 
-                          }).OrderByDescending(x=>x.ModelName).ToList();
+                          }).ToList();
             //ViewBag.message = TempData["message"];
             //ViewBag.msgcolor = TempData["msgcolor"];
+            //.OrderByDescending(x=>x.ModelName)
+
+            //Search Section
+            if (_model.SearchText != null)
+            {
+                string searchData = _model.SearchText.ToLower();
+
+                output.modelLists = output.modelLists.Where(x =>x.CategoryName !=null && x.CategoryName.ToLower().StartsWith(searchData) || x.BrandName !=null &&  x.BrandName.ToLower().StartsWith(searchData) || x.ModelName!=null && x.ModelName.ToLower().StartsWith(searchData)).ToList();
+            }
+            output.modelLists = output.modelLists.OrderByDescending(x => x.ModelName).ToList();
 
             output.TotalRow = output.modelLists.Count;
-            output.PageSize = output.DefaultPageSize(pagesize);
-            output.PageIndex = output.DefaultPageIndex(pageno);
+            output.PageSize = output.DefaultPageSize(_model.PageSize);
+            output.PageIndex = output.DefaultPageIndex(_model.PageIndex);
+            output.SearchText = _model.SearchText;
 
+            if (_model.Extension != fileextensions.none)
+            {
+                ExportData ed = new ExportData("ModelList", _model.Extension);
+                ed.exportData<ModelList>(output.modelLists);
 
+            }
             output.modelLists = output.modelLists.Skip(output.SkipRow).Take(output.PageSize).OrderBy(x => x.ModelName).ToList();
-
-
-
-
-
-
             return View(output);
         }
 

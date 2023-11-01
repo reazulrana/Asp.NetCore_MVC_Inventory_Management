@@ -25,6 +25,32 @@
                 @*<partial name="_ErrorMessage" view-data="ViewData" />*@
 
 
+
+                @*show error update create delete export message*@
+                <div class="row" id="messagestatus">
+                    <div class="col-md-12">
+                        <partial name="_Messages" />
+
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <partial name="_SearchBar" model="Model" />
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <partial name="_ExportData" model="Model" />
+                    </div>
+                </div>
+
+
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="text-danger" asp-validation-summary="All">
@@ -168,6 +194,19 @@
             $("#showDeleteModelDiv" + id).css("display", "none");
             $("#deleteModelButton" + id).prop("disabled", false);
         }
+
+
+
+        $(document).ready(function () {
+
+            //_Message.cshtml Partial Razor Page Hide
+            setTimeout(function () {
+                $("#messagestatus").fadeOut(8000)
+            }, 1000)
+
+
+
+        })
     </script>
 }
 
