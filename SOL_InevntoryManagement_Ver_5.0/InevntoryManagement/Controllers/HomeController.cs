@@ -54,14 +54,60 @@ namespace InevntoryManagement.Controllers
         {
 
 
-            ExportData.ConvertoExcelToPDF("RELService.xlsx", @"E:\");
-            
+            DataTable dt = getData();
+            //Name of File  
+            string fileName = "Sample.xlsx";
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                //Add DataTable in worksheet  
+                wb.Worksheets.Add(dt);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    //Return xlsx Excel File  
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+            }
+
 
             return View();
 
         }
-      
 
-        
+        public DataTable getData()
+        {
+            //Creating DataTable  
+            DataTable dt = new DataTable();
+            //Setiing Table Name  
+            dt.TableName = "EmployeeData";
+            //Add Columns  
+            dt.Columns.Add("ID", typeof(int));
+            dt.Columns.Add("Name", typeof(string));
+            dt.Columns.Add("City", typeof(string));
+            //Add Rows in DataTable  
+            dt.Rows.Add(1, "Anoop Kumar Sharma", "Delhi");
+            dt.Rows.Add(2, "Andrew", "U.P.");
+            dt.AcceptChanges();
+            return dt;
+        }
+        // GET: Home  
+        public ActionResult WriteDataToExcel()
+        {
+            DataTable dt = getData();
+            //Name of File  
+            string fileName = "Sample.xlsx";
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                //Add DataTable in worksheet  
+                wb.Worksheets.Add(dt);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    //Return xlsx Excel File  
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+            }
+        }
+
     }
 }

@@ -16,6 +16,10 @@ using BussinessAccessLayer.ExtendModel;
 using Dapper;
 using System.Data;
 using InevntoryManagement.Models;
+using System.IO;
+using ClosedXML.Excel;
+using System.Reflection;
+using System.Text;
 
 namespace InevntoryManagement.Controllers
 {
@@ -262,17 +266,51 @@ namespace InevntoryManagement.Controllers
                 model.PageIndex = model.DefaultPageIndex(_model.PageIndex);
                 //model.PageIndex = model.DefaultPageSize(pageno);
 
-                if (_model.Extension != fileextensions.none)
+                //if (_model.Extension != fileextensions.none)
+                //{
+                //    string exportfilename = "ExportSaleDetailsInfo";
+                //    ExportData ed = new ExportData(exportfilename, _model.Extension);
+                //    ed.exportData<SaleDetailsViewModels>(model.saleDetailsViewModels);
+                //}
+
+
+                if (_model.Extension == fileextensions.xlsx)
                 {
                     string exportfilename = "ExportSaleDetailsInfo";
-                    ExportData ed = new ExportData(exportfilename, _model.Extension);
-                    ed.exportData<SaleDetailsViewModels>(model.saleDetailsViewModels);
+                    using (MemoryStream fs = ExportData.saveExcelMemoryStream<SaleDetailsViewModels>(model.saleDetailsViewModels))
+                    {
+                        return File(fs.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", exportfilename + ".xlsx");
+                    }
                 }
+
+                if (_model.Extension == fileextensions.csv)
+                {
+                    string exportfilename = "ExportSaleDetailsInfo";
+
+                    StringBuilder sb = ExportData.GetsaveCSV<SaleDetailsViewModels>(model.saleDetailsViewModels);
+                        return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", exportfilename + ".csv");
+                        //return File(fs.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", exportfilename + ".csv");
+                }
+
+                if (_model.Extension == fileextensions.pdf)
+                {
+                    string exportfilename = "ExportSaleDetailsInfo";
+                    StringBuilder sb = ExportData.GetsaveCSV<SaleDetailsViewModels>(model.saleDetailsViewModels);
+                    //return File(sb.ToString(), "application/pdf", exportfilename + ".pdf");
+                    using (MemoryStream fs = new MemoryStream(Encoding.ASCII.GetBytes(sb.ToString())))
+                    {
+                        return File(fs.ToArray(), "application/pdf", exportfilename + ".pdf");
+
+                    }
+
+                }
+
+
 
 
                 model.saleDetailsViewModels = model.saleDetailsViewModels.SkipLast(model.SkipRow).TakeLast(model.PageSize).OrderBy(x => x.Invoice).ToList();
 
-
+                
 
                 return View(model);
             }
@@ -283,6 +321,102 @@ namespace InevntoryManagement.Controllers
                 return View("NotFound");
             }
         }
+
+
+
+        #region ExportReport Section
+        //IActionResult saveExcel(List<SaleDetailsViewModels> EData, string filenames, fileextensions? fileextension)
+        //{
+        //    StringBuilder str = new StringBuilder();
+
+        //    //var tmptype = EData.FirstOrDefault();
+        //    //savefilename parameter is passed from action method
+        //    string filename = filenames + ".xlsx";
+        //   // string strpath = GetDefault_Download_FilePath() + savefilename;
+
+
+
+        //    PropertyInfo[] lst = typeof(SaleDetailsViewModels).GetProperties();
+        //    List<PropertyInfo> lst1 = lst.ToList();
+
+        //    DataTable dt = ListtoDatatableConverter.ToDataTable<SaleDetailsViewModels>(EData);
+
+        //    using (var wb = new XLWorkbook())
+        //    {
+        //        var ws = wb.Worksheets.Add(filename.Split(".")[0]);
+
+        //        var wbb = new XLWorkbook();
+
+
+        //        for (int i = 0; i < lst.Count(); i++)
+        //        {
+        //            ws.Cell(1, i + 1).Value = lst[i].Name;
+        //            ws.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.LightGreen;
+        //            ws.Cell(1, i + 1).Style.Font.SetBold(true);
+
+        //            //border
+        //            ws.Cell(1, i + 1).Style.Border.TopBorder = XLBorderStyleValues.Medium;
+        //            ws.Cell(1, i + 1).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+        //            ws.Cell(1, i + 1).Style.Border.RightBorder = XLBorderStyleValues.Medium;
+        //            ws.Cell(1, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+
+
+        //        }
+
+        //        ws.Rows("1").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+        //        ws.Rows("1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+
+
+
+        //        var slno = 2;
+        //        for (int sl = 0; sl < dt.Rows.Count; sl++)
+        //        {
+
+        //            for (int i = 0; i < lst.Count(); i++)
+        //            {
+        //                DataRow dr = dt.Rows[sl];
+
+
+        //                ws.Cell(slno, i + 1).Value = dr[i].ToString();
+
+        //                ////vertical Center
+        //                //ws.Cell(slno, i+1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+        //                //border
+        //                ws.Cell(slno, i + 1).Style.Border.TopBorder = XLBorderStyleValues.Medium;
+        //                ws.Cell(slno, i + 1).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+        //                ws.Cell(slno, i + 1).Style.Border.RightBorder = XLBorderStyleValues.Medium;
+        //                ws.Cell(slno, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+        //            }
+
+
+
+
+        //            slno++;
+
+        //        }
+
+        //        //all column is autofited
+        //        ws.Columns(1, lst.Count()).AdjustToContents(1, slno);
+        //        ws.Rows("1:" + slno).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+
+        //        //set row height
+        //        ws.Rows("1").Height = 25;
+        //        ws.Rows("2:" + slno).Height = 20;
+
+        //        using (MemoryStream fs = new MemoryStream())
+        //        {
+
+        //            wb.SaveAs(fs);
+        //            return File(fs.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename);
+
+        //        }
+
+        //    }
+        //}
+
+        #endregion
+
 
 
         [HttpGet]

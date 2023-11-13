@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "shdfgCig6qqNxZTBBe/rBMSFcYjndMOnkcODGOZYXBcBMZSA0bA2nziQH2ZSJKJfZSKHnaFvRIr+1CvDXY0DRw==",
+  "dgSpecHash": "kF6LfrDEw1h7btdZhIwvmFx1txrbZdAxP9hPJPMNUGQeswlgbXD+ci+jK75FQWyFEEZzeTNo1dxu9aJjlsqP9Q==",
   "success": true,
   "projectFilePath": "E:\\Asp.Net Core Project\\SOL_InevntoryManagement_Ver_5.0\\InevntoryManagement\\InevntoryManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rana5\\.nuget\\packages\\aspnetcore.reporting\\2.1.0\\aspnetcore.reporting.2.1.0.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\aspnetcore.reportingservices\\2.1.0\\aspnetcore.reportingservices.2.1.0.nupkg.sha512",
+    "C:\\Users\\rana5\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\closedxml\\0.102.1\\closedxml.0.102.1.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\documentformat.openxml\\2.16.0\\documentformat.openxml.2.16.0.nupkg.sha512",
@@ -20,6 +21,7 @@
     "C:\\Users\\rana5\\.nuget\\packages\\harfbuzzsharp.nativeassets.win32\\2.8.2\\harfbuzzsharp.nativeassets.win32.2.8.2.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\irony.netcore\\1.0.11\\irony.netcore.1.0.11.nupkg.sha512",
+    "C:\\Users\\rana5\\.nuget\\packages\\itextsharp\\5.5.13.3\\itextsharp.5.5.13.3.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\microsoft.aspnet.mvc\\5.2.9\\microsoft.aspnet.mvc.5.2.9.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.9\\microsoft.aspnet.razor.3.2.9.nupkg.sha512",
     "C:\\Users\\rana5\\.nuget\\packages\\microsoft.aspnet.webpages\\3.2.9\\microsoft.aspnet.webpages.3.2.9.nupkg.sha512",
@@ -223,6 +225,26 @@
     "C:\\Users\\rana5\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BouncyCastle 1.8.9' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "BouncyCastle",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'iTextSharp 5.5.13.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "iTextSharp",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

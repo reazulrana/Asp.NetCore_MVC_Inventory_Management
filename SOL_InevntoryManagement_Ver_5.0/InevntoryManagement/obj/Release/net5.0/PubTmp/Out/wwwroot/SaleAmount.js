@@ -1,7 +1,62 @@
 ﻿
+
+
+$('button[name="btnSave"]').click(function (e) {
+
+    let amount = amountclass();
+
+    let dues = parseInt(amount.Dues);
+    let payemntoncash = parseInt(amount.PaymentOnCash);
+    let paymenttype = $("#PaymentTypeId").find("option:selected").text();
+
+
+    //if payment type is cash and duse greater than 0 stop submitting form
+    //check for Due payment
+    if (dues > 0 && paymenttype.toLowerCase() == "cash".toLowerCase()) {
+        alert("You have not paid full payment. you have due amount is (" + dues + ") Please Pay full payment Payment Type from Payment Type List and save Record");
+
+        e.preventDefault();
+
+    }
+    //if payment type is due and and due is 0 or less than 0  stop submitting form
+    //check for full payment
+
+    else if (dues <= 0 && (paymenttype.toLowerCase() == "dues".toLowerCase() || paymenttype.toLowerCase() == "due".toLowerCase()))
+    {
+        alert("You have paid full payment. you have due amount is (" + dues + ")  Please Select 'cash' Payment Type from Payment Type List and save Record");
+
+        e.preventDefault();
+
+    }
+
+    else if (payemntoncash <= 0)
+    {
+        alert("Payment on Cash is 0");
+        e.preventDefault();
+
+    }
+
+
+
+
+
+
+})
+
+
+
+
+
+
+//$("#PaymentTypeId").change(function () {
+
+//    let option = $(this).find('option:selected').text();
+//    alert(option);
+//})
+
 $("#PaymentOnCash").change(function () {
     let amountbill = amountclass()
-    $("#Dues").val((amountbill.TotalAmount - amountbill.PaymentOnCash))
+    $("#Dues").val((amountbill.NetAmount - amountbill.PaymentOnCash))
 
 
 
@@ -9,7 +64,8 @@ $("#PaymentOnCash").change(function () {
 $("#Discount").change(function () {
     let amountbill = amountclass()
     $("#NetAmount").val((amountbill.GrossAmount - amountbill.Discount))
-
+    amountbill = amountclass() //after update "#NetAmount" field get update instace of  amountclass()
+    $("#Dues").val((amountbill.NetAmount - amountbill.PaymentOnCash))
 
 })
 
@@ -18,8 +74,10 @@ $("#Transport").change(function () {
     let totalbill = 0
 
     totalbill = parseInt((parseInt(amountbill.TotalAmount) + parseInt(amountbill.Transport) + parseInt(amountbill.Others)))
+    let netamount = totalbill;
     $("#GrossAmount").val(totalbill)
-    $("#NetAmount").val(totalbill)
+    $("#NetAmount").val(netamount)
+    $("#Dues").val((netamount - amountbill.PaymentOnCash))
 })
 
 $("#Others").change(function () {
@@ -27,8 +85,13 @@ $("#Others").change(function () {
     let totalbill = 0
 
     totalbill = parseInt((parseInt(amountbill.TotalAmount) + parseInt(amountbill.Transport) + parseInt(amountbill.Others)))
+    let netamount = totalbill;
+
     $("#GrossAmount").val(totalbill)
-    $("#NetAmount").val(totalbill)
+    $("#NetAmount").val(netamount)
+
+    $("#Dues").val((netamount - amountbill.PaymentOnCash))
+
 
 })
 
@@ -78,7 +141,7 @@ function calculateSaleProduct() {
         let netamount = (grossamount - parseInt(_amountclass.Discount))
         $("#GrossAmount").val(grossamount)
         $("#NetAmount").val(netamount)
-        $("#Dues").val(parseInt(_amountclass.TotalAmount) - parseInt(_amountclass.PaymentOnCash))
+        $("#Dues").val(parseInt(netamount) - parseInt(_amountclass.PaymentOnCash))
     }
     else {
         // if no tr found in table body and  afete update amount cost bill

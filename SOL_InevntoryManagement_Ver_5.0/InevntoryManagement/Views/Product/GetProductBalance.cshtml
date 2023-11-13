@@ -46,61 +46,65 @@
         </div>
 
         <h1 class="text-center py-3">Product Balance Report</h1>
+        <div class="row">
+            <div class="table-responsive">
 
-        <table class="table table-bordered" border="1">
-            <thead class="thead-info">
-                <tr>
-                    <th>Sl</th>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Model</th>
-                    <th>Size</th>
-                    <th>Opening Qty</th>
-                    <th>Total Purchase Qty</th>
-                    <th>Total Sale Qty</th>
-                    <th>Balance</th>
-
-                </tr>
-            </thead>
-            <tbody id="tblBalance">
-                @if (Model.productBalances.Count > 0)
-                {
-                    int sl = 1;
-                    foreach (ProductBalance p in Model.productBalances)
-                    {
-
+                <table class="table table-bordered" border="1">
+                    <thead class="thead-info">
                         <tr>
-
-                            <td>@sl</td>
-                            <td>@p.code</td>
-                            <td>@p.Description</td>
-                            <td>@p.CType</td>
-                            <td>@p.ModelName</td>
-                            <td>@p.Size</td>
-                            <td>@p.OpeningQty</td>
-
-                            <td>@p.purqty</td>
-                            <td>@p.saleQty</td>
-                            <td class="bg-red text-white">@p.Balance</td>
-
+                            <th>Sl</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Model</th>
+                            <th>Size</th>
+                            <th title="Opening Qty">O.P</th>
+                            <th title="Total Purchase Qty">TPQ</th>
+                            <th title="Total Sale Qty">TSQ</th>
+                            <th>Balance</th>
 
                         </tr>
-                        sl = sl + 1;
-                    }
-                }
-                else
-                {
-                    <tr>
+                    </thead>
+                    <tbody id="tblBalance">
+                        @if (Model.productBalances.Count > 0)
+                        {
+                            int sl = 1;
+                            foreach (ProductBalance p in Model.productBalances)
+                            {
 
-                        <td>
-                            <h1>Product Balance Not Avaiable</h1>
-                        </td>
-                    </tr>
-                }
+                                <tr>
 
-            </tbody>
-        </table>
+                                    <td>@sl</td>
+                                    <td>@p.code</td>
+                                    <td>@p.Description</td>
+                                    <td>@p.CType</td>
+                                    <td>@p.ModelName</td>
+                                    <td>@p.Size</td>
+                                    <td>@p.OpeningQty</td>
+
+                                    <td>@p.purqty</td>
+                                    <td>@p.saleQty</td>
+                                    <td class="bg-red text-white">@p.Balance</td>
+
+
+                                </tr>
+                                sl = sl + 1;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td>
+                                    <h1>Product Balance Not Avaiable</h1>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <partial name="~/Views/Shared/Pagination/_PaginationPage.cshtml" model="Model" />
 

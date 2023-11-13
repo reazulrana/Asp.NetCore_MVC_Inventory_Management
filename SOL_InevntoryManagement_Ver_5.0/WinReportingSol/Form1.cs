@@ -9,16 +9,20 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinReportingSol;
+using WinReportingSol.Ef;
 
 namespace WinReportingSol
 {
     public partial class Form1 : Form
     {
 
+
+        InventoryManagmentEntities ef;
         public Form1()
         {
             InitializeComponent();
-
+             ef = new Ef.InventoryManagmentEntities();
 
             //var properties = typeof(exportdata).GetProperties();
             //List<PropertyInfo> names = properties.ToList();
@@ -117,8 +121,23 @@ namespace WinReportingSol
 
         }
 
+        private void btnLoadData_Click(object sender, EventArgs e)
+        {
+
+            //IQueryable<Ef.Product> _model = ef.Products;
+
+            //List<Ef.Product> _tmodel = _model.Where(x => x.Description.ToLower().StartsWith("Tas")).ToList();
+
+            List<Ef.Product> _model = ef.Products.ToList();
+
+            List<Ef.Product> _tmodel = _model.Where(x => x.Description.ToLower().StartsWith("Tas")).ToList();
+
+            dgvGrid.DataSource = _tmodel;
 
 
+
+
+        }
     }
 
 

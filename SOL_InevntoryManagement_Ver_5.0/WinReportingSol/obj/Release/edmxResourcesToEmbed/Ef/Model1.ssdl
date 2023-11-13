@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InventoryManagmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__EFMigrationsHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Amounts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TrID" Type="int" Nullable="false" />
+    <Property Name="TrType" Type="int" Nullable="false" />
+    <Property Name="TotalAmount" Type="int" Nullable="false" />
+    <Property Name="Dues" Type="int" Nullable="false" />
+    <Property Name="Transport" Type="int" Nullable="false" />
+    <Property Name="Others" Type="int" Nullable="false" />
+    <Property Name="GrossAmount" Type="int" Nullable="false" />
+    <Property Name="Discount" Type="int" Nullable="false" />
+    <Property Name="NetAmount" Type="int" Nullable="false" />
+    <Property Name="PaymentTypeId" Type="int" Nullable="false" />
+    <Property Name="PaymentOnCash" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoleClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="NormalizedName" Type="nvarchar" MaxLength="256" />
+    <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ProviderDisplayName" Type="nvarchar(max)" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="NormalizedUserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="NormalizedEmail" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEnd" Type="datetimeoffset" Precision="7" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserTokens">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Bins">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BinNo" Type="nvarchar" MaxLength="10" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Branchs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" />
+    <Property Name="Contact" Type="nvarchar" MaxLength="35" />
+    <Property Name="BranchIncharge" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Brands">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BrandName" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CType" Type="nvarchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Colors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="ColorName" Type="nvarchar" MaxLength="25" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberId" Type="int" />
+    <Property Name="CustName" Type="nvarchar" MaxLength="70" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="Contact" Type="nvarchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Manufactures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ManufactureName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterDetail">
+    <Key>
+      <PropertyRef Name="DID" />
+    </Key>
+    <Property Name="DID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Qty" Type="int" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="AmountId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Measures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Measurements" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Members">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberName" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" />
+    <Property Name="ContactNo" Type="nvarchar" MaxLength="36" />
+  </EntityType>
+  <EntityType Name="Models">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BrandId" Type="int" Nullable="false" />
+    <Property Name="ModelName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaymentTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Payments" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="35" />
+    <Property Name="Description" Type="nvarchar" MaxLength="120" />
+    <Property Name="ModelId" Type="int" Nullable="false" />
+    <Property Name="Color" Type="nvarchar" MaxLength="25" />
+    <Property Name="Size" Type="nvarchar" MaxLength="50" />
+    <Property Name="SizeType" Type="nvarchar" MaxLength="2" />
+    <Property Name="Unitprice" Type="int" Nullable="false" />
+    <Property Name="OpeningBalance" Type="int" Nullable="false" />
+    <Property Name="OpeningQty" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="PhotoPath" Type="nvarchar(max)" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
+    <Property Name="DiscountPrice" Type="int" Nullable="false" />
+    <Property Name="Bin" Type="nvarchar" MaxLength="10" />
+    <Property Name="Manufacture" Type="nvarchar" MaxLength="50" />
+    <Property Name="Vendor" Type="nvarchar" MaxLength="50" />
+    <Property Name="Measurement" Type="nvarchar" MaxLength="10" />
+    <Property Name="Pipeline" Type="int" Nullable="false" />
+    <Property Name="Source" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Purchases">
+    <Key>
+      <PropertyRef Name="PurchaseID" />
+    </Key>
+    <Property Name="PurchaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PurchaseNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="TrDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="VendorId" Type="int" Nullable="false" />
+    <Property Name="SourceId" Type="int" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="200" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+    <Property Name="ReceiveDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="ReceivedByID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sales">
+    <Key>
+      <PropertyRef Name="SaleID" />
+    </Key>
+    <Property Name="SaleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Invoice" Type="nvarchar" MaxLength="50" />
+    <Property Name="TrDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="200" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+    <Property Name="OrderNo" Type="nvarchar" MaxLength="30" />
+    <Property Name="PaymentTypeId" Type="int" Nullable="false" />
+    <Property Name="SaleFrom" Type="int" Nullable="false" />
+    <Property Name="SaleType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SellFroms">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SaleFrom" Type="nvarchar(max)" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SellingTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Types" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sizes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductSize" Type="nvarchar" MaxLength="50" />
+    <Property Name="SizeType" Type="int" Nullable="false" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sources">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SourceName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vendors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VendorName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="120" />
+    <Property Name="Contact" Type="nvarchar" MaxLength="36" />
+    <Property Name="IsSelected" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Amounts_PaymentTypes_PaymentTypeId">
+    <End Role="PaymentTypes" Type="Self.PaymentTypes" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Amounts" Type="Self.Amounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Amounts">
+        <PropertyRef Name="PaymentTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetRoleClaims" Type="Self.AspNetRoleClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetRoleClaims">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserTokens_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserTokens" Type="Self.AspNetUserTokens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserTokens">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Brands_Categories_CategoryId">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Brands" Type="Self.Brands" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Brands">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_Members_MemberId">
+    <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+    <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterDetail_Amounts_AmountId">
+    <End Role="Amounts" Type="Self.Amounts" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MasterDetail" Type="Self.MasterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Amounts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterDetail">
+        <PropertyRef Name="AmountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterDetail_Products_ProductId">
+    <End Role="Products" Type="Self.Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MasterDetail" Type="Self.MasterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterDetail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Models_Brands_BrandId">
+    <End Role="Brands" Type="Self.Brands" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Models" Type="Self.Models" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brands">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Models">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Models_ModelId">
+    <End Role="Models" Type="Self.Models" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Models">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="ModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Purchases_Branchs_BranchId">
+    <End Role="Branchs" Type="Self.Branchs" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branchs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Purchases">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Purchases_Sources_SourceId">
+    <End Role="Sources" Type="Self.Sources" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sources">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Purchases">
+        <PropertyRef Name="SourceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Purchases_Vendors_VendorId">
+    <End Role="Vendors" Type="Self.Vendors" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Purchases">
+        <PropertyRef Name="VendorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sales_Branchs_BranchId">
+    <End Role="Branchs" Type="Self.Branchs" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branchs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sales_Customers_CustomerID">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InventoryManagmentModelStoreContainer">
+    <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Amounts" EntityType="Self.Amounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoleClaims" EntityType="Self.AspNetRoleClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserTokens" EntityType="Self.AspNetUserTokens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bins" EntityType="Self.Bins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Branchs" EntityType="Self.Branchs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Brands" EntityType="Self.Brands" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Manufactures" EntityType="Self.Manufactures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterDetail" EntityType="Self.MasterDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Measures" EntityType="Self.Measures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Models" EntityType="Self.Models" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Purchases" EntityType="Self.Purchases" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SellFroms" EntityType="Self.SellFroms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SellingTypes" EntityType="Self.SellingTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sizes" EntityType="Self.Sizes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sources" EntityType="Self.Sources" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Amounts_PaymentTypes_PaymentTypeId" Association="Self.FK_Amounts_PaymentTypes_PaymentTypeId">
+      <End Role="PaymentTypes" EntitySet="PaymentTypes" />
+      <End Role="Amounts" EntitySet="Amounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles_RoleId" Association="Self.FK_AspNetUserRoles_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers_UserId" Association="Self.FK_AspNetUserRoles_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserTokens_AspNetUsers_UserId" Association="Self.FK_AspNetUserTokens_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserTokens" EntitySet="AspNetUserTokens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Brands_Categories_CategoryId" Association="Self.FK_Brands_Categories_CategoryId">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Brands" EntitySet="Brands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_Members_MemberId" Association="Self.FK_Customers_Members_MemberId">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterDetail_Amounts_AmountId" Association="Self.FK_MasterDetail_Amounts_AmountId">
+      <End Role="Amounts" EntitySet="Amounts" />
+      <End Role="MasterDetail" EntitySet="MasterDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterDetail_Products_ProductId" Association="Self.FK_MasterDetail_Products_ProductId">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="MasterDetail" EntitySet="MasterDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Models_Brands_BrandId" Association="Self.FK_Models_Brands_BrandId">
+      <End Role="Brands" EntitySet="Brands" />
+      <End Role="Models" EntitySet="Models" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Models_ModelId" Association="Self.FK_Products_Models_ModelId">
+      <End Role="Models" EntitySet="Models" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Purchases_Branchs_BranchId" Association="Self.FK_Purchases_Branchs_BranchId">
+      <End Role="Branchs" EntitySet="Branchs" />
+      <End Role="Purchases" EntitySet="Purchases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Purchases_Sources_SourceId" Association="Self.FK_Purchases_Sources_SourceId">
+      <End Role="Sources" EntitySet="Sources" />
+      <End Role="Purchases" EntitySet="Purchases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Purchases_Vendors_VendorId" Association="Self.FK_Purchases_Vendors_VendorId">
+      <End Role="Vendors" EntitySet="Vendors" />
+      <End Role="Purchases" EntitySet="Purchases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sales_Branchs_BranchId" Association="Self.FK_Sales_Branchs_BranchId">
+      <End Role="Branchs" EntitySet="Branchs" />
+      <End Role="Sales" EntitySet="Sales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sales_Customers_CustomerID" Association="Self.FK_Sales_Customers_CustomerID">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Sales" EntitySet="Sales" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

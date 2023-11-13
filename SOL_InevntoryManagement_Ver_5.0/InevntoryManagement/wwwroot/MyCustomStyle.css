@@ -32,9 +32,9 @@ table thead tr th {
 
 }
 
-.btn {
+/*.btn {
     height:30px !important;
-}
+}*/
 
 /*.card-header h1,h2,h3,h4,h5,h6,h7
     {
@@ -94,9 +94,9 @@ input, select {
     overflow-x:scroll;
 }
 
-
-
-
+.single-select .btn{
+    display:inline-block !important;
+}
 /*right side tooltip waterdrop hidden*/
 .dz-demo-panel .dz-demo-trigger {
     display: none

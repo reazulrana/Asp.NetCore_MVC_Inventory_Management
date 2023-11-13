@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +13,10 @@
     <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="ClosedXML" Version="0.102.1" />
     <PackageReference Include="GemBox.Spreadsheet" Version="49.0.1509" />
+    
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.62.0.3155" />
+    
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />

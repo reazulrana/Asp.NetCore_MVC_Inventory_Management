@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="InventoryManagmentModelStoreContainer" CdmEntityContainer="InventoryManagmentEntities">
+    <EntitySetMapping Name="C__EFMigrationsHistory">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.C__EFMigrationsHistory">
+        <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Amounts">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Amount">
+        <MappingFragment StoreEntitySet="Amounts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TrID" ColumnName="TrID" />
+          <ScalarProperty Name="TrType" ColumnName="TrType" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="Dues" ColumnName="Dues" />
+          <ScalarProperty Name="Transport" ColumnName="Transport" />
+          <ScalarProperty Name="Others" ColumnName="Others" />
+          <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="NetAmount" ColumnName="NetAmount" />
+          <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+          <ScalarProperty Name="PaymentOnCash" ColumnName="PaymentOnCash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoleClaims">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.AspNetRoleClaim">
+        <MappingFragment StoreEntitySet="AspNetRoleClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="NormalizedName" ColumnName="NormalizedName" />
+          <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="ProviderDisplayName" ColumnName="ProviderDisplayName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="NormalizedUserName" ColumnName="NormalizedUserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="NormalizedEmail" ColumnName="NormalizedEmail" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEnd" ColumnName="LockoutEnd" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserTokens">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.AspNetUserToken">
+        <MappingFragment StoreEntitySet="AspNetUserTokens">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bins">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Bin">
+        <MappingFragment StoreEntitySet="Bins">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BinNo" ColumnName="BinNo" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Branchs">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Branch">
+        <MappingFragment StoreEntitySet="Branchs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="BranchIncharge" ColumnName="BranchIncharge" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Brands">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Brand">
+        <MappingFragment StoreEntitySet="Brands">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CType" ColumnName="CType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Colors">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Color">
+        <MappingFragment StoreEntitySet="Colors">
+          <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="CustName" ColumnName="CustName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Manufactures">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Manufacture">
+        <MappingFragment StoreEntitySet="Manufactures">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ManufactureName" ColumnName="ManufactureName" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterDetails">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.MasterDetail">
+        <MappingFragment StoreEntitySet="MasterDetail">
+          <ScalarProperty Name="DID" ColumnName="DID" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="AmountId" ColumnName="AmountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Measures">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Measure">
+        <MappingFragment StoreEntitySet="Measures">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Measurements" ColumnName="Measurements" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Member">
+        <MappingFragment StoreEntitySet="Members">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Models">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Model">
+        <MappingFragment StoreEntitySet="Models">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+          <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaymentTypes">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.PaymentType">
+        <MappingFragment StoreEntitySet="PaymentTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Payments" ColumnName="Payments" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="SizeType" ColumnName="SizeType" />
+          <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+          <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+          <ScalarProperty Name="OpeningQty" ColumnName="OpeningQty" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="DiscountPrice" ColumnName="DiscountPrice" />
+          <ScalarProperty Name="Bin" ColumnName="Bin" />
+          <ScalarProperty Name="Manufacture" ColumnName="Manufacture" />
+          <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+          <ScalarProperty Name="Measurement" ColumnName="Measurement" />
+          <ScalarProperty Name="Pipeline" ColumnName="Pipeline" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Purchases">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Purchase">
+        <MappingFragment StoreEntitySet="Purchases">
+          <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+          <ScalarProperty Name="PurchaseNo" ColumnName="PurchaseNo" />
+          <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+          <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+          <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="ReceiveDate" ColumnName="ReceiveDate" />
+          <ScalarProperty Name="ReceivedByID" ColumnName="ReceivedByID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sales">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Sale">
+        <MappingFragment StoreEntitySet="Sales">
+          <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+          <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+          <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+          <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+          <ScalarProperty Name="SaleFrom" ColumnName="SaleFrom" />
+          <ScalarProperty Name="SaleType" ColumnName="SaleType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SellFroms">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.SellFrom">
+        <MappingFragment StoreEntitySet="SellFroms">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SaleFrom" ColumnName="SaleFrom" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SellingTypes">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.SellingType">
+        <MappingFragment StoreEntitySet="SellingTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Types" ColumnName="Types" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sizes">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Size">
+        <MappingFragment StoreEntitySet="Sizes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProductSize" ColumnName="ProductSize" />
+          <ScalarProperty Name="SizeType" ColumnName="SizeType" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sources">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Source">
+        <MappingFragment StoreEntitySet="Sources">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendors">
+      <EntityTypeMapping TypeName="InventoryManagmentModel.Vendor">
+        <MappingFragment StoreEntitySet="Vendors">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="InventoryManagmentModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

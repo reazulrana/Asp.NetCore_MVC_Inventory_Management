@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GemBox.Spreadsheet;
 using InevntoryManagement.GlobalFuntion;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace InevntoryManagement.Models
 {
@@ -179,7 +181,108 @@ namespace InevntoryManagement.Models
 
 
 
-         void saveCSV<T>(List<T> EData)
+
+
+       public static MemoryStream saveExcelMemoryStream<T>(List<T> EData)
+        {
+            StringBuilder str = new StringBuilder();
+
+            //var tmptype = EData.FirstOrDefault();
+            //savefilename parameter is passed from action method
+             //filename = filename + ".xlsx";
+           // string strpath = GetDefault_Download_FilePath() + savefilename;
+
+
+
+            PropertyInfo[] lst = typeof(T).GetProperties();
+            List<PropertyInfo> lst1 = lst.ToList();
+
+            DataTable dt = ListtoDatatableConverter.ToDataTable<T>(EData);
+
+            using (var wb = new XLWorkbook())
+            {
+                //var ws = wb.Worksheets.Add(filename.Split(".")[0]);
+             var ws = wb.Worksheets.Add(dt);
+
+
+                var wbb = new XLWorkbook();
+
+
+                //for (int i = 0; i < lst.Count(); i++)
+                //{
+                //    ws.Cell(1, i + 1).Value = lst[i].Name;
+                //    ws.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.LightGreen;
+                //    ws.Cell(1, i + 1).Style.Font.SetBold(true);
+
+                //    //border
+                //    ws.Cell(1, i + 1).Style.Border.TopBorder = XLBorderStyleValues.Medium;
+                //    ws.Cell(1, i + 1).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+                //    ws.Cell(1, i + 1).Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                //    ws.Cell(1, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+
+
+                //}
+
+                ws.Rows("1").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                ws.Rows("1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+
+
+
+                //var slno = 2;
+                //for (int sl = 0; sl < dt.Rows.Count; sl++)
+                //{
+
+                //    for (int i = 0; i < lst.Count(); i++)
+                //    {
+                //        DataRow dr = dt.Rows[sl];
+
+
+                //        ws.Cell(slno, i + 1).Value = dr[i].ToString();
+
+                //        ////vertical Center
+                //        //ws.Cell(slno, i+1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+                //        //border
+                //        ws.Cell(slno, i + 1).Style.Border.TopBorder = XLBorderStyleValues.Medium;
+                //        ws.Cell(slno, i + 1).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+                //        ws.Cell(slno, i + 1).Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                //        ws.Cell(slno, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+                //    }
+
+
+
+
+                //    slno++;
+
+                //}
+
+                //all column is autofited
+               // ws.Columns(1, lst.Count()).AdjustToContents(1, slno);
+                //ws.Rows("1:" + slno).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+
+                //set row height
+                ws.Rows("1").Height = 25;
+              //  ws.Rows("2:" + slno).Height = 20;
+
+                using (MemoryStream fs = new MemoryStream())
+                {
+
+                    wb.SaveAs(fs);
+                    //var content = fs.ToArray();
+
+
+                    //System.IO.File.WriteAllBytes(strpath, content);
+
+                    return fs;
+                }
+
+            }
+        }
+
+
+
+
+        void saveCSV<T>(List<T> EData)
         {
             StringBuilder str = new StringBuilder();
 
@@ -229,11 +332,58 @@ namespace InevntoryManagement.Models
         }
 
 
+        public static StringBuilder GetsaveCSV<T>(List<T> EData)
+        {
+            StringBuilder str = new StringBuilder();
+
+            //var tmptype = EData.FirstOrDefault();
+            //string filename = savefilename + ".csv";
+          //  string strpath = GetDefault_Download_FilePath() + savefilename;
+
+
+            PropertyInfo[] lst = typeof(T).GetProperties();
+            List<PropertyInfo> lst1 = lst.ToList();
+
+            DataTable dt = ListtoDatatableConverter.ToDataTable<T>(EData);
+
+            string colname = "";
+
+
+            for (int i = 0; i < lst.Count(); i++)
+            {
+                colname = colname + lst[i].Name + ",";
+            }
+
+
+
+            str.AppendLine(colname);
 
 
 
 
-         void CreatePDF<T>(List<T> EData)
+
+            for (int sl = 0; sl < dt.Rows.Count; sl++)
+            {
+
+                DataRow d = dt.Rows[sl];
+                string strdata = "";
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    strdata = strdata + d[i].ToString() + ",";
+                }
+
+
+                str.AppendLine(strdata);
+            }
+
+
+            return str;
+
+        }
+
+
+
+        void CreatePDF<T>(List<T> EData)
         {
             StringBuilder str = new StringBuilder();
 
@@ -336,10 +486,124 @@ namespace InevntoryManagement.Models
                 string pdfpath = GetDefault_Download_FilePath() + savefilename.Split(".")[0] +".pdf";
 
 
+
                 GemBoxworkbook.Save(pdfpath , GemBoxSaveOption);
 
                 File.Delete(strpath);
                 
+
+
+            }
+        }
+
+
+
+        public static MemoryStream CreatePDFMemoryStream<T>(List<T> EData)
+        {
+            StringBuilder str = new StringBuilder();
+
+            //var tmptype = EData.FirstOrDefault();
+            //string filename = savefilename.Split(".")[0] + ".xlsx";
+            //string strpath = GetDefault_Download_FilePath() + filename;
+
+
+
+            PropertyInfo[] lst = typeof(T).GetProperties();
+            List<PropertyInfo> lst1 = lst.ToList();
+
+            DataTable dt = ListtoDatatableConverter.ToDataTable<T>(EData);
+
+            using (var wb = new XLWorkbook())
+            {
+                var ws = wb.Worksheets.Add(dt);
+
+                var wbb = new XLWorkbook();
+
+
+                //for (int i = 0; i < lst.Count(); i++)
+                //{
+                //    ws.Cell(1, i + 1).Value = lst[i].Name;
+
+
+                //    ws.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.LightGreen;
+                //    ws.Cell(1, i + 1).Style.Font.SetBold(true);
+
+                //    //border
+                //    ws.Cell(1, i + 1).Style.Border.TopBorder = XLBorderStyleValues.Medium;
+                //    ws.Cell(1, i + 1).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+                //    ws.Cell(1, i + 1).Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                //    ws.Cell(1, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+                //}
+
+
+                ws.Rows("1").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                ws.Rows("1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                //var slno = 2;
+                //for (int sl = 0; sl < dt.Rows.Count; sl++)
+                //{
+
+                //    for (int i = 0; i < lst.Count(); i++)
+                //    {
+                //        DataRow dr = dt.Rows[sl];
+
+
+                //        ws.Cell(slno, i + 1).Value = dr[i].ToString();
+
+                //        //border
+                //        ws.Cell(slno, i + 1).Style.Border.TopBorder = XLBorderStyleValues.Medium;
+                //        ws.Cell(slno, i + 1).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+                //        ws.Cell(slno, i + 1).Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                //        ws.Cell(slno, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+                //    }
+                //    slno++;
+
+                //}
+
+                //all column is autofited
+                //ws.Columns(1, lst.Count()).AdjustToContents(1, slno);
+                //ws.Rows("1:" + slno).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+
+                //set row height
+                ws.Rows("1").Height = 25;
+                //ws.Rows("2:" + slno).Height = 20;
+
+      
+                //SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
+                //var GemBoxworkbook = GemBox.Spreadsheet.ExcelFile.Load(strpath);
+
+                //var GemBoxworksheet = GemBoxworkbook.Worksheets[0];
+                //var GemBoxprintoption = GemBoxworksheet.PrintOptions;
+                //GemBoxprintoption.LeftMargin = 0.7;
+                //GemBoxprintoption.RightMargin = 0.7;
+                //GemBoxprintoption.TopMargin = 0.75;
+                //GemBoxprintoption.BottomMargin = 1.0;
+                //GemBoxprintoption.HeaderMargin = 0.3;
+                //GemBoxprintoption.BottomMargin = 0.3;
+                //GemBoxprintoption.PaperType = PaperType.Letter;
+                ////GemBoxprintoption.AutomaticPageBreakScalingFactor = 90;
+
+                //var GemBoxSaveOption = new PdfSaveOptions();
+                //GemBoxSaveOption.SelectionType = SelectionType.EntireFile;
+
+
+                //for save pdf file into download folder
+                //string pdfpath = GetDefault_Download_FilePath() + savefilename.Split(".")[0] + ".pdf";
+
+
+
+
+                using (MemoryStream fs = new MemoryStream())
+                {
+
+                    wb.SaveAs(fs);
+
+                    return fs;
+
+
+
+                }
+
 
 
             }

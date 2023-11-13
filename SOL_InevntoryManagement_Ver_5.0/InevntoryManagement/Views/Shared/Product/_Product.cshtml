@@ -28,7 +28,7 @@
     <div class="col-md-6">
         @*Category section*@
 
-        <div class="form-row">
+        <div class="@colrow">
             <div class="@collabel">
                 <label asp-for="@Model.Categories" class="col-form-label"></label>
             </div>
@@ -37,7 +37,10 @@
                     <select asp-for="@Model.CategoryId" class="form-control single-select find_Category" asp-items="@Model.Categories">
                         <option selected="selected" value="">Select Category</option>
                     </select>
-                    <button type="button" id="btnAddCategory" class="btn btn-facebook btn-xs" title="Add New Category"><span><i class="mdi mdi-plus"></i></span></button>
+                    <div class="input-group-append">
+
+                        <button type="button" id="btnAddCategory" class="btn btn-facebook btn-xs" title="Add New Category"><span><i class="mdi mdi-plus"></i></span></button>
+                    </div>
                 </div>
 
             </div>
@@ -53,8 +56,10 @@
             <div class="@colinput">
                 <div class="input-group">
                     <input class="form-control" id="txtSaveCategory" placeholder="Enter Category Name" />
-                    <button type="button" class="btn btn-whatsapp" id="btnSaveCategory">Add <span><i class="mdi mdi-plus"></i></span></button>
+
+                        <button type="button" class="btn btn-whatsapp btn-xs" id="btnSaveCategory">Add <span><i class="mdi mdi-plus"></i></span></button>
                 </div>
+
             </div>
 
         </div>
@@ -70,7 +75,7 @@
                         <option value="">Select Brand</option>
                     </select>
                     <div class="input-group-append">
-                        <button type="button" id="btnAddBrand" class="btn btn-facebook btn-xs" title="Add New Category"><span><i class="mdi mdi-plus"></i></span></button>
+                        <button type="button" id="btnAddBrand" class="btn btn-facebook btn-xs" title="Add New Brand"><span><i class="mdi mdi-plus"></i></span></button>
                     </div>
                 </div>
                 <input hidden asp-for="Brandid" id="InputBrandid" />
@@ -87,7 +92,7 @@
             <div class="@colinput">
                 <div class="input-group">
                     <input form="txtSaveBrand" class="form-control" id="txtSaveBrand" placeholder="Enter Brand Name" />
-                    <button type="button" class="btn btn-whatsapp" id="btnSaveBrand">Add <span><i class="mdi mdi-plus"></i></span></button>
+                    <button type="button" class="btn btn-whatsapp btn-xs" id="btnSaveBrand">Add <span><i class="mdi mdi-plus"></i></span></button>
                 </div>
             </div>
 
@@ -118,7 +123,7 @@
             <div class="@colinput">
                 <div class="input-group">
                     <input class="form-control" id="txtSaveModel" placeholder="Enter Model Name" />
-                    <button type="button" class="btn btn-whatsapp" id="btnSaveModel">Add <span><i class="mdi mdi-plus"></i></span></button>
+                    <button type="button" class="btn btn-whatsapp btn-xs" id="btnSaveModel">Add <span><i class="mdi mdi-plus"></i></span></button>
                 </div>
             </div>
         </div>

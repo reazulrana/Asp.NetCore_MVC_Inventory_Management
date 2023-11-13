@@ -55,44 +55,143 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Amount.cs" />
-    <Compile Include="AspNetRole.cs" />
-    <Compile Include="AspNetRoleClaim.cs" />
-    <Compile Include="AspNetUser.cs" />
-    <Compile Include="AspNetUserClaim.cs" />
-    <Compile Include="AspNetUserLogin.cs" />
-    <Compile Include="AspNetUserToken.cs" />
-    <Compile Include="Bin.cs" />
-    <Compile Include="Branch.cs" />
-    <Compile Include="Brand.cs" />
-    <Compile Include="Category.cs" />
-    <Compile Include="Color.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="C__EFMigrationsHistory.cs" />
+    <Compile Include="Amount1.cs" />
+    <Compile Include="AspNetRole1.cs" />
+    <Compile Include="AspNetRoleClaim1.cs" />
+    <Compile Include="AspNetUser1.cs" />
+    <Compile Include="AspNetUserClaim1.cs" />
+    <Compile Include="AspNetUserLogin1.cs" />
+    <Compile Include="AspNetUserToken1.cs" />
+    <Compile Include="Bin1.cs" />
+    <Compile Include="Branch1.cs" />
+    <Compile Include="Brand1.cs" />
+    <Compile Include="Category1.cs" />
+    <Compile Include="Color1.cs" />
+    <Compile Include="Customer1.cs" />
+    <Compile Include="C__EFMigrationsHistory1.cs" />
+    <Compile Include="Ef\Amount.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\AspNetRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\AspNetRoleClaim.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\AspNetUser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\AspNetUserClaim.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\AspNetUserLogin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\AspNetUserToken.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Bin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Branch.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Brand.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Color.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Customer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\C__EFMigrationsHistory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Manufacture.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\MasterDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Measure.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Member.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Model.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\PaymentType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Purchase.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Sale.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\SellFrom.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\SellingType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Size.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Source.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Vendor.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manufacture.cs" />
-    <Compile Include="MasterDetail.cs" />
-    <Compile Include="Measure.cs" />
-    <Compile Include="Member.cs" />
-    <Compile Include="Model.cs" />
-    <Compile Include="PaymentType.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="ProductInfo.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Manufacture1.cs" />
+    <Compile Include="MasterDetail1.cs" />
+    <Compile Include="Measure1.cs" />
+    <Compile Include="Member1.cs" />
+    <Compile Include="Model1.cs" />
+    <Compile Include="PaymentType1.cs" />
+    <Compile Include="Product1.cs" />
+    <Compile Include="ProductInfo1.cs" />
+    <Compile Include="Program1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Purchase.cs" />
-    <Compile Include="Sale.cs" />
-    <Compile Include="SaleInvoiceInfo.cs" />
-    <Compile Include="SellFrom.cs" />
-    <Compile Include="SellingType.cs" />
-    <Compile Include="Size.cs" />
-    <Compile Include="Source.cs" />
-    <Compile Include="Vendor.cs" />
+    <Compile Include="Purchase1.cs" />
+    <Compile Include="Sale1.cs" />
+    <Compile Include="SaleInvoiceInfo1.cs" />
+    <Compile Include="SellFrom1.cs" />
+    <Compile Include="SellingType1.cs" />
+    <Compile Include="Size1.cs" />
+    <Compile Include="Source1.cs" />
+    <Compile Include="Vendor1.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +205,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="rptSaleInvoice.rdlc" />
+    <EntityDeploy Include="Ef\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Ef\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Amount.datasource" />
     <None Include="Properties\DataSources\Customer.datasource" />
@@ -127,6 +233,21 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Ef\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Ef\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
